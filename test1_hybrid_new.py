@@ -863,11 +863,11 @@ def run_ablation(tokenizer, epochs=5, wandb_project="Hybrid-LLM-ZFS"):
 # ─────────────────────────────── Main ─────────────────────────────────────────
 def main():
     TUNING_TRIALS   = 10
-    TRAIN_EPOCHS    = 10
+    TRAIN_EPOCHS    = 3
     ABLATION_EPOCHS = 5    
     WANDB_PROJECT   = "Hybrid-SAM-Comparison"
     
-    OPTIMIZERS_TO_TEST = ["hybrid", "single_pass_hybrid"]
+    OPTIMIZERS_TO_TEST = ["single_pass_hybrid", "hybrid"]
 
     print("Loading tokenizer …")
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)

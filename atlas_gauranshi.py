@@ -467,36 +467,56 @@ class HybridSAMOptimizer(torch.optim.Optimizer):
 
     @torch.no_grad()
     def _first_step(self, eps_w=1e-12):
+        # --- PERTURBATION CALCULATION ---
+        # Calculates the perturbation `e` and shifts weights from `w` to `w + e`
         shared_device = self.param_groups[0]["params"][0].device
         sq_norm = 0.0
+        
+        # 1. Calculate the total gradient norm across all layers
         for group in self.param_groups:
             for p in group["params"]:
                 if p.grad is None: continue
                 g        = p.grad.float()
+                # Adaptive SAM (ASAM) scaling: scale gradient by the magnitude of the weights
                 scaled_g = g * (p.data.float().abs() + eps_w)
                 sq_norm += scaled_g.norm(p=2).to(shared_device).pow(2).item()
         grad_norm = (sq_norm + eps_w) ** 0.5
+        
+        # 2. Actually apply the perturbation to the weights
         for group in self.param_groups:
-            rho   = group["rho"]
+            rho   = group["rho"] # The maximum size of the perturbation neighborhood
             scale = rho / (grad_norm + eps_w)
             for p in group["params"]:
                 if p.grad is None: continue
+                # Save the original clean weights `w` so we can restore them later
                 self.state[p]["old_p"] = p.data.clone()
+                # Calculate the exact perturbation step `e`
                 e_w = (p.data.float().abs() + eps_w) * p.grad.float() * scale
+                # Shift the weights to the worst-case point: w = w + e
                 p.data.add_(e_w.to(p.dtype))
+                
         self._adv_pass = True
+        # Clear the old gradients so the next backward pass computes fresh adversarial gradients
         self.zero_grad()
 
     @torch.no_grad()
     def _second_step(self):
+        # --- RESTORE AND UPDATE ---
+        # Restores weights back to `w`, then applies the actual optimization step using the adversarial gradient
         self._step += 1
         momentum = self._get_momentum()
+        
+        # 1. Update K-FAC preconditioner matrices if we hit the interval
         if self._step % self.kfac_interval == 0:
             self._update_kfac()
+            
+        # 2. Restore the original clean weights `w` that we saved in _first_step
         for group in self.param_groups:
             for p in group["params"]:
                 if "old_p" in self.state[p]:
                     p.data.copy_(self.state[p]["old_p"])
+                    
+        # 3. Apply the optimizer update (Adam/Muon + KFAC/Newton-Schulz) using the newly computed adversarial gradient
         for mid, m in self._mods.items():
             w, b = m.weight, m.bias
             if w.grad is None: continue
@@ -521,11 +541,27 @@ class HybridSAMOptimizer(torch.optim.Optimizer):
 
     def step(self, closure=None):
         if closure is None: raise RuntimeError("HybridSAMOptimizer requires a closure")
+        
+        # --- ROUND 1: Calculate Base Gradient ---
+        # 1. Run a normal forward/backward pass to get the gradient `g` at the current weights `w`.
         self._adv_pass = False
         with torch.enable_grad(): loss = closure()
+        
+        # --- PERTURBATION ---
+        # 2. Use the gradient `g` to calculate the worst-case direction `e` (the perturbation).
+        #    Shift the weights from `w` to `w + e`. We also save `w` in memory to restore later.
         self._first_step()
+        
+        # --- ROUND 2: Calculate Adversarial Gradient ---
+        # 3. Run a SECOND forward/backward pass at the perturbed weights `w + e` 
+        #    to get the adversarial gradient `g_SAM`.
         with torch.enable_grad(): closure()
+        
+        # --- UPDATE ---
+        # 4. Restore the weights back to original `w`, then use `g_SAM` to actually update the weights
+        #    (using Adam/Muon rules).
         self._second_step()
+        
         return loss
 
     def zero_grad(self, set_to_none=False):
@@ -535,19 +571,25 @@ class SinglePassHybridSAM(HybridSAMOptimizer):
     def step(self, closure=None):
         if closure is None: raise RuntimeError("SinglePassHybridSAM requires a closure")
         
-        # 1. Use the leftover gradient from the previous step to perturb weights
-        # (If this is the very first step, p.grad is None, so it safely skips perturbation)
+        # --- PERTURBATION (Using Stale Gradient) ---
+        # 1. Instead of running a whole pass to find `g`, we just use the gradient `g_prev` 
+        #    left over from the PREVIOUS batch! We use it to shift weights to `w + e_prev`.
+        #    (If this is the very first batch of an epoch, p.grad is None, so it safely skips).
         self._first_step()
         
-        # 2. Evaluate model at the perturbed weights 
-        # (closure() automatically calls zero_grad(), wiping the old grad, then computes the new one)
+        # --- ROUND 1 (And Only Round): Calculate Adversarial Gradient ---
+        # 2. Run ONE forward/backward pass at the perturbed weights `w + e_prev` 
+        #    to calculate the new adversarial gradient `g_SAM`.
+        #    (closure() automatically calls zero_grad(), wiping the old stale grad before computing the new one).
         self._adv_pass = False
         with torch.enable_grad(): loss = closure()
         
-        # 3. Restore base weights and apply the Adam/Muon update using the new grads
+        # --- UPDATE ---
+        # 3. Restore the weights back to original `w`, then use the new `g_SAM` to update the weights.
+        #    The new `g_SAM` stays in memory to be used as the stale gradient for the next batch!
         self._second_step()
         
-        # 4. Return. p.data is now the clean base weights, ready for Lookahead!
+        # 4. Return. p.data is now the clean updated weights, ready for Lookahead.
         return loss
 
 # ── Ablation variants ─────────────────────────────────────────────────────────
@@ -817,8 +859,8 @@ def run_experiment(optimizer_name, params, tokenizer, epochs=10, wandb_project="
         cumulative_time += epoch_time
 
         run.log({
-            f"{optimizer_name}/train/loss": tl,
-            f"{optimizer_name}/val/accuracy": va,
+            "train/loss": tl,
+            "val/accuracy": va,
             "epoch": epoch + 1,
         })
 
