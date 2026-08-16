@@ -11,10 +11,6 @@ import os
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-import os
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-from tqdm import tqdm
-
 from transformers import (
     AutoTokenizer, AutoModelForSequenceClassification,
     get_cosine_schedule_with_warmup,
@@ -81,9 +77,9 @@ def get_dataloaders(tokenizer):
     val_ds.set_format(  type="torch", columns=["input_ids", "attention_mask", "labels"])
 
     train_loader = DataLoader(train_ds, batch_size=BATCH_SIZE, shuffle=True,
-                              num_workers=0, pin_memory=True)
+                              num_workers=2, pin_memory=True)
     val_loader   = DataLoader(val_ds,   batch_size=BATCH_SIZE * 2, shuffle=False,
-                              num_workers=0, pin_memory=True)
+                              num_workers=2, pin_memory=True)
     
     print(f"  Train: {len(train_ds):,}  |  Val: {len(val_ds):,}")
     return train_loader, val_loader
@@ -539,27 +535,20 @@ class SinglePassHybridSAM(HybridSAMOptimizer):
     def step(self, closure=None):
         if closure is None: raise RuntimeError("SinglePassHybridSAM requires a closure")
         
-        if getattr(self, "_is_perturbed", False) is False:
-            self._is_perturbed = False
-
-        if not self._is_perturbed:
-            self._adv_pass = False
-            with torch.enable_grad(): loss = closure()
-            self._first_step()
-            self._is_perturbed = True
-            return loss
-        else:
-            self._adv_pass = False 
-            with torch.enable_grad(): loss = closure()
-            self._second_step()
-            self._first_step()
-            return loss
-
-    def restore_base_weights(self):
-        for group in self.param_groups:
-            for p in group["params"]:
-                if "old_p" in self.state[p]:
-                    p.data.copy_(self.state[p]["old_p"])
+        # 1. Use the leftover gradient from the previous step to perturb weights
+        # (If this is the very first step, p.grad is None, so it safely skips perturbation)
+        self._first_step()
+        
+        # 2. Evaluate model at the perturbed weights 
+        # (closure() automatically calls zero_grad(), wiping the old grad, then computes the new one)
+        self._adv_pass = False
+        with torch.enable_grad(): loss = closure()
+        
+        # 3. Restore base weights and apply the Adam/Muon update using the new grads
+        self._second_step()
+        
+        # 4. Return. p.data is now the clean base weights, ready for Lookahead!
+        return loss
 
 # ── Ablation variants ─────────────────────────────────────────────────────────
 class HybridNoKFAC(HybridSAMOptimizer):
@@ -608,49 +597,74 @@ def train_one_epoch(model, optimizer, criterion, dataloader, device, epoch=0, ru
     total_loss, correct, total = 0, 0, 0
     batch_times = []
 
-    optimizer.zero_grad()
-    pbar = tqdm(dataloader, desc=f"Epoch {epoch+1} [{opt_name}]")
-    for batch_idx, batch in enumerate(pbar):
-        t0             = time.time()
-        input_ids      = batch["input_ids"].to(device)
-        attention_mask = batch["attention_mask"].to(device)
-        labels         = batch["labels"].to(device)
-
-        _logits = [None]
-        if is_sam_like(optimizer):
-            def closure():
+    # Removed optimizer.zero_grad() here to fix the epoch-boundary wipe for SS-SAM
+    
+    micro_batches = []
+    t0_accum = time.time()
+    
+    for batch_idx, batch in enumerate(dataloader):
+        micro_batches.append(batch)
+        
+        # Once we have enough micro-batches (or hit the end of the epoch), take an optimization step
+        if len(micro_batches) == grad_acc or (batch_idx + 1) == len(dataloader):
+            curr_grad_acc = len(micro_batches)
+            _all_logits = []
+            true_mean_loss = 0.0
+            
+            if is_sam_like(optimizer):
+                def closure():
+                    optimizer.zero_grad()
+                    closure_loss = 0.0
+                    _all_logits.clear()
+                    
+                    for mb in micro_batches:
+                        mb_in = mb["input_ids"].to(device)
+                        mb_mask = mb["attention_mask"].to(device)
+                        mb_labels = mb["labels"].to(device)
+                        
+                        with torch.amp.autocast("cuda", dtype=torch.bfloat16):
+                            _out = model(input_ids=mb_in, attention_mask=mb_mask)
+                            _all_logits.append(_out.logits.detach())
+                            _loss = criterion(_out.logits, mb_labels) / curr_grad_acc
+                        
+                        _loss.backward() # Accumulates the gradient for the SAM pass
+                        closure_loss += _loss
+                        
+                    return closure_loss
+                
+                loss = optimizer.step(closure)
+                true_mean_loss = loss.item()
+            else:
                 optimizer.zero_grad()
-                with torch.amp.autocast("cuda", dtype=torch.bfloat16):
-                    _out  = model(input_ids=input_ids, attention_mask=attention_mask)
-                    _logits[0] = _out.logits.detach()
-                    _loss = criterion(_out.logits, labels)
-                _loss.backward()
-                return _loss
-            loss = optimizer.step(closure)
-        else:
-            with torch.amp.autocast("cuda", dtype=torch.bfloat16):
-                _out = model(input_ids=input_ids, attention_mask=attention_mask)
-                loss = criterion(_out.logits, labels) / grad_acc
-            _logits[0] = _out.logits.detach()
-            loss.backward()
-            if (batch_idx + 1) % grad_acc == 0 or (batch_idx + 1) == len(dataloader):
+                for mb in micro_batches:
+                    mb_in = mb["input_ids"].to(device)
+                    mb_mask = mb["attention_mask"].to(device)
+                    mb_labels = mb["labels"].to(device)
+                    
+                    with torch.amp.autocast("cuda", dtype=torch.bfloat16):
+                        _out = model(input_ids=mb_in, attention_mask=mb_mask)
+                        _all_logits.append(_out.logits.detach())
+                        _loss = criterion(_out.logits, mb_labels) / curr_grad_acc
+                        
+                    _loss.backward()
+                    true_mean_loss += _loss.item()
+                
                 nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
                 optimizer.step()
-                optimizer.zero_grad()
-            loss = loss * grad_acc
-
-        batch_times.append(time.time() - t0)
-        with torch.no_grad():
-            preds = _logits[0].argmax(dim=-1)
-        
-        current_loss = loss.item()
-        total_loss += current_loss * labels.size(0)
-        correct    += preds.eq(labels).sum().item()
-        total      += labels.size(0)
-        
-        current_acc = 100.0 * correct / total
-        current_ppl = math.exp(current_loss) if current_loss < 20 else float('inf')
-        pbar.set_postfix({"loss": f"{current_loss:.4f}", "acc": f"{current_acc:.1f}%", "ppl": f"{current_ppl:.1f}"})
+                
+            batch_times.append(time.time() - t0_accum)
+            t0_accum = time.time()
+            
+            with torch.no_grad():
+                cat_logits = torch.cat(_all_logits, dim=0)
+                cat_labels = torch.cat([mb["labels"].to(device) for mb in micro_batches], dim=0)
+                preds = cat_logits.argmax(dim=-1)
+                
+            total_loss += true_mean_loss * cat_labels.size(0)
+            correct    += preds.eq(cat_labels).sum().item()
+            total      += cat_labels.size(0)
+            
+            micro_batches.clear()
 
     return total_loss / total, 100.0 * correct / total, sum(batch_times) / len(batch_times)
 
@@ -680,6 +694,12 @@ def make_optimizer(name, model, params, epochs=10, steps_per_epoch=None):
         opt = optim.AdamW(trainable_params, lr=lr, weight_decay=wd, eps=1e-7)
         warmup = max(1, steps_per_epoch * 2) if steps_per_epoch else 100
         sched  = get_cosine_schedule_with_warmup(opt, num_warmup_steps=warmup, num_training_steps=epochs * (steps_per_epoch or 100))
+        return opt, sched
+
+    elif name == "sgd":
+        momentum = params.get("momentum", 0.9)
+        opt = optim.SGD(trainable_params, lr=lr, momentum=momentum, weight_decay=wd)
+        sched = optim.lr_scheduler.CosineAnnealingLR(opt, T_max=epochs)
         return opt, sched
 
     elif name == "muon":
@@ -867,7 +887,7 @@ def main():
     ABLATION_EPOCHS = 5    
     WANDB_PROJECT   = "Hybrid-SAM-Comparison"
     
-    OPTIMIZERS_TO_TEST = ["hybrid", "single_pass_hybrid"]
+    OPTIMIZERS_TO_TEST = ["single_pass_hybrid", "adam", "sgd", "shampoo", "sophia", "muon"]
 
     print("Loading tokenizer …")
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
@@ -887,8 +907,12 @@ def main():
     else:
         print("=" * 60 + "\n  Skipping Hyperparameter Tuning (using default best params)\n" + "=" * 60)
         best = {
-            "hybrid": {"damping": 0.01, "lr": 1e-4, "weight_decay": 1e-4},
-            "single_pass_hybrid": {"damping": 0.01, "lr": 1e-4, "weight_decay": 1e-4}
+            "single_pass_hybrid": {"damping": 0.01, "lr": 1e-4, "weight_decay": 1e-4},
+            "adam": {"lr": 1e-3, "weight_decay": 1e-4},
+            "sgd": {"lr": 1e-2, "momentum": 0.9, "weight_decay": 1e-4},
+            "shampoo": {"lr": 1e-4, "momentum": 0.9, "weight_decay": 1e-4},
+            "sophia": {"lr": 1e-4, "rho": 0.04, "weight_decay": 1e-4},
+            "muon": {"lr": 0.02, "weight_decay": 0.01}
         }
 
     # ── 2. Final Training ──
@@ -910,39 +934,11 @@ def main():
     plt.savefig("comparison_llm.png", dpi=150)
     print("Saved: comparison_llm.png")
 
-    # ── 3. Ablation Study ──
-    print("\n" + "=" * 60 + "\n  Ablation Study (Hybrid SAM)\n" + "=" * 60)
-    ablation_results = run_ablation(tokenizer, epochs=ABLATION_EPOCHS, wandb_project=WANDB_PROJECT)
-
-    # Plot Ablation Results
-    fig_ab, axes_ab = plt.subplots(1, 2, figsize=(13, 5))
-    for name, (losses, accs) in ablation_results.items():
-        axes_ab[0].plot(losses, label=name)
-        axes_ab[1].plot(accs, label=name)
-    
-    axes_ab[0].set_title("Ablation: Training Loss")
-    axes_ab[0].set_xlabel("Epoch")
-    axes_ab[0].set_ylabel("Loss")
-    axes_ab[0].legend()
-
-    axes_ab[1].set_title("Ablation: Validation Accuracy (%)")
-    axes_ab[1].set_xlabel("Epoch")
-    axes_ab[1].set_ylabel("Accuracy (%)")
-    axes_ab[1].legend()
-
-    plt.tight_layout()
-    plt.savefig("ablation_comparison.png", dpi=150)
-    print("Saved: ablation_comparison.png")
-
-    # ── 4. Final Summary Console Output ──
+    # ── 3. Final Summary Console Output ──
     print("\n" + "=" * 60 + "\n  FINAL SUMMARY\n" + "=" * 60)
     print("Main Optimizers:")
     for name, d in results.items():
         print(f"  {name:10s}: val_acc={d['accs'][-1]:.2f}%  time={d['time']:.0f}s")
-        
-    print("\nHybrid Ablations:")
-    for name, (losses, accs) in ablation_results.items():
-        print(f"  {name:18s}: val_acc={accs[-1]:.2f}%")
 
 if __name__ == "__main__":
     main()
