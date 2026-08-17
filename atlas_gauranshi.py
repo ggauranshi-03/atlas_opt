@@ -30,7 +30,7 @@ MAX_LEN        = 256        # Keep at 256 so context and prompt aren't truncated
 BATCH_SIZE     = 16
 GRAD_ACC       = 4          # effective batch = 64
 TRAIN_SUBSET   = 20_000     # MMLU's train split has ~99k rows, subsetting is good
-USE_HYPERPARAMETER_TUNING = False # Set to True to enable optuna tuning
+USE_HYPERPARAMETER_TUNING = True # Set to True to enable optuna tuning
 
 # ─────────────────────────────── Data ─────────────────────────────────────────
 def get_dataloaders(tokenizer):
@@ -776,7 +776,7 @@ def make_optimizer(name, model, params, epochs=10, steps_per_epoch=None):
         scheduler = optim.lr_scheduler.SequentialLR(base_opt, schedulers=[warmup_sched, cosine_sched], milestones=[warmup_epochs])
         return opt, scheduler
 
-    elif name == "single_pass_hybrid":
+    elif name == "atlas":
         warmup_epochs = params.get("warmup_epochs", 2)
         base_opt = SinglePassHybridSAM(
             model, lr=lr, weight_decay=wd, rho=params.get("rho", 0.05),
@@ -807,7 +807,7 @@ def objective(trial, opt_name, tokenizer):
         params["rho"] = trial.suggest_float("rho", 0.01, 0.1)
     if opt_name == "shampoo":
         params["momentum"] = trial.suggest_float("momentum", 0.8, 0.99)
-    if opt_name in ["hybrid", "single_pass_hybrid"]:
+    if opt_name in ["hybrid", "atlas"]:
         params["damping"] = trial.suggest_float("damping", 1e-3, 0.1, log=True)
 
     train_loader, val_loader = get_dataloaders(tokenizer)
@@ -927,9 +927,9 @@ def main():
     TUNING_TRIALS   = 10
     TRAIN_EPOCHS    = 10
     ABLATION_EPOCHS = 5    
-    WANDB_PROJECT   = "Hybrid-SAM-Comparison"
+    WANDB_PROJECT   = "Hybrid-SAM-Comparison_optuna"
     
-    OPTIMIZERS_TO_TEST = ["single_pass_hybrid", "adam", "sgd", "shampoo", "sophia", "muon"]
+    OPTIMIZERS_TO_TEST = ["atlas", "adam", "sgd", "shampoo", "sophia", "muon"]
 
     print("Loading tokenizer …")
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
@@ -949,7 +949,7 @@ def main():
     else:
         print("=" * 60 + "\n  Skipping Hyperparameter Tuning (using default best params)\n" + "=" * 60)
         best = {
-            "single_pass_hybrid": {"damping": 0.01, "lr": 1e-4, "weight_decay": 1e-4},
+            "atlas": {"damping": 0.01, "lr": 1e-4, "weight_decay": 1e-4},
             "adam": {"lr": 1e-3, "weight_decay": 1e-4},
             "sgd": {"lr": 1e-2, "momentum": 0.9, "weight_decay": 1e-4},
             "shampoo": {"lr": 1e-4, "momentum": 0.9, "weight_decay": 1e-4},
