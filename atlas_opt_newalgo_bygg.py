@@ -376,7 +376,8 @@ def make_optimizer(name, model, params, epochs=10, steps_per_epoch=None):
     elif name == "sgd":
         momentum = params.get("momentum", 0.9)
         opt = optim.SGD(trainable_params, lr=lr, momentum=momentum, weight_decay=wd)
-        sched = optim.lr_scheduler.CosineAnnealingLR(opt, T_max=epochs)
+        warmup = max(1, steps_per_epoch * 2) if steps_per_epoch else 100
+        sched  = get_cosine_schedule_with_warmup(opt, num_warmup_steps=warmup, num_training_steps=epochs * (steps_per_epoch or 100))
         return opt, sched
 
     elif name == "muon":
@@ -391,7 +392,9 @@ def make_optimizer(name, model, params, epochs=10, steps_per_epoch=None):
         adam_groups = [dict(params=adam_params, lr=3e-4, use_muon=False)]
         muon_group = dict(params=muon_params, lr=lr, weight_decay=wd, use_muon=True)
         opt = MuonWithAuxAdam([*adam_groups, muon_group])
-        return opt, optim.lr_scheduler.CosineAnnealingLR(opt, T_max=epochs)
+        warmup = max(1, steps_per_epoch * 2) if steps_per_epoch else 100
+        sched  = get_cosine_schedule_with_warmup(opt, num_warmup_steps=warmup, num_training_steps=epochs * (steps_per_epoch or 100))
+        return opt, sched
 
     elif name in ["hybrid", "atlas"]:
         muon_params = []
