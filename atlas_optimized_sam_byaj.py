@@ -155,322 +155,112 @@ class Lookahead:
         self.optimizer.zero_grad(set_to_none=set_to_none)
 
 # ─────────────────────────────── Hybrid SAM Optimizer ─────────────────────────
-class HybridSAMOptimizer(torch.optim.Optimizer):
-    def __init__(self, model, lr=1e-4, betas=(0.9, 0.999), eps=1e-8, weight_decay=1e-4,
-                 rho=0.05, damping=1e-2, kfac_interval=20, kfac_decay=0.90,
-                 max_kfac_dim=512, use_ns=True, ns_steps=5,
-                 momentum_start=0.85, momentum_end=0.95, momentum_warmup_steps=200):
-
-        params = [p for p in model.parameters() if p.requires_grad]
+class OptimizedHybridSAM(torch.optim.Optimizer):
+    def __init__(self, params, lr=1e-4, betas=(0.9, 0.999), eps=1e-8, weight_decay=1e-4,
+                 rho=0.05, ns_steps=5, momentum_start=0.85, momentum_end=0.95, momentum_warmup_steps=200):
         defaults = dict(lr=lr, rho=rho, betas=betas, weight_decay=weight_decay)
         super().__init__(params, defaults)
-
-        self.model                 = model
-        self.eps                   = eps
-        self.damping               = damping
-        self.kfac_interval         = kfac_interval
-        self.kfac_decay            = kfac_decay
-        self.max_kfac_dim          = max_kfac_dim
-        self.use_ns                = use_ns
-        self.ns_steps              = ns_steps
-        self.momentum_start        = momentum_start
-        self.momentum_end          = momentum_end
+        self.eps = eps
+        self.ns_steps = ns_steps
+        self.momentum_start = momentum_start
+        self.momentum_end = momentum_end
         self.momentum_warmup_steps = momentum_warmup_steps
-
-        self._step     = 0
+        self._step = 0
         self._adv_pass = False
-        self._m_A, self._m_G = {}, {}
-        self._kA,  self._kG  = {}, {}
-        self._Ai,  self._Gi  = {}, {}
-        self._mods           = {}
-        self._register_hooks()
-
-        self._kfac_ids = set()
-        for m in self._mods.values():
-            self._kfac_ids.add(id(m.weight))
-            if m.bias is not None:
-                self._kfac_ids.add(id(m.bias))
 
     def _get_momentum(self):
-        if self._step >= self.momentum_warmup_steps:
-            return self.momentum_end
+        if self._step >= self.momentum_warmup_steps: return self.momentum_end
         t = self._step / max(1, self.momentum_warmup_steps)
         return self.momentum_start + t * (self.momentum_end - self.momentum_start)
 
-    def _register_hooks(self):
-        for m in self.model.modules():
-            if isinstance(m, nn.Linear):
-                mid = id(m)
-                self._mods[mid] = m
-                m.register_forward_hook(self._fwd(mid))
-                m.register_full_backward_hook(self._bwd(mid))
-
-    def _fwd(self, mid):
-        def h(mod, inp, out):
-            if not self._adv_pass:
-                a = inp[0].detach().float()
-                self._m_A[mid] = a.mean(dim=1) if a.ndim == 3 else a
-        return h
-    
-    def _bwd(self, mid):
-        def h(mod, gin, gout):
-            if not self._adv_pass:
-                g = gout[0].detach().float()
-                self._m_G[mid] = g.mean(dim=1) if g.ndim == 3 else g
-        return h
-
-    def _update_kfac(self):
-        for mid, m in self._mods.items():
-            A_raw = self._m_A.get(mid)
-            G_raw = self._m_G.get(mid)
-            if A_raw is None or G_raw is None: continue
-            A = A_raw.view(-1, A_raw.size(-1))
-            G = G_raw.view(-1, G_raw.size(-1))
-            if m.bias is not None:
-                A = torch.cat([A, A.new_ones(A.size(0), 1)], dim=1)
-            n  = A.size(0)
-            Af = (A.t() @ A) / n
-            Gf = (G.t() @ G) / n
-            if Af.size(0) > self.max_kfac_dim or Gf.size(0) > self.max_kfac_dim:
-                continue
-            d = self.kfac_decay
-            if mid not in self._kA:
-                self._kA[mid] = Af.clone()
-                self._kG[mid] = Gf.clone()
-            else:
-                self._kA[mid].mul_(d).add_(Af, alpha=1 - d)
-                self._kG[mid].mul_(d).add_(Gf, alpha=1 - d)
-        for mid in list(self._kA.keys()):
-            A, G = self._kA[mid], self._kG[mid]
-            trA  = torch.trace(A).clamp(min=1e-8).item()
-            trG  = torch.trace(G).clamp(min=1e-8).item()
-            pi   = max(0.01, min(((trA * G.size(0)) / (trG * A.size(0) + 1e-8)) ** 0.5, 100.0))
-            damp = self.damping
-            dA   = (damp ** 0.5) * pi
-            dG   = (damp ** 0.5) / pi
-            try:
-                IA = torch.eye(A.size(0), device=A.device, dtype=A.dtype)
-                IG = torch.eye(G.size(0), device=G.device, dtype=G.dtype)
-                self._Ai[mid] = torch.linalg.solve(A + dA * IA, IA)
-                self._Gi[mid] = torch.linalg.solve(G + dG * IG, IG)
-            except RuntimeError:
-                pass
-
-    def _precond(self, mid, m, gw, gb):
-        if mid not in self._Ai: return gw, gb
-        Ai, Gi    = self._Ai[mid], self._Gi[mid]
-        orig_norm = gw.norm(p=2)
-        if gb is not None:
-            C      = torch.cat([gw, gb.unsqueeze(1)], dim=1)
-            P      = Gi @ C @ Ai
-            pw, pb = P[:, :-1], P[:, -1]
-        else:
-            pw = Gi @ gw @ Ai
-            pb = None
-        new_norm = pw.norm(p=2)
-        if new_norm > 1e-8 and orig_norm > 1e-8:
-            pw = pw * (orig_norm / new_norm)
-        return pw, pb
-
-    def _apply_ns(self, gw, momentum):
-        shape     = gw.shape
-        g_2d      = gw.view(shape[0], -1)
-        g_ns      = newtonschulz5(g_2d, self.ns_steps).view_as(gw)
-        orig_norm = gw.norm(p=2)
-        ns_norm   = g_ns.norm(p=2)
-        if ns_norm > 1e-8 and orig_norm > 1e-8:
-            g_ns = g_ns * (orig_norm / ns_norm)
-        return g_ns
-
-    def _adam(self, p, grad, max_grad_norm=1.0):
+    def _adam(self, p, grad, group):
         s = self.state[p]
         if "step" not in s:
             s["step"] = 0
-            s["m"]    = torch.zeros_like(grad)
-            s["v"]    = torch.zeros_like(grad)
-        g_norm = grad.norm(p=2)
-        if max_grad_norm > 0 and g_norm > max_grad_norm:
-            grad = grad * (max_grad_norm / (g_norm + 1e-8))
+            s["m"] = torch.zeros_like(grad)
+            s["v"] = torch.zeros_like(grad)
         s["step"] += 1
-        t      = s["step"]
-        group  = self.param_groups[0]
+        t = s["step"]
         b1, b2 = group["betas"]
-        lr     = group["lr"]
-        wd     = group["weight_decay"]
+        lr, wd = group["lr"], group["weight_decay"]
         if wd > 0: p.data.mul_(1.0 - lr * wd)
         s["m"].mul_(b1).add_(grad, alpha=1 - b1)
         s["v"].mul_(b2).addcmul_(grad, grad, value=1 - b2)
-        alpha  = lr * (1 - b2 ** t) ** 0.5 / (1 - b1 ** t)
+        alpha = lr * (1 - b2 ** t) ** 0.5 / (1 - b1 ** t)
         update = s["m"] / (s["v"].sqrt().add_(self.eps))
-        p.data.add_(update.to(p.dtype) * (-alpha))
+        p.data.add_(update.to(p.dtype), alpha=-alpha)
 
     @torch.no_grad()
     def _first_step(self, eps_w=1e-12):
-        # --- PERTURBATION CALCULATION ---
-        # Calculates the perturbation `e` and shifts weights from `w` to `w + e`
         shared_device = self.param_groups[0]["params"][0].device
         sq_norm = 0.0
-        
-        # 1. Calculate the total gradient norm across all layers
         for group in self.param_groups:
             for p in group["params"]:
                 if p.grad is None: continue
-                g        = p.grad.float()
-                # Adaptive SAM (ASAM) scaling: scale gradient by the magnitude of the weights
+                g = p.grad.float()
                 scaled_g = g * (p.data.float().abs() + eps_w)
                 sq_norm += scaled_g.norm(p=2).to(shared_device).pow(2).item()
         grad_norm = (sq_norm + eps_w) ** 0.5
-        
-        # 2. Actually apply the perturbation to the weights
         for group in self.param_groups:
-            rho   = group["rho"] # The maximum size of the perturbation neighborhood
+            rho = group["rho"]
             scale = rho / (grad_norm + eps_w)
             for p in group["params"]:
                 if p.grad is None: continue
-                # Save the original clean weights `w` so we can restore them later
                 self.state[p]["old_p"] = p.data.clone()
-                # Calculate the exact perturbation step `e`
                 e_w = (p.data.float().abs() + eps_w) * p.grad.float() * scale
-                # Shift the weights to the worst-case point: w = w + e
                 p.data.add_(e_w.to(p.dtype))
-                
         self._adv_pass = True
-        # Clear the old gradients so the next backward pass computes fresh adversarial gradients
         self.zero_grad()
 
     @torch.no_grad()
     def _second_step(self):
-        # --- RESTORE AND UPDATE ---
-        # Restores weights back to `w`, then applies the actual optimization step using the adversarial gradient
         self._step += 1
         momentum = self._get_momentum()
-        
-        # 1. Update K-FAC preconditioner matrices if we hit the interval
-        if self._step % self.kfac_interval == 0:
-            self._update_kfac()
-            
-        # 2. Restore the original clean weights `w` that we saved in _first_step
         for group in self.param_groups:
             for p in group["params"]:
                 if "old_p" in self.state[p]:
                     p.data.copy_(self.state[p]["old_p"])
-                    
-        # 3. Apply the optimizer update (Adam/Muon + KFAC/Newton-Schulz) using the newly computed adversarial gradient
-        for mid, m in self._mods.items():
-            w, b = m.weight, m.bias
-            if w.grad is None: continue
-            grad = w.grad.data.float()
-            gb   = b.grad.data.float() if (b is not None and b.grad is not None) else None
-            s    = self.state[w]
-            if "momentum_buffer" not in s:
-                s["momentum_buffer"] = torch.zeros_like(grad)
-            buf = s["momentum_buffer"]
-            buf.mul_(momentum).add_(grad)
-            g_nest     = grad + momentum * buf
-            gw_k, gb_k = self._precond(mid, m, g_nest, gb)
-            if self.use_ns and gw_k.ndim >= 2:
-                gw_k = self._apply_ns(gw_k, momentum)
-            self._adam(w, gw_k)
-            if b is not None and gb_k is not None:
-                self._adam(b, gb_k)
-        for p in self.param_groups[0]["params"]:
-            if id(p) in self._kfac_ids or p.grad is None: continue
-            self._adam(p, p.grad.data.float())
+        for group in self.param_groups:
+            lr, wd = group["lr"], group["weight_decay"]
+            for p in group["params"]:
+                if p.grad is None: continue
+                grad = p.grad.data.float()
+                s = self.state[p]
+                if p.ndim >= 2:
+                    if "momentum_buffer" not in s: s["momentum_buffer"] = torch.zeros_like(grad)
+                    buf = s["momentum_buffer"]
+                    buf.mul_(momentum).add_(grad)
+                    g_nest = grad + momentum * buf
+                    g_2d = g_nest.view(g_nest.size(0), -1)
+                    g_ns = newtonschulz5(g_2d, steps=self.ns_steps).view_as(g_nest)
+                    if wd > 0: p.data.mul_(1.0 - lr * wd)
+                    p.data.add_(g_ns.to(p.dtype), alpha=-lr)
+                else:
+                    self._adam(p, grad, group)
         self._adv_pass = False
 
     def step(self, closure=None):
-        if closure is None: raise RuntimeError("HybridSAMOptimizer requires a closure")
-        
-        # --- ROUND 1: Calculate Base Gradient ---
-        # 1. Run a normal forward/backward pass to get the gradient `g` at the current weights `w`.
+        if closure is None: raise RuntimeError("Requires closure")
         self._adv_pass = False
         with torch.enable_grad(): loss = closure()
-        
-        # --- PERTURBATION ---
-        # 2. Use the gradient `g` to calculate the worst-case direction `e` (the perturbation).
-        #    Shift the weights from `w` to `w + e`. We also save `w` in memory to restore later.
         self._first_step()
-        
-        # --- ROUND 2: Calculate Adversarial Gradient ---
-        # 3. Run a SECOND forward/backward pass at the perturbed weights `w + e` 
-        #    to get the adversarial gradient `g_SAM`.
         with torch.enable_grad(): closure()
-        
-        # --- UPDATE ---
-        # 4. Restore the weights back to original `w`, then use `g_SAM` to actually update the weights
-        #    (using Adam/Muon rules).
         self._second_step()
-        
         return loss
 
-    def zero_grad(self, set_to_none=False):
-        super().zero_grad(set_to_none=set_to_none)
-
-class SinglePassHybridSAM(HybridSAMOptimizer):
+class SinglePassOptimizedSAM(OptimizedHybridSAM):
     def step(self, closure=None):
-        if closure is None: raise RuntimeError("SinglePassHybridSAM requires a closure")
-        
-        # --- PERTURBATION (Using Stale Gradient) ---
-        # 1. Instead of running a whole pass to find `g`, we just use the gradient `g_prev` 
-        #    left over from the PREVIOUS batch! We use it to shift weights to `w + e_prev`.
-        #    (If this is the very first batch of an epoch, p.grad is None, so it safely skips).
+        if closure is None: raise RuntimeError("Requires closure")
         self._first_step()
-        
-        # --- ROUND 1 (And Only Round): Calculate Adversarial Gradient ---
-        # 2. Run ONE forward/backward pass at the perturbed weights `w + e_prev` 
-        #    to calculate the new adversarial gradient `g_SAM`.
-        #    (closure() automatically calls zero_grad(), wiping the old stale grad before computing the new one).
         self._adv_pass = False
         with torch.enable_grad(): loss = closure()
-        
-        # --- UPDATE ---
-        # 3. Restore the weights back to original `w`, then use the new `g_SAM` to update the weights.
-        #    The new `g_SAM` stays in memory to be used as the stale gradient for the next batch!
         self._second_step()
-        
-        # 4. Return. p.data is now the clean updated weights, ready for Lookahead.
-        return loss
-
-# ── Ablation variants ─────────────────────────────────────────────────────────
-class HybridNoKFAC(HybridSAMOptimizer):
-    def _precond(self, mid, m, gw, gb): return gw, gb
-
-class HybridNoNS(HybridSAMOptimizer):
-    def __init__(self, *args, **kwargs):
-        kwargs["use_ns"] = False
-        super().__init__(*args, **kwargs)
-
-class HybridNoSAM(HybridSAMOptimizer):
-    def step(self, closure=None):
-        if closure is None: raise RuntimeError("HybridNoSAM requires a closure")
-        self._adv_pass = False
-        with torch.enable_grad(): loss = closure()
-        self._step += 1
-        momentum = self._get_momentum()
-        if self._step % self.kfac_interval == 0: self._update_kfac()
-        for mid, m in self._mods.items():
-            w, b = m.weight, m.bias
-            if w.grad is None: continue
-            grad = w.grad.data.float()
-            gb   = b.grad.data.float() if (b is not None and b.grad is not None) else None
-            s    = self.state[w]
-            if "momentum_buffer" not in s: s["momentum_buffer"] = torch.zeros_like(grad)
-            buf = s["momentum_buffer"]
-            buf.mul_(momentum).add_(grad)
-            g_nest     = grad + momentum * buf
-            gw_k, gb_k = self._precond(mid, m, g_nest, gb)
-            if self.use_ns and gw_k.ndim >= 2: gw_k = self._apply_ns(gw_k, momentum)
-            self._adam(w, gw_k)
-            if b is not None and gb_k is not None: self._adam(b, gb_k)
-        for p in self.param_groups[0]["params"]:
-            if id(p) in self._kfac_ids or p.grad is None: continue
-            self._adam(p, p.grad.data.float())
         return loss
 
 # ─────────────────────────────── Training utilities ───────────────────────────
 def is_sam_like(opt):
-    if isinstance(opt, HybridSAMOptimizer): return True
-    if hasattr(opt, "optimizer") and isinstance(opt.optimizer, HybridSAMOptimizer): return True
+    if isinstance(opt, OptimizedHybridSAM): return True
+    if hasattr(opt, "optimizer") and isinstance(opt.optimizer, OptimizedHybridSAM): return True
     return False
 
 def train_one_epoch(model, optimizer, criterion, dataloader, device, epoch=0, run=None, opt_name="", grad_acc=GRAD_ACC):
@@ -599,10 +389,10 @@ def make_optimizer(name, model, params, epochs=10, steps_per_epoch=None):
 
     elif name == "hybrid":
         warmup_epochs = params.get("warmup_epochs", 2)
-        base_opt = HybridSAMOptimizer(
-            model, lr=lr, weight_decay=wd, rho=params.get("rho", 0.05),
-            damping=params.get("damping", 1e-2), kfac_interval=params.get("kfac_interval", 20),
-            kfac_decay=params.get("kfac_decay", 0.90), use_ns=params.get("use_ns", True),
+        optim_params = [p for p in model.parameters() if p.requires_grad]
+        base_opt = OptimizedHybridSAM(
+            optim_params, lr=lr, weight_decay=wd, rho=params.get("rho", 0.05),
+            ns_steps=params.get("ns_steps", 5),
             momentum_start=params.get("momentum_start", 0.85), momentum_end=params.get("momentum_end", 0.95),
             momentum_warmup_steps=params.get("momentum_warmup_steps", 200),
         )
@@ -614,10 +404,10 @@ def make_optimizer(name, model, params, epochs=10, steps_per_epoch=None):
 
     elif name == "atlas":
         warmup_epochs = params.get("warmup_epochs", 2)
-        base_opt = SinglePassHybridSAM(
-            model, lr=lr, weight_decay=wd, rho=params.get("rho", 0.05),
-            damping=params.get("damping", 1e-2), kfac_interval=params.get("kfac_interval", 20),
-            kfac_decay=params.get("kfac_decay", 0.90), use_ns=params.get("use_ns", True),
+        optim_params = [p for p in model.parameters() if p.requires_grad]
+        base_opt = SinglePassOptimizedSAM(
+            optim_params, lr=lr, weight_decay=wd, rho=params.get("rho", 0.05),
+            ns_steps=params.get("ns_steps", 5),
             momentum_start=params.get("momentum_start", 0.85), momentum_end=params.get("momentum_end", 0.95),
             momentum_warmup_steps=params.get("momentum_warmup_steps", 200),
         )
@@ -758,7 +548,7 @@ def run_ablation(tokenizer, epochs=5, wandb_project="Hybrid-LLM-ZFS"):
 def main():
     if not dist.is_initialized():
         os.environ["MASTER_ADDR"] = "127.0.0.1"
-        os.environ["MASTER_PORT"] = "29500"
+        os.environ["MASTER_PORT"] = "29501"
         os.environ["RANK"] = "0"
         os.environ["WORLD_SIZE"] = "1"
         dist.init_process_group("nccl" if torch.cuda.is_available() else "gloo")
@@ -787,7 +577,7 @@ def main():
     else:
         print("=" * 60 + "\n  Skipping Hyperparameter Tuning (using default best params)\n" + "=" * 60)
         best = {
-            "atlas": {"damping": 0.01, "lr": 1e-4, "weight_decay": 1e-4},
+            "atlas": {"ns_steps": 5, "lr": 1e-4, "weight_decay": 1e-4},
             "adam": {"lr": 1e-3, "weight_decay": 1e-4},
             "sgd": {"lr": 1e-2, "momentum": 0.9, "weight_decay": 1e-4},
             

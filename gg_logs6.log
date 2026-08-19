@@ -1,0 +1,282 @@
+nohup: ignoring input
+[I 2026-08-18 12:52:32,983] A new study created in memory with name: no-name-baed9ce0-f2fc-4d39-a31c-1e1c456ae28b
+2026-08-18 12:52:40.190727: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1787057560.208311 2785105 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1787057560.213122 2785105 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1787057560.226962 2785105 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1787057560.226995 2785105 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1787057560.227001 2785105 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1787057560.227005 2785105 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-08-18 12:52:40.230943: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using device: cuda
+Loading tokenizer …
+============================================================
+  Hyperparameter Tuning
+============================================================
+
+  Tuning atlas …
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 13:17:33,150] Trial 0 finished with value: 24.232527759634227 and parameters: {'lr': 0.01540430659427874, 'weight_decay': 0.0006804158992798573, 'rho': 0.022820660866687548}. Best is trial 0 with value: 24.232527759634227.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 13:54:41,719] Trial 1 finished with value: 25.081645983017637 and parameters: {'lr': 0.03472334035891438, 'weight_decay': 0.004095327757100933, 'rho': 0.07885532396803407}. Best is trial 1 with value: 25.081645983017637.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 14:21:14,300] Trial 2 finished with value: 27.563683866753756 and parameters: {'lr': 0.024591553993595448, 'weight_decay': 0.004309239432702996, 'rho': 0.09478135059806736}. Best is trial 2 with value: 27.563683866753756.
+[I 2026-08-18 14:21:14,301] A new study created in memory with name: no-name-e7048217-9f86-4431-92e4-b43c7121aaf6
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Best atlas: {'lr': 0.024591553993595448, 'weight_decay': 0.004309239432702996, 'rho': 0.09478135059806736}
+
+  Tuning adam …
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 14:36:36,263] Trial 0 finished with value: 24.88569562377531 and parameters: {'lr': 0.00011146435996196387, 'weight_decay': 0.006954750727326474}. Best is trial 0 with value: 24.88569562377531.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 14:55:44,795] Trial 1 finished with value: 24.88569562377531 and parameters: {'lr': 0.0005889138317190829, 'weight_decay': 0.0002732393448070969}. Best is trial 0 with value: 24.88569562377531.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 15:15:00,673] Trial 2 finished with value: 26.322664924885697 and parameters: {'lr': 0.000535270104737199, 'weight_decay': 0.00154652166551235}. Best is trial 2 with value: 26.322664924885697.
+[I 2026-08-18 15:15:00,675] A new study created in memory with name: no-name-276605da-f85a-41df-971d-a4d493dde575
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Best adam: {'lr': 0.000535270104737199, 'weight_decay': 0.00154652166551235}
+
+  Tuning sgd …
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 15:33:38,776] Trial 0 finished with value: 23.187459177008492 and parameters: {'lr': 2.9666463485525665e-05, 'weight_decay': 0.002463243231159419}. Best is trial 0 with value: 23.187459177008492.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 15:49:46,601] Trial 1 finished with value: 23.2527759634226 and parameters: {'lr': 0.0003749819988227056, 'weight_decay': 0.0023590103576735678}. Best is trial 1 with value: 23.2527759634226.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 16:01:51,771] Trial 2 finished with value: 25.604180274330503 and parameters: {'lr': 0.0003720772187122454, 'weight_decay': 1.6457902322004605e-05}. Best is trial 2 with value: 25.604180274330503.
+[I 2026-08-18 16:01:51,773] A new study created in memory with name: no-name-34b43966-34ea-4f1f-91da-21dd50ef6f62
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Best sgd: {'lr': 0.0003720772187122454, 'weight_decay': 1.6457902322004605e-05}
+
+  Tuning muon …
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 16:16:22,357] Trial 0 finished with value: 36.316133246244284 and parameters: {'lr': 0.011157141081781338, 'weight_decay': 3.3109596861754076e-05}. Best is trial 0 with value: 36.316133246244284.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 16:30:52,823] Trial 1 finished with value: 25.66949706074461 and parameters: {'lr': 0.01547610026218474, 'weight_decay': 0.004927606647491102}. Best is trial 0 with value: 36.316133246244284.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+[I 2026-08-18 16:36:09,572] Trial 2 pruned. 
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run f15muuxe
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /home/gauranshi/atlas_opt/wandb/run-20260818_163611-f15muuxe
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna/runs/f15muuxe
+wandb: Detected [huggingface_hub.inference] in use.
+wandb: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
+wandb: For more information, check out the docs at: https://weave-docs.wandb.ai
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Best muon: {'lr': 0.011157141081781338, 'weight_decay': 3.3109596861754076e-05}
+
+============================================================
+  Final Training
+============================================================
+
+── ATLAS ──
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+  [atlas   ] epoch   1  loss=8.9756  val_acc=24.49%  time=438.4s
+  [atlas   ] epoch   2  loss=9.0703  val_acc=24.49%  time=437.1s
+  [atlas   ] epoch   3  loss=8.9986  val_acc=24.49%  time=436.8s
+  [atlas   ] epoch   4  loss=8.8484  val_acc=24.56%  time=436.7s
+  [atlas   ] epoch   5  loss=8.6347  val_acc=24.69%  time=436.6s
+  [atlas   ] epoch   6  loss=8.3379  val_acc=24.69%  time=436.3s
+  [atlas   ] epoch   7  loss=7.9299  val_acc=24.49%  time=436.7s
+  [atlas   ] epoch   8  loss=7.4135  val_acc=26.00%  time=436.4s
+  [atlas   ] epoch   9  loss=6.8318  val_acc=27.17%  time=436.6s
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading wandb-summary.json
+wandb: 
+wandb: Run history:
+wandb:        epoch ▁▂▃▃▄▅▆▆▇█
+wandb:   train/loss ███▇▇▆▅▄▃▁
+wandb: val/accuracy ▁▁▁▁▂▂▁▅█▆
+wandb: 
+wandb: Run summary:
+wandb:        epoch 10
+wandb:   train/loss 6.14731
+wandb: val/accuracy 26.58393
+wandb: 
+wandb: 🚀 View run atlas at: https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna/runs/f15muuxe
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260818_163611-f15muuxe/logs
+wandb: setting up run q4o87ddg
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /home/gauranshi/atlas_opt/wandb/run-20260818_174946-q4o87ddg
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run adam
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna/runs/q4o87ddg
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  [atlas   ] epoch  10  loss=6.1473  val_acc=26.58%  time=436.4s
+
+── ADAM ──
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+  [adam    ] epoch   1  loss=2.4058  val_acc=24.82%  time=228.5s
+  [adam    ] epoch   2  loss=2.3986  val_acc=25.02%  time=229.6s
+  [adam    ] epoch   3  loss=2.3678  val_acc=24.95%  time=229.4s
+  [adam    ] epoch   4  loss=2.2993  val_acc=24.95%  time=229.5s
+  [adam    ] epoch   5  loss=2.2229  val_acc=24.89%  time=229.4s
+  [adam    ] epoch   6  loss=2.1549  val_acc=25.73%  time=229.4s
+  [adam    ] epoch   7  loss=2.0884  val_acc=26.32%  time=229.5s
+  [adam    ] epoch   8  loss=2.0340  val_acc=26.85%  time=229.3s
+  [adam    ] epoch   9  loss=1.9921  val_acc=26.78%  time=229.4s
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading config.yaml
+wandb: uploading history steps 9-9, summary, console lines 13-13
+wandb: 
+wandb: Run history:
+wandb:        epoch ▁▂▃▃▄▅▆▆▇█
+wandb:   train/loss ██▇▆▅▄▃▂▂▁
+wandb: val/accuracy ▁▂▁▁▁▄▆██▆
+wandb: 
+wandb: Run summary:
+wandb:        epoch 10
+wandb:   train/loss 1.95968
+wandb: val/accuracy 26.19203
+wandb: 
+wandb: 🚀 View run adam at: https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna/runs/q4o87ddg
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260818_174946-q4o87ddg/logs
+wandb: setting up run kgjdfxjb
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /home/gauranshi/atlas_opt/wandb/run-20260818_182847-kgjdfxjb
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sgd
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna/runs/kgjdfxjb
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  [adam    ] epoch  10  loss=1.9597  val_acc=26.19%  time=229.4s
+
+── SGD ──
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+  [sgd     ] epoch   1  loss=2.0277  val_acc=25.41%  time=226.4s
+  [sgd     ] epoch   2  loss=1.9177  val_acc=25.54%  time=227.7s
+  [sgd     ] epoch   3  loss=1.8796  val_acc=26.06%  time=227.5s
+  [sgd     ] epoch   4  loss=1.8592  val_acc=26.39%  time=227.5s
+  [sgd     ] epoch   5  loss=1.8497  val_acc=26.19%  time=227.5s
+  [sgd     ] epoch   6  loss=1.8455  val_acc=25.54%  time=227.4s
+  [sgd     ] epoch   7  loss=1.8438  val_acc=25.80%  time=227.5s
+  [sgd     ] epoch   8  loss=1.8432  val_acc=25.87%  time=227.6s
+  [sgd     ] epoch   9  loss=1.8430  val_acc=25.80%  time=227.5s
+wandb: uploading data; updating run metadata
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading output.log
+wandb: uploading history steps 9-9, summary, console lines 13-13
+wandb: 
+wandb: Run history:
+wandb:        epoch ▁▂▃▃▄▅▆▆▇█
+wandb:   train/loss █▄▂▂▁▁▁▁▁▁
+wandb: val/accuracy ▁▂▆█▇▂▄▄▄▃
+wandb: 
+wandb: Run summary:
+wandb:        epoch 10
+wandb:   train/loss 1.84315
+wandb: val/accuracy 25.6695
+wandb: 
+wandb: 🚀 View run sgd at: https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna/runs/kgjdfxjb
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260818_182847-kgjdfxjb/logs
+wandb: setting up run yu074agj
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /home/gauranshi/atlas_opt/wandb/run-20260818_190729-yu074agj
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna/runs/yu074agj
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  [sgd     ] epoch  10  loss=1.8432  val_acc=25.67%  time=227.6s
+
+── MUON ──
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+  [muon    ] epoch   1  loss=1.4554  val_acc=32.85%  time=274.8s
+  [muon    ] epoch   2  loss=1.3673  val_acc=35.73%  time=275.7s
+  [muon    ] epoch   3  loss=1.2683  val_acc=36.71%  time=275.6s
+  [muon    ] epoch   4  loss=1.0387  val_acc=36.12%  time=275.5s
+  [muon    ] epoch   5  loss=0.8339  val_acc=35.34%  time=275.7s
+  [muon    ] epoch   6  loss=0.6664  val_acc=34.03%  time=275.6s
+  [muon    ] epoch   7  loss=0.5681  val_acc=34.49%  time=275.8s
+  [muon    ] epoch   8  loss=0.5247  val_acc=34.03%  time=275.7s
+  [muon    ] epoch   9  loss=0.5080  val_acc=34.62%  time=275.7s
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading config.yaml
+wandb: uploading history steps 9-9, summary, console lines 13-13
+wandb: 
+wandb: Run history:
+wandb:        epoch ▁▂▃▃▄▅▆▆▇█
+wandb:   train/loss █▇▇▅▃▂▁▁▁▁
+wandb: val/accuracy ▁▆█▇▆▃▄▃▄▄
+wandb: 
+wandb: Run summary:
+wandb:        epoch 10
+wandb:   train/loss 0.50307
+wandb: val/accuracy 34.29131
+wandb: 
+wandb: 🚀 View run muon at: https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna/runs/yu074agj
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Atlas-Comparison_optuna
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260818_190729-yu074agj/logs
+  [muon    ] epoch  10  loss=0.5031  val_acc=34.29%  time=275.7s
+Saved: comparison_llm.png
+
+============================================================
+  FINAL SUMMARY
+============================================================
+Main Optimizers:
+  atlas     : val_acc=26.58%  time=4368s
+  adam      : val_acc=26.19%  time=2293s
+  sgd       : val_acc=25.67%  time=2274s
+  muon      : val_acc=34.29%  time=2756s
+[rank0]:[W818 19:54:14.703982516 ProcessGroupNCCL.cpp:1496] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
