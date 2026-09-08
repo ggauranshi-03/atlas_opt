@@ -9,6 +9,7 @@ import matplotlib
 import wandb
 import os
 import csv
+import yaml
 import torch.distributed as dist
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -23,16 +24,17 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
 # ─────────────────────────────── Config ───────────────────────────────────────
+with open("config.yaml", "r") as f:
+    CONFIG = yaml.safe_load(f)
 
-MODEL_NAME     = "unsloth/Llama-3.2-1B"
-DATASET_NAME   = "cais/mmlu"
-DATASET_CONFIG = "all"      # Load all 57 subjects
-NUM_LABELS     = 4          # MMLU has 4 choices (A, B, C, D)
-MAX_LEN        = 256        # Keep at 256 so context and prompt aren't truncated
-BATCH_SIZE     = 16
-GRAD_ACC       = 4          # effective batch = 64
-TRAIN_SUBSET   = 20_000     # MMLU's train split has ~99k rows, subsetting is good
-USE_HYPERPARAMETER_TUNING = True # Set to True to enable optuna tuning
+MODEL_NAME     = CONFIG["experiment"]["model_name"]
+DATASET_NAME   = CONFIG["experiment"]["dataset_name"]
+DATASET_CONFIG = CONFIG["experiment"]["dataset_config"]
+NUM_LABELS     = CONFIG["experiment"]["num_labels"]
+MAX_LEN        = CONFIG["experiment"]["max_len"]
+BATCH_SIZE     = CONFIG["experiment"]["batch_size"]
+GRAD_ACC       = CONFIG["experiment"]["grad_acc"]
+TRAIN_SUBSET   = CONFIG["experiment"]["train_subset"]
 
 # ─────────────────────────────── Data ─────────────────────────────────────────
 def get_dataloaders(tokenizer):
@@ -430,45 +432,8 @@ def make_optimizer(name, model, params, epochs=10, steps_per_epoch=None):
 
     raise ValueError(f"Unknown optimizer: {name}")
 
-# ─────────────────────────────── Hyperparameter tuning ────────────────────────
-def objective(trial, opt_name, tokenizer):
-    if opt_name == "adam":
-        lr = trial.suggest_float("lr", 1e-4, 2e-3, log=True)
-    elif opt_name in ["muon", "atlas"]:
-        lr = trial.suggest_float("lr", 1e-2, 5e-2, log=True) # Muon 2D parameters need ~0.02
-    else:
-        lr = trial.suggest_float("lr", 1e-5, 5e-4, log=True)
-        
-    wd = trial.suggest_float("weight_decay", 1e-5, 1e-2, log=True)
-    params = dict(lr=lr, weight_decay=wd)
-
-    if opt_name in ["hybrid", "atlas"]:
-        params["rho"] = trial.suggest_float("rho", 0.01, 0.1)
-        params["rho_vector"] = trial.suggest_float("rho_vector", 0.01, 0.1)
-
-    train_loader, val_loader = get_dataloaders(tokenizer)
-    model     = get_model(device, num_labels=NUM_LABELS)
-    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
-    optimizer, scheduler = make_optimizer(opt_name, model, params, epochs=3, steps_per_epoch=len(train_loader))
-    
-    val_acc = 0.0
-    for epoch in range(3):
-        train_one_epoch(model, optimizer, criterion, train_loader, device)
-        _, val_acc = evaluate(model, criterion, val_loader, device)
-        scheduler.step()
-        trial.report(val_acc, epoch)
-        import optuna
-        if trial.should_prune(): raise optuna.TrialPruned()
-    return val_acc
-
-def run_tuning(opt_name, n_trials, tokenizer):
-    import optuna
-    study = optuna.create_study(direction="maximize", pruner=optuna.pruners.MedianPruner(n_startup_trials=2))
-    study.optimize(lambda t: objective(t, opt_name, tokenizer), n_trials=n_trials)
-    return study.best_params
-
 # ─────────────────────────────── Full experiment ──────────────────────────────
-def run_experiment(optimizer_name, params, tokenizer, epochs=10, wandb_project="Hybrid-LLM-ZFS"):
+def run_experiment(optimizer_name, params, tokenizer, epochs=10, wandb_project="Atlas-Experiments"):
     run = wandb.init(
         project=wandb_project,
         name=f"{optimizer_name}_exp1_baseline",
@@ -516,7 +481,8 @@ def run_experiment(optimizer_name, params, tokenizer, epochs=10, wandb_project="
         torch.save(checkpoint, f"checkpoints/{optimizer_name}_epoch_{epoch+1}.pt")
         
         # Log to CSV
-        csv_file = f"{optimizer_name}_logs.csv"
+        os.makedirs("logs", exist_ok=True)
+        csv_file = f"logs/{optimizer_name}_atlas_exp1_logs.csv"
         file_exists = os.path.isfile(csv_file)
         with open(csv_file, mode='a', newline='') as f:
             writer = csv.writer(f)
@@ -536,9 +502,8 @@ def main():
         os.environ["RANK"] = "0"
         os.environ["WORLD_SIZE"] = "1"
         dist.init_process_group("nccl" if torch.cuda.is_available() else "gloo")
-    TUNING_TRIALS   = 3
-    TRAIN_EPOCHS    = 10
-    WANDB_PROJECT   = "Atlas-Experiments"
+        TRAIN_EPOCHS = CONFIG["experiment"]["train_epochs"]
+    WANDB_PROJECT = CONFIG["experiment"]["wandb_project"]
     
     OPTIMIZERS_TO_TEST = ["atlas", "adam", "sgd", "muon"]
 
@@ -549,23 +514,13 @@ def main():
         tokenizer.pad_token_id = tokenizer.eos_token_id
     tokenizer.padding_side = "right"
 
-    # ── 1. Hyperparameter Tuning ──
-    best = {}
-    if USE_HYPERPARAMETER_TUNING:
-        print("=" * 60 + "\n  Hyperparameter Tuning\n" + "=" * 60)
-        for name in OPTIMIZERS_TO_TEST:
-            print(f"\n  Tuning {name} …")
-            best[name] = run_tuning(name, n_trials=TUNING_TRIALS, tokenizer=tokenizer)
-            print(f"  Best {name}: {best[name]}")
-    else:
-        print("=" * 60 + "\n  Skipping Hyperparameter Tuning (using default best params)\n" + "=" * 60)
-        best = {
-            "atlas": {"damping": 0.01, "lr": 1e-4, "weight_decay": 1e-4},
-            "adam": {"lr": 1e-3, "weight_decay": 1e-4},
-            "sgd": {"lr": 1e-2, "momentum": 0.9, "weight_decay": 1e-4},
-            
-            "muon": {"lr": 0.02, "weight_decay": 0.01}
-        }
+    # ── 1. Setup Hyperparameters ──
+    best = {
+        "atlas": CONFIG["hyperparameters"]["atlas_exp1"],
+        "adam": CONFIG["hyperparameters"]["adam"],
+        "sgd": CONFIG["hyperparameters"]["sgd"],
+        "muon": CONFIG["hyperparameters"]["muon"]
+    }
 
     # ── 2. Final Training ──
     print("\n" + "=" * 60 + "\n  Final Training\n" + "=" * 60)
