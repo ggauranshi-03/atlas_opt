@@ -1,0 +1,140 @@
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run tq5sr98h
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260908_121515-tq5sr98h
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_exp2_raw_grad
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Atlas-Experiments
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Atlas-Experiments/runs/tq5sr98h
+Using device: cuda
+Loading tokenizer …
+
+============================================================
+  Final Training
+============================================================
+
+── ATLAS ──
+Map:   0%|          | 0/20000 [00:00<?, ? examples/s]Map:   5%|▌         | 1000/20000 [00:00<00:03, 5375.26 examples/s]Map:  10%|█         | 2000/20000 [00:00<00:03, 5421.55 examples/s]Map:  15%|█▌        | 3000/20000 [00:00<00:03, 5208.29 examples/s]Map:  20%|██        | 4000/20000 [00:00<00:03, 5161.75 examples/s]Map:  25%|██▌       | 5000/20000 [00:00<00:02, 5166.06 examples/s]Map:  30%|███       | 6000/20000 [00:01<00:02, 5145.93 examples/s]Map:  35%|███▌      | 7000/20000 [00:01<00:02, 5120.99 examples/s]Map:  40%|████      | 8000/20000 [00:01<00:02, 5102.82 examples/s]Map:  45%|████▌     | 9000/20000 [00:01<00:02, 5045.30 examples/s]Map:  50%|█████     | 10000/20000 [00:01<00:01, 5011.86 examples/s]Map:  55%|█████▌    | 11000/20000 [00:02<00:01, 4985.57 examples/s]Map:  60%|██████    | 12000/20000 [00:02<00:01, 4959.30 examples/s]Map:  65%|██████▌   | 13000/20000 [00:02<00:01, 4943.66 examples/s]Map:  70%|███████   | 14000/20000 [00:02<00:01, 4950.59 examples/s]Map:  75%|███████▌  | 15000/20000 [00:02<00:01, 4951.53 examples/s]Map:  80%|████████  | 16000/20000 [00:03<00:00, 4940.11 examples/s]Map:  85%|████████▌ | 17000/20000 [00:03<00:00, 4953.74 examples/s]Map:  90%|█████████ | 18000/20000 [00:03<00:00, 4985.28 examples/s]Map:  95%|█████████▌| 19000/20000 [00:03<00:00, 4916.08 examples/s]Map: 100%|██████████| 20000/20000 [00:03<00:00, 4900.50 examples/s]Map: 100%|██████████| 20000/20000 [00:04<00:00, 4979.87 examples/s]
+Map:   0%|          | 0/1531 [00:00<?, ? examples/s]Map:  65%|██████▌   | 1000/1531 [00:00<00:00, 7547.76 examples/s]Map: 100%|██████████| 1531/1531 [00:00<00:00, 6816.97 examples/s]
+`torch_dtype` is deprecated! Use `dtype` instead!
+2026-09-08 12:15:29.538001: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1788869729.557933  151966 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1788869729.563343  151966 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1788869729.577979  151966 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1788869729.578019  151966 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1788869729.578025  151966 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1788869729.578030  151966 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-09-08 12:15:29.582272: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+  [atlas   ] epoch   1  loss=12.8665  val_acc=25.21%  time=443.2s
+  [atlas   ] epoch   2  loss=12.7577  val_acc=25.02%  time=443.5s
+  [atlas   ] epoch   3  loss=12.7032  val_acc=25.15%  time=443.5s
+  [atlas   ] epoch   4  loss=12.6196  val_acc=24.95%  time=443.5s
+  [atlas   ] epoch   5  loss=12.3778  val_acc=24.95%  time=444.1s
+  [atlas   ] epoch   6  loss=12.0923  val_acc=25.02%  time=443.4s
+  [atlas   ] epoch   7  loss=11.7634  val_acc=24.89%  time=443.5s
+  [atlas   ] epoch   8  loss=11.3100  val_acc=25.08%  time=443.3s
+  [atlas   ] epoch   9  loss=10.7593  val_acc=25.02%  time=443.8s
+wandb: updating run metadata
+wandb: uploading config.yaml; uploading output.log; uploading wandb-summary.json
+wandb: uploading config.yaml; uploading wandb-summary.json
+wandb: 
+wandb: Run history:
+wandb:        epoch ▁▂▃▃▄▅▆▆▇█
+wandb:   train/loss ███▇▇▆▅▄▃▁
+wandb: val/accuracy █▄▇▂▂▄▁▅▄▄
+wandb: 
+wandb: Run summary:
+wandb:        epoch 10
+wandb:   train/loss 10.12236
+wandb: val/accuracy 25.01633
+wandb: 
+wandb: 🚀 View run atlas_exp2_raw_grad at: https://wandb.ai/dcll-iiitd/Atlas-Experiments/runs/tq5sr98h
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Atlas-Experiments
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260908_121515-tq5sr98h/logs
+  [atlas   ] epoch  10  loss=10.1224  val_acc=25.02%  time=443.3s
+Saved: comparison_llm.png
+
+============================================================
+  FINAL SUMMARY
+============================================================
+Main Optimizers:
+  atlas     : val_acc=25.02%  time=4627s
+[rank0]:[W908 13:32:43.243868900 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run w00h4q31
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260908_142151-w00h4q31
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_exp3_random
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Atlas-Experiments
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Atlas-Experiments/runs/w00h4q31
+Using device: cuda
+Loading tokenizer …
+
+============================================================
+  Final Training
+============================================================
+
+── ATLAS ──
+Map:   0%|          | 0/20000 [00:00<?, ? examples/s]Map:   5%|▌         | 1000/20000 [00:00<00:03, 5532.16 examples/s]Map:  10%|█         | 2000/20000 [00:00<00:03, 5514.06 examples/s]Map:  15%|█▌        | 3000/20000 [00:00<00:03, 5265.13 examples/s]Map:  20%|██        | 4000/20000 [00:00<00:03, 5111.69 examples/s]Map:  25%|██▌       | 5000/20000 [00:00<00:02, 5042.31 examples/s]Map:  30%|███       | 6000/20000 [00:01<00:02, 4999.68 examples/s]Map:  35%|███▌      | 7000/20000 [00:01<00:02, 4952.14 examples/s]Map:  40%|████      | 8000/20000 [00:01<00:02, 4964.64 examples/s]Map:  45%|████▌     | 9000/20000 [00:01<00:02, 4950.28 examples/s]Map:  50%|█████     | 10000/20000 [00:01<00:02, 4947.50 examples/s]Map:  55%|█████▌    | 11000/20000 [00:02<00:01, 4948.01 examples/s]Map:  60%|██████    | 12000/20000 [00:02<00:01, 4929.50 examples/s]Map:  65%|██████▌   | 13000/20000 [00:02<00:01, 4906.73 examples/s]Map:  70%|███████   | 14000/20000 [00:02<00:01, 4881.92 examples/s]Map:  75%|███████▌  | 15000/20000 [00:03<00:01, 4846.94 examples/s]Map:  80%|████████  | 16000/20000 [00:03<00:00, 4810.87 examples/s]Map:  85%|████████▌ | 17000/20000 [00:03<00:00, 4793.55 examples/s]Map:  90%|█████████ | 18000/20000 [00:03<00:00, 4808.98 examples/s]Map:  95%|█████████▌| 19000/20000 [00:03<00:00, 4788.89 examples/s]Map: 100%|██████████| 20000/20000 [00:04<00:00, 4805.61 examples/s]Map: 100%|██████████| 20000/20000 [00:04<00:00, 4888.82 examples/s]
+Map:   0%|          | 0/1531 [00:00<?, ? examples/s]Map:  65%|██████▌   | 1000/1531 [00:00<00:00, 7558.41 examples/s]Map: 100%|██████████| 1531/1531 [00:00<00:00, 6725.08 examples/s]
+`torch_dtype` is deprecated! Use `dtype` instead!
+2026-09-08 14:22:05.127412: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1788877325.147051  160381 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1788877325.152476  160381 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1788877325.167215  160381 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1788877325.167253  160381 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1788877325.167258  160381 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1788877325.167261  160381 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-09-08 14:22:05.170815: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at unsloth/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+  Train: 20,000  |  Val: 1,531
+  Total: 1235.8M  |  Trainable: 243.3M
+  [atlas   ] epoch   1  loss=2.6846  val_acc=25.02%  time=439.7s
+  [atlas   ] epoch   2  loss=2.6797  val_acc=25.02%  time=442.1s
+  [atlas   ] epoch   3  loss=2.6613  val_acc=24.95%  time=441.9s
+  [atlas   ] epoch   4  loss=2.6218  val_acc=24.89%  time=442.1s
+  [atlas   ] epoch   5  loss=2.5531  val_acc=24.62%  time=442.3s
+  [atlas   ] epoch   6  loss=2.4538  val_acc=24.69%  time=442.1s
+  [atlas   ] epoch   7  loss=2.3283  val_acc=24.17%  time=441.9s
+  [atlas   ] epoch   8  loss=2.1846  val_acc=24.10%  time=442.0s
+  [atlas   ] epoch   9  loss=2.0188  val_acc=24.95%  time=442.5s
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:        epoch ▁▂▃▃▄▅▆▆▇█
+wandb:   train/loss ███▇▇▆▅▄▂▁
+wandb: val/accuracy ██▇▇▅▅▂▁▇▂
+wandb: 
+wandb: Run summary:
+wandb:        epoch 10
+wandb:   train/loss 1.86946
+wandb: val/accuracy 24.16721
+wandb: 
+wandb: 🚀 View run atlas_exp3_random at: https://wandb.ai/dcll-iiitd/Atlas-Experiments/runs/w00h4q31
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Atlas-Experiments
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260908_142151-w00h4q31/logs
+  [atlas   ] epoch  10  loss=1.8695  val_acc=24.17%  time=441.9s
+Saved: comparison_llm.png
+
+============================================================
+  FINAL SUMMARY
+============================================================
+Main Optimizers:
+  atlas     : val_acc=24.17%  time=4577s
+[rank0]:[W908 15:38:33.246062871 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
