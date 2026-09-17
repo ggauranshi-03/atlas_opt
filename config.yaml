@@ -25,19 +25,19 @@ hyperparameters:
     weight_decay: 0.01
 
   atlas_exp1:
-    lr: 0.02
-    weight_decay: 0.01
-    rho: 0.001
-    rho_vector: 0.05
+    lr: 0.015
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01
 
   atlas_exp2:
-    lr: 0.02
-    weight_decay: 0.01
-    rho: 0.05
-    rho_vector: 0.05
+    lr: 0.015
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01
 
   atlas_exp3:
-    lr: 0.02
-    weight_decay: 0.01
-    rho: 0.05
-    rho_vector: 0.05
+    lr: 0.015
+    weight_decay: 0.0001
+    rho: 0.001
+    rho_vector: 0.01

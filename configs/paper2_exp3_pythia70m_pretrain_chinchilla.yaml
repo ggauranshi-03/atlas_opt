@@ -1,0 +1,65 @@
+# ==============================================================================
+# PAPER 2 - EXPERIMENT 3: Pythia-70M Chinchilla-Optimal Pretraining Benchmark
+# Reference: Hübler et al. (2026), Section 4 & Appendix F
+# ==============================================================================
+
+experiment:
+  experiment_id: "paper2_exp3_pythia70m_pretrain_chinchilla"
+  wandb_project: "Paper2-Pythia70M-Pretraining"
+  task_type: "causal_lm"
+
+  # Model & Dataset:
+  model_name: "EleutherAI/pythia-70m"
+  dataset_name: "HuggingFaceFW/fineweb-edu"
+  dataset_config: "sample-10BT"
+  max_len: 2048
+  total_tokens: 1400000000              # 1.4B tokens (Chinchilla-optimal)
+
+# Effective Batch Size = 512 sequences * 2048 tokens ~ 1M tokens/step:
+batch_size: 16
+grad_acc: 32
+
+# WSD (Warmup-Stable-Decay) Schedule (Paper 2 Section 4):
+lr_schedule:
+  type: "wsd"
+  warmup_ratio: 0.05                    # 5% warmup
+  cooldown_ratio: 0.20                  # 20% cooldown
+  min_lr_ratio: 0.0
+
+parameter_routing:
+  hidden_matrices: "muon"
+  embeddings_and_head: "adamw"
+
+optimizers:
+  # 1. Muon (Schatten-inf / Spectral Geometry, Perplexity 33.34)
+  muon_spectral:
+    optimizer: "muon"
+    lr: 0.015
+    momentum: 0.95
+    weight_decay: 0.1                   # Decoupled weight decay lambda = 0.1
+    schatten_r: "inf"
+
+  # 2. Atlas Optimized Baseline
+  atlas_exp1:
+    optimizer: "atlas"
+    lr: 0.015
+    momentum: 0.95
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01
+    schatten_r: "inf"
+
+  # 3. Euclidean Normalized SGD with Momentum (Schatten-2, Perplexity 40.18)
+  sgd_euclidean:
+    optimizer: "sgd"
+    lr: 0.015
+    momentum: 0.95
+    weight_decay: 0.1
+    schatten_r: 2.0
+
+  # 4. AdamW Baseline
+  adamw:
+    optimizer: "adamw"
+    lr: 0.0018
+    betas: [0.9, 0.95]
+    weight_decay: 0.01

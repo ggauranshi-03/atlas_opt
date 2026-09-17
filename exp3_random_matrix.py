@@ -24,7 +24,13 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
 # ─────────────────────────────── Config ───────────────────────────────────────
-with open("config.yaml", "r") as f:
+config_path = "config.yaml"
+for idx, arg in enumerate(sys.argv):
+    if arg in ("--config", "-c") and idx + 1 < len(sys.argv):
+        config_path = sys.argv[idx + 1]
+
+print(f"Loading configuration from: {config_path}")
+with open(config_path, "r") as f:
     CONFIG = yaml.safe_load(f)
 
 MODEL_NAME     = CONFIG["experiment"]["model_name"]

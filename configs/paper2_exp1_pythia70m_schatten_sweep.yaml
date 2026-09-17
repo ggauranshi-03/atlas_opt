@@ -1,0 +1,67 @@
+# ==============================================================================
+# PAPER 2 - EXPERIMENT 1: Pythia-70M Schatten-r Geometry & Learning Rate Sweep
+# Reference: Hübler et al. (2026), Section 4, Table 1 & Figure 4
+# ==============================================================================
+
+experiment:
+  experiment_id: "paper2_exp1_pythia70m_schatten_sweep"
+  wandb_project: "Paper2-Schatten-Muon"
+  task_type: "causal_lm"
+
+  # Model & Dataset (Paper 2 Section 4):
+  model_name: "EleutherAI/pythia-70m"   # 70M parameter Pythia architecture
+  dataset_name: "HuggingFaceFW/fineweb-edu"
+  dataset_config: "sample-10BT"
+  max_len: 2048                         # 2048 sequence length
+  total_tokens: 1400000000              # 1.4B tokens (Chinchilla-optimal)
+
+# Batch Size (Paper 2 Section 4):
+# 512 sequences * 2048 tokens ~ 1,048,576 tokens per step
+batch_size: 16
+grad_acc: 32                            # 16 * 32 = 512 effective batch size
+
+# Learning Rate Schedule (Paper 2 Section 4):
+# WSD (Warmup-Stable-Decay) schedule: 5% warmup, 20% cooldown
+lr_schedule:
+  type: "wsd"
+  warmup_ratio: 0.05
+  cooldown_ratio: 0.20
+  min_lr_ratio: 0.0
+
+# ------------------------------------------------------------------------------
+# Schatten-r Geometry Sweep (Table 1 in Paper 2):
+# r in {1, 8/7, 4/3, 3/2, 2, 3, 4, 8, inf}
+# ------------------------------------------------------------------------------
+schatten_geometries:
+  r_values: [1.0, 1.1428, 1.3333, 1.5, 2.0, 3.0, 4.0, 8.0, "inf"]
+  # r = 2.0: Euclidean / Frobenius (Normalized SGD-M) -> Perplexity 40.18
+  # r = 3.0: Optimal for p=1.5 heavy-tailed noise     -> Perplexity 34.51
+  # r = inf: Spectral norm (Muon / Atlas)              -> Perplexity 33.34
+
+# ------------------------------------------------------------------------------
+# Full Learning Rate Grid Sweep (Figure 4 in Paper 2):
+# ------------------------------------------------------------------------------
+lr_grid:
+  values: [0.005, 0.0075, 0.01, 0.0125, 0.015, 0.03, 0.06]
+  optimal_for_spectral: 0.015           # Optimal learning rate in Paper 2
+
+hyperparameters:
+  muon:
+    lr: 0.015
+    momentum: 0.95                      # beta = 0.95 in Paper 2
+    weight_decay: 0.1                   # lambda = 0.1 (decoupled weight decay)
+    schatten_r: "inf"
+
+  atlas_exp1:
+    lr: 0.015
+    momentum: 0.95
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01
+    schatten_r: "inf"
+
+  # Embedding & LM Head AdamW Optimizer:
+  adamw_embeddings:
+    lr: 0.0018
+    betas: [0.9, 0.95]
+    weight_decay: 0.01

@@ -1,0 +1,45 @@
+# ==============================================================================
+# PAPER 2 - EXPERIMENT 2: Heavy-Tailed Gradient Noise Measurement
+# Reference: Hübler et al. (2026), Section 4, Figures 1, 2, 3 & Appendix F
+# ==============================================================================
+
+experiment:
+  experiment_id: "paper2_exp2_pythia70m_noise_analysis"
+  wandb_project: "Paper2-Gradient-Noise-Analysis"
+  task_type: "noise_measurement"
+
+  # Model & Dataset:
+  model_name: "EleutherAI/pythia-70m"
+  dataset_name: "HuggingFaceFW/fineweb-edu"
+  dataset_config: "sample-10BT"
+  max_len: 2048
+  mini_batch_size: 512                  # Mini-batch size 512 for gradient evaluation
+
+# ------------------------------------------------------------------------------
+# Heavy-Tailed Noise Calculation Parameters (Paper 2 Section 4):
+# ------------------------------------------------------------------------------
+noise_analysis:
+  tail_index_p: 1.5                     # Heavy-tailed moment exponent p = 1.5
+
+  # Checkpoints evaluated:
+  eval_checkpoints:
+    - "initialization"                  # Checkpoint at step 0
+    - "final"                           # Checkpoint at end of training (T)
+
+  # Weight families tracked:
+  weight_families:
+    - "att.qkv"                         # Attention Q, K, V projection matrices
+    - "att.out"                         # Attention Output projection
+    - "mlp.up"                          # MLP Up / Gate projection
+    - "mlp.down"                        # MLP Down projection
+    - "embed"                           # Embedding and LM-head layers
+
+  # Noise norms computed:
+  # sigma_{S_1, p}^p = (1 / T) * sum_t || grad_true - grad_batch ||_{S_1}^p
+  # sigma_{F, p}^p   = (1 / T) * sum_t || grad_true - grad_batch ||_F^p
+  # Ratio compared against worst-case: sqrt(min(m, n)) ~ 22.5
+  norms:
+    - "schatten_1"                      # Nuclear norm ||.||_{S_1}
+    - "frobenius"                       # Frobenius norm ||.||_F
+    - "ell_1"                           # ell_1 vector norm (for embeddings)
+    - "ell_2"                           # ell_2 vector norm (for embeddings)

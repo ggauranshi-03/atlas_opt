@@ -1,0 +1,119 @@
+# ==============================================================================
+# PAPER 1 - EXPERIMENT 1: nanoGPT Pretraining on FineWeb10B (Optimizer Comparison)
+# Reference: Choudhury et al. (2026), Section 4.1, Table 2 & Figure 1a
+# ==============================================================================
+
+experiment:
+  experiment_id: "paper1_exp1_nanogpt_fineweb"
+  wandb_project: "Paper1-Muon-HeavyTailed"
+  task_type: "causal_lm"
+
+  # Model: 135M parameter nanoGPT (modded-nanogpt speedrun codebase)
+  model_name: "gpt2"                     # 135M GPT-2 architecture
+  model_config:
+    n_layer: 12
+    n_head: 12
+    n_embd: 768
+    vocab_size: 50257
+
+  # Dataset: FineWeb10B / FineWeb-Edu
+  dataset_name: "HuggingFaceFW/fineweb-edu"
+  dataset_config: "sample-10BT"
+  max_len: 2048                          # 2048 tokens sequence length
+  total_training_steps: 1490             # 1490 training iterations
+  val_tokens: 10485760                   # 10.48M held-out tokens
+
+# Batch size & accumulation
+batch_size: 16
+grad_acc: 32                             # 16 * 32 = 512 sequences/step (~1M tokens/step)
+
+# Parameter Routing Convention (Paper 1 Appendix E.2):
+# 2D Hidden Layer Matrices -> Muon / Atlas
+# Embedding & LM-Head Layers -> AdamW
+parameter_routing:
+  hidden_matrices: "muon"
+  embeddings_and_head: "adamw"
+
+# Optimizers Evaluated in Table 2:
+optimizers:
+  adamw_baseline:
+    optimizer: "adamw"
+    lr: 0.0018
+    betas: [0.9, 0.95]
+    weight_decay: 0.01
+
+  sgd_nesterov_baseline:
+    optimizer: "sgd"
+    lr: 0.0001
+    momentum: 0.9
+    nesterov: true
+    weight_decay: 0.01
+
+  muon_polyak:
+    optimizer: "muon"
+    lr: 0.0325
+    momentum: 0.9665
+    momentum_type: "polyak"
+    weight_decay: 0.01
+    solver: "quintic_theoretical"
+    steps_q: 7
+
+  muon_nesterov:
+    optimizer: "muon"
+    lr: 0.0325
+    momentum: 0.9665
+    momentum_type: "nesterov"
+    weight_decay: 0.01
+    solver: "quintic_theoretical"
+    steps_q: 7
+
+  rand_muon_polyak:
+    optimizer: "muon"
+    lr: 0.0325
+    momentum: 0.9665
+    momentum_type: "polyak"
+    weight_decay: 0.01
+    randomized: true
+    sketch_type: "gaussian"
+    target_rank_s: 200
+    oversampling_p: 10
+    power_iteration_h: 1
+    solver: "quintic_theoretical"
+    steps_q: 7
+
+  rand_muon_nesterov_gaussian:
+    optimizer: "muon"
+    lr: 0.0325
+    momentum: 0.9665
+    momentum_type: "nesterov"
+    weight_decay: 0.01
+    randomized: true
+    sketch_type: "gaussian"
+    target_rank_s: 200
+    oversampling_p: 10
+    power_iteration_h: 1
+    solver: "quintic_theoretical"
+    steps_q: 7
+
+  rand_muon_nesterov_kaczmarz:
+    optimizer: "muon"
+    lr: 0.0325
+    momentum: 0.9665
+    momentum_type: "nesterov"
+    weight_decay: 0.01
+    randomized: true
+    sketch_type: "kaczmarz"
+    target_rank_s: 200
+    oversampling_p: 10
+    power_iteration_h: 1
+    solver: "quintic_theoretical"
+    steps_q: 7
+
+  # Atlas Optimized Variants
+  atlas_exp1:
+    optimizer: "atlas"
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01

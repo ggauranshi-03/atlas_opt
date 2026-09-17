@@ -1,0 +1,61 @@
+# ==============================================================================
+# PAPER 1 - EXPERIMENT 4: CIFAR-10 CNN - Batch Size Maximization & Ablations
+# Reference: Choudhury et al. (2026), Section 4.2 & Appendix E.5
+# Figures: Fig 1d (Rank s), Fig 2c (Steps q), Fig 2d (Sketch), Fig 4a (Solvers), Fig 4b (Batch Size)
+# ==============================================================================
+
+experiment:
+  experiment_id: "paper1_exp4_cifar10_batch_scaling"
+  wandb_project: "Paper1-CIFAR10-Ablations"
+  task_type: "image_classification"
+
+  dataset_name: "cifar10"
+  model_name: "airbench_cnn"
+  num_classes: 10
+  total_training_steps: 720
+
+# ------------------------------------------------------------------------------
+# Batch Size Maximization Sweep (Figure 4b in Paper 1):
+# Evaluates loss convergence as batch size scales from 500 to 4000
+# ------------------------------------------------------------------------------
+batch_size_sweep:
+  batch_sizes: [500, 1000, 2000, 3000, 4000]
+  default: 500
+
+# ------------------------------------------------------------------------------
+# Inner-Iteration Steps q Sweep (Figure 2c):
+# ------------------------------------------------------------------------------
+steps_q_sweep:
+  q_values: [1, 3, 5, 7, 9]
+  default: 7
+
+# ------------------------------------------------------------------------------
+# Target Rank s Sweep (Figure 1d):
+# ------------------------------------------------------------------------------
+rank_s_sweep:
+  s_values: [16, 32, 64, 128]
+  default: 128
+
+# ------------------------------------------------------------------------------
+# Inexact Solvers (Figure 4a):
+# PolarExpress, Quintic (theoretical), Quintic (empirical), Cubic
+# ------------------------------------------------------------------------------
+solvers:
+  - "polarexpress"
+  - "quintic_theoretical"
+  - "quintic_empirical"
+  - "cubic"
+
+hyperparameters:
+  muon:
+    lr: 0.03
+    momentum: 0.9665
+    momentum_type: "nesterov"
+    weight_decay: 0.001
+
+  atlas:
+    lr: 0.02
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01
