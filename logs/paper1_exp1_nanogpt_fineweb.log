@@ -4,7 +4,7 @@ Using device: cuda
 
 
 ######################################################################
-# Config: paper1_exp1_nanogpt_fineweb | Optimizer: ATLAS | Epochs: 2
+# Config: paper1_exp1_nanogpt_fineweb | Optimizer: ATLAS | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -19,43 +19,33 @@ Using device: cuda
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
 `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
-  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.2998
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.3208
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.3016
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.2984
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.2979
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.2965
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.3015
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.3086
 
   [Optimal Atlas Config Selected]: lr=0.0325, rho=0.005, adam_lr=0.003
 ============================================================
 
 
-  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [atlas] for 2 epochs...
-  [ATLAS] Epoch  1/2 | Train Loss: 12.2583 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 12.4s
-  [ATLAS] Epoch  2/2 | Train Loss: 12.2033 | Val Loss: 8.9574 | Perplexity: 7764.77 | Time: 6.2s
+  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [atlas] for 5 epochs...
+  [ATLAS] Epoch  1/5 | Train Loss: 9.2126 | Val Loss: 2.3416 | Perplexity: 10.40 | Time: 10.4s
+  [ATLAS] Epoch  2/5 | Train Loss: 1.0335 | Val Loss: 0.4021 | Perplexity: 1.49 | Time: 8.9s
+  [ATLAS] Epoch  3/5 | Train Loss: 0.2289 | Val Loss: 0.3865 | Perplexity: 1.47 | Time: 8.9s
+  [ATLAS] Epoch  4/5 | Train Loss: 0.1884 | Val Loss: 0.3796 | Perplexity: 1.46 | Time: 8.9s
+  [ATLAS] Epoch  5/5 | Train Loss: 0.1834 | Val Loss: 0.3709 | Perplexity: 1.45 | Time: 8.9s
 
 ######################################################################
-# Config: paper1_exp1_nanogpt_fineweb | Optimizer: MUON | Epochs: 2
-######################################################################
-  Loading CPT model architecture: gpt2 in bfloat16...
-  Initialized model architecture from config (gpt2) in bfloat16.
-  Total trainable parameters: 124.4M
-  Preparing CPT corpus (max_len=512, vocab_size=50257)...
-  CPT Train batches: 22 | Val batches: 4
-
-  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [muon] for 2 epochs...
-  [MUON ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [MUON ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 8.1629 | Perplexity: 3508.46 | Time: 6.1s
-
-######################################################################
-# Config: paper1_exp1_nanogpt_fineweb | Optimizer: ADAM | Epochs: 2
+# Config: paper1_exp1_nanogpt_fineweb | Optimizer: MUON | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -63,12 +53,15 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50257)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [adam] for 2 epochs...
-  [ADAM ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [ADAM ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 9.8147 | Perplexity: 18300.46 | Time: 6.1s
+  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [muon] for 5 epochs...
+  [MUON ] Epoch  1/5 | Train Loss: 8.6681 | Val Loss: 3.0135 | Perplexity: 20.36 | Time: 8.5s
+  [MUON ] Epoch  2/5 | Train Loss: 1.9421 | Val Loss: 0.6251 | Perplexity: 1.87 | Time: 8.5s
+  [MUON ] Epoch  3/5 | Train Loss: 0.4159 | Val Loss: 0.4354 | Perplexity: 1.55 | Time: 8.5s
+  [MUON ] Epoch  4/5 | Train Loss: 0.2942 | Val Loss: 0.4268 | Perplexity: 1.53 | Time: 8.5s
+  [MUON ] Epoch  5/5 | Train Loss: 0.2873 | Val Loss: 0.4216 | Perplexity: 1.52 | Time: 8.5s
 
 ######################################################################
-# Config: paper1_exp1_nanogpt_fineweb | Optimizer: SGD | Epochs: 2
+# Config: paper1_exp1_nanogpt_fineweb | Optimizer: ADAM | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -76,9 +69,28 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50257)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [sgd] for 2 epochs...
-  [SGD  ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [SGD  ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 11.0030 | Perplexity: 22026.47 | Time: 6.1s
+  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [adam] for 5 epochs...
+  [ADAM ] Epoch  1/5 | Train Loss: 9.7775 | Val Loss: 5.9918 | Perplexity: 400.15 | Time: 8.4s
+  [ADAM ] Epoch  2/5 | Train Loss: 6.3536 | Val Loss: 5.6390 | Perplexity: 281.19 | Time: 8.3s
+  [ADAM ] Epoch  3/5 | Train Loss: 5.4925 | Val Loss: 5.6218 | Perplexity: 276.37 | Time: 8.3s
+  [ADAM ] Epoch  4/5 | Train Loss: 5.4499 | Val Loss: 5.6132 | Perplexity: 274.02 | Time: 8.3s
+  [ADAM ] Epoch  5/5 | Train Loss: 5.4464 | Val Loss: 5.6028 | Perplexity: 271.17 | Time: 8.3s
+
+######################################################################
+# Config: paper1_exp1_nanogpt_fineweb | Optimizer: SGD | Epochs: 5
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Initialized model architecture from config (gpt2) in bfloat16.
+  Total trainable parameters: 124.4M
+  Preparing CPT corpus (max_len=512, vocab_size=50257)...
+  CPT Train batches: 22 | Val batches: 4
+
+  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [sgd] for 5 epochs...
+  [SGD  ] Epoch  1/5 | Train Loss: 10.9980 | Val Loss: 11.0023 | Perplexity: 60014.90 | Time: 8.3s
+  [SGD  ] Epoch  2/5 | Train Loss: 10.9973 | Val Loss: 11.0007 | Perplexity: 59917.15 | Time: 8.3s
+  [SGD  ] Epoch  3/5 | Train Loss: 10.9965 | Val Loss: 10.9997 | Perplexity: 59855.29 | Time: 8.3s
+  [SGD  ] Epoch  4/5 | Train Loss: 10.9933 | Val Loss: 10.9995 | Perplexity: 59847.04 | Time: 8.3s
+  [SGD  ] Epoch  5/5 | Train Loss: 10.9933 | Val Loss: 10.9994 | Perplexity: 59839.35 | Time: 8.3s
 
   [Single CSV Saved]: logs/paper1_exp1_nanogpt_fineweb_logs.csv
   [Unified Comparison Plot Saved]: logs/paper1_exp1_nanogpt_fineweb_plot.png
@@ -86,10 +98,10 @@ Using device: cuda
 ================================================================================
                       ALL BENCHMARKS COMPLETED SUCCESSFULLY
 ================================================================================
-  paper1_exp1_nanogpt_fineweb         | Opt: atlas          | Loss: 12.2033 | Perplexity    : 7764.77 | Time: 18.7s
-  paper1_exp1_nanogpt_fineweb         | Opt: muon           | Loss: 10.9971 | Perplexity    : 3508.46 | Time: 12.3s
-  paper1_exp1_nanogpt_fineweb         | Opt: adam           | Loss: 10.9971 | Perplexity    : 18300.46 | Time: 12.2s
-  paper1_exp1_nanogpt_fineweb         | Opt: sgd            | Loss: 10.9971 | Perplexity    : 22026.47 | Time: 12.2s
+  paper1_exp1_nanogpt_fineweb         | Opt: atlas          | Train: 0.1834 | Val: 0.3709 | Perplexity    : 1.45 | Time: 46.1s
+  paper1_exp1_nanogpt_fineweb         | Opt: muon           | Train: 0.2873 | Val: 0.4216 | Perplexity    : 1.52 | Time: 42.5s
+  paper1_exp1_nanogpt_fineweb         | Opt: adam           | Train: 5.4464 | Val: 5.6028 | Perplexity    : 271.17 | Time: 41.7s
+  paper1_exp1_nanogpt_fineweb         | Opt: sgd            | Train: 10.9933 | Val: 10.9994 | Perplexity    : 59839.35 | Time: 41.7s
 
 Detailed master summary saved to logs/all_experiments_summary.csv
 ================================================================================

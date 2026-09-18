@@ -4,7 +4,7 @@ Using device: cuda
 
 
 ######################################################################
-# Config: paper1_exp2_nanogpt_ablations | Optimizer: ATLAS | Epochs: 2
+# Config: paper1_exp2_nanogpt_ablations | Optimizer: ATLAS | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -19,43 +19,33 @@ Using device: cuda
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
 `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
-  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.2994
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.3212
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.3016
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.2984
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.2980
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.2966
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.3018
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.3086
 
   [Optimal Atlas Config Selected]: lr=0.0325, rho=0.005, adam_lr=0.003
 ============================================================
 
 
-  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [atlas] for 2 epochs...
-  [ATLAS] Epoch  1/2 | Train Loss: 12.2584 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 12.5s
-  [ATLAS] Epoch  2/2 | Train Loss: 12.2029 | Val Loss: 8.9572 | Perplexity: 7763.87 | Time: 6.2s
+  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [atlas] for 5 epochs...
+  [ATLAS] Epoch  1/5 | Train Loss: 9.2118 | Val Loss: 2.3403 | Perplexity: 10.38 | Time: 10.5s
+  [ATLAS] Epoch  2/5 | Train Loss: 1.0348 | Val Loss: 0.4023 | Perplexity: 1.50 | Time: 9.0s
+  [ATLAS] Epoch  3/5 | Train Loss: 0.2290 | Val Loss: 0.3865 | Perplexity: 1.47 | Time: 9.0s
+  [ATLAS] Epoch  4/5 | Train Loss: 0.1886 | Val Loss: 0.3807 | Perplexity: 1.46 | Time: 9.0s
+  [ATLAS] Epoch  5/5 | Train Loss: 0.1835 | Val Loss: 0.3712 | Perplexity: 1.45 | Time: 9.0s
 
 ######################################################################
-# Config: paper1_exp2_nanogpt_ablations | Optimizer: MUON | Epochs: 2
-######################################################################
-  Loading CPT model architecture: gpt2 in bfloat16...
-  Initialized model architecture from config (gpt2) in bfloat16.
-  Total trainable parameters: 124.4M
-  Preparing CPT corpus (max_len=512, vocab_size=50257)...
-  CPT Train batches: 22 | Val batches: 4
-
-  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [muon] for 2 epochs...
-  [MUON ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [MUON ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 8.1634 | Perplexity: 3510.16 | Time: 6.1s
-
-######################################################################
-# Config: paper1_exp2_nanogpt_ablations | Optimizer: ADAM | Epochs: 2
+# Config: paper1_exp2_nanogpt_ablations | Optimizer: MUON | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -63,12 +53,15 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50257)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [adam] for 2 epochs...
-  [ADAM ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [ADAM ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 9.8147 | Perplexity: 18300.12 | Time: 6.1s
+  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [muon] for 5 epochs...
+  [MUON ] Epoch  1/5 | Train Loss: 8.6701 | Val Loss: 3.0203 | Perplexity: 20.50 | Time: 8.5s
+  [MUON ] Epoch  2/5 | Train Loss: 1.9463 | Val Loss: 0.6256 | Perplexity: 1.87 | Time: 8.5s
+  [MUON ] Epoch  3/5 | Train Loss: 0.4164 | Val Loss: 0.4353 | Perplexity: 1.55 | Time: 8.5s
+  [MUON ] Epoch  4/5 | Train Loss: 0.2943 | Val Loss: 0.4267 | Perplexity: 1.53 | Time: 8.5s
+  [MUON ] Epoch  5/5 | Train Loss: 0.2874 | Val Loss: 0.4216 | Perplexity: 1.52 | Time: 8.5s
 
 ######################################################################
-# Config: paper1_exp2_nanogpt_ablations | Optimizer: SGD | Epochs: 2
+# Config: paper1_exp2_nanogpt_ablations | Optimizer: ADAM | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -76,9 +69,28 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50257)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [sgd] for 2 epochs...
-  [SGD  ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [SGD  ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 11.0027 | Perplexity: 22026.47 | Time: 6.1s
+  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [adam] for 5 epochs...
+  [ADAM ] Epoch  1/5 | Train Loss: 9.7775 | Val Loss: 5.9918 | Perplexity: 400.14 | Time: 8.4s
+  [ADAM ] Epoch  2/5 | Train Loss: 6.4278 | Val Loss: 5.6397 | Perplexity: 281.39 | Time: 8.3s
+  [ADAM ] Epoch  3/5 | Train Loss: 5.4925 | Val Loss: 5.6217 | Perplexity: 276.37 | Time: 8.3s
+  [ADAM ] Epoch  4/5 | Train Loss: 5.4497 | Val Loss: 5.6135 | Perplexity: 274.10 | Time: 8.3s
+  [ADAM ] Epoch  5/5 | Train Loss: 5.4462 | Val Loss: 5.6032 | Perplexity: 271.28 | Time: 8.4s
+
+######################################################################
+# Config: paper1_exp2_nanogpt_ablations | Optimizer: SGD | Epochs: 5
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Initialized model architecture from config (gpt2) in bfloat16.
+  Total trainable parameters: 124.4M
+  Preparing CPT corpus (max_len=512, vocab_size=50257)...
+  CPT Train batches: 22 | Val batches: 4
+
+  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [sgd] for 5 epochs...
+  [SGD  ] Epoch  1/5 | Train Loss: 10.9954 | Val Loss: 10.9755 | Perplexity: 58425.53 | Time: 8.3s
+  [SGD  ] Epoch  2/5 | Train Loss: 10.9549 | Val Loss: 10.9025 | Perplexity: 54311.33 | Time: 8.3s
+  [SGD  ] Epoch  3/5 | Train Loss: 10.9020 | Val Loss: 10.8659 | Perplexity: 52359.77 | Time: 8.3s
+  [SGD  ] Epoch  4/5 | Train Loss: 10.8810 | Val Loss: 10.8624 | Perplexity: 52177.13 | Time: 8.3s
+  [SGD  ] Epoch  5/5 | Train Loss: 10.8803 | Val Loss: 10.8605 | Perplexity: 52078.23 | Time: 8.3s
 
   [Single CSV Saved]: logs/paper1_exp2_nanogpt_ablations_logs.csv
   [Unified Comparison Plot Saved]: logs/paper1_exp2_nanogpt_ablations_plot.png
@@ -86,10 +98,10 @@ Using device: cuda
 ================================================================================
                       ALL BENCHMARKS COMPLETED SUCCESSFULLY
 ================================================================================
-  paper1_exp2_nanogpt_ablations       | Opt: atlas          | Loss: 12.2029 | Perplexity    : 7763.87 | Time: 18.7s
-  paper1_exp2_nanogpt_ablations       | Opt: muon           | Loss: 10.9971 | Perplexity    : 3510.16 | Time: 12.3s
-  paper1_exp2_nanogpt_ablations       | Opt: adam           | Loss: 10.9971 | Perplexity    : 18300.12 | Time: 12.2s
-  paper1_exp2_nanogpt_ablations       | Opt: sgd            | Loss: 10.9971 | Perplexity    : 22026.47 | Time: 12.2s
+  paper1_exp2_nanogpt_ablations       | Opt: atlas          | Train: 0.1835 | Val: 0.3712 | Perplexity    : 1.45 | Time: 46.4s
+  paper1_exp2_nanogpt_ablations       | Opt: muon           | Train: 0.2874 | Val: 0.4216 | Perplexity    : 1.52 | Time: 42.5s
+  paper1_exp2_nanogpt_ablations       | Opt: adam           | Train: 5.4462 | Val: 5.6032 | Perplexity    : 271.28 | Time: 41.8s
+  paper1_exp2_nanogpt_ablations       | Opt: sgd            | Train: 10.8803 | Val: 10.8605 | Perplexity    : 52078.23 | Time: 41.7s
 
 Detailed master summary saved to logs/all_experiments_summary.csv
 ================================================================================

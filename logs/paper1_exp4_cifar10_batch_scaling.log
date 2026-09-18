@@ -4,7 +4,7 @@ Using device: cuda
 
 
 ######################################################################
-# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: ATLAS | Epochs: 2
+# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: ATLAS | Epochs: 5
 ######################################################################
   Instantiating Airbench CNN (num_classes=10)...
   Loading CIFAR-10 vision dataset...
@@ -14,54 +14,66 @@ Using device: cuda
   [Atlas Hyperparameter Tuning] Finding Optimal (lr, rho, adam_lr)
 ============================================================
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 1/4: lr=0.035  rho=0.006  adam_lr=0.001 -> End Loss: 2.1362
+  Trial 1/4: lr=0.035  rho=0.006  adam_lr=0.001 -> End Loss: 1.5985
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 2/4: lr=0.04   rho=0.008  adam_lr=0.001 -> End Loss: 2.1338
+  Trial 2/4: lr=0.04   rho=0.008  adam_lr=0.001 -> End Loss: 1.5967
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 3/4: lr=0.03   rho=0.005  adam_lr=0.001 -> End Loss: 2.1265
+  Trial 3/4: lr=0.03   rho=0.005  adam_lr=0.001 -> End Loss: 1.6132
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 4/4: lr=0.045  rho=0.008  adam_lr=0.001 -> End Loss: 2.1536
+  Trial 4/4: lr=0.045  rho=0.008  adam_lr=0.001 -> End Loss: 1.5941
 
-  [Optimal Atlas Config Selected]: lr=0.03, rho=0.005, adam_lr=0.001
+  [Optimal Atlas Config Selected]: lr=0.045, rho=0.008, adam_lr=0.001
 ============================================================
 
 
-  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [atlas] for 2 epochs...
-  [ATLAS] Epoch  1/2 | Train Loss: 2.4745 | Val Loss: 2.3759 | Val Acc (%): 10.50 | Time: 17.8s
-  [ATLAS] Epoch  2/2 | Train Loss: 2.2434 | Val Loss: 2.0198 | Val Acc (%): 31.39 | Time: 17.7s
+  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [atlas] for 5 epochs...
+  [ATLAS] Epoch  1/5 | Train Loss: 1.3659 | Val Loss: 0.9490 | Val Acc (%): 66.14 | Time: 12.9s
+  [ATLAS] Epoch  2/5 | Train Loss: 0.7310 | Val Loss: 0.6615 | Val Acc (%): 77.26 | Time: 12.7s
+  [ATLAS] Epoch  3/5 | Train Loss: 0.5456 | Val Loss: 0.5439 | Val Acc (%): 81.02 | Time: 12.7s
+  [ATLAS] Epoch  4/5 | Train Loss: 0.4304 | Val Loss: 0.4829 | Val Acc (%): 83.36 | Time: 12.8s
+  [ATLAS] Epoch  5/5 | Train Loss: 0.3660 | Val Loss: 0.4562 | Val Acc (%): 84.36 | Time: 12.8s
 
 ######################################################################
-# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: MUON | Epochs: 2
-######################################################################
-  Instantiating Airbench CNN (num_classes=10)...
-  Loading CIFAR-10 vision dataset...
-  CIFAR-10 Train: 50,000 | Val: 10,000
-
-  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [muon] for 2 epochs...
-  [MUON ] Epoch  1/2 | Train Loss: 2.3990 | Val Loss: 2.3712 | Val Acc (%): 10.59 | Time: 17.2s
-  [MUON ] Epoch  2/2 | Train Loss: 2.2450 | Val Loss: 2.1005 | Val Acc (%): 25.16 | Time: 17.4s
-
-######################################################################
-# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: ADAM | Epochs: 2
+# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: MUON | Epochs: 5
 ######################################################################
   Instantiating Airbench CNN (num_classes=10)...
   Loading CIFAR-10 vision dataset...
   CIFAR-10 Train: 50,000 | Val: 10,000
 
-  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [adam] for 2 epochs...
-  [ADAM ] Epoch  1/2 | Train Loss: 2.3990 | Val Loss: 2.3712 | Val Acc (%): 10.59 | Time: 16.4s
-  [ADAM ] Epoch  2/2 | Train Loss: 2.0001 | Val Loss: 1.8098 | Val Acc (%): 35.01 | Time: 16.4s
+  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [muon] for 5 epochs...
+  [MUON ] Epoch  1/5 | Train Loss: 1.4260 | Val Loss: 0.8929 | Val Acc (%): 68.65 | Time: 12.8s
+  [MUON ] Epoch  2/5 | Train Loss: 0.7556 | Val Loss: 0.6683 | Val Acc (%): 76.66 | Time: 12.8s
+  [MUON ] Epoch  3/5 | Train Loss: 0.5705 | Val Loss: 0.5500 | Val Acc (%): 80.99 | Time: 12.6s
+  [MUON ] Epoch  4/5 | Train Loss: 0.4580 | Val Loss: 0.4873 | Val Acc (%): 83.22 | Time: 12.8s
+  [MUON ] Epoch  5/5 | Train Loss: 0.3941 | Val Loss: 0.4728 | Val Acc (%): 83.74 | Time: 12.7s
 
 ######################################################################
-# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: SGD | Epochs: 2
+# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: ADAM | Epochs: 5
 ######################################################################
   Instantiating Airbench CNN (num_classes=10)...
   Loading CIFAR-10 vision dataset...
   CIFAR-10 Train: 50,000 | Val: 10,000
 
-  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [sgd] for 2 epochs...
-  [SGD  ] Epoch  1/2 | Train Loss: 2.3990 | Val Loss: 2.3712 | Val Acc (%): 10.59 | Time: 16.4s
-  [SGD  ] Epoch  2/2 | Train Loss: 2.3852 | Val Loss: 2.3501 | Val Acc (%): 10.95 | Time: 16.2s
+  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [adam] for 5 epochs...
+  [ADAM ] Epoch  1/5 | Train Loss: 1.4664 | Val Loss: 1.3047 | Val Acc (%): 55.32 | Time: 12.7s
+  [ADAM ] Epoch  2/5 | Train Loss: 1.0316 | Val Loss: 1.0209 | Val Acc (%): 63.84 | Time: 12.5s
+  [ADAM ] Epoch  3/5 | Train Loss: 0.8465 | Val Loss: 0.8453 | Val Acc (%): 70.82 | Time: 12.5s
+  [ADAM ] Epoch  4/5 | Train Loss: 0.7205 | Val Loss: 0.6943 | Val Acc (%): 75.55 | Time: 12.5s
+  [ADAM ] Epoch  5/5 | Train Loss: 0.6405 | Val Loss: 0.6540 | Val Acc (%): 77.41 | Time: 12.5s
+
+######################################################################
+# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: SGD | Epochs: 5
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [sgd] for 5 epochs...
+  [SGD  ] Epoch  1/5 | Train Loss: 2.1199 | Val Loss: 1.9022 | Val Acc (%): 31.39 | Time: 12.6s
+  [SGD  ] Epoch  2/5 | Train Loss: 1.8022 | Val Loss: 1.7307 | Val Acc (%): 37.25 | Time: 12.6s
+  [SGD  ] Epoch  3/5 | Train Loss: 1.6911 | Val Loss: 1.6543 | Val Acc (%): 39.84 | Time: 12.7s
+  [SGD  ] Epoch  4/5 | Train Loss: 1.6462 | Val Loss: 1.6326 | Val Acc (%): 40.64 | Time: 12.6s
+  [SGD  ] Epoch  5/5 | Train Loss: 1.6316 | Val Loss: 1.6201 | Val Acc (%): 40.96 | Time: 12.6s
 
   [Single CSV Saved]: logs/paper1_exp4_cifar10_batch_scaling_logs.csv
   [Unified Comparison Plot Saved]: logs/paper1_exp4_cifar10_batch_scaling_plot.png
@@ -69,10 +81,10 @@ Using device: cuda
 ================================================================================
                       ALL BENCHMARKS COMPLETED SUCCESSFULLY
 ================================================================================
-  paper1_exp4_cifar10_batch_scaling   | Opt: atlas          | Loss: 2.2434 | Val Acc (%)   : 31.39 | Time: 35.6s
-  paper1_exp4_cifar10_batch_scaling   | Opt: muon           | Loss: 2.2450 | Val Acc (%)   : 25.16 | Time: 34.6s
-  paper1_exp4_cifar10_batch_scaling   | Opt: adam           | Loss: 2.0001 | Val Acc (%)   : 35.01 | Time: 32.7s
-  paper1_exp4_cifar10_batch_scaling   | Opt: sgd            | Loss: 2.3852 | Val Acc (%)   : 10.95 | Time: 32.6s
+  paper1_exp4_cifar10_batch_scaling   | Opt: atlas          | Train: 0.3660 | Val: 0.4562 | Val Acc (%)   : 84.36 | Time: 63.9s
+  paper1_exp4_cifar10_batch_scaling   | Opt: muon           | Train: 0.3941 | Val: 0.4728 | Val Acc (%)   : 83.74 | Time: 63.7s
+  paper1_exp4_cifar10_batch_scaling   | Opt: adam           | Train: 0.6405 | Val: 0.6540 | Val Acc (%)   : 77.41 | Time: 62.9s
+  paper1_exp4_cifar10_batch_scaling   | Opt: sgd            | Train: 1.6316 | Val: 1.6201 | Val Acc (%)   : 40.96 | Time: 63.1s
 
 Detailed master summary saved to logs/all_experiments_summary.csv
 ================================================================================

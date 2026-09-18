@@ -1,6 +1,3 @@
-========================================================================
-          RUNNING ATLAS CPT EXPERIMENTS ON ALL CONFIGS
-========================================================================
 
 ========================================================================
 >>> Executing: configs/paper1_exp1_nanogpt_fineweb.yaml [Log: logs/paper1_exp1_nanogpt_fineweb.log] <<<
@@ -11,7 +8,7 @@ Using device: cuda
 
 
 ######################################################################
-# Config: paper1_exp1_nanogpt_fineweb | Optimizer: ATLAS | Epochs: 2
+# Config: paper1_exp1_nanogpt_fineweb | Optimizer: ATLAS | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -26,43 +23,33 @@ Using device: cuda
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
 `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
-  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.2998
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.3208
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.3016
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.2984
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.2979
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.2965
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.3015
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.3086
 
   [Optimal Atlas Config Selected]: lr=0.0325, rho=0.005, adam_lr=0.003
 ============================================================
 
 
-  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [atlas] for 2 epochs...
-  [ATLAS] Epoch  1/2 | Train Loss: 12.2583 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 12.4s
-  [ATLAS] Epoch  2/2 | Train Loss: 12.2033 | Val Loss: 8.9574 | Perplexity: 7764.77 | Time: 6.2s
+  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [atlas] for 5 epochs...
+  [ATLAS] Epoch  1/5 | Train Loss: 9.2126 | Val Loss: 2.3416 | Perplexity: 10.40 | Time: 10.4s
+  [ATLAS] Epoch  2/5 | Train Loss: 1.0335 | Val Loss: 0.4021 | Perplexity: 1.49 | Time: 8.9s
+  [ATLAS] Epoch  3/5 | Train Loss: 0.2289 | Val Loss: 0.3865 | Perplexity: 1.47 | Time: 8.9s
+  [ATLAS] Epoch  4/5 | Train Loss: 0.1884 | Val Loss: 0.3796 | Perplexity: 1.46 | Time: 8.9s
+  [ATLAS] Epoch  5/5 | Train Loss: 0.1834 | Val Loss: 0.3709 | Perplexity: 1.45 | Time: 8.9s
 
 ######################################################################
-# Config: paper1_exp1_nanogpt_fineweb | Optimizer: MUON | Epochs: 2
-######################################################################
-  Loading CPT model architecture: gpt2 in bfloat16...
-  Initialized model architecture from config (gpt2) in bfloat16.
-  Total trainable parameters: 124.4M
-  Preparing CPT corpus (max_len=512, vocab_size=50257)...
-  CPT Train batches: 22 | Val batches: 4
-
-  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [muon] for 2 epochs...
-  [MUON ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [MUON ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 8.1629 | Perplexity: 3508.46 | Time: 6.1s
-
-######################################################################
-# Config: paper1_exp1_nanogpt_fineweb | Optimizer: ADAM | Epochs: 2
+# Config: paper1_exp1_nanogpt_fineweb | Optimizer: MUON | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -70,12 +57,15 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50257)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [adam] for 2 epochs...
-  [ADAM ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [ADAM ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 9.8147 | Perplexity: 18300.46 | Time: 6.1s
+  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [muon] for 5 epochs...
+  [MUON ] Epoch  1/5 | Train Loss: 8.6681 | Val Loss: 3.0135 | Perplexity: 20.36 | Time: 8.5s
+  [MUON ] Epoch  2/5 | Train Loss: 1.9421 | Val Loss: 0.6251 | Perplexity: 1.87 | Time: 8.5s
+  [MUON ] Epoch  3/5 | Train Loss: 0.4159 | Val Loss: 0.4354 | Perplexity: 1.55 | Time: 8.5s
+  [MUON ] Epoch  4/5 | Train Loss: 0.2942 | Val Loss: 0.4268 | Perplexity: 1.53 | Time: 8.5s
+  [MUON ] Epoch  5/5 | Train Loss: 0.2873 | Val Loss: 0.4216 | Perplexity: 1.52 | Time: 8.5s
 
 ######################################################################
-# Config: paper1_exp1_nanogpt_fineweb | Optimizer: SGD | Epochs: 2
+# Config: paper1_exp1_nanogpt_fineweb | Optimizer: ADAM | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -83,9 +73,28 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50257)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [sgd] for 2 epochs...
-  [SGD  ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [SGD  ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 11.0030 | Perplexity: 22026.47 | Time: 6.1s
+  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [adam] for 5 epochs...
+  [ADAM ] Epoch  1/5 | Train Loss: 9.7775 | Val Loss: 5.9918 | Perplexity: 400.15 | Time: 8.4s
+  [ADAM ] Epoch  2/5 | Train Loss: 6.3536 | Val Loss: 5.6390 | Perplexity: 281.19 | Time: 8.3s
+  [ADAM ] Epoch  3/5 | Train Loss: 5.4925 | Val Loss: 5.6218 | Perplexity: 276.37 | Time: 8.3s
+  [ADAM ] Epoch  4/5 | Train Loss: 5.4499 | Val Loss: 5.6132 | Perplexity: 274.02 | Time: 8.3s
+  [ADAM ] Epoch  5/5 | Train Loss: 5.4464 | Val Loss: 5.6028 | Perplexity: 271.17 | Time: 8.3s
+
+######################################################################
+# Config: paper1_exp1_nanogpt_fineweb | Optimizer: SGD | Epochs: 5
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Initialized model architecture from config (gpt2) in bfloat16.
+  Total trainable parameters: 124.4M
+  Preparing CPT corpus (max_len=512, vocab_size=50257)...
+  CPT Train batches: 22 | Val batches: 4
+
+  Starting training [paper1_exp1_nanogpt_fineweb] with optimizer [sgd] for 5 epochs...
+  [SGD  ] Epoch  1/5 | Train Loss: 10.9980 | Val Loss: 11.0023 | Perplexity: 60014.90 | Time: 8.3s
+  [SGD  ] Epoch  2/5 | Train Loss: 10.9973 | Val Loss: 11.0007 | Perplexity: 59917.15 | Time: 8.3s
+  [SGD  ] Epoch  3/5 | Train Loss: 10.9965 | Val Loss: 10.9997 | Perplexity: 59855.29 | Time: 8.3s
+  [SGD  ] Epoch  4/5 | Train Loss: 10.9933 | Val Loss: 10.9995 | Perplexity: 59847.04 | Time: 8.3s
+  [SGD  ] Epoch  5/5 | Train Loss: 10.9933 | Val Loss: 10.9994 | Perplexity: 59839.35 | Time: 8.3s
 
   [Single CSV Saved]: logs/paper1_exp1_nanogpt_fineweb_logs.csv
   [Unified Comparison Plot Saved]: logs/paper1_exp1_nanogpt_fineweb_plot.png
@@ -93,10 +102,10 @@ Using device: cuda
 ================================================================================
                       ALL BENCHMARKS COMPLETED SUCCESSFULLY
 ================================================================================
-  paper1_exp1_nanogpt_fineweb         | Opt: atlas          | Loss: 12.2033 | Perplexity    : 7764.77 | Time: 18.7s
-  paper1_exp1_nanogpt_fineweb         | Opt: muon           | Loss: 10.9971 | Perplexity    : 3508.46 | Time: 12.3s
-  paper1_exp1_nanogpt_fineweb         | Opt: adam           | Loss: 10.9971 | Perplexity    : 18300.46 | Time: 12.2s
-  paper1_exp1_nanogpt_fineweb         | Opt: sgd            | Loss: 10.9971 | Perplexity    : 22026.47 | Time: 12.2s
+  paper1_exp1_nanogpt_fineweb         | Opt: atlas          | Train: 0.1834 | Val: 0.3709 | Perplexity    : 1.45 | Time: 46.1s
+  paper1_exp1_nanogpt_fineweb         | Opt: muon           | Train: 0.2873 | Val: 0.4216 | Perplexity    : 1.52 | Time: 42.5s
+  paper1_exp1_nanogpt_fineweb         | Opt: adam           | Train: 5.4464 | Val: 5.6028 | Perplexity    : 271.17 | Time: 41.7s
+  paper1_exp1_nanogpt_fineweb         | Opt: sgd            | Train: 10.9933 | Val: 10.9994 | Perplexity    : 59839.35 | Time: 41.7s
 
 Detailed master summary saved to logs/all_experiments_summary.csv
 ================================================================================
@@ -111,7 +120,7 @@ Using device: cuda
 
 
 ######################################################################
-# Config: paper1_exp2_nanogpt_ablations | Optimizer: ATLAS | Epochs: 2
+# Config: paper1_exp2_nanogpt_ablations | Optimizer: ATLAS | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -126,43 +135,33 @@ Using device: cuda
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
 `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
-  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.2994
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.3212
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.3016
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.2984
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.2980
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.2966
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
   Total trainable parameters: 124.4M
-  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.3018
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.3086
 
   [Optimal Atlas Config Selected]: lr=0.0325, rho=0.005, adam_lr=0.003
 ============================================================
 
 
-  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [atlas] for 2 epochs...
-  [ATLAS] Epoch  1/2 | Train Loss: 12.2584 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 12.5s
-  [ATLAS] Epoch  2/2 | Train Loss: 12.2029 | Val Loss: 8.9572 | Perplexity: 7763.87 | Time: 6.2s
+  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [atlas] for 5 epochs...
+  [ATLAS] Epoch  1/5 | Train Loss: 9.2118 | Val Loss: 2.3403 | Perplexity: 10.38 | Time: 10.5s
+  [ATLAS] Epoch  2/5 | Train Loss: 1.0348 | Val Loss: 0.4023 | Perplexity: 1.50 | Time: 9.0s
+  [ATLAS] Epoch  3/5 | Train Loss: 0.2290 | Val Loss: 0.3865 | Perplexity: 1.47 | Time: 9.0s
+  [ATLAS] Epoch  4/5 | Train Loss: 0.1886 | Val Loss: 0.3807 | Perplexity: 1.46 | Time: 9.0s
+  [ATLAS] Epoch  5/5 | Train Loss: 0.1835 | Val Loss: 0.3712 | Perplexity: 1.45 | Time: 9.0s
 
 ######################################################################
-# Config: paper1_exp2_nanogpt_ablations | Optimizer: MUON | Epochs: 2
-######################################################################
-  Loading CPT model architecture: gpt2 in bfloat16...
-  Initialized model architecture from config (gpt2) in bfloat16.
-  Total trainable parameters: 124.4M
-  Preparing CPT corpus (max_len=512, vocab_size=50257)...
-  CPT Train batches: 22 | Val batches: 4
-
-  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [muon] for 2 epochs...
-  [MUON ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [MUON ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 8.1634 | Perplexity: 3510.16 | Time: 6.1s
-
-######################################################################
-# Config: paper1_exp2_nanogpt_ablations | Optimizer: ADAM | Epochs: 2
+# Config: paper1_exp2_nanogpt_ablations | Optimizer: MUON | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -170,12 +169,15 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50257)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [adam] for 2 epochs...
-  [ADAM ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [ADAM ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 9.8147 | Perplexity: 18300.12 | Time: 6.1s
+  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [muon] for 5 epochs...
+  [MUON ] Epoch  1/5 | Train Loss: 8.6701 | Val Loss: 3.0203 | Perplexity: 20.50 | Time: 8.5s
+  [MUON ] Epoch  2/5 | Train Loss: 1.9463 | Val Loss: 0.6256 | Perplexity: 1.87 | Time: 8.5s
+  [MUON ] Epoch  3/5 | Train Loss: 0.4164 | Val Loss: 0.4353 | Perplexity: 1.55 | Time: 8.5s
+  [MUON ] Epoch  4/5 | Train Loss: 0.2943 | Val Loss: 0.4267 | Perplexity: 1.53 | Time: 8.5s
+  [MUON ] Epoch  5/5 | Train Loss: 0.2874 | Val Loss: 0.4216 | Perplexity: 1.52 | Time: 8.5s
 
 ######################################################################
-# Config: paper1_exp2_nanogpt_ablations | Optimizer: SGD | Epochs: 2
+# Config: paper1_exp2_nanogpt_ablations | Optimizer: ADAM | Epochs: 5
 ######################################################################
   Loading CPT model architecture: gpt2 in bfloat16...
   Initialized model architecture from config (gpt2) in bfloat16.
@@ -183,9 +185,28 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50257)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [sgd] for 2 epochs...
-  [SGD  ] Epoch  1/2 | Train Loss: 10.9990 | Val Loss: 11.0031 | Perplexity: 22026.47 | Time: 6.1s
-  [SGD  ] Epoch  2/2 | Train Loss: 10.9971 | Val Loss: 11.0027 | Perplexity: 22026.47 | Time: 6.1s
+  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [adam] for 5 epochs...
+  [ADAM ] Epoch  1/5 | Train Loss: 9.7775 | Val Loss: 5.9918 | Perplexity: 400.14 | Time: 8.4s
+  [ADAM ] Epoch  2/5 | Train Loss: 6.4278 | Val Loss: 5.6397 | Perplexity: 281.39 | Time: 8.3s
+  [ADAM ] Epoch  3/5 | Train Loss: 5.4925 | Val Loss: 5.6217 | Perplexity: 276.37 | Time: 8.3s
+  [ADAM ] Epoch  4/5 | Train Loss: 5.4497 | Val Loss: 5.6135 | Perplexity: 274.10 | Time: 8.3s
+  [ADAM ] Epoch  5/5 | Train Loss: 5.4462 | Val Loss: 5.6032 | Perplexity: 271.28 | Time: 8.4s
+
+######################################################################
+# Config: paper1_exp2_nanogpt_ablations | Optimizer: SGD | Epochs: 5
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Initialized model architecture from config (gpt2) in bfloat16.
+  Total trainable parameters: 124.4M
+  Preparing CPT corpus (max_len=512, vocab_size=50257)...
+  CPT Train batches: 22 | Val batches: 4
+
+  Starting training [paper1_exp2_nanogpt_ablations] with optimizer [sgd] for 5 epochs...
+  [SGD  ] Epoch  1/5 | Train Loss: 10.9954 | Val Loss: 10.9755 | Perplexity: 58425.53 | Time: 8.3s
+  [SGD  ] Epoch  2/5 | Train Loss: 10.9549 | Val Loss: 10.9025 | Perplexity: 54311.33 | Time: 8.3s
+  [SGD  ] Epoch  3/5 | Train Loss: 10.9020 | Val Loss: 10.8659 | Perplexity: 52359.77 | Time: 8.3s
+  [SGD  ] Epoch  4/5 | Train Loss: 10.8810 | Val Loss: 10.8624 | Perplexity: 52177.13 | Time: 8.3s
+  [SGD  ] Epoch  5/5 | Train Loss: 10.8803 | Val Loss: 10.8605 | Perplexity: 52078.23 | Time: 8.3s
 
   [Single CSV Saved]: logs/paper1_exp2_nanogpt_ablations_logs.csv
   [Unified Comparison Plot Saved]: logs/paper1_exp2_nanogpt_ablations_plot.png
@@ -193,10 +214,10 @@ Using device: cuda
 ================================================================================
                       ALL BENCHMARKS COMPLETED SUCCESSFULLY
 ================================================================================
-  paper1_exp2_nanogpt_ablations       | Opt: atlas          | Loss: 12.2029 | Perplexity    : 7763.87 | Time: 18.7s
-  paper1_exp2_nanogpt_ablations       | Opt: muon           | Loss: 10.9971 | Perplexity    : 3510.16 | Time: 12.3s
-  paper1_exp2_nanogpt_ablations       | Opt: adam           | Loss: 10.9971 | Perplexity    : 18300.12 | Time: 12.2s
-  paper1_exp2_nanogpt_ablations       | Opt: sgd            | Loss: 10.9971 | Perplexity    : 22026.47 | Time: 12.2s
+  paper1_exp2_nanogpt_ablations       | Opt: atlas          | Train: 0.1835 | Val: 0.3712 | Perplexity    : 1.45 | Time: 46.4s
+  paper1_exp2_nanogpt_ablations       | Opt: muon           | Train: 0.2874 | Val: 0.4216 | Perplexity    : 1.52 | Time: 42.5s
+  paper1_exp2_nanogpt_ablations       | Opt: adam           | Train: 5.4462 | Val: 5.6032 | Perplexity    : 271.28 | Time: 41.8s
+  paper1_exp2_nanogpt_ablations       | Opt: sgd            | Train: 10.8803 | Val: 10.8605 | Perplexity    : 52078.23 | Time: 41.7s
 
 Detailed master summary saved to logs/all_experiments_summary.csv
 ================================================================================
@@ -211,7 +232,7 @@ Using device: cuda
 
 
 ######################################################################
-# Config: paper1_exp3_cifar10_cnn | Optimizer: ATLAS | Epochs: 2
+# Config: paper1_exp3_cifar10_cnn | Optimizer: ATLAS | Epochs: 5
 ######################################################################
   Instantiating Airbench CNN (num_classes=10)...
   Loading CIFAR-10 vision dataset...
@@ -221,54 +242,66 @@ Using device: cuda
   [Atlas Hyperparameter Tuning] Finding Optimal (lr, rho, adam_lr)
 ============================================================
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 1/4: lr=0.035  rho=0.006  adam_lr=0.001 -> End Loss: 1.5023
+  Trial 1/4: lr=0.035  rho=0.006  adam_lr=0.001 -> End Loss: 1.4783
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 2/4: lr=0.04   rho=0.008  adam_lr=0.001 -> End Loss: 1.4937
+  Trial 2/4: lr=0.04   rho=0.008  adam_lr=0.001 -> End Loss: 1.4717
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 3/4: lr=0.03   rho=0.005  adam_lr=0.001 -> End Loss: 1.5301
+  Trial 3/4: lr=0.03   rho=0.005  adam_lr=0.001 -> End Loss: 1.5047
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 4/4: lr=0.045  rho=0.008  adam_lr=0.001 -> End Loss: 1.4567
+  Trial 4/4: lr=0.045  rho=0.008  adam_lr=0.001 -> End Loss: 1.4504
 
   [Optimal Atlas Config Selected]: lr=0.045, rho=0.008, adam_lr=0.001
 ============================================================
 
 
-  Starting training [paper1_exp3_cifar10_cnn] with optimizer [atlas] for 2 epochs...
-  [ATLAS] Epoch  1/2 | Train Loss: 2.5401 | Val Loss: 2.3847 | Val Acc (%): 10.52 | Time: 12.7s
-  [ATLAS] Epoch  2/2 | Train Loss: 1.8268 | Val Loss: 1.4686 | Val Acc (%): 48.80 | Time: 12.6s
+  Starting training [paper1_exp3_cifar10_cnn] with optimizer [atlas] for 5 epochs...
+  [ATLAS] Epoch  1/5 | Train Loss: 1.3596 | Val Loss: 1.1026 | Val Acc (%): 63.65 | Time: 11.2s
+  [ATLAS] Epoch  2/5 | Train Loss: 0.7176 | Val Loss: 0.7159 | Val Acc (%): 75.95 | Time: 11.1s
+  [ATLAS] Epoch  3/5 | Train Loss: 0.5404 | Val Loss: 0.5667 | Val Acc (%): 80.88 | Time: 11.1s
+  [ATLAS] Epoch  4/5 | Train Loss: 0.4213 | Val Loss: 0.4842 | Val Acc (%): 83.52 | Time: 11.1s
+  [ATLAS] Epoch  5/5 | Train Loss: 0.3573 | Val Loss: 0.4501 | Val Acc (%): 84.60 | Time: 11.1s
 
 ######################################################################
-# Config: paper1_exp3_cifar10_cnn | Optimizer: MUON | Epochs: 2
-######################################################################
-  Instantiating Airbench CNN (num_classes=10)...
-  Loading CIFAR-10 vision dataset...
-  CIFAR-10 Train: 50,000 | Val: 10,000
-
-  Starting training [paper1_exp3_cifar10_cnn] with optimizer [muon] for 2 epochs...
-  [MUON ] Epoch  1/2 | Train Loss: 2.3938 | Val Loss: 2.3690 | Val Acc (%): 10.68 | Time: 12.6s
-  [MUON ] Epoch  2/2 | Train Loss: 1.8412 | Val Loss: 1.5280 | Val Acc (%): 47.08 | Time: 12.6s
-
-######################################################################
-# Config: paper1_exp3_cifar10_cnn | Optimizer: ADAM | Epochs: 2
+# Config: paper1_exp3_cifar10_cnn | Optimizer: MUON | Epochs: 5
 ######################################################################
   Instantiating Airbench CNN (num_classes=10)...
   Loading CIFAR-10 vision dataset...
   CIFAR-10 Train: 50,000 | Val: 10,000
 
-  Starting training [paper1_exp3_cifar10_cnn] with optimizer [adam] for 2 epochs...
-  [ADAM ] Epoch  1/2 | Train Loss: 2.3938 | Val Loss: 2.3690 | Val Acc (%): 10.68 | Time: 12.5s
-  [ADAM ] Epoch  2/2 | Train Loss: 1.7003 | Val Loss: 1.5119 | Val Acc (%): 45.46 | Time: 12.5s
+  Starting training [paper1_exp3_cifar10_cnn] with optimizer [muon] for 5 epochs...
+  [MUON ] Epoch  1/5 | Train Loss: 1.3717 | Val Loss: 0.9785 | Val Acc (%): 66.95 | Time: 11.2s
+  [MUON ] Epoch  2/5 | Train Loss: 0.7350 | Val Loss: 0.7016 | Val Acc (%): 76.05 | Time: 11.1s
+  [MUON ] Epoch  3/5 | Train Loss: 0.5553 | Val Loss: 0.5552 | Val Acc (%): 81.23 | Time: 11.1s
+  [MUON ] Epoch  4/5 | Train Loss: 0.4391 | Val Loss: 0.4880 | Val Acc (%): 83.37 | Time: 11.2s
+  [MUON ] Epoch  5/5 | Train Loss: 0.3748 | Val Loss: 0.4688 | Val Acc (%): 83.53 | Time: 11.1s
 
 ######################################################################
-# Config: paper1_exp3_cifar10_cnn | Optimizer: SGD | Epochs: 2
+# Config: paper1_exp3_cifar10_cnn | Optimizer: ADAM | Epochs: 5
 ######################################################################
   Instantiating Airbench CNN (num_classes=10)...
   Loading CIFAR-10 vision dataset...
   CIFAR-10 Train: 50,000 | Val: 10,000
 
-  Starting training [paper1_exp3_cifar10_cnn] with optimizer [sgd] for 2 epochs...
-  [SGD  ] Epoch  1/2 | Train Loss: 2.3938 | Val Loss: 2.3690 | Val Acc (%): 10.68 | Time: 12.5s
-  [SGD  ] Epoch  2/2 | Train Loss: 2.3850 | Val Loss: 2.3575 | Val Acc (%): 10.90 | Time: 12.5s
+  Starting training [paper1_exp3_cifar10_cnn] with optimizer [adam] for 5 epochs...
+  [ADAM ] Epoch  1/5 | Train Loss: 1.4971 | Val Loss: 1.5614 | Val Acc (%): 45.80 | Time: 11.2s
+  [ADAM ] Epoch  2/5 | Train Loss: 1.0629 | Val Loss: 1.0019 | Val Acc (%): 64.86 | Time: 11.1s
+  [ADAM ] Epoch  3/5 | Train Loss: 0.8898 | Val Loss: 0.9036 | Val Acc (%): 68.63 | Time: 10.9s
+  [ADAM ] Epoch  4/5 | Train Loss: 0.7680 | Val Loss: 0.7775 | Val Acc (%): 72.93 | Time: 10.9s
+  [ADAM ] Epoch  5/5 | Train Loss: 0.6992 | Val Loss: 0.7171 | Val Acc (%): 75.33 | Time: 10.9s
+
+######################################################################
+# Config: paper1_exp3_cifar10_cnn | Optimizer: SGD | Epochs: 5
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [paper1_exp3_cifar10_cnn] with optimizer [sgd] for 5 epochs...
+  [SGD  ] Epoch  1/5 | Train Loss: 2.3287 | Val Loss: 2.2275 | Val Acc (%): 18.74 | Time: 11.1s
+  [SGD  ] Epoch  2/5 | Train Loss: 2.1707 | Val Loss: 2.1180 | Val Acc (%): 23.20 | Time: 11.0s
+  [SGD  ] Epoch  3/5 | Train Loss: 2.0949 | Val Loss: 2.0730 | Val Acc (%): 24.73 | Time: 10.9s
+  [SGD  ] Epoch  4/5 | Train Loss: 2.0636 | Val Loss: 2.0552 | Val Acc (%): 25.74 | Time: 10.9s
+  [SGD  ] Epoch  5/5 | Train Loss: 2.0531 | Val Loss: 2.0519 | Val Acc (%): 25.87 | Time: 11.0s
 
   [Single CSV Saved]: logs/paper1_exp3_cifar10_cnn_logs.csv
   [Unified Comparison Plot Saved]: logs/paper1_exp3_cifar10_cnn_plot.png
@@ -276,10 +309,10 @@ Using device: cuda
 ================================================================================
                       ALL BENCHMARKS COMPLETED SUCCESSFULLY
 ================================================================================
-  paper1_exp3_cifar10_cnn             | Opt: atlas          | Loss: 1.8268 | Val Acc (%)   : 48.80 | Time: 25.3s
-  paper1_exp3_cifar10_cnn             | Opt: muon           | Loss: 1.8412 | Val Acc (%)   : 47.08 | Time: 25.2s
-  paper1_exp3_cifar10_cnn             | Opt: adam           | Loss: 1.7003 | Val Acc (%)   : 45.46 | Time: 24.9s
-  paper1_exp3_cifar10_cnn             | Opt: sgd            | Loss: 2.3850 | Val Acc (%)   : 10.90 | Time: 25.0s
+  paper1_exp3_cifar10_cnn             | Opt: atlas          | Train: 0.3573 | Val: 0.4501 | Val Acc (%)   : 84.60 | Time: 55.5s
+  paper1_exp3_cifar10_cnn             | Opt: muon           | Train: 0.3748 | Val: 0.4688 | Val Acc (%)   : 83.53 | Time: 55.6s
+  paper1_exp3_cifar10_cnn             | Opt: adam           | Train: 0.6992 | Val: 0.7171 | Val Acc (%)   : 75.33 | Time: 55.0s
+  paper1_exp3_cifar10_cnn             | Opt: sgd            | Train: 2.0531 | Val: 2.0519 | Val Acc (%)   : 25.87 | Time: 54.9s
 
 Detailed master summary saved to logs/all_experiments_summary.csv
 ================================================================================
@@ -294,7 +327,7 @@ Using device: cuda
 
 
 ######################################################################
-# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: ATLAS | Epochs: 2
+# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: ATLAS | Epochs: 5
 ######################################################################
   Instantiating Airbench CNN (num_classes=10)...
   Loading CIFAR-10 vision dataset...
@@ -304,54 +337,66 @@ Using device: cuda
   [Atlas Hyperparameter Tuning] Finding Optimal (lr, rho, adam_lr)
 ============================================================
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 1/4: lr=0.035  rho=0.006  adam_lr=0.001 -> End Loss: 2.1362
+  Trial 1/4: lr=0.035  rho=0.006  adam_lr=0.001 -> End Loss: 1.5985
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 2/4: lr=0.04   rho=0.008  adam_lr=0.001 -> End Loss: 2.1338
+  Trial 2/4: lr=0.04   rho=0.008  adam_lr=0.001 -> End Loss: 1.5967
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 3/4: lr=0.03   rho=0.005  adam_lr=0.001 -> End Loss: 2.1265
+  Trial 3/4: lr=0.03   rho=0.005  adam_lr=0.001 -> End Loss: 1.6132
   Instantiating Airbench CNN (num_classes=10)...
-  Trial 4/4: lr=0.045  rho=0.008  adam_lr=0.001 -> End Loss: 2.1536
+  Trial 4/4: lr=0.045  rho=0.008  adam_lr=0.001 -> End Loss: 1.5941
 
-  [Optimal Atlas Config Selected]: lr=0.03, rho=0.005, adam_lr=0.001
+  [Optimal Atlas Config Selected]: lr=0.045, rho=0.008, adam_lr=0.001
 ============================================================
 
 
-  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [atlas] for 2 epochs...
-  [ATLAS] Epoch  1/2 | Train Loss: 2.4745 | Val Loss: 2.3759 | Val Acc (%): 10.50 | Time: 17.8s
-  [ATLAS] Epoch  2/2 | Train Loss: 2.2434 | Val Loss: 2.0198 | Val Acc (%): 31.39 | Time: 17.7s
+  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [atlas] for 5 epochs...
+  [ATLAS] Epoch  1/5 | Train Loss: 1.3659 | Val Loss: 0.9490 | Val Acc (%): 66.14 | Time: 12.9s
+  [ATLAS] Epoch  2/5 | Train Loss: 0.7310 | Val Loss: 0.6615 | Val Acc (%): 77.26 | Time: 12.7s
+  [ATLAS] Epoch  3/5 | Train Loss: 0.5456 | Val Loss: 0.5439 | Val Acc (%): 81.02 | Time: 12.7s
+  [ATLAS] Epoch  4/5 | Train Loss: 0.4304 | Val Loss: 0.4829 | Val Acc (%): 83.36 | Time: 12.8s
+  [ATLAS] Epoch  5/5 | Train Loss: 0.3660 | Val Loss: 0.4562 | Val Acc (%): 84.36 | Time: 12.8s
 
 ######################################################################
-# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: MUON | Epochs: 2
-######################################################################
-  Instantiating Airbench CNN (num_classes=10)...
-  Loading CIFAR-10 vision dataset...
-  CIFAR-10 Train: 50,000 | Val: 10,000
-
-  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [muon] for 2 epochs...
-  [MUON ] Epoch  1/2 | Train Loss: 2.3990 | Val Loss: 2.3712 | Val Acc (%): 10.59 | Time: 17.2s
-  [MUON ] Epoch  2/2 | Train Loss: 2.2450 | Val Loss: 2.1005 | Val Acc (%): 25.16 | Time: 17.4s
-
-######################################################################
-# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: ADAM | Epochs: 2
+# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: MUON | Epochs: 5
 ######################################################################
   Instantiating Airbench CNN (num_classes=10)...
   Loading CIFAR-10 vision dataset...
   CIFAR-10 Train: 50,000 | Val: 10,000
 
-  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [adam] for 2 epochs...
-  [ADAM ] Epoch  1/2 | Train Loss: 2.3990 | Val Loss: 2.3712 | Val Acc (%): 10.59 | Time: 16.4s
-  [ADAM ] Epoch  2/2 | Train Loss: 2.0001 | Val Loss: 1.8098 | Val Acc (%): 35.01 | Time: 16.4s
+  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [muon] for 5 epochs...
+  [MUON ] Epoch  1/5 | Train Loss: 1.4260 | Val Loss: 0.8929 | Val Acc (%): 68.65 | Time: 12.8s
+  [MUON ] Epoch  2/5 | Train Loss: 0.7556 | Val Loss: 0.6683 | Val Acc (%): 76.66 | Time: 12.8s
+  [MUON ] Epoch  3/5 | Train Loss: 0.5705 | Val Loss: 0.5500 | Val Acc (%): 80.99 | Time: 12.6s
+  [MUON ] Epoch  4/5 | Train Loss: 0.4580 | Val Loss: 0.4873 | Val Acc (%): 83.22 | Time: 12.8s
+  [MUON ] Epoch  5/5 | Train Loss: 0.3941 | Val Loss: 0.4728 | Val Acc (%): 83.74 | Time: 12.7s
 
 ######################################################################
-# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: SGD | Epochs: 2
+# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: ADAM | Epochs: 5
 ######################################################################
   Instantiating Airbench CNN (num_classes=10)...
   Loading CIFAR-10 vision dataset...
   CIFAR-10 Train: 50,000 | Val: 10,000
 
-  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [sgd] for 2 epochs...
-  [SGD  ] Epoch  1/2 | Train Loss: 2.3990 | Val Loss: 2.3712 | Val Acc (%): 10.59 | Time: 16.4s
-  [SGD  ] Epoch  2/2 | Train Loss: 2.3852 | Val Loss: 2.3501 | Val Acc (%): 10.95 | Time: 16.2s
+  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [adam] for 5 epochs...
+  [ADAM ] Epoch  1/5 | Train Loss: 1.4664 | Val Loss: 1.3047 | Val Acc (%): 55.32 | Time: 12.7s
+  [ADAM ] Epoch  2/5 | Train Loss: 1.0316 | Val Loss: 1.0209 | Val Acc (%): 63.84 | Time: 12.5s
+  [ADAM ] Epoch  3/5 | Train Loss: 0.8465 | Val Loss: 0.8453 | Val Acc (%): 70.82 | Time: 12.5s
+  [ADAM ] Epoch  4/5 | Train Loss: 0.7205 | Val Loss: 0.6943 | Val Acc (%): 75.55 | Time: 12.5s
+  [ADAM ] Epoch  5/5 | Train Loss: 0.6405 | Val Loss: 0.6540 | Val Acc (%): 77.41 | Time: 12.5s
+
+######################################################################
+# Config: paper1_exp4_cifar10_batch_scaling | Optimizer: SGD | Epochs: 5
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [paper1_exp4_cifar10_batch_scaling] with optimizer [sgd] for 5 epochs...
+  [SGD  ] Epoch  1/5 | Train Loss: 2.1199 | Val Loss: 1.9022 | Val Acc (%): 31.39 | Time: 12.6s
+  [SGD  ] Epoch  2/5 | Train Loss: 1.8022 | Val Loss: 1.7307 | Val Acc (%): 37.25 | Time: 12.6s
+  [SGD  ] Epoch  3/5 | Train Loss: 1.6911 | Val Loss: 1.6543 | Val Acc (%): 39.84 | Time: 12.7s
+  [SGD  ] Epoch  4/5 | Train Loss: 1.6462 | Val Loss: 1.6326 | Val Acc (%): 40.64 | Time: 12.6s
+  [SGD  ] Epoch  5/5 | Train Loss: 1.6316 | Val Loss: 1.6201 | Val Acc (%): 40.96 | Time: 12.6s
 
   [Single CSV Saved]: logs/paper1_exp4_cifar10_batch_scaling_logs.csv
   [Unified Comparison Plot Saved]: logs/paper1_exp4_cifar10_batch_scaling_plot.png
@@ -359,10 +404,10 @@ Using device: cuda
 ================================================================================
                       ALL BENCHMARKS COMPLETED SUCCESSFULLY
 ================================================================================
-  paper1_exp4_cifar10_batch_scaling   | Opt: atlas          | Loss: 2.2434 | Val Acc (%)   : 31.39 | Time: 35.6s
-  paper1_exp4_cifar10_batch_scaling   | Opt: muon           | Loss: 2.2450 | Val Acc (%)   : 25.16 | Time: 34.6s
-  paper1_exp4_cifar10_batch_scaling   | Opt: adam           | Loss: 2.0001 | Val Acc (%)   : 35.01 | Time: 32.7s
-  paper1_exp4_cifar10_batch_scaling   | Opt: sgd            | Loss: 2.3852 | Val Acc (%)   : 10.95 | Time: 32.6s
+  paper1_exp4_cifar10_batch_scaling   | Opt: atlas          | Train: 0.3660 | Val: 0.4562 | Val Acc (%)   : 84.36 | Time: 63.9s
+  paper1_exp4_cifar10_batch_scaling   | Opt: muon           | Train: 0.3941 | Val: 0.4728 | Val Acc (%)   : 83.74 | Time: 63.7s
+  paper1_exp4_cifar10_batch_scaling   | Opt: adam           | Train: 0.6405 | Val: 0.6540 | Val Acc (%)   : 77.41 | Time: 62.9s
+  paper1_exp4_cifar10_batch_scaling   | Opt: sgd            | Train: 1.6316 | Val: 1.6201 | Val Acc (%)   : 40.96 | Time: 63.1s
 
 Detailed master summary saved to logs/all_experiments_summary.csv
 ================================================================================
@@ -377,7 +422,7 @@ Using device: cuda
 
 
 ######################################################################
-# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: ATLAS | Epochs: 2
+# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: ATLAS | Epochs: 5
 ######################################################################
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
@@ -391,43 +436,33 @@ Using device: cuda
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
   Total trainable parameters: 70.4M
-  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.6186
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.6161
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
   Total trainable parameters: 70.4M
-  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.5820
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.5862
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
   Total trainable parameters: 70.4M
-  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.5903
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.5883
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
   Total trainable parameters: 70.4M
-  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.5931
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.6036
 
   [Optimal Atlas Config Selected]: lr=0.038, rho=0.006, adam_lr=0.003
 ============================================================
 
 
-  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [atlas] for 2 epochs...
-  [ATLAS] Epoch  1/2 | Train Loss: 11.5783 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 3.2s
-  [ATLAS] Epoch  2/2 | Train Loss: 11.5973 | Val Loss: 9.3057 | Perplexity: 11000.83 | Time: 1.6s
+  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [atlas] for 5 epochs...
+  [ATLAS] Epoch  1/5 | Train Loss: 8.5250 | Val Loss: 1.8932 | Perplexity: 6.64 | Time: 2.7s
+  [ATLAS] Epoch  2/5 | Train Loss: 1.0607 | Val Loss: 0.7140 | Perplexity: 2.04 | Time: 2.3s
+  [ATLAS] Epoch  3/5 | Train Loss: 0.4830 | Val Loss: 0.6117 | Perplexity: 1.84 | Time: 2.3s
+  [ATLAS] Epoch  4/5 | Train Loss: 0.4013 | Val Loss: 0.6016 | Perplexity: 1.83 | Time: 2.3s
+  [ATLAS] Epoch  5/5 | Train Loss: 0.3911 | Val Loss: 0.5958 | Perplexity: 1.81 | Time: 2.3s
 
 ######################################################################
-# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: MUON | Epochs: 2
-######################################################################
-  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
-  Initialized model architecture from config (gpt_neox) in bfloat16.
-  Total trainable parameters: 70.4M
-  Preparing CPT corpus (max_len=512, vocab_size=50304)...
-  CPT Train batches: 22 | Val batches: 4
-
-  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [muon] for 2 epochs...
-  [MUON ] Epoch  1/2 | Train Loss: 10.9707 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 1.6s
-  [MUON ] Epoch  2/2 | Train Loss: 10.9706 | Val Loss: 9.8137 | Perplexity: 18281.87 | Time: 1.6s
-
-######################################################################
-# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: ADAM | Epochs: 2
+# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: MUON | Epochs: 5
 ######################################################################
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
@@ -435,12 +470,15 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50304)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [adam] for 2 epochs...
-  [ADAM ] Epoch  1/2 | Train Loss: 10.9707 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 1.6s
-  [ADAM ] Epoch  2/2 | Train Loss: 10.9706 | Val Loss: 9.2512 | Perplexity: 10416.93 | Time: 1.6s
+  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [muon] for 5 epochs...
+  [MUON ] Epoch  1/5 | Train Loss: 8.9624 | Val Loss: 4.5306 | Perplexity: 92.82 | Time: 2.2s
+  [MUON ] Epoch  2/5 | Train Loss: 3.6407 | Val Loss: 2.7439 | Perplexity: 15.55 | Time: 2.2s
+  [MUON ] Epoch  3/5 | Train Loss: 2.4018 | Val Loss: 2.1211 | Perplexity: 8.34 | Time: 2.2s
+  [MUON ] Epoch  4/5 | Train Loss: 1.9784 | Val Loss: 2.0188 | Perplexity: 7.53 | Time: 2.2s
+  [MUON ] Epoch  5/5 | Train Loss: 1.9300 | Val Loss: 1.9595 | Perplexity: 7.10 | Time: 2.2s
 
 ######################################################################
-# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: SGD | Epochs: 2
+# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: ADAM | Epochs: 5
 ######################################################################
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
@@ -448,9 +486,28 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50304)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [sgd] for 2 epochs...
-  [SGD  ] Epoch  1/2 | Train Loss: 10.9707 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 1.6s
-  [SGD  ] Epoch  2/2 | Train Loss: 10.9706 | Val Loss: 10.9729 | Perplexity: 22026.47 | Time: 1.6s
+  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [adam] for 5 epochs...
+  [ADAM ] Epoch  1/5 | Train Loss: 9.7413 | Val Loss: 6.5778 | Perplexity: 718.93 | Time: 2.2s
+  [ADAM ] Epoch  2/5 | Train Loss: 5.0763 | Val Loss: 2.7092 | Perplexity: 15.02 | Time: 2.2s
+  [ADAM ] Epoch  3/5 | Train Loss: 1.9426 | Val Loss: 1.3499 | Perplexity: 3.86 | Time: 2.2s
+  [ADAM ] Epoch  4/5 | Train Loss: 1.1404 | Val Loss: 1.2157 | Perplexity: 3.37 | Time: 2.2s
+  [ADAM ] Epoch  5/5 | Train Loss: 1.0744 | Val Loss: 1.1474 | Perplexity: 3.15 | Time: 2.2s
+
+######################################################################
+# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: SGD | Epochs: 5
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Initialized model architecture from config (gpt_neox) in bfloat16.
+  Total trainable parameters: 70.4M
+  Preparing CPT corpus (max_len=512, vocab_size=50304)...
+  CPT Train batches: 22 | Val batches: 4
+
+  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [sgd] for 5 epochs...
+  [SGD  ] Epoch  1/5 | Train Loss: 10.9702 | Val Loss: 10.9687 | Perplexity: 58030.25 | Time: 2.2s
+  [SGD  ] Epoch  2/5 | Train Loss: 10.9625 | Val Loss: 10.9580 | Perplexity: 57409.38 | Time: 2.2s
+  [SGD  ] Epoch  3/5 | Train Loss: 10.9541 | Val Loss: 10.9520 | Perplexity: 57069.16 | Time: 2.2s
+  [SGD  ] Epoch  4/5 | Train Loss: 10.9485 | Val Loss: 10.9514 | Perplexity: 57031.39 | Time: 2.2s
+  [SGD  ] Epoch  5/5 | Train Loss: 10.9507 | Val Loss: 10.9510 | Perplexity: 57012.28 | Time: 2.2s
 
   [Single CSV Saved]: logs/paper2_exp1_pythia70m_schatten_sweep_logs.csv
   [Unified Comparison Plot Saved]: logs/paper2_exp1_pythia70m_schatten_sweep_plot.png
@@ -458,10 +515,10 @@ Using device: cuda
 ================================================================================
                       ALL BENCHMARKS COMPLETED SUCCESSFULLY
 ================================================================================
-  paper2_exp1_pythia70m_schatten_sweep | Opt: atlas          | Loss: 11.5973 | Perplexity    : 11000.83 | Time: 4.8s
-  paper2_exp1_pythia70m_schatten_sweep | Opt: muon           | Loss: 10.9706 | Perplexity    : 18281.87 | Time: 3.2s
-  paper2_exp1_pythia70m_schatten_sweep | Opt: adam           | Loss: 10.9706 | Perplexity    : 10416.93 | Time: 3.2s
-  paper2_exp1_pythia70m_schatten_sweep | Opt: sgd            | Loss: 10.9706 | Perplexity    : 22026.47 | Time: 3.1s
+  paper2_exp1_pythia70m_schatten_sweep | Opt: atlas          | Train: 0.3911 | Val: 0.5958 | Perplexity    : 1.81 | Time: 11.9s
+  paper2_exp1_pythia70m_schatten_sweep | Opt: muon           | Train: 1.9300 | Val: 1.9595 | Perplexity    : 7.10 | Time: 11.1s
+  paper2_exp1_pythia70m_schatten_sweep | Opt: adam           | Train: 1.0744 | Val: 1.1474 | Perplexity    : 3.15 | Time: 10.8s
+  paper2_exp1_pythia70m_schatten_sweep | Opt: sgd            | Train: 10.9507 | Val: 10.9510 | Perplexity    : 57012.28 | Time: 10.8s
 
 Detailed master summary saved to logs/all_experiments_summary.csv
 ================================================================================
@@ -481,13 +538,14 @@ Using device: cuda
   CPT Train batches: 22 | Val batches: 4
 
 [Running Heavy-Tailed Noise Analysis for paper2_exp2_pythia70m_noise_analysis]
-  sigma_S1,p: 0.4838 | sigma_F,p: 0.1180 | Ratio sigma_S1/sigma_F: 4.10
+  sigma_S1,p: 0.4865 | sigma_F,p: 0.1186 | Ratio sigma_S1/sigma_F: 4.10
   Noise analysis saved to logs/paper2_exp2_pythia70m_noise_analysis_logs.csv
+  [Unified Comparison Plot Saved]: logs/paper2_exp2_pythia70m_noise_analysis_plot.png
 
 ================================================================================
                       ALL BENCHMARKS COMPLETED SUCCESSFULLY
 ================================================================================
-  paper2_exp2_pythia70m_noise_analysis | Opt: noise_analysis | Loss: 0.0000 | sigma_S1/sigma_F: 4.10 | Time: 0.0s
+  paper2_exp2_pythia70m_noise_analysis | Opt: noise_analysis | Train: 0.0000 | Val: 0.0000 | sigma_S1/sigma_F: 4.10 | Time: 0.0s
 
 Detailed master summary saved to logs/all_experiments_summary.csv
 ================================================================================
@@ -502,7 +560,7 @@ Using device: cuda
 
 
 ######################################################################
-# Config: paper2_exp3_pythia70m_pretrain_chinchilla | Optimizer: ATLAS | Epochs: 2
+# Config: paper2_exp3_pythia70m_pretrain_chinchilla | Optimizer: ATLAS | Epochs: 5
 ######################################################################
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
@@ -516,43 +574,33 @@ Using device: cuda
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
   Total trainable parameters: 70.4M
-  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.6057
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.6071
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
   Total trainable parameters: 70.4M
-  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.5791
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.5789
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
   Total trainable parameters: 70.4M
-  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.5855
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.5815
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
   Total trainable parameters: 70.4M
-  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.5862
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.5952
 
   [Optimal Atlas Config Selected]: lr=0.038, rho=0.006, adam_lr=0.003
 ============================================================
 
 
-  Starting training [paper2_exp3_pythia70m_pretrain_chinchilla] with optimizer [atlas] for 2 epochs...
-  [ATLAS] Epoch  1/2 | Train Loss: 11.5535 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 3.2s
-  [ATLAS] Epoch  2/2 | Train Loss: 11.5696 | Val Loss: 9.2970 | Perplexity: 10905.34 | Time: 1.6s
+  Starting training [paper2_exp3_pythia70m_pretrain_chinchilla] with optimizer [atlas] for 5 epochs...
+  [ATLAS] Epoch  1/5 | Train Loss: 8.4921 | Val Loss: 1.8617 | Perplexity: 6.43 | Time: 2.7s
+  [ATLAS] Epoch  2/5 | Train Loss: 1.0472 | Val Loss: 0.7073 | Perplexity: 2.03 | Time: 2.3s
+  [ATLAS] Epoch  3/5 | Train Loss: 0.4770 | Val Loss: 0.6086 | Perplexity: 1.84 | Time: 2.3s
+  [ATLAS] Epoch  4/5 | Train Loss: 0.3970 | Val Loss: 0.5980 | Perplexity: 1.82 | Time: 2.3s
+  [ATLAS] Epoch  5/5 | Train Loss: 0.3872 | Val Loss: 0.5942 | Perplexity: 1.81 | Time: 2.3s
 
 ######################################################################
-# Config: paper2_exp3_pythia70m_pretrain_chinchilla | Optimizer: MUON | Epochs: 2
-######################################################################
-  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
-  Initialized model architecture from config (gpt_neox) in bfloat16.
-  Total trainable parameters: 70.4M
-  Preparing CPT corpus (max_len=512, vocab_size=50304)...
-  CPT Train batches: 22 | Val batches: 4
-
-  Starting training [paper2_exp3_pythia70m_pretrain_chinchilla] with optimizer [muon] for 2 epochs...
-  [MUON ] Epoch  1/2 | Train Loss: 10.9707 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 1.6s
-  [MUON ] Epoch  2/2 | Train Loss: 10.9706 | Val Loss: 9.8138 | Perplexity: 18283.49 | Time: 1.6s
-
-######################################################################
-# Config: paper2_exp3_pythia70m_pretrain_chinchilla | Optimizer: ADAM | Epochs: 2
+# Config: paper2_exp3_pythia70m_pretrain_chinchilla | Optimizer: MUON | Epochs: 5
 ######################################################################
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
@@ -560,12 +608,15 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50304)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper2_exp3_pythia70m_pretrain_chinchilla] with optimizer [adam] for 2 epochs...
-  [ADAM ] Epoch  1/2 | Train Loss: 10.9707 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 1.6s
-  [ADAM ] Epoch  2/2 | Train Loss: 10.9706 | Val Loss: 9.2512 | Perplexity: 10417.48 | Time: 1.6s
+  Starting training [paper2_exp3_pythia70m_pretrain_chinchilla] with optimizer [muon] for 5 epochs...
+  [MUON ] Epoch  1/5 | Train Loss: 8.9626 | Val Loss: 4.5312 | Perplexity: 92.87 | Time: 2.2s
+  [MUON ] Epoch  2/5 | Train Loss: 3.6409 | Val Loss: 2.7435 | Perplexity: 15.54 | Time: 2.2s
+  [MUON ] Epoch  3/5 | Train Loss: 2.4016 | Val Loss: 2.1207 | Perplexity: 8.34 | Time: 2.2s
+  [MUON ] Epoch  4/5 | Train Loss: 1.9782 | Val Loss: 2.0186 | Perplexity: 7.53 | Time: 2.2s
+  [MUON ] Epoch  5/5 | Train Loss: 1.9299 | Val Loss: 1.9593 | Perplexity: 7.09 | Time: 2.2s
 
 ######################################################################
-# Config: paper2_exp3_pythia70m_pretrain_chinchilla | Optimizer: SGD | Epochs: 2
+# Config: paper2_exp3_pythia70m_pretrain_chinchilla | Optimizer: ADAM | Epochs: 5
 ######################################################################
   Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
   Initialized model architecture from config (gpt_neox) in bfloat16.
@@ -573,9 +624,28 @@ Using device: cuda
   Preparing CPT corpus (max_len=512, vocab_size=50304)...
   CPT Train batches: 22 | Val batches: 4
 
-  Starting training [paper2_exp3_pythia70m_pretrain_chinchilla] with optimizer [sgd] for 2 epochs...
-  [SGD  ] Epoch  1/2 | Train Loss: 10.9707 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 1.6s
-  [SGD  ] Epoch  2/2 | Train Loss: 10.9706 | Val Loss: 10.9729 | Perplexity: 22026.47 | Time: 1.6s
+  Starting training [paper2_exp3_pythia70m_pretrain_chinchilla] with optimizer [adam] for 5 epochs...
+  [ADAM ] Epoch  1/5 | Train Loss: 9.7413 | Val Loss: 6.5771 | Perplexity: 718.48 | Time: 2.2s
+  [ADAM ] Epoch  2/5 | Train Loss: 5.0767 | Val Loss: 2.7121 | Perplexity: 15.06 | Time: 2.2s
+  [ADAM ] Epoch  3/5 | Train Loss: 1.9440 | Val Loss: 1.3505 | Perplexity: 3.86 | Time: 2.2s
+  [ADAM ] Epoch  4/5 | Train Loss: 1.1410 | Val Loss: 1.2162 | Perplexity: 3.37 | Time: 2.2s
+  [ADAM ] Epoch  5/5 | Train Loss: 1.0749 | Val Loss: 1.1477 | Perplexity: 3.15 | Time: 2.2s
+
+######################################################################
+# Config: paper2_exp3_pythia70m_pretrain_chinchilla | Optimizer: SGD | Epochs: 5
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Initialized model architecture from config (gpt_neox) in bfloat16.
+  Total trainable parameters: 70.4M
+  Preparing CPT corpus (max_len=512, vocab_size=50304)...
+  CPT Train batches: 22 | Val batches: 4
+
+  Starting training [paper2_exp3_pythia70m_pretrain_chinchilla] with optimizer [sgd] for 5 epochs...
+  [SGD  ] Epoch  1/5 | Train Loss: 10.9702 | Val Loss: 10.9687 | Perplexity: 58029.84 | Time: 2.2s
+  [SGD  ] Epoch  2/5 | Train Loss: 10.9626 | Val Loss: 10.9580 | Perplexity: 57409.27 | Time: 2.2s
+  [SGD  ] Epoch  3/5 | Train Loss: 10.9541 | Val Loss: 10.9521 | Perplexity: 57071.74 | Time: 2.2s
+  [SGD  ] Epoch  4/5 | Train Loss: 10.9485 | Val Loss: 10.9513 | Perplexity: 57030.32 | Time: 2.2s
+  [SGD  ] Epoch  5/5 | Train Loss: 10.9507 | Val Loss: 10.9510 | Perplexity: 57013.42 | Time: 2.2s
 
   [Single CSV Saved]: logs/paper2_exp3_pythia70m_pretrain_chinchilla_logs.csv
   [Unified Comparison Plot Saved]: logs/paper2_exp3_pythia70m_pretrain_chinchilla_plot.png
@@ -583,15 +653,11 @@ Using device: cuda
 ================================================================================
                       ALL BENCHMARKS COMPLETED SUCCESSFULLY
 ================================================================================
-  paper2_exp3_pythia70m_pretrain_chinchilla | Opt: atlas          | Loss: 11.5696 | Perplexity    : 10905.34 | Time: 4.8s
-  paper2_exp3_pythia70m_pretrain_chinchilla | Opt: muon           | Loss: 10.9706 | Perplexity    : 18283.49 | Time: 3.2s
-  paper2_exp3_pythia70m_pretrain_chinchilla | Opt: adam           | Loss: 10.9706 | Perplexity    : 10417.48 | Time: 3.2s
-  paper2_exp3_pythia70m_pretrain_chinchilla | Opt: sgd            | Loss: 10.9706 | Perplexity    : 22026.47 | Time: 3.1s
+  paper2_exp3_pythia70m_pretrain_chinchilla | Opt: atlas          | Train: 0.3872 | Val: 0.5942 | Perplexity    : 1.81 | Time: 11.9s
+  paper2_exp3_pythia70m_pretrain_chinchilla | Opt: muon           | Train: 1.9299 | Val: 1.9593 | Perplexity    : 7.09 | Time: 11.1s
+  paper2_exp3_pythia70m_pretrain_chinchilla | Opt: adam           | Train: 1.0749 | Val: 1.1477 | Perplexity    : 3.15 | Time: 10.8s
+  paper2_exp3_pythia70m_pretrain_chinchilla | Opt: sgd            | Train: 10.9507 | Val: 10.9510 | Perplexity    : 57013.42 | Time: 10.8s
 
 Detailed master summary saved to logs/all_experiments_summary.csv
 ================================================================================
 
-
-========================================================================
-          ALL EXPERIMENTS FINISHED! LOGS SAVED IN logs/
-========================================================================
