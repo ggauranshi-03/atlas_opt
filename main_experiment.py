@@ -8,6 +8,7 @@ import torch.nn as nn
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import wandb
 
 from utils.helpers import build_model, make_optimizer, train_epoch, evaluate_model, run_noise_analysis, device
 from utils.tuning import tune_atlas_hyperparameters
@@ -46,6 +47,11 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
         print("\n" + "#" * 70)
         print(f"# Config: {config_id} | Optimizer: {opt_name.upper()} | Epochs: {epochs}")
         print("#" * 70)
+
+        os.makedirs("checkpoints", exist_ok=True)
+        wandb_proj = exp_info.get("wandb_project", "Atlas-Experiments")
+        run_name = f"{config_id}_{opt_name}"
+        run = wandb.init(project=wandb_proj, name=run_name, config=config, reinit=True)
 
         torch.manual_seed(42)
         if torch.cuda.is_available():
@@ -125,6 +131,18 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
             val_metrics.append(vm)
 
             print(f"  [{opt_name.upper():<12}] Epoch {epoch+1:2d}/{epochs} | Train Loss: {tl:.4f} | Val Loss: {vl:.4f} | {metric_name}: {vm:.2f} | Time: {ep_time:.1f}s")
+            
+            wandb.log({
+                "epoch": epoch + 1,
+                "train/loss": tl,
+                "val/loss": vl,
+                f"val/{metric_name.lower().replace(' ', '_')}": vm,
+                "time_s": ep_time
+            })
+            
+            ckpt_path = f"checkpoints/{run_name}_epoch{epoch+1}.pt"
+            torch.save(model.state_dict(), ckpt_path)
+            
             config_epoch_logs.append({
                 "epoch": epoch + 1,
                 "optimizer": opt_name,
@@ -133,6 +151,8 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "val_metric": vm,
                 "time_s": ep_time
             })
+
+        wandb.finish()
 
         config_results[opt_name] = {
             "config_id": config_id,
