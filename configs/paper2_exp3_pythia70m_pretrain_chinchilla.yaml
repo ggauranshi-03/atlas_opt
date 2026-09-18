@@ -5,7 +5,7 @@
 
 experiment:
   experiment_id: "paper2_exp3_pythia70m_pretrain_chinchilla"
-  wandb_project: "Paper2-Pythia70M-Pretraining"
+  wandb_project: "Pythia70M-Fineweb"
   task_type: "causal_lm"
 
   # Model & Dataset:

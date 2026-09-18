@@ -5,7 +5,7 @@
 
 experiment:
   experiment_id: "paper1_exp3_cifar10_cnn"
-  wandb_project: "Paper1-CIFAR10-Muon"
+  wandb_project: "CIFAR10-CNN-Optimizers"
   task_type: "image_classification"
 
   # Model & Dataset (Paper 1 Section 4.2 & Appendix E.3):

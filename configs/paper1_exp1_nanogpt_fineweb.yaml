@@ -5,7 +5,7 @@
 
 experiment:
   experiment_id: "paper1_exp1_nanogpt_fineweb"
-  wandb_project: "Paper1-Muon-HeavyTailed"
+  wandb_project: "NanoGPT-FineWeb-Optimizers"
   task_type: "causal_lm"
 
   # Model: 135M parameter nanoGPT (modded-nanogpt speedrun codebase)
