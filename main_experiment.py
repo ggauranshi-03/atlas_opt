@@ -52,6 +52,8 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
         wandb_proj = exp_info.get("wandb_project", "Atlas-Experiments")
         run_name = f"{config_id}_{opt_name}"
         run = wandb.init(project=wandb_proj, name=run_name, config=config, reinit=True)
+        wandb.define_metric("epoch")
+        wandb.define_metric("*", step_metric="epoch")
 
         torch.manual_seed(42)
         if torch.cuda.is_available():
