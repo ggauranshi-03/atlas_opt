@@ -1,0 +1,79 @@
+Using device: cuda
+
+>>> Running Benchmark for Optimizers: ['atlas', 'muon', 'adam', 'sgd'] across 1 configs <<<
+
+
+######################################################################
+# Config: paper1_exp3_cifar10_cnn | Optimizer: ATLAS | Epochs: 2
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+============================================================
+  [Atlas Hyperparameter Tuning] Finding Optimal (lr, rho, adam_lr)
+============================================================
+  Instantiating Airbench CNN (num_classes=10)...
+  Trial 1/4: lr=0.035  rho=0.006  adam_lr=0.001 -> End Loss: 1.5023
+  Instantiating Airbench CNN (num_classes=10)...
+  Trial 2/4: lr=0.04   rho=0.008  adam_lr=0.001 -> End Loss: 1.4937
+  Instantiating Airbench CNN (num_classes=10)...
+  Trial 3/4: lr=0.03   rho=0.005  adam_lr=0.001 -> End Loss: 1.5301
+  Instantiating Airbench CNN (num_classes=10)...
+  Trial 4/4: lr=0.045  rho=0.008  adam_lr=0.001 -> End Loss: 1.4567
+
+  [Optimal Atlas Config Selected]: lr=0.045, rho=0.008, adam_lr=0.001
+============================================================
+
+
+  Starting training [paper1_exp3_cifar10_cnn] with optimizer [atlas] for 2 epochs...
+  [ATLAS] Epoch  1/2 | Train Loss: 2.5401 | Val Loss: 2.3847 | Val Acc (%): 10.52 | Time: 12.7s
+  [ATLAS] Epoch  2/2 | Train Loss: 1.8268 | Val Loss: 1.4686 | Val Acc (%): 48.80 | Time: 12.6s
+
+######################################################################
+# Config: paper1_exp3_cifar10_cnn | Optimizer: MUON | Epochs: 2
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [paper1_exp3_cifar10_cnn] with optimizer [muon] for 2 epochs...
+  [MUON ] Epoch  1/2 | Train Loss: 2.3938 | Val Loss: 2.3690 | Val Acc (%): 10.68 | Time: 12.6s
+  [MUON ] Epoch  2/2 | Train Loss: 1.8412 | Val Loss: 1.5280 | Val Acc (%): 47.08 | Time: 12.6s
+
+######################################################################
+# Config: paper1_exp3_cifar10_cnn | Optimizer: ADAM | Epochs: 2
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [paper1_exp3_cifar10_cnn] with optimizer [adam] for 2 epochs...
+  [ADAM ] Epoch  1/2 | Train Loss: 2.3938 | Val Loss: 2.3690 | Val Acc (%): 10.68 | Time: 12.5s
+  [ADAM ] Epoch  2/2 | Train Loss: 1.7003 | Val Loss: 1.5119 | Val Acc (%): 45.46 | Time: 12.5s
+
+######################################################################
+# Config: paper1_exp3_cifar10_cnn | Optimizer: SGD | Epochs: 2
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [paper1_exp3_cifar10_cnn] with optimizer [sgd] for 2 epochs...
+  [SGD  ] Epoch  1/2 | Train Loss: 2.3938 | Val Loss: 2.3690 | Val Acc (%): 10.68 | Time: 12.5s
+  [SGD  ] Epoch  2/2 | Train Loss: 2.3850 | Val Loss: 2.3575 | Val Acc (%): 10.90 | Time: 12.5s
+
+  [Single CSV Saved]: logs/paper1_exp3_cifar10_cnn_logs.csv
+  [Unified Comparison Plot Saved]: logs/paper1_exp3_cifar10_cnn_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  paper1_exp3_cifar10_cnn             | Opt: atlas          | Loss: 1.8268 | Val Acc (%)   : 48.80 | Time: 25.3s
+  paper1_exp3_cifar10_cnn             | Opt: muon           | Loss: 1.8412 | Val Acc (%)   : 47.08 | Time: 25.2s
+  paper1_exp3_cifar10_cnn             | Opt: adam           | Loss: 1.7003 | Val Acc (%)   : 45.46 | Time: 24.9s
+  paper1_exp3_cifar10_cnn             | Opt: sgd            | Loss: 2.3850 | Val Acc (%)   : 10.90 | Time: 25.0s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

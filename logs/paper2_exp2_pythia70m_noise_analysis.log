@@ -1,0 +1,22 @@
+Using device: cuda
+
+>>> Running Benchmark for Optimizers: ['atlas', 'muon', 'adam', 'sgd'] across 1 configs <<<
+
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Initialized model architecture from config (gpt_neox) in bfloat16.
+  Total trainable parameters: 70.4M
+  Preparing CPT corpus (max_len=512, vocab_size=50304)...
+  CPT Train batches: 22 | Val batches: 4
+
+[Running Heavy-Tailed Noise Analysis for paper2_exp2_pythia70m_noise_analysis]
+  sigma_S1,p: 0.4838 | sigma_F,p: 0.1180 | Ratio sigma_S1/sigma_F: 4.10
+  Noise analysis saved to logs/paper2_exp2_pythia70m_noise_analysis_logs.csv
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  paper2_exp2_pythia70m_noise_analysis | Opt: noise_analysis | Loss: 0.0000 | sigma_S1/sigma_F: 4.10 | Time: 0.0s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

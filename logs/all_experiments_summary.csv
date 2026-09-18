@@ -1,0 +1,26 @@
+Config ID,Optimizer,Final Loss,Final Metric,Metric Type,Total Time (s),LR,Rho
+paper1_exp1_nanogpt_fineweb,atlas,12.2033,7764.77,Perplexity,18.7,0.0325,0.005
+paper1_exp1_nanogpt_fineweb,muon,10.9971,3508.46,Perplexity,12.3,0.0325,-
+paper1_exp1_nanogpt_fineweb,adam,10.9971,18300.46,Perplexity,12.2,0.0018,-
+paper1_exp1_nanogpt_fineweb,sgd,10.9971,22026.47,Perplexity,12.2,0.0001,-
+paper1_exp2_nanogpt_ablations,atlas,12.2029,7763.87,Perplexity,18.7,0.0325,0.005
+paper1_exp2_nanogpt_ablations,muon,10.9971,3510.16,Perplexity,12.3,0.0325,-
+paper1_exp2_nanogpt_ablations,adam,10.9971,18300.12,Perplexity,12.2,0.0018,-
+paper1_exp2_nanogpt_ablations,sgd,10.9971,22026.47,Perplexity,12.2,0.001,-
+paper1_exp3_cifar10_cnn,atlas,1.8268,48.80,Val Acc (%),25.3,0.045,0.008
+paper1_exp3_cifar10_cnn,muon,1.8412,47.08,Val Acc (%),25.2,0.03,-
+paper1_exp3_cifar10_cnn,adam,1.7003,45.46,Val Acc (%),24.9,0.001,-
+paper1_exp3_cifar10_cnn,sgd,2.3850,10.90,Val Acc (%),25.0,0.0001,-
+paper1_exp4_cifar10_batch_scaling,atlas,2.2434,31.39,Val Acc (%),35.6,0.03,0.005
+paper1_exp4_cifar10_batch_scaling,muon,2.2450,25.16,Val Acc (%),34.6,0.02,-
+paper1_exp4_cifar10_batch_scaling,adam,2.0001,35.01,Val Acc (%),32.7,0.0018,-
+paper1_exp4_cifar10_batch_scaling,sgd,2.3852,10.95,Val Acc (%),32.6,0.001,-
+paper2_exp1_pythia70m_schatten_sweep,atlas,11.5973,11000.83,Perplexity,4.8,0.038,0.006
+paper2_exp1_pythia70m_schatten_sweep,muon,10.9706,18281.87,Perplexity,3.2,0.0325,-
+paper2_exp1_pythia70m_schatten_sweep,adam,10.9706,10416.93,Perplexity,3.2,0.0018,-
+paper2_exp1_pythia70m_schatten_sweep,sgd,10.9706,22026.47,Perplexity,3.1,0.001,-
+paper2_exp2_pythia70m_noise_analysis,noise_analysis,0.0000,4.10,sigma_S1/sigma_F,0.0,-,-
+paper2_exp3_pythia70m_pretrain_chinchilla,atlas,11.5696,10905.34,Perplexity,4.8,0.038,0.006
+paper2_exp3_pythia70m_pretrain_chinchilla,muon,10.9706,18283.49,Perplexity,3.2,0.0325,-
+paper2_exp3_pythia70m_pretrain_chinchilla,adam,10.9706,10417.48,Perplexity,3.2,0.0018,-
+paper2_exp3_pythia70m_pretrain_chinchilla,sgd,10.9706,22026.47,Perplexity,3.1,0.001,-

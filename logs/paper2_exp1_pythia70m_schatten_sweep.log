@@ -1,0 +1,95 @@
+Using device: cuda
+
+>>> Running Benchmark for Optimizers: ['atlas', 'muon', 'adam', 'sgd'] across 1 configs <<<
+
+
+######################################################################
+# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: ATLAS | Epochs: 2
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Initialized model architecture from config (gpt_neox) in bfloat16.
+  Total trainable parameters: 70.4M
+  Preparing CPT corpus (max_len=512, vocab_size=50304)...
+  CPT Train batches: 22 | Val batches: 4
+
+============================================================
+  [Atlas Hyperparameter Tuning] Finding Optimal (lr, rho, adam_lr)
+============================================================
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Initialized model architecture from config (gpt_neox) in bfloat16.
+  Total trainable parameters: 70.4M
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 0.6186
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Initialized model architecture from config (gpt_neox) in bfloat16.
+  Total trainable parameters: 70.4M
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 0.5820
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Initialized model architecture from config (gpt_neox) in bfloat16.
+  Total trainable parameters: 70.4M
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 0.5903
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Initialized model architecture from config (gpt_neox) in bfloat16.
+  Total trainable parameters: 70.4M
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 0.5931
+
+  [Optimal Atlas Config Selected]: lr=0.038, rho=0.006, adam_lr=0.003
+============================================================
+
+
+  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [atlas] for 2 epochs...
+  [ATLAS] Epoch  1/2 | Train Loss: 11.5783 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 3.2s
+  [ATLAS] Epoch  2/2 | Train Loss: 11.5973 | Val Loss: 9.3057 | Perplexity: 11000.83 | Time: 1.6s
+
+######################################################################
+# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: MUON | Epochs: 2
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Initialized model architecture from config (gpt_neox) in bfloat16.
+  Total trainable parameters: 70.4M
+  Preparing CPT corpus (max_len=512, vocab_size=50304)...
+  CPT Train batches: 22 | Val batches: 4
+
+  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [muon] for 2 epochs...
+  [MUON ] Epoch  1/2 | Train Loss: 10.9707 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 1.6s
+  [MUON ] Epoch  2/2 | Train Loss: 10.9706 | Val Loss: 9.8137 | Perplexity: 18281.87 | Time: 1.6s
+
+######################################################################
+# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: ADAM | Epochs: 2
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Initialized model architecture from config (gpt_neox) in bfloat16.
+  Total trainable parameters: 70.4M
+  Preparing CPT corpus (max_len=512, vocab_size=50304)...
+  CPT Train batches: 22 | Val batches: 4
+
+  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [adam] for 2 epochs...
+  [ADAM ] Epoch  1/2 | Train Loss: 10.9707 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 1.6s
+  [ADAM ] Epoch  2/2 | Train Loss: 10.9706 | Val Loss: 9.2512 | Perplexity: 10416.93 | Time: 1.6s
+
+######################################################################
+# Config: paper2_exp1_pythia70m_schatten_sweep | Optimizer: SGD | Epochs: 2
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Initialized model architecture from config (gpt_neox) in bfloat16.
+  Total trainable parameters: 70.4M
+  Preparing CPT corpus (max_len=512, vocab_size=50304)...
+  CPT Train batches: 22 | Val batches: 4
+
+  Starting training [paper2_exp1_pythia70m_schatten_sweep] with optimizer [sgd] for 2 epochs...
+  [SGD  ] Epoch  1/2 | Train Loss: 10.9707 | Val Loss: 10.9730 | Perplexity: 22026.47 | Time: 1.6s
+  [SGD  ] Epoch  2/2 | Train Loss: 10.9706 | Val Loss: 10.9729 | Perplexity: 22026.47 | Time: 1.6s
+
+  [Single CSV Saved]: logs/paper2_exp1_pythia70m_schatten_sweep_logs.csv
+  [Unified Comparison Plot Saved]: logs/paper2_exp1_pythia70m_schatten_sweep_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  paper2_exp1_pythia70m_schatten_sweep | Opt: atlas          | Loss: 11.5973 | Perplexity    : 11000.83 | Time: 4.8s
+  paper2_exp1_pythia70m_schatten_sweep | Opt: muon           | Loss: 10.9706 | Perplexity    : 18281.87 | Time: 3.2s
+  paper2_exp1_pythia70m_schatten_sweep | Opt: adam           | Loss: 10.9706 | Perplexity    : 10416.93 | Time: 3.2s
+  paper2_exp1_pythia70m_schatten_sweep | Opt: sgd            | Loss: 10.9706 | Perplexity    : 22026.47 | Time: 3.1s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+
