@@ -2,3 +2,6 @@
 output.log
 __pycache__/*
 checkpoints/*
+utils/__pycache__
+data/__pycache__
+optimizers/__pycache__
