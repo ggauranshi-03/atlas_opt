@@ -4,7 +4,7 @@
 # ==============================================================================
 
 experiment:
-  experiment_id: "paper2_exp1_pythia70m_schatten_sweep"
+  experiment_id: "pythia70m_schatten_sweep"
   wandb_project: "Paper2-Schatten-Muon"
   task_type: "causal_lm"
 

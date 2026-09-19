@@ -4,7 +4,7 @@
 # ==============================================================================
 
 experiment:
-  experiment_id: "paper2_exp2_pythia70m_noise_analysis"
+  experiment_id: "pythia70m_noise_analysis"
   wandb_project: "Paper2-Gradient-Noise-Analysis"
   task_type: "noise_measurement"
 

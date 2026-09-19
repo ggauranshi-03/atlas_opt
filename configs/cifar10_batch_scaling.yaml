@@ -5,7 +5,7 @@
 # ==============================================================================
 
 experiment:
-  experiment_id: "paper1_exp4_cifar10_batch_scaling"
+  experiment_id: "cifar10_batch_scaling"
   wandb_project: "Paper1-CIFAR10-Ablations"
   task_type: "image_classification"
 

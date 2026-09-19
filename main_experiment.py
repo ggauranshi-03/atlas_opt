@@ -118,27 +118,31 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
         steps_per_epoch = 100 
         optimizer, scheduler = make_optimizer(opt_name, model, best_params, epochs=epochs, steps_per_epoch=steps_per_epoch)
 
-        train_losses, val_losses, val_metrics = [], [], []
+        train_losses, val_losses, train_accs, val_accs, val_ppls = [], [], [], [], []
         total_time = 0.0
 
         print(f"\n  Starting training [{config_id}] with optimizer [{opt_name}] for {epochs} epochs...")
         for epoch in range(epochs):
-            tl, tm, ep_time = train_epoch(model, optimizer, criterion, train_loader, task_type, grad_acc=grad_acc, steps_per_epoch=steps_per_epoch)
-            vl, vm = evaluate_model(model, criterion, val_loader, task_type, max_steps=50)
+            tl, t_acc, t_ppl, ep_time = train_epoch(model, optimizer, criterion, train_loader, task_type, grad_acc=grad_acc, steps_per_epoch=steps_per_epoch)
+            vl, v_acc, v_ppl = evaluate_model(model, criterion, val_loader, task_type, max_steps=50)
             scheduler.step()
 
             total_time += ep_time
             train_losses.append(tl)
             val_losses.append(vl)
-            val_metrics.append(vm)
+            train_accs.append(t_acc)
+            val_accs.append(v_acc)
+            val_ppls.append(v_ppl)
 
-            print(f"  [{opt_name.upper():<12}] Epoch {epoch+1:2d}/{epochs} | Train Loss: {tl:.4f} | Val Loss: {vl:.4f} | {metric_name}: {vm:.2f} | Time: {ep_time:.1f}s")
+            print(f"  [{opt_name.upper():<12}] Epoch {epoch+1:2d}/{epochs} | Train Loss: {tl:.4f} | Train Acc: {t_acc:.2f}% | Val Loss: {vl:.4f} | Val Acc: {v_acc:.2f}% | Time: {ep_time:.1f}s")
             
             wandb.log({
                 "epoch": epoch + 1,
                 "train/loss": tl,
+                "train/accuracy": t_acc,
                 "val/loss": vl,
-                f"val/{metric_name.lower().replace(' ', '_')}": vm,
+                "val/accuracy": v_acc,
+                "val/perplexity": v_ppl,
                 "time_s": ep_time
             })
             
@@ -149,18 +153,24 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "epoch": epoch + 1,
                 "optimizer": opt_name,
                 "train_loss": tl,
+                "train_accuracy": t_acc,
                 "val_loss": vl,
-                "val_metric": vm,
+                "val_accuracy": v_acc,
+                "val_perplexity": v_ppl,
                 "time_s": ep_time
             })
 
         wandb.finish()
 
+        val_metrics = val_accs if task_type == "image_classification" else val_ppls
+
         config_results[opt_name] = {
             "config_id": config_id,
             "optimizer": opt_name,
             "final_loss": train_losses[-1],
+            "final_train_acc": train_accs[-1],
             "final_val_loss": val_losses[-1],
+            "final_val_acc": val_accs[-1],
             "final_metric": val_metrics[-1],
             "metric_name": metric_name,
             "time": total_time,
@@ -174,9 +184,14 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
     single_csv = f"logs/{config_id}_logs.csv"
     with open(single_csv, mode="w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["epoch", "optimizer", "train_loss", "val_loss", metric_name, "time_s"])
-        for entry in config_epoch_logs:
-            writer.writerow([entry["epoch"], entry["optimizer"], f"{entry['train_loss']:.4f}", f"{entry['val_loss']:.4f}", f"{entry['val_metric']:.2f}", f"{entry['time_s']:.1f}"])
+        writer.writerow(["epoch", "optimizer", "train_loss", "train_accuracy", "val_loss", "val_accuracy", "val_perplexity", "time_s"])
+        for row in config_epoch_logs:
+            writer.writerow([
+                row["epoch"], row["optimizer"], 
+                f"{row['train_loss']:.4f}", f"{row['train_accuracy']:.2f}",
+                f"{row['val_loss']:.4f}", f"{row['val_accuracy']:.2f}", f"{row['val_perplexity']:.2f}",
+                f"{row['time_s']:.1f}"
+            ])
     print(f"\n  [Single CSV Saved]: {single_csv}")
 
     fig, ax = plt.subplots(1, 2, figsize=(13, 5), dpi=150)
@@ -218,7 +233,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
     return list(config_results.values())
 
 def main():
-    config_path = "configs/paper2_exp1_pythia70m_schatten_sweep.yaml"
+    config_path = "configs/pythia70m_schatten_sweep.yaml"
     run_all = False
     epochs_override = None
     opt_arg = "all"

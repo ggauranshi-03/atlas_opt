@@ -4,7 +4,7 @@
 # ==============================================================================
 
 experiment:
-  experiment_id: "paper1_exp1_nanogpt_fineweb"
+  experiment_id: "nanogpt_fineweb"
   wandb_project: "NanoGPT-FineWeb-Optimizers"
   task_type: "causal_lm"
 

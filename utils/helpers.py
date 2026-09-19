@@ -5,8 +5,7 @@ import math
 import os
 import csv
 from transformers import (
-    AutoTokenizer, AutoConfig, AutoModelForCausalLM,
-    get_cosine_schedule_with_warmup,
+    AutoTokenizer, AutoConfig, AutoModelForCausalLM
 )
 from optimizers.atlas_baseline import AtlasOptimizer
 from optimizers.atlas_raw_grad import AtlasOptimizerRaw
@@ -54,7 +53,18 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
     lr = params.get("lr", 0.02)
     wd = params.get("weight_decay", 1e-4)
     trainable_params = [p for p in model.parameters() if p.requires_grad]
-    warmup = max(1, steps_per_epoch // 5)
+    
+    total_steps = epochs * (steps_per_epoch or 100)
+    warmup_steps = int(0.05 * total_steps)
+    decay_steps = int(0.20 * total_steps)
+    
+    def get_wsd_schedule(optimizer):
+        def lr_lambda(current_step):
+            if current_step < warmup_steps: return float(current_step) / float(max(1, warmup_steps))
+            stable_steps = total_steps - decay_steps
+            if current_step < stable_steps: return 1.0
+            return max(0.0, 1.0 - float(current_step - stable_steps) / float(max(1, decay_steps)))
+        return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
     
     if name == "atlas":
         opt = AtlasOptimizer(model, lr=lr, weight_decay=wd, 
@@ -62,24 +72,21 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
                              rho_vector=params.get("rho_vector", 0.015),
                              momentum=params.get("momentum", 0.9665),
                              adam_lr=params.get("adam_lr", 0.002))
-        sched = get_cosine_schedule_with_warmup(opt, num_warmup_steps=warmup, num_training_steps=epochs * (steps_per_epoch or 100))
-        return opt, sched
+        return opt, get_wsd_schedule(opt)
     elif name == "atlas_raw":
         opt = AtlasOptimizerRaw(model, lr=lr, weight_decay=wd, 
                                 rho=params.get("rho", 0.015), 
                                 rho_vector=params.get("rho_vector", 0.015),
                                 momentum=params.get("momentum", 0.9665),
                                 adam_lr=params.get("adam_lr", 0.002))
-        sched = get_cosine_schedule_with_warmup(opt, num_warmup_steps=warmup, num_training_steps=epochs * (steps_per_epoch or 100))
-        return opt, sched
+        return opt, get_wsd_schedule(opt)
     elif name == "atlas_random":
         opt = AtlasOptimizerRandom(model, lr=lr, weight_decay=wd, 
                                    rho=params.get("rho", 0.015), 
                                    rho_vector=params.get("rho_vector", 0.015),
                                    momentum=params.get("momentum", 0.9665),
                                    adam_lr=params.get("adam_lr", 0.002))
-        sched = get_cosine_schedule_with_warmup(opt, num_warmup_steps=warmup, num_training_steps=epochs * (steps_per_epoch or 100))
-        return opt, sched
+        return opt, get_wsd_schedule(opt)
     elif name in ["muon", "muon_nesterov", "muon_polyak"]:
         try:
             from muon import SingleDeviceMuonWithAuxAdam
@@ -95,16 +102,13 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
             opt = SingleDeviceMuonWithAuxAdam([*adam_groups, muon_group])
         except Exception:
             opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd)
-        sched = get_cosine_schedule_with_warmup(opt, num_warmup_steps=warmup, num_training_steps=epochs * (steps_per_epoch or 100))
-        return opt, sched
+        return opt, get_wsd_schedule(opt)
     elif name == "adam":
         opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd, eps=1e-7)
-        sched = get_cosine_schedule_with_warmup(opt, num_warmup_steps=warmup, num_training_steps=epochs * (steps_per_epoch or 100))
-        return opt, sched
+        return opt, get_wsd_schedule(opt)
     elif name == "sgd":
         opt = torch.optim.SGD(trainable_params, lr=lr, momentum=params.get("momentum", 0.9), weight_decay=wd)
-        sched = get_cosine_schedule_with_warmup(opt, num_warmup_steps=warmup, num_training_steps=epochs * (steps_per_epoch or 100))
-        return opt, sched
+        return opt, get_wsd_schedule(opt)
 
     raise ValueError(f"Unknown optimizer: {name}")
 
@@ -143,6 +147,11 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
                                 lbls = mb["labels"].to(device)
                                 out = model(input_ids=ids, labels=lbls)
                                 loss = out.loss / curr_acc
+                                preds = out.logits.argmax(dim=-1)[..., :-1]
+                                shifted_labels = lbls[..., 1:]
+                                mask = (shifted_labels != -100)
+                                correct += (preds[mask] == shifted_labels[mask]).sum().item()
+                                total += mask.sum().item()
                         loss.backward()
                         c_loss = c_loss + loss.detach()
                     return c_loss
@@ -166,6 +175,11 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
                             lbls = mb["labels"].to(device)
                             out = model(input_ids=ids, labels=lbls)
                             loss = out.loss / curr_acc
+                            preds = out.logits.argmax(dim=-1)[..., :-1]
+                            shifted_labels = lbls[..., 1:]
+                            mask = (shifted_labels != -100)
+                            correct += (preds[mask] == shifted_labels[mask]).sum().item()
+                            total += mask.sum().item()
                     loss.backward()
                     loss_val += loss.item()
                 nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -175,8 +189,6 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
                 for mb in micro_batches:
                     if task_type == "image_classification":
                         total += mb["label"].size(0)
-                    else:
-                        total += mb["input_ids"].size(0)
             total_loss += loss_val
             micro_batches.clear()
             steps += 1
@@ -184,8 +196,9 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
     epoch_time = time.time() - t0
     num_updates = max(1, steps)
     mean_loss = total_loss / num_updates
-    acc_val = (100.0 * correct / max(1, total)) if task_type == "image_classification" else math.exp(min(10.0, mean_loss))
-    return mean_loss, acc_val, epoch_time
+    acc_val = (100.0 * correct / max(1, total))
+    perplexity = math.exp(min(10.0, mean_loss)) if task_type != "image_classification" else 0.0
+    return mean_loss, acc_val, perplexity, epoch_time
 
 def evaluate_model(model, criterion, dataloader, task_type, max_steps=50):
     model.eval()
@@ -208,13 +221,18 @@ def evaluate_model(model, criterion, dataloader, task_type, max_steps=50):
                     lbls = batch["labels"].to(device)
                     out = model(input_ids=ids, labels=lbls)
                     loss = out.loss
-                    total += ids.size(0)
+                    preds = out.logits.argmax(dim=-1)[..., :-1]
+                    shifted_labels = lbls[..., 1:]
+                    mask = (shifted_labels != -100)
+                    correct += (preds[mask] == shifted_labels[mask]).sum().item()
+                    total += mask.sum().item()
             total_loss += loss.item()
             steps += 1
 
     mean_loss = total_loss / max(1, steps)
-    metric = (100.0 * correct / max(1, total)) if task_type == "image_classification" else math.exp(min(10.0, mean_loss))
-    return mean_loss, metric
+    metric = (100.0 * correct / max(1, total))
+    perplexity = math.exp(min(10.0, mean_loss)) if task_type != "image_classification" else 0.0
+    return mean_loss, metric, perplexity
 
 def run_noise_analysis(model, dataloader, config_id):
     print(f"\n[Running Heavy-Tailed Noise Analysis for {config_id}]")

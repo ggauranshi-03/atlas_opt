@@ -5,7 +5,7 @@
 # ==============================================================================
 
 experiment:
-  experiment_id: "paper1_exp2_nanogpt_ablations"
+  experiment_id: "nanogpt_ablations"
   wandb_project: "Paper1-Muon-Ablations"
   task_type: "causal_lm"
 

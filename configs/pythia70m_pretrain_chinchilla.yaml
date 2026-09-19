@@ -4,7 +4,7 @@
 # ==============================================================================
 
 experiment:
-  experiment_id: "paper2_exp3_pythia70m_pretrain_chinchilla"
+  experiment_id: "pythia70m_pretrain_chinchilla"
   wandb_project: "Pythia70M-Fineweb"
   task_type: "causal_lm"
 
@@ -14,6 +14,7 @@ experiment:
   dataset_config: "sample-10BT"
   max_len: 2048
   total_tokens: 1400000000              # 1.4B tokens (Chinchilla-optimal)
+  train_epochs: 14                      # 14 epochs * 100 steps/epoch = 1400 steps
 
 # Effective Batch Size = 512 sequences * 2048 tokens ~ 1M tokens/step:
 batch_size: 16

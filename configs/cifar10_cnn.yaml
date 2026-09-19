@@ -4,7 +4,7 @@
 # ==============================================================================
 
 experiment:
-  experiment_id: "paper1_exp3_cifar10_cnn"
+  experiment_id: "cifar10_cnn"
   wandb_project: "CIFAR10-CNN-Optimizers"
   task_type: "image_classification"
 
