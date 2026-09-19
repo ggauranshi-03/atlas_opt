@@ -130,7 +130,7 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
             
             if is_atlas:
                 def closure():
-                    nonlocal correct
+                    nonlocal correct, total
                     optimizer.zero_grad()
                     c_loss = torch.tensor(0.0, device=device)
                     for mb in micro_batches:

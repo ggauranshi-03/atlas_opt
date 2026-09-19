@@ -20,7 +20,7 @@ experiment:
   dataset_name: "HuggingFaceFW/fineweb-edu"
   dataset_config: "sample-10BT"
   max_len: 2048                          # 2048 tokens sequence length
-  total_training_steps: 1490             # 1490 training iterations
+  total_training_steps: 1500             # 1500 training iterations (15 epochs)
   val_tokens: 10485760                   # 10.48M held-out tokens
 
 # Batch size & accumulation
