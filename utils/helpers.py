@@ -10,6 +10,7 @@ from transformers import (
 from optimizers.atlas_baseline import AtlasOptimizer
 from optimizers.atlas_raw_grad import AtlasOptimizerRaw
 from optimizers.atlas_random import AtlasOptimizerRandom
+from optimizers.muon_sam import MuonSAM
 from utils.models import AirbenchCNN
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -103,6 +104,25 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
         except Exception:
             opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd)
         return opt, get_wsd_schedule(opt)
+    elif name == "muon_sam":
+        try:
+            from muon import SingleDeviceMuonWithAuxAdam
+            muon_params, adam_params = [], []
+            for n, p in model.named_parameters():
+                if not p.requires_grad: continue
+                if p.ndim >= 2 and "embed" not in n and "wte" not in n and "wpe" not in n:
+                    muon_params.append(p)
+                else:
+                    adam_params.append(p)
+            adam_groups = [dict(params=adam_params, lr=params.get("adam_lr", 3e-4), betas=(0.9, 0.95), eps=1e-10, weight_decay=wd, use_muon=False)]
+            muon_group = dict(params=muon_params, lr=lr, momentum=params.get("momentum", 0.95), weight_decay=wd, use_muon=True)
+            base_opt = SingleDeviceMuonWithAuxAdam([*adam_groups, muon_group])
+        except Exception:
+            base_opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd)
+        opt = MuonSAM(base_opt, rho=params.get("rho", 0.0015),
+                      rho_vector=params.get("rho_vector", 0.01),
+                      ns_steps=params.get("ns_steps", 5))
+        return opt, get_wsd_schedule(opt)
     elif name == "adam":
         opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd, eps=1e-7)
         return opt, get_wsd_schedule(opt)
@@ -118,7 +138,7 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
     micro_batches = []
     t0 = time.time()
     
-    is_atlas = isinstance(optimizer, (AtlasOptimizer, AtlasOptimizerRaw, AtlasOptimizerRandom))
+    is_closure_opt = isinstance(optimizer, (AtlasOptimizer, AtlasOptimizerRaw, AtlasOptimizerRandom, MuonSAM))
     steps = 0
     
     for batch_idx, batch in enumerate(dataloader):
@@ -128,11 +148,16 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
         if len(micro_batches) == grad_acc:
             curr_acc = len(micro_batches)
             
-            if is_atlas:
+            if is_closure_opt:
+                cls_correct, cls_total = 0, 0
+                closure_calls = 0
+                
                 def closure():
-                    nonlocal correct, total
+                    nonlocal cls_correct, cls_total, closure_calls
                     optimizer.zero_grad()
                     c_loss = torch.tensor(0.0, device=device)
+                    temp_correct, temp_total = 0, 0
+                    
                     for mb in micro_batches:
                         with torch.amp.autocast("cuda", dtype=torch.bfloat16):
                             if task_type == "image_classification":
@@ -141,7 +166,8 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
                                 logits = model(imgs)
                                 loss = criterion(logits, targets) / curr_acc
                                 preds = logits.argmax(dim=-1)
-                                correct += preds.eq(targets).sum().item()
+                                temp_correct += preds.eq(targets).sum().item()
+                                temp_total += targets.size(0)
                             else:
                                 ids = mb["input_ids"].to(device)
                                 lbls = mb["labels"].to(device)
@@ -150,14 +176,22 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
                                 preds = out.logits.argmax(dim=-1)[..., :-1]
                                 shifted_labels = lbls[..., 1:]
                                 mask = (shifted_labels != -100)
-                                correct += (preds[mask] == shifted_labels[mask]).sum().item()
-                                total += mask.sum().item()
+                                temp_correct += (preds[mask] == shifted_labels[mask]).sum().item()
+                                temp_total += mask.sum().item()
                         loss.backward()
                         c_loss = c_loss + loss.detach()
+                        
+                    if closure_calls == 0:
+                        cls_correct = temp_correct
+                        cls_total = temp_total
+                    closure_calls += 1
+                    
                     return c_loss
                 
                 loss_step = optimizer.step(closure)
                 loss_val = float(loss_step) if isinstance(loss_step, (int, float)) else loss_step.item()
+                correct += cls_correct
+                total += cls_total
             else:
                 optimizer.zero_grad()
                 loss_val = 0.0

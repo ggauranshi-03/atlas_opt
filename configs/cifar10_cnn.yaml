@@ -107,3 +107,12 @@ optimizers:
     weight_decay: 0.0001
     rho: 0.0015
     rho_vector: 0.01
+
+  muon_sam:
+    optimizer: "muon_sam"
+    lr: 0.015
+    momentum: 0.95
+    weight_decay: 0.01
+    rho: 0.0015
+    rho_vector: 0.01
+
