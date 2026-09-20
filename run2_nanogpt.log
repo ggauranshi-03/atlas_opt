@@ -1,0 +1,433 @@
+nohup: ignoring input
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run h1ajthy9
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260919_110206-h1ajthy9
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/h1ajthy9
+2026-09-19 11:02:07.986797: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1789815728.009369  129287 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1789815728.016745  129287 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1789815728.036751  129287 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789815728.036798  129287 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789815728.036803  129287 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789815728.036807  129287 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-09-19 11:02:08.041919: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 14-14, summary, console lines 37-37
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s ▂▁▁▁▁▁▁▁▁▁▁▁█▁▁
+wandb: train/accuracy ▁▂▃▄▄▅▅▅▅▆▆▇▇██
+wandb:     train/loss █▆▄▄▃▃▃▂▂▂▂▂▁▁▁
+wandb:   val/accuracy ▁▃▃▄▄▅▅▅▅▆▆▇▇██
+wandb:       val/loss █▆▄▄▃▃▃▃▂▂▂▂▁▁▁
+wandb: val/perplexity █▃▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 781.421
+wandb: train/accuracy 29.02015
+wandb:     train/loss 4.22366
+wandb:   val/accuracy 30.88503
+wandb:       val/loss 4.04307
+wandb: val/perplexity 57.0008
+wandb: 
+wandb: 🚀 View run atlas at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/h1ajthy9
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260919_110206-h1ajthy9/logs
+wandb: setting up run 2e853uv0
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260919_142248-2e853uv0
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_raw
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/2e853uv0
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 14-14, summary, console lines 36-36
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s █▃▃▃▃▃▃▂▂▂▂▂▁▁▁
+wandb: train/accuracy ▁▂▃▄▄▅▅▅▆▆▇▇███
+wandb:     train/loss █▇▄▄▃▃▃▂▂▂▂▁▁▁▁
+wandb:   val/accuracy ▁▃▄▄▄▅▅▅▆▆▇▇███
+wandb:       val/loss █▆▄▄▃▃▃▂▂▂▂▁▁▁▁
+wandb: val/perplexity █▃▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 779.10622
+wandb: train/accuracy 32.02346
+wandb:     train/loss 3.95046
+wandb:   val/accuracy 33.80675
+wandb:       val/loss 3.77536
+wandb: val/perplexity 43.61321
+wandb: 
+wandb: 🚀 View run atlas_raw at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/2e853uv0
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260919_142248-2e853uv0/logs
+wandb: setting up run g1xoocoz
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260919_174240-g1xoocoz
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_random
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/g1xoocoz
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+
+>>> Running Benchmark for Optimizers: ['atlas', 'atlas_raw', 'atlas_random', 'muon', 'adam', 'sgd'] across 1 configs <<<
+
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: ATLAS | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+============================================================
+  [Atlas Hyperparameter Tuning] Finding Optimal (lr, rho, adam_lr)
+============================================================
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 7.8155
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 7.7356
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 7.7576
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 7.7999
+
+  [Optimal Atlas Config Selected]: lr=0.038, rho=0.006, adam_lr=0.003
+============================================================
+
+
+  Starting training [nanogpt_fineweb] with optimizer [atlas] for 15 epochs...
+  [ATLAS       ] Epoch  1/15 | Train Loss: 11.5826 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 786.4s
+  [ATLAS       ] Epoch  2/15 | Train Loss: 9.9197 | Train Acc: 4.81% | Val Loss: 8.6307 | Val Acc: 7.15% | Time: 779.8s
+  [ATLAS       ] Epoch  3/15 | Train Loss: 7.6864 | Train Acc: 8.70% | Val Loss: 7.2369 | Val Acc: 10.48% | Time: 779.6s
+  [ATLAS       ] Epoch  4/15 | Train Loss: 6.9212 | Train Acc: 11.84% | Val Loss: 6.6666 | Val Acc: 13.67% | Time: 780.2s
+  [ATLAS       ] Epoch  5/15 | Train Loss: 6.4623 | Train Acc: 13.98% | Val Loss: 6.3042 | Val Acc: 14.89% | Time: 780.3s
+  [ATLAS       ] Epoch  6/15 | Train Loss: 6.1602 | Train Acc: 15.09% | Val Loss: 6.0271 | Val Acc: 15.68% | Time: 780.0s
+  [ATLAS       ] Epoch  7/15 | Train Loss: 5.9051 | Train Acc: 16.01% | Val Loss: 5.7637 | Val Acc: 16.81% | Time: 779.8s
+  [ATLAS       ] Epoch  8/15 | Train Loss: 5.6910 | Train Acc: 17.08% | Val Loss: 5.5614 | Val Acc: 17.73% | Time: 779.7s
+  [ATLAS       ] Epoch  9/15 | Train Loss: 5.4993 | Train Acc: 18.14% | Val Loss: 5.3548 | Val Acc: 18.83% | Time: 780.4s
+  [ATLAS       ] Epoch 10/15 | Train Loss: 5.2580 | Train Acc: 19.79% | Val Loss: 5.0455 | Val Acc: 21.50% | Time: 780.1s
+  [ATLAS       ] Epoch 11/15 | Train Loss: 4.9924 | Train Acc: 21.89% | Val Loss: 4.7960 | Val Acc: 23.38% | Time: 780.3s
+  [ATLAS       ] Epoch 12/15 | Train Loss: 4.7687 | Train Acc: 23.76% | Val Loss: 4.5689 | Val Acc: 25.56% | Time: 780.8s
+  [ATLAS       ] Epoch 13/15 | Train Loss: 4.5620 | Train Acc: 25.69% | Val Loss: 4.3660 | Val Acc: 27.63% | Time: 842.8s
+  [ATLAS       ] Epoch 14/15 | Train Loss: 4.3788 | Train Acc: 27.52% | Val Loss: 4.1863 | Val Acc: 29.49% | Time: 782.0s
+  [ATLAS       ] Epoch 15/15 | Train Loss: 4.2237 | Train Acc: 29.02% | Val Loss: 4.0431 | Val Acc: 30.89% | Time: 781.4s
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: ATLAS_RAW | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+============================================================
+  [Atlas Hyperparameter Tuning] Finding Optimal (lr, rho, adam_lr)
+============================================================
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 7.8153
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 7.7368
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 7.7579
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 7.7993
+
+  [Optimal Atlas Config Selected]: lr=0.038, rho=0.006, adam_lr=0.003
+============================================================
+
+
+  Starting training [nanogpt_fineweb] with optimizer [atlas_raw] for 15 epochs...
+  [ATLAS_RAW   ] Epoch  1/15 | Train Loss: 11.3317 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 789.7s
+  [ATLAS_RAW   ] Epoch  2/15 | Train Loss: 9.8450 | Train Acc: 5.20% | Val Loss: 8.6068 | Val Acc: 7.89% | Time: 781.9s
+  [ATLAS_RAW   ] Epoch  3/15 | Train Loss: 7.6193 | Train Acc: 9.41% | Val Loss: 7.0666 | Val Acc: 12.75% | Time: 781.9s
+  [ATLAS_RAW   ] Epoch  4/15 | Train Loss: 6.7400 | Train Acc: 13.44% | Val Loss: 6.4916 | Val Acc: 14.61% | Time: 781.4s
+  [ATLAS_RAW   ] Epoch  5/15 | Train Loss: 6.2888 | Train Acc: 15.10% | Val Loss: 6.1236 | Val Acc: 15.84% | Time: 781.5s
+  [ATLAS_RAW   ] Epoch  6/15 | Train Loss: 5.9774 | Train Acc: 16.22% | Val Loss: 5.8179 | Val Acc: 17.18% | Time: 781.6s
+  [ATLAS_RAW   ] Epoch  7/15 | Train Loss: 5.7180 | Train Acc: 17.48% | Val Loss: 5.5664 | Val Acc: 18.34% | Time: 781.7s
+  [ATLAS_RAW   ] Epoch  8/15 | Train Loss: 5.4878 | Train Acc: 18.79% | Val Loss: 5.3054 | Val Acc: 19.98% | Time: 781.0s
+  [ATLAS_RAW   ] Epoch  9/15 | Train Loss: 5.2059 | Train Acc: 20.83% | Val Loss: 4.9742 | Val Acc: 22.68% | Time: 780.8s
+  [ATLAS_RAW   ] Epoch 10/15 | Train Loss: 4.8909 | Train Acc: 23.40% | Val Loss: 4.6715 | Val Acc: 25.25% | Time: 780.8s
+  [ATLAS_RAW   ] Epoch 11/15 | Train Loss: 4.6184 | Train Acc: 25.81% | Val Loss: 4.4029 | Val Acc: 27.85% | Time: 781.1s
+  [ATLAS_RAW   ] Epoch 12/15 | Train Loss: 4.3861 | Train Acc: 28.06% | Val Loss: 4.1835 | Val Acc: 30.10% | Time: 780.1s
+  [ATLAS_RAW   ] Epoch 13/15 | Train Loss: 4.2044 | Train Acc: 29.78% | Val Loss: 4.0195 | Val Acc: 31.67% | Time: 779.5s
+  [ATLAS_RAW   ] Epoch 14/15 | Train Loss: 4.0642 | Train Acc: 31.03% | Val Loss: 3.8859 | Val Acc: 32.90% | Time: 778.9s
+  [ATLAS_RAW   ] Epoch 15/15 | Train Loss: 3.9505 | Train Acc: 32.02% | Val Loss: 3.7754 | Val Acc: 33.81% | Time: 779.1s
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: ATLAS_RANDOM | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+============================================================
+  [Atlas Hyperparameter Tuning] Finding Optimal (lr, rho, adam_lr)
+============================================================
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 7.8137
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 7.7361
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 7.7582
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 7.8021
+
+  [Optimal Atlas Config Selected]: lr=0.038, rho=0.006, adam_lr=0.003
+============================================================
+
+
+  Starting training [nanogpt_fineweb] with optimizer [atlas_random] for 15 epochs...
+  [ATLAS_RANDOM] Epoch  1/15 | Train Loss: 11.1281 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 788.0s
+  [ATLAS_RANDOM] Epoch  2/15 | Train Loss: 9.3388 | Train Acc: 6.83% | Val Loss: 8.1535 | Val Acc: 10.27% | Time: 779.7s
+  [ATLAS_RANDOM] Epoch  3/15 | Train Loss: 7.2394 | Train Acc: 12.33% | Val Loss: 6.8352 | Val Acc: 14.07% | Time: 780.3s
+  [ATLAS_RANDOM] Epoch  4/15 | Train Loss: 6.5369 | Train Acc: 14.54% | Val Loss: 6.3385 | Val Acc: 15.35% | Time: 782.0s
+  [ATLAS_RANDOM] Epoch  5/15 | Train Loss: 6.1630 | Train Acc: 15.77% | Val Loss: 5.9979 | Val Acc: 16.55% | Time: 783.1s
+  [ATLAS_RANDOM] Epoch  6/15 | Train Loss: 5.8731 | Train Acc: 16.98% | Val Loss: 5.7188 | Val Acc: 17.84% | Time: 782.9swandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading config.yaml
+wandb: uploading history steps 14-14, summary, console lines 36-36
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s █▁▁▃▄▄▃▂▄▃▃▂▂▂▂
+wandb: train/accuracy ▁▂▄▄▄▅▅▅▆▆▇▇███
+wandb:     train/loss █▆▄▄▃▃▃▂▂▂▂▁▁▁▁
+wandb:   val/accuracy ▁▃▄▄▄▅▅▅▆▆▇▇███
+wandb:       val/loss █▅▄▃▃▃▃▂▂▂▂▁▁▁▁
+wandb: val/perplexity █▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 780.77241
+wandb: train/accuracy 32.39572
+wandb:     train/loss 3.91759
+wandb:   val/accuracy 34.1524
+wandb:       val/loss 3.74156
+wandb: val/perplexity 42.1639
+wandb: 
+wandb: 🚀 View run atlas_random at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/g1xoocoz
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260919_174240-g1xoocoz/logs
+wandb: setting up run 7ylua8en
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260919_210240-7ylua8en
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/7ylua8en
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s ▅▃▂▅█▄▅▆▃▇▂▃▆▁▄
+wandb: train/accuracy ▁▃▄▅▅▅▆▆▆▇▇▇███
+wandb:     train/loss █▇▅▅▅▄▄▃▃▂▂▂▁▁▁
+wandb:   val/accuracy ▁▄▅▅▅▅▆▆▆▇▇▇███
+wandb:       val/loss █▆▅▅▄▄▄▃▃▂▂▂▁▁▁
+wandb: val/perplexity █▄▃▂▂▂▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 770.77064
+wandb: train/accuracy 26.67085
+wandb:     train/loss 5.42257
+wandb:   val/accuracy 28.068
+wandb:       val/loss 5.26518
+wandb: val/perplexity 193.48116
+wandb: 
+wandb: 🚀 View run muon at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/7ylua8en
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260919_210240-7ylua8en/logs
+wandb: setting up run zlhfb5he
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260920_001837-zlhfb5he
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run adam
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/zlhfb5he
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+wandb: updating run metadata
+wandb: uploading output.log
+wandb: uploading history steps 14-14, summary, console lines 20-20
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s █▄▇▄▁▄▄▁▁▅▁▂▆▅▆
+wandb: train/accuracy ▁▃▄▅▅▅▅▆▆▆▇▇▇██
+wandb:     train/loss █▅▄▃▃▃▃▂▂▂▂▁▁▁▁
+wandb:   val/accuracy ▁▃▄▅▅▅▅▆▆▆▇▇▇██
+wandb:       val/loss █▅▄▃▃▃▃▂▂▂▂▁▁▁▁
+wandb: val/perplexity █▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 766.64216
+wandb: train/accuracy 27.24278
+wandb:     train/loss 4.58257
+wandb:   val/accuracy 28.49951
+wandb:       val/loss 4.44461
+wandb: val/perplexity 85.16627
+wandb: 
+wandb: 🚀 View run adam at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/zlhfb5he
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260920_001837-zlhfb5he/logs
+wandb: setting up run u0befp5q
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260920_033323-u0befp5q
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sgd
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/u0befp5q
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading history steps 14-14, summary, console lines 20-20
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s █▄▃▅▄▃▇▅▁▄▃▃▆▂▃
+wandb: train/accuracy ▁▂▆▅█▆█▇▆▅▂▅▄▆█
+wandb:     train/loss ███▇▇▆▅▅▄▄▃▃▂▂▁
+wandb:   val/accuracy ▅▅▅▅▅▅█▁▁▁▁▅▁▁▁
+wandb:       val/loss ███▇▇▆▅▅▄▄▃▃▂▂▁
+wandb: val/perplexity ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 765.24084
+wandb: train/accuracy 0.00165
+wandb:     train/loss 10.98996
+wandb:   val/accuracy 0.00269
+wandb:       val/loss 10.98688
+wandb: val/perplexity 22026.46579
+wandb: 
+wandb: 🚀 View run sgd at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/u0befp5q
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260920_033323-u0befp5q/logs
+
+  [ATLAS_RANDOM] Epoch  7/15 | Train Loss: 5.6150 | Train Acc: 18.33% | Val Loss: 5.4343 | Val Acc: 19.53% | Time: 782.7s
+  [ATLAS_RANDOM] Epoch  8/15 | Train Loss: 5.3288 | Train Acc: 20.28% | Val Loss: 5.1126 | Val Acc: 21.87% | Time: 781.4s
+  [ATLAS_RANDOM] Epoch  9/15 | Train Loss: 5.0240 | Train Acc: 22.62% | Val Loss: 4.8085 | Val Acc: 24.29% | Time: 782.7s
+  [ATLAS_RANDOM] Epoch 10/15 | Train Loss: 4.7467 | Train Acc: 24.87% | Val Loss: 4.5409 | Val Acc: 26.55% | Time: 782.1s
+  [ATLAS_RANDOM] Epoch 11/15 | Train Loss: 4.5071 | Train Acc: 27.00% | Val Loss: 4.3041 | Val Acc: 28.90% | Time: 781.9s
+  [ATLAS_RANDOM] Epoch 12/15 | Train Loss: 4.3063 | Train Acc: 28.91% | Val Loss: 4.1130 | Val Acc: 30.82% | Time: 781.3s
+  [ATLAS_RANDOM] Epoch 13/15 | Train Loss: 4.1469 | Train Acc: 30.40% | Val Loss: 3.9665 | Val Acc: 32.20% | Time: 781.1s
+  [ATLAS_RANDOM] Epoch 14/15 | Train Loss: 4.0214 | Train Acc: 31.50% | Val Loss: 3.8453 | Val Acc: 33.27% | Time: 781.2s
+  [ATLAS_RANDOM] Epoch 15/15 | Train Loss: 3.9176 | Train Acc: 32.40% | Val Loss: 3.7416 | Val Acc: 34.15% | Time: 780.8s
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: MUON | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [muon] for 15 epochs...
+  [MUON        ] Epoch  1/15 | Train Loss: 11.0215 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 771.1s
+  [MUON        ] Epoch  2/15 | Train Loss: 9.8885 | Train Acc: 7.28% | Val Loss: 9.1840 | Val Acc: 10.80% | Time: 770.6s
+  [MUON        ] Epoch  3/15 | Train Loss: 8.8649 | Train Acc: 12.91% | Val Loss: 8.6604 | Val Acc: 14.27% | Time: 770.3s
+  [MUON        ] Epoch  4/15 | Train Loss: 8.5373 | Train Acc: 14.83% | Val Loss: 8.4251 | Val Acc: 15.49% | Time: 771.2s
+  [MUON        ] Epoch  5/15 | Train Loss: 8.2760 | Train Acc: 15.79% | Val Loss: 8.0958 | Val Acc: 16.41% | Time: 772.4s
+  [MUON        ] Epoch  6/15 | Train Loss: 7.9198 | Train Acc: 16.86% | Val Loss: 7.7169 | Val Acc: 17.86% | Time: 770.8s
+  [MUON        ] Epoch  7/15 | Train Loss: 7.5677 | Train Acc: 18.26% | Val Loss: 7.3689 | Val Acc: 19.46% | Time: 771.2s
+  [MUON        ] Epoch  8/15 | Train Loss: 7.2575 | Train Acc: 19.67% | Val Loss: 7.0822 | Val Acc: 20.85% | Time: 771.6s
+  [MUON        ] Epoch  9/15 | Train Loss: 6.8281 | Train Acc: 20.87% | Val Loss: 6.5807 | Val Acc: 21.99% | Time: 770.7s
+  [MUON        ] Epoch 10/15 | Train Loss: 6.4009 | Train Acc: 22.00% | Val Loss: 6.2052 | Val Acc: 23.08% | Time: 772.1s
+  [MUON        ] Epoch 11/15 | Train Loss: 6.1123 | Train Acc: 23.04% | Val Loss: 5.9427 | Val Acc: 24.23% | Time: 770.2s
+  [MUON        ] Epoch 12/15 | Train Loss: 5.8972 | Train Acc: 24.02% | Val Loss: 5.7345 | Val Acc: 25.34% | Time: 770.5s
+  [MUON        ] Epoch 13/15 | Train Loss: 5.7177 | Train Acc: 24.97% | Val Loss: 5.5565 | Val Acc: 26.35% | Time: 771.7s
+  [MUON        ] Epoch 14/15 | Train Loss: 5.5610 | Train Acc: 25.86% | Val Loss: 5.4019 | Val Acc: 27.26% | Time: 769.8s
+  [MUON        ] Epoch 15/15 | Train Loss: 5.4226 | Train Acc: 26.67% | Val Loss: 5.2652 | Val Acc: 28.07% | Time: 770.8s
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: ADAM | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [adam] for 15 epochs...
+  [ADAM        ] Epoch  1/15 | Train Loss: 11.0215 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 767.2s
+  [ADAM        ] Epoch  2/15 | Train Loss: 8.7111 | Train Acc: 7.90% | Val Loss: 7.8936 | Val Acc: 10.14% | Time: 766.0s
+  [ADAM        ] Epoch  3/15 | Train Loss: 7.2083 | Train Acc: 12.29% | Val Loss: 6.8958 | Val Acc: 13.59% | Time: 766.8s
+  [ADAM        ] Epoch  4/15 | Train Loss: 6.6818 | Train Acc: 14.11% | Val Loss: 6.5516 | Val Acc: 14.61% | Time: 765.9s
+  [ADAM        ] Epoch  5/15 | Train Loss: 6.4194 | Train Acc: 14.95% | Val Loss: 6.3227 | Val Acc: 15.40% | Time: 765.1s
+  [ADAM        ] Epoch  6/15 | Train Loss: 6.2143 | Train Acc: 15.86% | Val Loss: 6.0954 | Val Acc: 16.64% | Time: 766.0s
+  [ADAM        ] Epoch  7/15 | Train Loss: 5.9946 | Train Acc: 17.17% | Val Loss: 5.8594 | Val Acc: 18.07% | Time: 765.9s
+  [ADAM        ] Epoch  8/15 | Train Loss: 5.7672 | Train Acc: 18.54% | Val Loss: 5.6253 | Val Acc: 19.51% | Time: 765.0s
+  [ADAM        ] Epoch  9/15 | Train Loss: 5.5569 | Train Acc: 19.82% | Val Loss: 5.4146 | Val Acc: 20.78% | Time: 765.1s
+  [ADAM        ] Epoch 10/15 | Train Loss: 5.3628 | Train Acc: 21.04% | Val Loss: 5.2228 | Val Acc: 21.98% | Time: 766.1s
+  [ADAM        ] Epoch 11/15 | Train Loss: 5.1850 | Train Acc: 22.23% | Val Loss: 5.0596 | Val Acc: 23.20% | Time: 765.0s
+  [ADAM        ] Epoch 12/15 | Train Loss: 5.0193 | Train Acc: 23.45% | Val Loss: 4.8727 | Val Acc: 24.67% | Time: 765.4s
+  [ADAM        ] Epoch 13/15 | Train Loss: 4.8562 | Train Acc: 24.84% | Val Loss: 4.7082 | Val Acc: 26.19% | Time: 766.7s
+  [ADAM        ] Epoch 14/15 | Train Loss: 4.7099 | Train Acc: 26.15% | Val Loss: 4.5719 | Val Acc: 27.38% | Time: 766.4s
+  [ADAM        ] Epoch 15/15 | Train Loss: 4.5826 | Train Acc: 27.24% | Val Loss: 4.4446 | Val Acc: 28.50% | Time: 766.6s
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: SGD | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [sgd] for 15 epochs...
+  [SGD         ] Epoch  1/15 | Train Loss: 11.0215 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 767.7s
+  [SGD         ] Epoch  2/15 | Train Loss: 11.0211 | Train Acc: 0.00% | Val Loss: 11.0251 | Val Acc: 0.00% | Time: 766.0s
+  [SGD         ] Epoch  3/15 | Train Loss: 11.0203 | Train Acc: 0.00% | Val Loss: 11.0237 | Val Acc: 0.00% | Time: 765.4s
+  [SGD         ] Epoch  4/15 | Train Loss: 11.0189 | Train Acc: 0.00% | Val Loss: 11.0216 | Val Acc: 0.00% | Time: 766.4s
+  [SGD         ] Epoch  5/15 | Train Loss: 11.0168 | Train Acc: 0.00% | Val Loss: 11.0185 | Val Acc: 0.00% | Time: 765.6s
+  [SGD         ] Epoch  6/15 | Train Loss: 11.0134 | Train Acc: 0.00% | Val Loss: 11.0140 | Val Acc: 0.00% | Time: 765.3s
+  [SGD         ] Epoch  7/15 | Train Loss: 11.0100 | Train Acc: 0.00% | Val Loss: 11.0106 | Val Acc: 0.00% | Time: 767.4s
+  [SGD         ] Epoch  8/15 | Train Loss: 11.0073 | Train Acc: 0.00% | Val Loss: 11.0077 | Val Acc: 0.00% | Time: 766.2s
+  [SGD         ] Epoch  9/15 | Train Loss: 11.0047 | Train Acc: 0.00% | Val Loss: 11.0045 | Val Acc: 0.00% | Time: 764.3s
+  [SGD         ] Epoch 10/15 | Train Loss: 11.0020 | Train Acc: 0.00% | Val Loss: 11.0014 | Val Acc: 0.00% | Time: 765.7s
+  [SGD         ] Epoch 11/15 | Train Loss: 10.9996 | Train Acc: 0.00% | Val Loss: 10.9987 | Val Acc: 0.00% | Time: 765.2s
+  [SGD         ] Epoch 12/15 | Train Loss: 10.9973 | Train Acc: 0.00% | Val Loss: 10.9959 | Val Acc: 0.00% | Time: 765.4s
+  [SGD         ] Epoch 13/15 | Train Loss: 10.9949 | Train Acc: 0.00% | Val Loss: 10.9930 | Val Acc: 0.00% | Time: 766.7s
+  [SGD         ] Epoch 14/15 | Train Loss: 10.9926 | Train Acc: 0.00% | Val Loss: 10.9901 | Val Acc: 0.00% | Time: 764.7s
+  [SGD         ] Epoch 15/15 | Train Loss: 10.9900 | Train Acc: 0.00% | Val Loss: 10.9869 | Val Acc: 0.00% | Time: 765.2s
+
+  [Single CSV Saved]: logs/nanogpt_fineweb_logs.csv
+  [Unified Comparison Plot Saved]: logs/nanogpt_fineweb_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  nanogpt_fineweb                     | Opt: atlas          | Loss: 4.2237 | Perplexity    : 57.00 | Time: 11773.5s
+  nanogpt_fineweb                     | Opt: atlas_raw      | Loss: 3.9505 | Perplexity    : 43.61 | Time: 11720.9s
+  nanogpt_fineweb                     | Opt: atlas_random   | Loss: 3.9176 | Perplexity    : 42.16 | Time: 11731.3s
+  nanogpt_fineweb                     | Opt: muon           | Loss: 5.4226 | Perplexity    : 193.48 | Time: 11565.0s
+  nanogpt_fineweb                     | Opt: adam           | Loss: 4.5826 | Perplexity    : 85.17 | Time: 11489.2s
+  nanogpt_fineweb                     | Opt: sgd            | Loss: 10.9900 | Perplexity    : 22026.47 | Time: 11487.2s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

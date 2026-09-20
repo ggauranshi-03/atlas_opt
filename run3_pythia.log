@@ -1,0 +1,423 @@
+nohup: ignoring input
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run tccf73f6
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260919_135047-tccf73f6
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/tccf73f6
+2026-09-19 13:50:48.783618: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1789825848.806534  149638 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1789825848.813912  149638 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1789825848.832581  149638 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789825848.832633  149638 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789825848.832640  149638 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789825848.832646  149638 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-09-19 13:50:48.837518: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 13-13, summary, console lines 34-34
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:         time_s ▇▁▂▄█▅▆▇▇█▄▄▃▃
+wandb: train/accuracy ▁▂▄▄▅▅▅▅▆▆▇▇██
+wandb:     train/loss █▇▅▄▃▃▃▂▂▂▂▁▁▁
+wandb:   val/accuracy ▁▃▄▄▅▅▅▅▆▆▇▇██
+wandb:       val/loss █▆▄▃▃▃▃▂▂▂▂▁▁▁
+wandb: val/perplexity █▅▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:         time_s 296.98121
+wandb: train/accuracy 29.34085
+wandb:     train/loss 4.23366
+wandb:   val/accuracy 30.06262
+wandb:       val/loss 4.16123
+wandb: val/perplexity 64.15019
+wandb: 
+wandb: 🚀 View run atlas at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/tccf73f6
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260919_135047-tccf73f6/logs
+wandb: setting up run ctsziv3l
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260919_150311-ctsziv3l
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_raw
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/ctsziv3l
+wandb: uploading history steps 13-13, summary, console lines 34-34; updating run metadata
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:         time_s █▃▃▂▃▄▃▃▃▂▂▃▁▂
+wandb: train/accuracy ▁▂▄▄▄▅▅▆▆▇▇▇██
+wandb:     train/loss █▇▅▄▃▃▃▂▂▂▁▁▁▁
+wandb:   val/accuracy ▁▃▄▄▅▅▅▆▆▇▇███
+wandb:       val/loss █▆▄▃▃▃▂▂▂▂▁▁▁▁
+wandb: val/perplexity █▅▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:         time_s 296.23611
+wandb: train/accuracy 31.29014
+wandb:     train/loss 4.07752
+wandb:   val/accuracy 31.72554
+wandb:       val/loss 4.02397
+wandb: val/perplexity 55.92272
+wandb: 
+wandb: 🚀 View run atlas_raw at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/ctsziv3l
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260919_150311-ctsziv3l/logs
+wandb: setting up run mfmxkos8
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260919_161517-mfmxkos8
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_random
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/mfmxkos8
+
+>>> Running Benchmark for Optimizers: ['atlas', 'atlas_raw', 'atlas_random', 'muon', 'adam', 'sgd'] across 1 configs <<<
+
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: ATLAS | Epochs: 14
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+============================================================
+  [Atlas Hyperparameter Tuning] Finding Optimal (lr, rho, adam_lr)
+============================================================
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 7.2682
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 7.2269
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 7.2499
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 7.2577
+
+  [Optimal Atlas Config Selected]: lr=0.038, rho=0.006, adam_lr=0.003
+============================================================
+
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [atlas] for 14 epochs...
+  [ATLAS       ] Epoch  1/14 | Train Loss: 11.0974 | Train Acc: 0.00% | Val Loss: 10.9574 | Val Acc: 0.00% | Time: 298.1s
+  [ATLAS       ] Epoch  2/14 | Train Loss: 10.3281 | Train Acc: 3.87% | Val Loss: 9.4789 | Val Acc: 9.15% | Time: 296.2s
+  [ATLAS       ] Epoch  3/14 | Train Loss: 7.9360 | Train Acc: 11.28% | Val Loss: 7.1690 | Val Acc: 12.94% | Time: 296.4s
+  [ATLAS       ] Epoch  4/14 | Train Loss: 6.7863 | Train Acc: 13.40% | Val Loss: 6.5453 | Val Acc: 14.35% | Time: 297.3s
+  [ATLAS       ] Epoch  5/14 | Train Loss: 6.3498 | Train Acc: 14.75% | Val Loss: 6.2313 | Val Acc: 15.35% | Time: 298.5s
+  [ATLAS       ] Epoch  6/14 | Train Loss: 6.0773 | Train Acc: 15.72% | Val Loss: 5.9815 | Val Acc: 16.12% | Time: 297.4s
+  [ATLAS       ] Epoch  7/14 | Train Loss: 5.8374 | Train Acc: 16.60% | Val Loss: 5.7291 | Val Acc: 17.29% | Time: 297.8s
+  [ATLAS       ] Epoch  8/14 | Train Loss: 5.5803 | Train Acc: 18.05% | Val Loss: 5.4614 | Val Acc: 18.82% | Time: 298.1s
+  [ATLAS       ] Epoch  9/14 | Train Loss: 5.2900 | Train Acc: 20.04% | Val Loss: 5.1577 | Val Acc: 21.02% | Time: 298.2s
+  [ATLAS       ] Epoch 10/14 | Train Loss: 5.0095 | Train Acc: 22.17% | Val Loss: 4.8952 | Val Acc: 23.09% | Time: 298.4s
+  [ATLAS       ] Epoch 11/14 | Train Loss: 4.7693 | Train Acc: 24.20% | Val Loss: 4.6717 | Val Acc: 24.96% | Time: 297.2s
+  [ATLAS       ] Epoch 12/14 | Train Loss: 4.5636 | Train Acc: 26.06% | Val Loss: 4.4714 | Val Acc: 26.90% | Time: 297.1s
+  [ATLAS       ] Epoch 13/14 | Train Loss: 4.3861 | Train Acc: 27.79% | Val Loss: 4.3099 | Val Acc: 28.46% | Time: 296.9s
+  [ATLAS       ] Epoch 14/14 | Train Loss: 4.2337 | Train Acc: 29.34% | Val Loss: 4.1612 | Val Acc: 30.06% | Time: 297.0s
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: ATLAS_RAW | Epochs: 14
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+============================================================
+  [Atlas Hyperparameter Tuning] Finding Optimal (lr, rho, adam_lr)
+============================================================
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 7.2686
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 7.2284
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 7.2501
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 7.2573
+
+  [Optimal Atlas Config Selected]: lr=0.038, rho=0.006, adam_lr=0.003
+============================================================
+
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [atlas_raw] for 14 epochs...
+  [ATLAS_RAW   ] Epoch  1/14 | Train Loss: 11.0117 | Train Acc: 0.00% | Val Loss: 10.9574 | Val Acc: 0.00% | Time: 301.3s
+  [ATLAS_RAW   ] Epoch  2/14 | Train Loss: 10.2277 | Train Acc: 5.11% | Val Loss: 9.4263 | Val Acc: 9.43% | Time: 296.9s
+  [ATLAS_RAW   ] Epoch  3/14 | Train Loss: 7.8594 | Train Acc: 11.68% | Val Loss: 7.1088 | Val Acc: 13.44% | Time: 296.5s
+  [ATLAS_RAW   ] Epoch  4/14 | Train Loss: 6.7035 | Train Acc: 14.16% | Val Loss: 6.4703 | Val Acc: 14.76% | Time: 295.7s
+  [ATLAS_RAW   ] Epoch  5/14 | Train Loss: 6.2482 | Train Acc: 15.51% | Val Loss: 6.1224 | Val Acc: 16.15% | Time: 297.2s
+  [ATLAS_RAW   ] Epoch  6/14 | Train Loss: 5.9427 | Train Acc: 16.76% | Val Loss: 5.8215 | Val Acc: 17.42% | Time: 297.3s
+  [ATLAS_RAW   ] Epoch  7/14 | Train Loss: 5.6217 | Train Acc: 18.71% | Val Loss: 5.4686 | Val Acc: 19.76% | Time: 296.8s
+  [ATLAS_RAW   ] Epoch  8/14 | Train Loss: 5.2705 | Train Acc: 21.11% | Val Loss: 5.1246 | Val Acc: 22.12% | Time: 297.2s
+  [ATLAS_RAW   ] Epoch  9/14 | Train Loss: 4.9687 | Train Acc: 23.33% | Val Loss: 4.8473 | Val Acc: 24.22% | Time: 296.9s
+  [ATLAS_RAW   ] Epoch 10/14 | Train Loss: 4.7230 | Train Acc: 25.27% | Val Loss: 4.6231 | Val Acc: 26.04% | Time: 296.0s
+  [ATLAS_RAW   ] Epoch 11/14 | Train Loss: 4.5170 | Train Acc: 27.08% | Val Loss: 4.4282 | Val Acc: 27.85% | Time: 296.3s
+  [ATLAS_RAW   ] Epoch 12/14 | Train Loss: 4.3411 | Train Acc: 28.77% | Val Loss: 4.2661 | Val Acc: 29.47% | Time: 296.9s
+  [ATLAS_RAW   ] Epoch 13/14 | Train Loss: 4.1967 | Train Acc: 30.16% | Val Loss: 4.1361 | Val Acc: 30.74% | Time: 295.1s
+  [ATLAS_RAW   ] Epoch 14/14 | Train Loss: 4.0775 | Train Acc: 31.29% | Val Loss: 4.0240 | Val Acc: 31.73% | Time: 296.2s
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: ATLAS_RANDOM | Epochs: 14
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+============================================================
+  [Atlas Hyperparameter Tuning] Finding Optimal (lr, rho, adam_lr)
+============================================================
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 1/4: lr=0.035  rho=0.008  adam_lr=0.003 -> End Loss: 7.2685
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 2/4: lr=0.038  rho=0.006  adam_lr=0.003 -> End Loss: 7.2280
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 3/4: lr=0.0325 rho=0.005  adam_lr=0.003 -> End Loss: 7.2497
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Trial 4/4: lr=0.04   rho=0.008  adam_lr=0.003 -> End Loss: 7.2578
+
+  [Optimal Atlas Config Selected]: lr=0.038, rho=0.006, adam_lr=0.003
+============================================================
+
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [atlas_random] for 14 epochs...
+  [ATLAS_RANDOM] Epoch  1/14 | Train Loss: 10.9917 | Train Acc: 0.00% | Val Loss: 10.9574 | Val Acc: 0.00% | Time: 299.4s
+  [ATLAS_RANDOM] Epoch  2/14 | Train Loss: 10.2007 | Train Acc: 5.24% | Val Loss: 9.4080 | Val Acc: 9.39% | Time: 295.8s
+  [ATLAS_RANDOM] Epoch  3/14 | Train Loss: 7.8351 | Train Acc: 11.85% | Val Loss: 7.0952 | Val Acc: 13.55% | Time: 295.9s
+  [ATLAS_RANDOM] Epoch  4/14 | Train Loss: 6.6787 | Train Acc: 14.33% | Val Loss: 6.4479 | Val Acc: 14.95% | Time: 299.0s
+  [ATLAS_RANDOM] Epoch  5/14 | Train Loss: 6.2245 | Train Acc: 15.70% | Val Loss: 6.1018 | Val Acc: 16.25% | Time: 297.5swandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading data
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:         time_s █▁▁▇▄▄▂▂▂▃▂▂▂▂
+wandb: train/accuracy ▁▂▄▄▄▅▅▆▆▇▇▇██
+wandb:     train/loss █▇▅▄▃▃▃▂▂▂▁▁▁▁
+wandb:   val/accuracy ▁▃▄▄▅▅▅▆▆▇▇███
+wandb:       val/loss █▆▄▃▃▃▂▂▂▂▁▁▁▁
+wandb: val/perplexity █▅▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:         time_s 296.47454
+wandb: train/accuracy 31.46743
+wandb:     train/loss 4.06355
+wandb:   val/accuracy 31.91463
+wandb:       val/loss 4.01066
+wandb: val/perplexity 55.18312
+wandb: 
+wandb: 🚀 View run atlas_random at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/mfmxkos8
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260919_161517-mfmxkos8/logs
+wandb: setting up run yzuwb3mi
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260919_172720-yzuwb3mi
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/yzuwb3mi
+wandb: updating run metadata
+wandb: uploading config.yaml; uploading output.log; uploading wandb-summary.json
+wandb: uploading config.yaml; uploading output.log; uploading wandb-summary.json; uploading history steps 13-13, summary, console lines 18-18
+wandb: uploading config.yaml; uploading output.log; uploading wandb-summary.json
+wandb: uploading config.yaml; uploading output.log
+wandb: uploading data
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:         time_s ▆▃▂█▂▄▄▄▂▁▅▄▃▄
+wandb: train/accuracy ▁▁▄▅▅▅▆▆▇▇▇███
+wandb:     train/loss ██▇▆▅▅▄▄▃▂▂▁▁▁
+wandb:   val/accuracy ▁▂▄▅▅▆▆▆▇▇▇███
+wandb:       val/loss █▇▆▆▅▅▄▄▃▂▂▁▁▁
+wandb: val/perplexity ██▆▄▃▂▂▂▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:         time_s 295.52897
+wandb: train/accuracy 25.51651
+wandb:     train/loss 5.98395
+wandb:   val/accuracy 25.75758
+wandb:       val/loss 5.93811
+wandb: val/perplexity 379.21675
+wandb: 
+wandb: 🚀 View run muon at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/yzuwb3mi
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260919_172720-yzuwb3mi/logs
+wandb: setting up run 8k47o5pk
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260919_183829-8k47o5pk
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run adam
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/8k47o5pk
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading history steps 13-13, summary, console lines 18-18
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:         time_s ▆▂▂█▃▅▁▄▃▁▅▁▆▂
+wandb: train/accuracy ▁▃▄▅▆▆▆▇▇▇▇███
+wandb:     train/loss █▆▄▃▃▃▂▂▂▂▁▁▁▁
+wandb:   val/accuracy ▁▃▄▅▆▆▇▇▇▇▇███
+wandb:       val/loss █▆▄▃▃▂▂▂▂▂▁▁▁▁
+wandb: val/perplexity █▃▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:         time_s 292.78299
+wandb: train/accuracy 23.7944
+wandb:     train/loss 4.95175
+wandb:   val/accuracy 23.91389
+wandb:       val/loss 4.9156
+wandb: val/perplexity 136.40057
+wandb: 
+wandb: 🚀 View run adam at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/8k47o5pk
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260919_183829-8k47o5pk/logs
+wandb: setting up run 7io47rdn
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260919_194906-7io47rdn
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sgd
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/7io47rdn
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:         time_s ▆▃▁█▅▃▂▂▁▂▄▃▄▁
+wandb: train/accuracy ▁▁▁▁▁▁▁▁▁▁▂▃▅█
+wandb:     train/loss ████▇▇▆▆▅▄▄▃▂▁
+wandb:   val/accuracy ▁▁▁▁▁▁▁▁▁▁▂▂▄█
+wandb:       val/loss ████▇▇▆▅▅▄▄▃▂▁
+wandb: val/perplexity ▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:         time_s 292.51885
+wandb: train/accuracy 0.04488
+wandb:     train/loss 10.79816
+wandb:   val/accuracy 0.06947
+wandb:       val/loss 10.78971
+wandb: val/perplexity 22026.46579
+wandb: 
+wandb: 🚀 View run sgd at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/7io47rdn
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260919_194906-7io47rdn/logs
+
+  [ATLAS_RANDOM] Epoch  6/14 | Train Loss: 5.9077 | Train Acc: 17.06% | Val Loss: 5.7745 | Val Acc: 17.95% | Time: 297.1s
+  [ATLAS_RANDOM] Epoch  7/14 | Train Loss: 5.5574 | Train Acc: 19.39% | Val Loss: 5.3925 | Val Acc: 20.52% | Time: 296.1s
+  [ATLAS_RANDOM] Epoch  8/14 | Train Loss: 5.2018 | Train Acc: 21.77% | Val Loss: 5.0638 | Val Acc: 22.72% | Time: 296.5s
+  [ATLAS_RANDOM] Epoch  9/14 | Train Loss: 4.9142 | Train Acc: 23.86% | Val Loss: 4.8033 | Val Acc: 24.68% | Time: 296.2s
+  [ATLAS_RANDOM] Epoch 10/14 | Train Loss: 4.6809 | Train Acc: 25.72% | Val Loss: 4.5838 | Val Acc: 26.51% | Time: 296.7s
+  [ATLAS_RANDOM] Epoch 11/14 | Train Loss: 4.4827 | Train Acc: 27.50% | Val Loss: 4.3975 | Val Acc: 28.30% | Time: 296.5s
+  [ATLAS_RANDOM] Epoch 12/14 | Train Loss: 4.3140 | Train Acc: 29.12% | Val Loss: 4.2428 | Val Acc: 29.70% | Time: 296.6s
+  [ATLAS_RANDOM] Epoch 13/14 | Train Loss: 4.1761 | Train Acc: 30.42% | Val Loss: 4.1160 | Val Acc: 30.91% | Time: 296.2s
+  [ATLAS_RANDOM] Epoch 14/14 | Train Loss: 4.0635 | Train Acc: 31.47% | Val Loss: 4.0107 | Val Acc: 31.91% | Time: 296.5s
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: MUON | Epochs: 14
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [muon] for 14 epochs...
+  [MUON        ] Epoch  1/14 | Train Loss: 10.9548 | Train Acc: 0.00% | Val Loss: 10.9574 | Val Acc: 0.00% | Time: 296.1s
+  [MUON        ] Epoch  2/14 | Train Loss: 10.7590 | Train Acc: 1.23% | Val Loss: 10.5745 | Val Acc: 4.89% | Time: 295.1s
+  [MUON        ] Epoch  3/14 | Train Loss: 10.0209 | Train Acc: 10.25% | Val Loss: 9.6329 | Val Acc: 11.53% | Time: 294.6s
+  [MUON        ] Epoch  4/14 | Train Loss: 9.3429 | Train Acc: 12.82% | Val Loss: 9.1794 | Val Acc: 13.85% | Time: 297.3s
+  [MUON        ] Epoch  5/14 | Train Loss: 8.9664 | Train Acc: 14.55% | Val Loss: 8.8126 | Val Acc: 15.01% | Time: 294.6s
+  [MUON        ] Epoch  6/14 | Train Loss: 8.6282 | Train Acc: 15.86% | Val Loss: 8.4874 | Val Acc: 16.78% | Time: 295.2s
+  [MUON        ] Epoch  7/14 | Train Loss: 8.3054 | Train Acc: 17.83% | Val Loss: 8.1743 | Val Acc: 18.45% | Time: 295.2s
+  [MUON        ] Epoch  8/14 | Train Loss: 7.9884 | Train Acc: 19.37% | Val Loss: 7.8475 | Val Acc: 19.95% | Time: 295.3s
+  [MUON        ] Epoch  9/14 | Train Loss: 7.3742 | Train Acc: 20.68% | Val Loss: 7.0215 | Val Acc: 21.21% | Time: 294.5s
+  [MUON        ] Epoch 10/14 | Train Loss: 6.7867 | Train Acc: 21.85% | Val Loss: 6.6529 | Val Acc: 22.41% | Time: 294.0s
+  [MUON        ] Epoch 11/14 | Train Loss: 6.5069 | Train Acc: 22.94% | Val Loss: 6.4193 | Val Acc: 23.37% | Time: 296.0s
+  [MUON        ] Epoch 12/14 | Train Loss: 6.3086 | Train Acc: 23.87% | Val Loss: 6.2436 | Val Acc: 24.27% | Time: 295.3s
+  [MUON        ] Epoch 13/14 | Train Loss: 6.1393 | Train Acc: 24.72% | Val Loss: 6.0765 | Val Acc: 25.11% | Time: 295.1s
+  [MUON        ] Epoch 14/14 | Train Loss: 5.9839 | Train Acc: 25.52% | Val Loss: 5.9381 | Val Acc: 25.76% | Time: 295.5s
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: ADAM | Epochs: 14
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [adam] for 14 epochs...
+  [ADAM        ] Epoch  1/14 | Train Loss: 10.9548 | Train Acc: 0.00% | Val Loss: 10.9574 | Val Acc: 0.00% | Time: 294.1s
+  [ADAM        ] Epoch  2/14 | Train Loss: 9.6132 | Train Acc: 6.69% | Val Loss: 8.9314 | Val Acc: 8.17% | Time: 292.5s
+  [ADAM        ] Epoch  3/14 | Train Loss: 7.9305 | Train Acc: 9.48% | Val Loss: 7.3809 | Val Acc: 11.40% | Time: 292.8s
+  [ADAM        ] Epoch  4/14 | Train Loss: 7.0124 | Train Acc: 13.25% | Val Loss: 6.7875 | Val Acc: 14.50% | Time: 294.8s
+  [ADAM        ] Epoch  5/14 | Train Loss: 6.5472 | Train Acc: 15.61% | Val Loss: 6.4208 | Val Acc: 16.16% | Time: 292.9s
+  [ADAM        ] Epoch  6/14 | Train Loss: 6.2611 | Train Acc: 17.03% | Val Loss: 6.1700 | Val Acc: 17.55% | Time: 293.8s
+  [ADAM        ] Epoch  7/14 | Train Loss: 6.0079 | Train Acc: 18.48% | Val Loss: 5.9305 | Val Acc: 18.90% | Time: 292.3s
+  [ADAM        ] Epoch  8/14 | Train Loss: 5.8136 | Train Acc: 19.42% | Val Loss: 5.7375 | Val Acc: 19.77% | Time: 293.5s
+  [ADAM        ] Epoch  9/14 | Train Loss: 5.6126 | Train Acc: 20.35% | Val Loss: 5.5432 | Val Acc: 20.60% | Time: 292.9s
+  [ADAM        ] Epoch 10/14 | Train Loss: 5.4384 | Train Acc: 21.15% | Val Loss: 5.3805 | Val Acc: 21.39% | Time: 292.5s
+  [ADAM        ] Epoch 11/14 | Train Loss: 5.2929 | Train Acc: 21.87% | Val Loss: 5.2512 | Val Acc: 22.05% | Time: 293.9s
+  [ADAM        ] Epoch 12/14 | Train Loss: 5.1715 | Train Acc: 22.51% | Val Loss: 5.1263 | Val Acc: 22.73% | Time: 292.4s
+  [ADAM        ] Epoch 13/14 | Train Loss: 5.0537 | Train Acc: 23.19% | Val Loss: 5.0156 | Val Acc: 23.32% | Time: 294.1s
+  [ADAM        ] Epoch 14/14 | Train Loss: 4.9518 | Train Acc: 23.79% | Val Loss: 4.9156 | Val Acc: 23.91% | Time: 292.8s
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: SGD | Epochs: 14
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [sgd] for 14 epochs...
+  [SGD         ] Epoch  1/14 | Train Loss: 10.9548 | Train Acc: 0.00% | Val Loss: 10.9574 | Val Acc: 0.00% | Time: 294.5s
+  [SGD         ] Epoch  2/14 | Train Loss: 10.9540 | Train Acc: 0.00% | Val Loss: 10.9557 | Val Acc: 0.00% | Time: 293.0s
+  [SGD         ] Epoch  3/14 | Train Loss: 10.9512 | Train Acc: 0.00% | Val Loss: 10.9519 | Val Acc: 0.00% | Time: 292.3s
+  [SGD         ] Epoch  4/14 | Train Loss: 10.9462 | Train Acc: 0.00% | Val Loss: 10.9456 | Val Acc: 0.00% | Time: 295.6s
+  [SGD         ] Epoch  5/14 | Train Loss: 10.9384 | Train Acc: 0.00% | Val Loss: 10.9357 | Val Acc: 0.00% | Time: 294.0s
+  [SGD         ] Epoch  6/14 | Train Loss: 10.9264 | Train Acc: 0.00% | Val Loss: 10.9219 | Val Acc: 0.00% | Time: 293.0s
+  [SGD         ] Epoch  7/14 | Train Loss: 10.9124 | Train Acc: 0.00% | Val Loss: 10.9090 | Val Acc: 0.00% | Time: 293.0s
+  [SGD         ] Epoch  8/14 | Train Loss: 10.8999 | Train Acc: 0.00% | Val Loss: 10.8964 | Val Acc: 0.00% | Time: 292.9s
+  [SGD         ] Epoch  9/14 | Train Loss: 10.8865 | Train Acc: 0.00% | Val Loss: 10.8817 | Val Acc: 0.00% | Time: 292.5s
+  [SGD         ] Epoch 10/14 | Train Loss: 10.8712 | Train Acc: 0.00% | Val Loss: 10.8660 | Val Acc: 0.00% | Time: 292.8s
+  [SGD         ] Epoch 11/14 | Train Loss: 10.8555 | Train Acc: 0.01% | Val Loss: 10.8500 | Val Acc: 0.01% | Time: 293.5s
+  [SGD         ] Epoch 12/14 | Train Loss: 10.8386 | Train Acc: 0.01% | Val Loss: 10.8322 | Val Acc: 0.01% | Time: 293.1s
+  [SGD         ] Epoch 13/14 | Train Loss: 10.8195 | Train Acc: 0.02% | Val Loss: 10.8113 | Val Acc: 0.03% | Time: 293.9s
+  [SGD         ] Epoch 14/14 | Train Loss: 10.7982 | Train Acc: 0.04% | Val Loss: 10.7897 | Val Acc: 0.07% | Time: 292.5s
+
+  [Single CSV Saved]: logs/pythia70m_pretrain_chinchilla_logs.csv
+  [Unified Comparison Plot Saved]: logs/pythia70m_pretrain_chinchilla_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  pythia70m_pretrain_chinchilla       | Opt: atlas          | Loss: 4.2337 | Perplexity    : 64.15 | Time: 4164.6s
+  pythia70m_pretrain_chinchilla       | Opt: atlas_raw      | Loss: 4.0775 | Perplexity    : 55.92 | Time: 4156.3s
+  pythia70m_pretrain_chinchilla       | Opt: atlas_random   | Loss: 4.0635 | Perplexity    : 55.18 | Time: 4155.9s
+  pythia70m_pretrain_chinchilla       | Opt: muon           | Loss: 5.9839 | Perplexity    : 379.22 | Time: 4133.8s
+  pythia70m_pretrain_chinchilla       | Opt: adam           | Loss: 4.9518 | Perplexity    : 136.40 | Time: 4105.3s
+  pythia70m_pretrain_chinchilla       | Opt: sgd            | Loss: 10.7982 | Perplexity    : 22026.47 | Time: 4106.7s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+
