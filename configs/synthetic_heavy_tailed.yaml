@@ -1,0 +1,62 @@
+# ==============================================================================
+# Heavy-Tailed Matrix Synthetic Experiment
+# Reference: https://arxiv.org/pdf/2508.04860
+#
+# F(W) = (1/(n*k)) * ||A W^T - B||_{1,entrywise} + (mu/2) * ||W||_F^2
+# Stochastic oracle: G_t(W) = grad F(W) + Xi_t, Xi_t entrywise two-sided Pareto(alpha)
+# ==============================================================================
+
+experiment:
+  experiment_id: "synthetic_heavy_tailed"
+
+data:
+  n: 1024                # feature count
+  d: 128                 # input dimension
+  k: 64                  # output dimension / W is (k x d)
+  seed: 0                # fixed problem instance (A, W_star, B) shared across all runs/seeds
+  obs_noise_std: 0.0      # optional small Gaussian observation noise added to B
+  mu: 0.0001              # regularization strength
+  R: 10.0                 # projection constraint: clamp entries of W to [-R, R] after every step
+
+sweep:
+  alphas: [1.2, 1.6, 2.0]     # tail index: 1.2 = very heavy-tailed, 1.6 = infinite-variance, 2.0 = boundary
+  seeds: [0, 1, 2, 3, 4]      # >= 5 seeds for the noise/init randomness
+  iterations: 1000
+  log_every: 10
+  divergence_multiplier: 20.0  # diverged if F(W_t) > multiplier * F(W_0), or W is non-finite
+
+# lr_grid: base learning rate grid, swept then best value selected by final objective.
+# rho_grid: SAM/Atlas neighborhood-size grid (only for perturbation-based methods).
+algorithms:
+  sgd:
+    lr_grid: [0.003, 0.01, 0.03, 0.1]
+
+  fsam:
+    lr_grid: [0.003, 0.01, 0.03, 0.1]
+    rho_grid: [0.01, 0.02, 0.05, 0.1]
+    lam: 0.9          # momentum factor for the "friendly" EMA direction
+    sigma: 1.0         # projection constant
+
+  muon:
+    lr_grid: [0.005, 0.01, 0.02, 0.05]
+    momentum: 0.95
+
+  muon_sam:
+    lr_grid: [0.005, 0.01, 0.02, 0.05]
+    rho_grid: [0.01, 0.02, 0.05, 0.1]
+    momentum: 0.95
+
+  atlas:                        # Ours: last orthogonalized momentum perturbation (main method)
+    lr_grid: [0.005, 0.01, 0.02, 0.05]
+    rho_grid: [0.01, 0.02, 0.05, 0.1]
+    momentum: 0.9665
+
+  atlas_raw:                    # Ours: current-gradient perturbation (ablation)
+    lr_grid: [0.005, 0.01, 0.02, 0.05]
+    rho_grid: [0.01, 0.02, 0.05, 0.1]
+    momentum: 0.9665
+
+  atlas_random:                 # Ours: random perturbation (ablation)
+    lr_grid: [0.005, 0.01, 0.02, 0.05]
+    rho_grid: [0.01, 0.02, 0.05, 0.1]
+    momentum: 0.9665

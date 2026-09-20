@@ -173,3 +173,76 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | Muon (Schatten-∞) | 0.015 | 0.95 | 0.1 | — | — |
 | Atlas | 0.015 | 0.95 | 0.0001 | 0.0015 | 0.01 |
 | Muon-SAM | 0.015 | 0.95 | 0.01 | 0.0015 | 0.01 |
+
+---
+
+## 6. Heavy-Tailed Matrix Synthetic Experiment
+
+Reference: [arXiv:2508.04860](https://arxiv.org/pdf/2508.04860). Convex objective on a single
+matrix parameter `W in R^{k x d}`:
+
+```
+F(W) = (1/(n*k)) * ||A W^T - B||_{1,entrywise} + (mu/2) * ||W||_F^2
+G_t(W) = grad F(W) + Xi_t     # Xi_t entrywise two-sided Pareto(alpha) noise
+```
+
+Script: **`synthetic_heavy_tailed.py`**, config: `configs/synthetic_heavy_tailed.yaml`.
+
+Compares 7 optimizers, each run on CPU (matrices are tiny — no GPU needed):
+
+| Name | Maps to |
+| :--- | :--- |
+| `sgd` | Plain SGD baseline |
+| `fsam` | Friendly-SAM (`optimizers/fsam.py`, new) |
+| `muon` | `SingleDeviceMuon` |
+| `muon_sam` | Existing `MuonSAM` wrapping `SingleDeviceMuon` |
+| `atlas` | Ours — last orthogonalized momentum perturbation (main method) |
+| `atlas_raw` | Ours — current-gradient perturbation (ablation) |
+| `atlas_random` | Ours — random perturbation (ablation) |
+
+Sweeps tail index `alpha in {1.2, 1.6, 2.0}`, an LR grid (and rho grid for SAM/Atlas methods) per
+algorithm, and 5 seeds — all defined in the config. `--quick` runs a 1-seed/1-lr/100-iteration
+smoke test first.
+
+```bash
+# Smoke test everything runs (~1 min, single seed/lr per algorithm)
+python synthetic_heavy_tailed.py --quick
+
+# Full sweep, all 7 algorithms x 3 alphas x full LR/rho grids x 5 seeds (long-running -> nohup it)
+nohup python synthetic_heavy_tailed.py > synthetic_heavy_tailed.log 2>&1 &
+
+# Just a subset of algorithms / alphas
+python synthetic_heavy_tailed.py --algorithms sgd,fsam,muon,muon_sam --alphas 1.2,2.0
+
+# Custom seeds or output directory
+python synthetic_heavy_tailed.py --seeds 0,1,2 --out-dir logs/synthetic_heavy_tailed_v2
+```
+
+Outputs (default `logs/synthetic_heavy_tailed/`):
+
+| File | Contents |
+| :--- | :--- |
+| `synthetic_heavy_tailed_raw.csv` | Every logged iteration for every (algorithm, alpha, lr, rho, seed) run: `F`, `gap` (`F(W_t)-F(W*)`), `dist_to_Wstar`, `gradnorm`, `sharpness_gap`, `diverged`, `wall_time_s` |
+| `synthetic_heavy_tailed_summary.csv` | Per-hyperparameter-combo means/stds across seeds, plus divergence rate |
+| `synthetic_heavy_tailed_best.csv` | Best (lr, rho) per (algorithm, alpha) by lowest mean final `F(W_t)` |
+| `synthetic_heavy_tailed_alpha{1.2,1.6,2.0}_plot.png` | `F(W_t)` vs iteration (log-scale, mean ± std band) for all 7 algorithms at their best hyperparameters |
+
+A run is flagged `diverged` if `W` becomes non-finite, or `F(W_t)` exceeds `divergence_multiplier x F(W_0)`
+(20x the initial loss by default) — relative to the run's own starting loss, not a fixed absolute number.
+
+### Logging to wandb
+
+Pass `--wandb` to also push each algorithm's **best-hyperparameter curve** (mean across seeds) to wandb,
+*after* the local sweep + best-hyperparameter selection above — not the raw grid. One wandb **project**
+per alpha, one **run** per algorithm inside it, so every chart shows exactly one clean line per algorithm:
+
+```bash
+python synthetic_heavy_tailed.py --algorithms atlas,atlas_random,atlas_raw,fsam,muon_sam --wandb
+```
+
+This creates `synthetic-experiment-alpha1.2`, `-alpha1.6`, `-alpha2.0` (override the name with
+`--wandb-project-template`), each with one run per algorithm named after it, logging the 7 metrics above
+at each `log_every` step. Use `--algorithms` to control which optimizers appear in each project.
+
+Tune `data`, `mu`, `R` (the `||W||_inf <= R` projection constraint), `iterations`, `divergence_multiplier`,
+and each algorithm's `lr_grid`/`rho_grid` directly in `configs/synthetic_heavy_tailed.yaml`.
