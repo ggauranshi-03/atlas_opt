@@ -98,7 +98,7 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
                     muon_params.append(p)
                 else:
                     adam_params.append(p)
-            adam_groups = [dict(params=adam_params, lr=params.get("adam_lr", 3e-4), betas=(0.9, 0.95), eps=1e-10, weight_decay=wd, use_muon=False)]
+            adam_groups = [dict(params=adam_params, lr=params.get("adam_lr", 0.002), betas=(0.9, 0.95), eps=1e-10, weight_decay=wd, use_muon=False)]
             muon_group = dict(params=muon_params, lr=lr, momentum=params.get("momentum", 0.95), weight_decay=wd, use_muon=True)
             opt = SingleDeviceMuonWithAuxAdam([*adam_groups, muon_group])
         except Exception:
@@ -114,7 +114,7 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
                     muon_params.append(p)
                 else:
                     adam_params.append(p)
-            adam_groups = [dict(params=adam_params, lr=params.get("adam_lr", 3e-4), betas=(0.9, 0.95), eps=1e-10, weight_decay=wd, use_muon=False)]
+            adam_groups = [dict(params=adam_params, lr=params.get("adam_lr", 0.002), betas=(0.9, 0.95), eps=1e-10, weight_decay=wd, use_muon=False)]
             muon_group = dict(params=muon_params, lr=lr, momentum=params.get("momentum", 0.95), weight_decay=wd, use_muon=True)
             base_opt = SingleDeviceMuonWithAuxAdam([*adam_groups, muon_group])
         except Exception:
