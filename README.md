@@ -176,6 +176,67 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 
 ---
 
+### Final Loss and Accuracy Results
+
+#### Experiment 1: CIFAR-10 Image Classification
+| Optimizer | Final Train Loss | Final Train Acc | Final Val Loss | Final Val Acc |
+| :--- | :--- | :--- | :--- | :--- |
+| **Atlas** | 0.6427 | 78.52% | 0.7338 | 75.39% |
+| **Atlas Raw** | 0.5910 | 80.06% | 0.7336 | 75.47% |
+| **Atlas Random** | 0.5771 | 80.54% | 0.7683 | 74.91% |
+| **Muon** | 0.5922 | 80.16% | 0.6242 | 78.50% |
+| **AdamW** | 1.0577 | 63.27% | 1.0548 | 62.87% |
+| **SGD** | 2.2712 | 16.02% | 2.2474 | 17.56% |
+| **Muon-SAM** | 0.9166 | 34.67% | 0.8812 | 69.37% |
+
+#### Experiment 2: nanoGPT Continual Pre-Training
+| Optimizer | Final Train Loss | Final Train Acc | Final Val Loss | Final Val Acc |
+| :--- | :--- | :--- | :--- | :--- |
+| **Atlas** | 4.2237 | 29.02% | 4.0431 | 30.89% |
+| **Atlas Raw** | 3.9505 | 32.02% | 3.7754 | 33.81% |
+| **Atlas Random** | 3.9176 | 32.40% | 3.7416 | 34.15% |
+| **Muon** | 5.4226 | 26.67% | 5.2652 | 28.07% |
+| **AdamW** | 4.5826 | 27.24% | 4.4446 | 28.50% |
+| **SGD** | 8.2731 | 9.10% | 8.2703 | 9.26% |
+| **Muon-SAM** | 5.9216 | 21.07% | 5.8063 | 22.00% |
+
+#### Experiment 3: Pythia-70M Continual Pre-Training
+| Optimizer | Final Train Loss | Final Train Acc | Final Val Loss | Final Val Acc |
+| :--- | :--- | :--- | :--- | :--- |
+| **Atlas** | 4.2337 | 29.34% | 4.1612 | 30.06% |
+| **Atlas Raw** | 4.0775 | 31.29% | 4.0240 | 31.73% |
+| **Atlas Random** | 4.0635 | 31.47% | 4.0107 | 31.91% |
+| **Muon** | 5.9839 | 25.52% | 5.9381 | 25.76% |
+| **AdamW** | 4.9518 | 23.79% | 4.9156 | 23.91% |
+| **SGD** | 8.1014 | 6.38% | 8.0589 | 6.87% |
+| **Muon-SAM** | 6.4103 | 19.46% | 6.3702 | 19.73% |
+
+### Language Modeling Validation Perplexity Results
+
+#### Experiment 2: nanoGPT Continual Pre-Training
+| Optimizer | Final Validation Perplexity |
+| :--- | :--- |
+| **Atlas Random** | 42.16 |
+| **Atlas Raw** | 43.61 |
+| **Atlas** | 57.00 |
+| **AdamW** | 85.17 |
+| **Muon** | 193.48 |
+| **Muon-SAM** | 332.40 |
+| **SGD** | 3906.18 |
+
+#### Experiment 3: Pythia-70M Continual Pre-Training
+| Optimizer | Final Validation Perplexity |
+| :--- | :--- |
+| **Atlas Random** | 55.18 |
+| **Atlas Raw** | 55.92 |
+| **Atlas** | 64.15 |
+| **AdamW** | 136.40 |
+| **Muon** | 379.22 |
+| **Muon-SAM** | 584.19 |
+| **SGD** | 3161.76 |
+
+*(Note: CIFAR-10 is an image classification task evaluated on Cross-Entropy Loss and Accuracy, and therefore does not have a Perplexity metric).*
+
 ## 6. Heavy-Tailed Matrix Synthetic Experiment
 
 Reference: [arXiv:2508.04860](https://arxiv.org/pdf/2508.04860). Convex objective on a single
