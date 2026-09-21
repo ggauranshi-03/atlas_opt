@@ -149,7 +149,7 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | Optimizer | LR | Momentum | Weight Decay | rho | rho_vector |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | AdamW | 0.0018 | betas (0.9, 0.95) | 0.01 | — | — |
-| SGD (Nesterov) | 0.0001 | 0.9 | 0.01 | — | — |
+| SGD (Nesterov) | 0.01 | 0.9 | 0.01 | — | — |
 | Muon (Nesterov/Polyak) | 0.0325 | 0.9665 | 0.01 | — | — |
 | Atlas | 0.015 | 0.9665 | 0.0001 | 0.0015 | 0.01 |
 | Muon-SAM | 0.015 | 0.95 | 0.01 | 0.0015 | 0.01 |
