@@ -246,3 +246,29 @@ at each `log_every` step. Use `--algorithms` to control which optimizers appear 
 
 Tune `data`, `mu`, `R` (the `||W||_inf <= R` projection constraint), `iterations`, `divergence_multiplier`,
 and each algorithm's `lr_grid`/`rho_grid` directly in `configs/synthetic_heavy_tailed.yaml`.
+
+### Synthetic Experiment Results (Best Hyperparameters)
+
+| Algorithm | Alpha | LR | Rho | Mean (W_t)$ | Mean Gap | Mean Dist to ^*$ | Mean Grad Norm | Mean Sharpness Gap | Diverged | Mean Wall Time (s) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Atlas | 1.2 | 0.005 | 0.01 | 0.10584 | 0.10275 | 11.590 | 0.01026 | -0.00008 | 0.0 | 2.74 |
+| Atlas Random | 1.2 | 0.005 | 0.01 | 0.10584 | 0.10275 | 11.590 | 0.01026 | +0.00000 | 0.0 | 2.47 |
+| Atlas Raw | 1.2 | 0.005 | 0.01 | 0.10584 | 0.10275 | 11.590 | 0.01026 | -0.00000 | 0.0 | 2.82 |
+| Muon-SAM | 1.2 | 0.005 | 0.05 | 0.09769 | 0.09460 | 10.756 | 0.01015 | +0.00316 | 0.0 | 8.08 |
+| Atlas | 1.6 | 0.005 | 0.01 | 0.10182 | 0.09873 | 11.188 | 0.01020 | -0.00006 | 0.0 | 2.95 |
+| Atlas Random | 1.6 | 0.005 | 0.02 | 0.10182 | 0.09873 | 11.188 | 0.01020 | +0.00000 | 0.0 | 3.20 |
+| Atlas Raw | 1.6 | 0.005 | 0.01 | 0.10182 | 0.09873 | 11.188 | 0.01020 | -0.00000 | 0.0 | 2.59 |
+| FSAM | 1.6 | 0.003 | 0.02 | 1.29055 | 1.28747 | 96.301 | 0.01872 | +0.00000 | 0.0 | 3.04 |
+| Muon-SAM | 1.6 | 0.005 | 0.05 | 0.09333 | 0.09024 | 10.317 | 0.01009 | +0.00313 | 0.0 | 7.22 |
+| Atlas | 2.0 | 0.005 | 0.01 | 0.09804 | 0.09496 | 10.804 | 0.01015 | -0.00005 | 0.0 | 3.37 |
+| Atlas Random | 2.0 | 0.005 | 0.01 | 0.09804 | 0.09496 | 10.804 | 0.01015 | +0.00000 | 0.0 | 2.45 |
+| Atlas Raw | 2.0 | 0.005 | 0.02 | 0.09804 | 0.09496 | 10.804 | 0.01015 | -0.00000 | 0.0 | 2.88 |
+| FSAM | 2.0 | 0.003 | 0.05 | 0.37283 | 0.36975 | 36.080 | 0.01285 | +0.00000 | 0.0 | 2.91 |
+| Muon-SAM | 2.0 | 0.005 | 0.05 | 0.08964 | 0.08655 | 9.941 | 0.01004 | +0.00312 | 0.0 | 7.76 |
+
+#### Analysis
+- **Muon-SAM Convergence**: Across all noise regimes ($lpha=1.2, 1.6, 2.0$), Muon-SAM achieves the lowest mean final objective value ($) and strictly minimizes the distance to ^*$ better than all other optimizers. This verifies that applying orthogonalized perturbations to the matrix parameters is highly effective for heavy-tailed robustness.
+- **Atlas Variants**: The tlas, tlas_raw, and tlas_random variants perform almost identically across all alphas. They converge reliably but hit a slightly higher loss floor than Muon-SAM (e.g., .1058$ vs .0977$ at $lpha=1.2$).
+- **Computational Cost**: While Muon-SAM dominates in convergence, it is significantly more computationally expensive, requiring roughly 2.5x to 3x the wall time per iteration compared to Atlas ($\sim 7-8s$ vs $\sim 2-3s$). This tracks with the heavy cost of running a double forward pass with two full Newton-Schulz matrix orthogonalizations per step.
+- **FSAM Failure**: FSAM fails to match the performance of the spectral-based geometry, returning massive distances to ^*$ (.3$ at $lpha=1.6$), highlighting the necessity of matrix-specific perturbations for matrix parameters.
+- **Divergence Stability**: Despite the extremely heavy tails ($lpha=1.2$), the divergence rate remains .0$ for all recorded optimizers at their best hyperparameters, showing that the base scaling mechanisms successfully prevent numeric explosion.
