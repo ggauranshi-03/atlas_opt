@@ -1,0 +1,86 @@
+nohup: ignoring input
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run n5gj2o8n
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260920_170423-n5gj2o8n
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sgd
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/n5gj2o8n
+2026-09-20 17:04:24.640722: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1789923864.662545  261235 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1789923864.669815  261235 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1789923864.688265  261235 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789923864.688310  261235 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789923864.688317  261235 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789923864.688323  261235 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-09-20 17:04:24.693199: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml; uploading output.log
+wandb: uploading config.yaml; uploading output.log
+wandb: uploading history steps 13-13, summary, console lines 18-18
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:         time_s █▄▅▄▁▃▆▆▂▁▅▂▄▇
+wandb: train/accuracy ▁▁▄▅▇▇██████▇▆
+wandb:     train/loss ██▇▅▃▂▂▂▂▂▁▁▁▁
+wandb:   val/accuracy ▁▁▅▆▇▇█████▇▇▇
+wandb:       val/loss ██▆▄▃▂▂▂▂▁▁▁▁▁
+wandb: val/perplexity ███▃▂▂▂▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:         time_s 292.46655
+wandb: train/accuracy 6.38151
+wandb:     train/loss 8.10143
+wandb:   val/accuracy 6.86595
+wandb:       val/loss 8.05888
+wandb: val/perplexity 3161.75545
+wandb: 
+wandb: 🚀 View run sgd at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/n5gj2o8n
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260920_170423-n5gj2o8n/logs
+
+>>> Running Benchmark for Optimizers: ['sgd'] across 1 configs <<<
+
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: SGD | Epochs: 14
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [sgd] for 14 epochs...
+  [SGD         ] Epoch  1/14 | Train Loss: 10.9548 | Train Acc: 0.00% | Val Loss: 10.9574 | Val Acc: 0.00% | Time: 292.8s
+  [SGD         ] Epoch  2/14 | Train Loss: 10.8507 | Train Acc: 0.05% | Val Loss: 10.7505 | Val Acc: 0.47% | Time: 291.7s
+  [SGD         ] Epoch  3/14 | Train Loss: 10.4222 | Train Acc: 3.70% | Val Loss: 10.0816 | Val Acc: 4.44% | Time: 292.1s
+  [SGD         ] Epoch  4/14 | Train Loss: 9.5427 | Train Acc: 5.19% | Val Loss: 9.1592 | Val Acc: 6.62% | Time: 291.7s
+  [SGD         ] Epoch  5/14 | Train Loss: 8.9018 | Train Acc: 7.11% | Val Loss: 8.7418 | Val Acc: 7.68% | Time: 291.0s
+  [SGD         ] Epoch  6/14 | Train Loss: 8.6187 | Train Acc: 7.55% | Val Loss: 8.5416 | Val Acc: 7.85% | Time: 291.6s
+  [SGD         ] Epoch  7/14 | Train Loss: 8.5063 | Train Acc: 7.82% | Val Loss: 8.4583 | Val Acc: 8.15% | Time: 292.3s
+  [SGD         ] Epoch  8/14 | Train Loss: 8.4383 | Train Acc: 8.04% | Val Loss: 8.3883 | Val Acc: 8.41% | Time: 292.3s
+  [SGD         ] Epoch  9/14 | Train Loss: 8.3522 | Train Acc: 8.27% | Val Loss: 8.2661 | Val Acc: 8.68% | Time: 291.2s
+  [SGD         ] Epoch 10/14 | Train Loss: 8.2782 | Train Acc: 8.30% | Val Loss: 8.2568 | Val Acc: 8.44% | Time: 291.1s
+  [SGD         ] Epoch 11/14 | Train Loss: 8.2089 | Train Acc: 8.21% | Val Loss: 8.1892 | Val Acc: 8.33% | Time: 292.0s
+  [SGD         ] Epoch 12/14 | Train Loss: 8.1475 | Train Acc: 7.83% | Val Loss: 8.0771 | Val Acc: 7.94% | Time: 291.3s
+  [SGD         ] Epoch 13/14 | Train Loss: 8.0599 | Train Acc: 7.62% | Val Loss: 8.0950 | Val Acc: 7.17% | Time: 291.8s
+  [SGD         ] Epoch 14/14 | Train Loss: 8.1014 | Train Acc: 6.38% | Val Loss: 8.0589 | Val Acc: 6.87% | Time: 292.5s
+
+  [Single CSV Saved]: logs/pythia70m_pretrain_chinchilla_logs.csv
+  [Unified Comparison Plot Saved]: logs/pythia70m_pretrain_chinchilla_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  pythia70m_pretrain_chinchilla       | Opt: sgd            | Loss: 8.1014 | Perplexity    : 3161.76 | Time: 4085.3s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

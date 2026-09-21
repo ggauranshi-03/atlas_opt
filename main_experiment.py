@@ -105,7 +105,12 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "weight_decay": opt_dict.get("weight_decay", 0.01),
             }
         elif opt_name == "sgd":
+            # Fall back to matching on the block's own "optimizer: sgd" field, so configs that
+            # name their SGD block something else (e.g. "sgd_euclidean") are still picked up.
             opt_dict = opts_cfg.get("sgd_nesterov_baseline", {}) or opts_cfg.get("sgd", {})
+            if not opt_dict:
+                opt_dict = next((b for b in opts_cfg.values()
+                                  if isinstance(b, dict) and b.get("optimizer") == "sgd"), {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.001),
                 "momentum": opt_dict.get("momentum", 0.9),

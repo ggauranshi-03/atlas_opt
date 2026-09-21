@@ -1,0 +1,89 @@
+nohup: ignoring input
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run 3h1j658j
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260920_170333-3h1j658j
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sgd
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/3h1j658j
+2026-09-20 17:03:36.420405: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1789923816.442283  260586 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1789923816.449471  260586 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1789923816.467730  260586 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789923816.467782  260586 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789923816.467789  260586 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1789923816.467794  260586 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-09-20 17:03:36.472576: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading history steps 14-14, summary, console lines 21-21
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s █▇▇▇▇▆▄▄▂▂▁▂▂▂▁
+wandb: train/accuracy ▁▁▂▄▄▄▅▆▆▇▇▇███
+wandb:     train/loss ██▇▆▅▄▃▂▂▂▂▁▁▁▁
+wandb:   val/accuracy ▁▁▄▄▄▅▅▆▇▇▇████
+wandb:       val/loss ██▇▅▄▃▃▂▂▂▁▁▁▁▁
+wandb: val/perplexity ████▅▃▂▂▂▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 765.65391
+wandb: train/accuracy 9.10201
+wandb:     train/loss 8.27305
+wandb:   val/accuracy 9.25832
+wandb:       val/loss 8.27032
+wandb: val/perplexity 3906.18352
+wandb: 
+wandb: 🚀 View run sgd at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/3h1j658j
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260920_170333-3h1j658j/logs
+
+>>> Running Benchmark for Optimizers: ['sgd'] across 1 configs <<<
+
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: SGD | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [sgd] for 15 epochs...
+  [SGD         ] Epoch  1/15 | Train Loss: 11.0215 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 771.2s
+  [SGD         ] Epoch  2/15 | Train Loss: 10.9576 | Train Acc: 0.00% | Val Loss: 10.8749 | Val Acc: 0.00% | Time: 770.4s
+  [SGD         ] Epoch  3/15 | Train Loss: 10.7058 | Train Acc: 1.15% | Val Loss: 10.4740 | Val Acc: 4.00% | Time: 770.2s
+  [SGD         ] Epoch  4/15 | Train Loss: 10.2917 | Train Acc: 4.03% | Val Loss: 10.0065 | Val Acc: 3.87% | Time: 770.5s
+  [SGD         ] Epoch  5/15 | Train Loss: 9.8098 | Train Acc: 4.18% | Val Loss: 9.5255 | Val Acc: 4.57% | Time: 770.6s
+  [SGD         ] Epoch  6/15 | Train Loss: 9.3414 | Train Acc: 4.46% | Val Loss: 9.1374 | Val Acc: 5.05% | Time: 769.3s
+  [SGD         ] Epoch  7/15 | Train Loss: 9.0280 | Train Acc: 4.90% | Val Loss: 8.9085 | Val Acc: 5.68% | Time: 768.1s
+  [SGD         ] Epoch  8/15 | Train Loss: 8.8287 | Train Acc: 6.14% | Val Loss: 8.7562 | Val Acc: 7.25% | Time: 768.0s
+  [SGD         ] Epoch  9/15 | Train Loss: 8.6939 | Train Acc: 7.06% | Val Loss: 8.6390 | Val Acc: 7.48% | Time: 766.8s
+  [SGD         ] Epoch 10/15 | Train Loss: 8.5820 | Train Acc: 7.41% | Val Loss: 8.5426 | Val Acc: 7.87% | Time: 766.4s
+  [SGD         ] Epoch 11/15 | Train Loss: 8.4925 | Train Acc: 7.94% | Val Loss: 8.4656 | Val Acc: 8.34% | Time: 766.0s
+  [SGD         ] Epoch 12/15 | Train Loss: 8.4200 | Train Acc: 8.43% | Val Loss: 8.4028 | Val Acc: 8.76% | Time: 766.8s
+  [SGD         ] Epoch 13/15 | Train Loss: 8.3621 | Train Acc: 8.73% | Val Loss: 8.3520 | Val Acc: 8.93% | Time: 766.1s
+  [SGD         ] Epoch 14/15 | Train Loss: 8.3145 | Train Acc: 8.91% | Val Loss: 8.3094 | Val Acc: 9.13% | Time: 766.2s
+  [SGD         ] Epoch 15/15 | Train Loss: 8.2731 | Train Acc: 9.10% | Val Loss: 8.2703 | Val Acc: 9.26% | Time: 765.7s
+
+  [Single CSV Saved]: logs/nanogpt_fineweb_logs.csv
+  [Unified Comparison Plot Saved]: logs/nanogpt_fineweb_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  nanogpt_fineweb                     | Opt: sgd            | Loss: 8.2731 | Perplexity    : 3906.18 | Time: 11522.3s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

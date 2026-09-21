@@ -57,3 +57,5 @@ nanogpt_fineweb,atlas_random,3.9176,42.16,Perplexity,11731.3,0.038,0.006
 nanogpt_fineweb,muon,5.4226,193.48,Perplexity,11565.0,0.0325,-
 nanogpt_fineweb,adam,4.5826,85.17,Perplexity,11489.2,0.0018,-
 nanogpt_fineweb,sgd,10.9900,22026.47,Perplexity,11487.2,0.0001,-
+pythia70m_pretrain_chinchilla,sgd,8.1014,3161.76,Perplexity,4085.3,0.015,-
+nanogpt_fineweb,sgd,8.2731,3906.18,Perplexity,11522.3,0.01,-

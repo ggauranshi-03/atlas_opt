@@ -44,7 +44,7 @@ optimizers:
 
   sgd_nesterov_baseline:
     optimizer: "sgd"
-    lr: 0.0001
+    lr: 0.01  # was 0.0001 -- too small to move a 135M-param model in 1500 steps, train_acc stayed at 0%
     momentum: 0.9
     nesterov: true
     weight_decay: 0.01
