@@ -78,7 +78,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
 
         opts_cfg = config.get("optimizers", {})
         if opt_name in ["atlas", "atlas_raw", "atlas_random", "hybrid"]:
-            opt_dict = opts_cfg.get("atlas_exp1", {}) or config.get("hyperparameters", {}).get("atlas", {})
+            opt_dict = opts_cfg.get(opt_name, {})
             base_params = {
                 "lr": opt_dict.get("lr", 0.035),
                 "rho": opt_dict.get("rho", 0.015),
@@ -90,29 +90,34 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
             }
             best_params = tune_atlas_hyperparameters(model_builder, train_loader, task_type, base_params)
-        elif opt_name in ["muon", "muon_nesterov", "muon_polyak"]:
-            opt_dict = opts_cfg.get("muon_nesterov", {}) or opts_cfg.get("muon_polyak", {}) or opts_cfg.get("muon", {})
+        elif opt_name == "muon":
+            opt_dict = opts_cfg.get("muon", {})
             best_params = {
-                "lr": opt_dict.get("lr", 0.0325 if task_type != "image_classification" else 0.02),
-                "momentum": opt_dict.get("momentum", 0.9665 if task_type != "image_classification" else 0.95),
-                "weight_decay": opt_dict.get("weight_decay", 0.01),
+                "lr": opt_dict.get("lr", 0.035),
+                "momentum": opt_dict.get("momentum", 0.9665),
+                "weight_decay": opt_dict.get("weight_decay", 0.0001),
                 "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
             }
-        elif opt_name in ["adam", "adamw"]:
-            opt_dict = opts_cfg.get("adamw_baseline", {}) or opts_cfg.get("adamw", {}) or opts_cfg.get("adam", {})
+        elif opt_name == "muon_sam":
+            opt_dict = opts_cfg.get("muon_sam", {})
+            best_params = {
+                "lr": opt_dict.get("lr", 0.035),
+                "momentum": opt_dict.get("momentum", 0.9665),
+                "weight_decay": opt_dict.get("weight_decay", 0.0001),
+                "rho": opt_dict.get("rho", 0.015),
+                "rho_vector": opt_dict.get("rho_vector", 0.015),
+                "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
+            }
+        elif opt_name == "adam":
+            opt_dict = opts_cfg.get("adam", {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.0018),
                 "weight_decay": opt_dict.get("weight_decay", 0.01),
             }
         elif opt_name == "sgd":
-            # Fall back to matching on the block's own "optimizer: sgd" field, so configs that
-            # name their SGD block something else (e.g. "sgd_euclidean") are still picked up.
-            opt_dict = opts_cfg.get("sgd_nesterov_baseline", {}) or opts_cfg.get("sgd", {})
-            if not opt_dict:
-                opt_dict = next((b for b in opts_cfg.values()
-                                  if isinstance(b, dict) and b.get("optimizer") == "sgd"), {})
+            opt_dict = opts_cfg.get("sgd", {})
             best_params = {
-                "lr": opt_dict.get("lr", 0.001),
+                "lr": opt_dict.get("lr", 0.1),
                 "momentum": opt_dict.get("momentum", 0.9),
                 "weight_decay": opt_dict.get("weight_decay", 0.01),
             }

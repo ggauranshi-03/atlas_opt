@@ -1,128 +1,70 @@
-# ==============================================================================
-# PAPER 1 - EXPERIMENT 1: nanoGPT Pretraining on FineWeb10B (Optimizer Comparison)
-# Reference: Choudhury et al. (2026), Section 4.1, Table 2 & Figure 1a
-# ==============================================================================
-
 experiment:
-  experiment_id: "nanogpt_fineweb"
-  wandb_project: "NanoGPT-FineWeb-Optimizers"
-  task_type: "causal_lm"
-
-  # Model: 135M parameter nanoGPT (modded-nanogpt speedrun codebase)
-  model_name: "gpt2"                     # 135M GPT-2 architecture
+  experiment_id: nanogpt_fineweb
+  wandb_project: NanoGPT-FineWeb-Optimizers
+  task_type: causal_lm
+  model_name: gpt2
   model_config:
     n_layer: 12
     n_head: 12
     n_embd: 768
     vocab_size: 50257
-
-  # Dataset: FineWeb10B / FineWeb-Edu
-  dataset_name: "HuggingFaceFW/fineweb-edu"
-  dataset_config: "sample-10BT"
-  max_len: 2048                          # 2048 tokens sequence length
-  total_training_steps: 1500             # 1500 training iterations (15 epochs)
-  val_tokens: 10485760                   # 10.48M held-out tokens
-
-# Batch size & accumulation
+  dataset_name: HuggingFaceFW/fineweb-edu
+  dataset_config: sample-10BT
+  max_len: 2048
+  total_training_steps: 1500
+  val_tokens: 10485760
 batch_size: 16
-grad_acc: 32                             # 16 * 32 = 512 sequences/step (~1M tokens/step)
-
-# Parameter Routing Convention (Paper 1 Appendix E.2):
-# 2D Hidden Layer Matrices -> Muon / Atlas
-# Embedding & LM-Head Layers -> AdamW
+grad_acc: 32
 parameter_routing:
-  hidden_matrices: "muon"
-  embeddings_and_head: "adamw"
-
-# Optimizers Evaluated in Table 2:
+  hidden_matrices: muon
+  embeddings_and_head: adamw
 optimizers:
-  adamw_baseline:
-    optimizer: "adamw"
+  adam:
+    optimizer: adam
     lr: 0.0018
-    betas: [0.9, 0.95]
+    betas:
+    - 0.9
+    - 0.95
     weight_decay: 0.01
-
-  sgd_nesterov_baseline:
-    optimizer: "sgd"
-    lr: 0.01  # was 0.0001 -- too small to move a 135M-param model in 1500 steps, train_acc stayed at 0%
+  sgd:
+    optimizer: sgd
+    lr: 0.001
     momentum: 0.9
     nesterov: true
     weight_decay: 0.01
-
-  muon_polyak:
-    optimizer: "muon"
-    lr: 0.0325
+  muon:
+    optimizer: muon
+    lr: 0.015
     momentum: 0.9665
-    momentum_type: "polyak"
-    weight_decay: 0.01
-    solver: "quintic_theoretical"
+    momentum_type: nesterov
+    weight_decay: 0.0001
+    solver: quintic_theoretical
     steps_q: 7
-
-  muon_nesterov:
-    optimizer: "muon"
-    lr: 0.0325
-    momentum: 0.9665
-    momentum_type: "nesterov"
-    weight_decay: 0.01
-    solver: "quintic_theoretical"
-    steps_q: 7
-
-  rand_muon_polyak:
-    optimizer: "muon"
-    lr: 0.0325
-    momentum: 0.9665
-    momentum_type: "polyak"
-    weight_decay: 0.01
-    randomized: true
-    sketch_type: "gaussian"
-    target_rank_s: 200
-    oversampling_p: 10
-    power_iteration_h: 1
-    solver: "quintic_theoretical"
-    steps_q: 7
-
-  rand_muon_nesterov_gaussian:
-    optimizer: "muon"
-    lr: 0.0325
-    momentum: 0.9665
-    momentum_type: "nesterov"
-    weight_decay: 0.01
-    randomized: true
-    sketch_type: "gaussian"
-    target_rank_s: 200
-    oversampling_p: 10
-    power_iteration_h: 1
-    solver: "quintic_theoretical"
-    steps_q: 7
-
-  rand_muon_nesterov_kaczmarz:
-    optimizer: "muon"
-    lr: 0.0325
-    momentum: 0.9665
-    momentum_type: "nesterov"
-    weight_decay: 0.01
-    randomized: true
-    sketch_type: "kaczmarz"
-    target_rank_s: 200
-    oversampling_p: 10
-    power_iteration_h: 1
-    solver: "quintic_theoretical"
-    steps_q: 7
-
-  # Atlas Optimized Variants
-  atlas_exp1:
-    optimizer: "atlas"
+  muon_sam:
+    optimizer: muon_sam
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
     rho: 0.0015
     rho_vector: 0.01
-
-  muon_sam:
-    optimizer: "muon_sam"
+  atlas:
+    optimizer: atlas
     lr: 0.015
-    momentum: 0.95
-    weight_decay: 0.01
+    momentum: 0.9665
+    weight_decay: 0.0001
     rho: 0.0015
     rho_vector: 0.01
-
+  atlas_raw:
+    optimizer: atlas_raw
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01
+  atlas_random:
+    optimizer: atlas_random
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01
