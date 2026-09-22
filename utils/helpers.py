@@ -137,7 +137,7 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
         opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd, eps=1e-7)
         return opt, get_wsd_schedule(opt)
     elif name == "sgd":
-        opt = torch.optim.SGD(trainable_params, lr=lr, momentum=params.get("momentum", 0.9), weight_decay=wd)
+        opt = torch.optim.SGD(trainable_params, lr=lr, momentum=params.get("momentum", 0.9), weight_decay=wd, nesterov=params.get("nesterov", True))
         return opt, get_wsd_schedule(opt)
 
     raise ValueError(f"Unknown optimizer: {name}")

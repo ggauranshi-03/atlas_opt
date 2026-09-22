@@ -20,7 +20,7 @@ optimizers:
     weight_decay: 0.001
   sgd:
     optimizer: sgd
-    lr: 0.001
+    lr: 0.1
     momentum: 0.9
     nesterov: true
     weight_decay: 0.001

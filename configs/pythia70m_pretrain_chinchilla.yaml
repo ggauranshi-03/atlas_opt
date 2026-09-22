@@ -28,9 +28,10 @@ optimizers:
     weight_decay: 0.01
   sgd:
     optimizer: sgd
-    lr: 0.001
+    lr: 0.05
     momentum: 0.95
-    weight_decay: 0.1
+    nesterov: true
+    weight_decay: 0.01
     schatten_r: 2.0
   muon:
     optimizer: muon

@@ -115,11 +115,12 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "weight_decay": opt_dict.get("weight_decay", 0.01),
             }
         elif opt_name == "sgd":
-            opt_dict = opts_cfg.get("sgd", {})
+            opt_dict = opts_cfg.get("sgd", {}) or opts_cfg.get("sgd_nesterov_baseline", {})
             best_params = {
-                "lr": opt_dict.get("lr", 0.001),
-                "momentum": opt_dict.get("momentum", 0.9),
-                "weight_decay": opt_dict.get("weight_decay", 0.01),
+                "lr": opt_dict.get("lr", 0.05 if task_type != "image_classification" else 0.1),
+                "momentum": opt_dict.get("momentum", 0.95 if task_type != "image_classification" else 0.9),
+                "weight_decay": opt_dict.get("weight_decay", 0.01 if task_type != "image_classification" else 0.001),
+                "nesterov": opt_dict.get("nesterov", True),
             }
         else:
             best_params = {"lr": 0.01, "weight_decay": 1e-4}
