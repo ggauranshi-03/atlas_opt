@@ -59,3 +59,7 @@ nanogpt_fineweb,adam,4.5826,85.17,Perplexity,11489.2,0.0018,-
 nanogpt_fineweb,sgd,10.9900,22026.47,Perplexity,11487.2,0.0001,-
 pythia70m_pretrain_chinchilla,sgd,8.1014,3161.76,Perplexity,4085.3,0.015,-
 nanogpt_fineweb,sgd,8.2731,3906.18,Perplexity,11522.3,0.01,-
+pythia70m_pretrain_chinchilla,muon,4.0690,55.53,Perplexity,4135.7,0.0325,-
+pythia70m_pretrain_chinchilla,muon_sam,4.8280,117.00,Perplexity,7317.2,0.01,-
+nanogpt_fineweb,muon,3.9330,42.89,Perplexity,11596.3,0.0325,-
+nanogpt_fineweb,muon_sam,4.7394,97.21,Perplexity,22370.8,0.01,-

@@ -18,21 +18,36 @@ class FSAM(torch.optim.Optimizer):
 
     @torch.no_grad()
     def _perturb(self):
+        global_d_norm_sq = 0.0
+        
+        # Pass 1: Update EMA and compute global norm of d_t
         for group in self.param_groups:
-            lam, sigma, rho = group["lam"], group["sigma"], group["rho"]
+            lam, sigma = group["lam"], group["sigma"]
             for p in group["params"]:
                 if p.grad is None:
                     continue
                 state = self.state[p]
-                g_t = p.grad.detach().clone()
+                g_t = p.grad.detach()
 
                 if "m" not in state:
                     state["m"] = torch.zeros_like(p)
                 state["m"].mul_(lam).add_(g_t, alpha=1 - lam)
 
-                d_t = g_t - sigma * state["m"]
-                d_norm = d_t.norm() + 1e-12
-                eps_t = rho * d_t / d_norm
+                state["d_t"] = g_t - sigma * state["m"]
+                global_d_norm_sq += state["d_t"].square().sum().item()
+                
+        global_d_norm = (global_d_norm_sq ** 0.5) + 1e-12
+        
+        # Pass 2: Apply perturbation using the global norm
+        for group in self.param_groups:
+            rho = group["rho"]
+            for p in group["params"]:
+                if p.grad is None:
+                    continue
+                state = self.state[p]
+                d_t = state.pop("d_t")
+                
+                eps_t = rho * d_t / global_d_norm
 
                 state["old_p"] = p.data.clone()
                 p.add_(eps_t)

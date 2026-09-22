@@ -1,0 +1,150 @@
+nohup: ignoring input
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run y1z0efyr
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260921_182109-y1z0efyr
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/y1z0efyr
+2026-09-21 18:21:11.930187: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1790014871.952851  430746 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1790014871.960197  430746 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1790014871.978547  430746 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790014871.978600  430746 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790014871.978607  430746 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790014871.978613  430746 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-09-21 18:21:11.983461: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+'(MaxRetryError("HTTPSConnectionPool(host='us.aws.cdn.hf.co', port=443): Max retries exceeded with url: /xet-bridge-us/6655eb19d17e141dcb546ed5/75e3d0530e0153b1260904449807a6aca765eb899b669cf3d1da290e52eedae8?X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27000_00000.parquet%3B+filename%3D%22000_00000.parquet%22%3B&user_id=public&Expires=1790018785&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjY1NWViMTlkMTdlMTQxZGNiNTQ2ZWQ1Lzc1ZTNkMDUzMGUwMTUzYjEyNjA5MDQ0NDk4MDdhNmFjYTc2NWViODk5YjY2OWNmM2QxZGEyOTBlNTJlZWRhZThcXD9YLVhldC1DYXMtVWlkPXB1YmxpYyZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3MDAwXzAwMDAwLnBhcnF1ZXQlM0IrZmlsZW5hbWUlM0QlMjIwMDBfMDAwMDAucGFycXVldCUyMiUzQiZ1c2VyX2lkPXB1YmxpYyIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkwMDE4Nzg1fX19XX0_&Signature=MEYCIQDxMGzjOjen5UKi-pBKJXPmbizJvGuB5LYttQIhcwtYVAIhALJLeyXNbIYH6mthi2i1lJ2x6Yqs6CwMCvMf3grHHpth&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))"), '(Request ID: c4c4646a-2ce5-4e9c-a385-2347c1796f1a)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 1s [Retry 1/5].
+wandb: uploading history steps 13-13, summary, console lines 20-20; updating run metadata
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:         time_s ▅▆▅▂▂▂▁▃▁▁█▂▂▄
+wandb: train/accuracy ▁▂▄▄▅▅▅▆▆▇▇▇██
+wandb:     train/loss █▇▅▄▃▃▂▂▂▂▁▁▁▁
+wandb:   val/accuracy ▁▃▄▄▅▅▆▆▆▇▇███
+wandb:       val/loss █▆▄▃▃▃▂▂▂▂▁▁▁▁
+wandb: val/perplexity █▅▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:         time_s 295.8885
+wandb: train/accuracy 31.47686
+wandb:     train/loss 4.06904
+wandb:   val/accuracy 31.86595
+wandb:       val/loss 4.01689
+wandb: val/perplexity 55.52822
+wandb: 
+wandb: 🚀 View run muon at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/y1z0efyr
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260921_182109-y1z0efyr/logs
+wandb: setting up run t3ev8llt
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260921_193236-t3ev8llt
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon_sam
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/t3ev8llt
+'(MaxRetryError("HTTPSConnectionPool(host='us.aws.cdn.hf.co', port=443): Max retries exceeded with url: /xet-bridge-us/6655eb19d17e141dcb546ed5/75e3d0530e0153b1260904449807a6aca765eb899b669cf3d1da290e52eedae8?user_id=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27000_00000.parquet%3B+filename%3D%22000_00000.parquet%22%3B&X-Xet-Cas-Uid=public&Expires=1790028601&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjY1NWViMTlkMTdlMTQxZGNiNTQ2ZWQ1Lzc1ZTNkMDUzMGUwMTUzYjEyNjA5MDQ0NDk4MDdhNmFjYTc2NWViODk5YjY2OWNmM2QxZGEyOTBlNTJlZWRhZThcXD91c2VyX2lkPXB1YmxpYyZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3MDAwXzAwMDAwLnBhcnF1ZXQlM0IrZmlsZW5hbWUlM0QlMjIwMDBfMDAwMDAucGFycXVldCUyMiUzQiZYLVhldC1DYXMtVWlkPXB1YmxpYyIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkwMDI4NjAxfX19XX0_&Signature=MEQCIQDNQzArYTkL1kkTjCJaqLN~pvbE31c0CzDShNBj9AarvAIfWOkqQ8nD9r-8OE3-2z47vb8Lbjk6ebUFGqugBBpFpg__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))"), '(Request ID: e314ff29-1209-445d-8425-362819a5d726)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 1s [Retry 1/5].
+'(MaxRetryError("HTTPSConnectionPool(host='us.aws.cdn.hf.co', port=443): Max retries exceeded with url: /xet-bridge-us/6655eb19d17e141dcb546ed5/75e3d0530e0153b1260904449807a6aca765eb899b669cf3d1da290e52eedae8?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27000_00000.parquet%3B+filename%3D%22000_00000.parquet%22%3B&user_id=public&X-Xet-Cas-Uid=public&Expires=1790028616&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjY1NWViMTlkMTdlMTQxZGNiNTQ2ZWQ1Lzc1ZTNkMDUzMGUwMTUzYjEyNjA5MDQ0NDk4MDdhNmFjYTc2NWViODk5YjY2OWNmM2QxZGEyOTBlNTJlZWRhZThcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3MDAwXzAwMDAwLnBhcnF1ZXQlM0IrZmlsZW5hbWUlM0QlMjIwMDBfMDAwMDAucGFycXVldCUyMiUzQiZ1c2VyX2lkPXB1YmxpYyZYLVhldC1DYXMtVWlkPXB1YmxpYyIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkwMDI4NjE2fX19XX0_&Signature=MEUCIQD3UAqtorc70Xhunln2mum7MXgvsHbf2sKaI58xB~zsXgIgMOBYKqrTtPa63L7krj7xl2RINj4mkNXzVqhKo0qMxvQ_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))"), '(Request ID: 3db75ff3-ebec-4879-b03a-904f0a3b3a1c)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 1s [Retry 1/5].
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading config.yaml
+wandb: uploading history steps 13-13, summary, console lines 22-22
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:         time_s ▂▂▁▁▁▁▃▁▂▁▃█▂▂
+wandb: train/accuracy ▁▁▃▄▅▆▆▆▆▆▇▇██
+wandb:     train/loss ██▆▄▃▃▂▂▂▂▂▁▁▁
+wandb:   val/accuracy ▁▁▃▅▅▆▆▆▆▆▇▇██
+wandb:       val/loss █▇▅▄▃▃▂▂▂▂▂▁▁▁
+wandb: val/perplexity ██▃▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:         time_s 521.84701
+wandb: train/accuracy 23.47653
+wandb:     train/loss 4.82796
+wandb:   val/accuracy 23.96649
+wandb:       val/loss 4.7622
+wandb: val/perplexity 117.00301
+wandb: 
+wandb: 🚀 View run muon_sam at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/t3ev8llt
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260921_193236-t3ev8llt/logs
+
+>>> Running Benchmark for Optimizers: ['muon', 'muon_sam'] across 1 configs <<<
+
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: MUON | Epochs: 14
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [muon] for 14 epochs...
+  [MUON        ] Epoch  1/14 | Train Loss: 10.9548 | Train Acc: 0.00% | Val Loss: 10.9574 | Val Acc: 0.00% | Time: 296.1s
+  [MUON        ] Epoch  2/14 | Train Loss: 10.1926 | Train Acc: 4.84% | Val Loss: 9.4456 | Val Acc: 8.75% | Time: 296.6s
+  [MUON        ] Epoch  3/14 | Train Loss: 7.8200 | Train Acc: 11.59% | Val Loss: 7.0521 | Val Acc: 13.76% | Time: 296.2s
+  [MUON        ] Epoch  4/14 | Train Loss: 6.6265 | Train Acc: 14.63% | Val Loss: 6.4064 | Val Acc: 15.19% | Time: 295.0s
+  [MUON        ] Epoch  5/14 | Train Loss: 6.1800 | Train Acc: 15.96% | Val Loss: 6.0550 | Val Acc: 16.48% | Time: 294.8s
+  [MUON        ] Epoch  6/14 | Train Loss: 5.8559 | Train Acc: 17.48% | Val Loss: 5.7095 | Val Acc: 18.49% | Time: 294.9s
+  [MUON        ] Epoch  7/14 | Train Loss: 5.4905 | Train Acc: 19.93% | Val Loss: 5.3339 | Val Acc: 20.99% | Time: 294.6s
+  [MUON        ] Epoch  8/14 | Train Loss: 5.1590 | Train Acc: 22.13% | Val Loss: 5.0325 | Val Acc: 23.00% | Time: 295.2s
+  [MUON        ] Epoch  9/14 | Train Loss: 4.8951 | Train Acc: 24.01% | Val Loss: 4.7872 | Val Acc: 24.78% | Time: 294.6s
+  [MUON        ] Epoch 10/14 | Train Loss: 4.6740 | Train Acc: 25.80% | Val Loss: 4.5784 | Val Acc: 26.58% | Time: 294.6s
+  [MUON        ] Epoch 11/14 | Train Loss: 4.4783 | Train Acc: 27.65% | Val Loss: 4.3951 | Val Acc: 28.34% | Time: 297.2s
+  [MUON        ] Epoch 12/14 | Train Loss: 4.3142 | Train Acc: 29.21% | Val Loss: 4.2439 | Val Acc: 29.80% | Time: 294.8s
+  [MUON        ] Epoch 13/14 | Train Loss: 4.1804 | Train Acc: 30.46% | Val Loss: 4.1213 | Val Acc: 30.97% | Time: 295.1s
+  [MUON        ] Epoch 14/14 | Train Loss: 4.0690 | Train Acc: 31.48% | Val Loss: 4.0169 | Val Acc: 31.87% | Time: 295.9s
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: MUON_SAM | Epochs: 14
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [muon_sam] for 14 epochs...
+  [MUON_SAM    ] Epoch  1/14 | Train Loss: 10.9548 | Train Acc: 0.00% | Val Loss: 10.9574 | Val Acc: 0.00% | Time: 522.3s
+  [MUON_SAM    ] Epoch  2/14 | Train Loss: 10.6995 | Train Acc: 0.27% | Val Loss: 10.4422 | Val Acc: 1.29% | Time: 522.4s
+  [MUON_SAM    ] Epoch  3/14 | Train Loss: 9.4676 | Train Acc: 5.97% | Val Loss: 8.5894 | Val Acc: 7.85% | Time: 520.4s
+  [MUON_SAM    ] Epoch  4/14 | Train Loss: 7.6127 | Train Acc: 10.81% | Val Loss: 7.1421 | Val Acc: 13.11% | Time: 520.4s
+  [MUON_SAM    ] Epoch  5/14 | Train Loss: 6.7628 | Train Acc: 14.06% | Val Loss: 6.5504 | Val Acc: 14.53% | Time: 520.9s
+  [MUON_SAM    ] Epoch  6/14 | Train Loss: 6.3408 | Train Acc: 15.19% | Val Loss: 6.2443 | Val Acc: 15.58% | Time: 520.0s
+  [MUON_SAM    ] Epoch  7/14 | Train Loss: 6.0977 | Train Acc: 16.05% | Val Loss: 6.0320 | Val Acc: 16.26% | Time: 524.1s
+  [MUON_SAM    ] Epoch  8/14 | Train Loss: 5.9054 | Train Acc: 16.59% | Val Loss: 5.8481 | Val Acc: 16.69% | Time: 521.0s
+  [MUON_SAM    ] Epoch  9/14 | Train Loss: 5.7352 | Train Acc: 17.09% | Val Loss: 5.6828 | Val Acc: 17.24% | Time: 521.2s
+  [MUON_SAM    ] Epoch 10/14 | Train Loss: 5.5783 | Train Acc: 17.74% | Val Loss: 5.5220 | Val Acc: 18.06% | Time: 520.9s
+  [MUON_SAM    ] Epoch 11/14 | Train Loss: 5.4075 | Train Acc: 18.88% | Val Loss: 5.3264 | Val Acc: 19.57% | Time: 523.5s
+  [MUON_SAM    ] Epoch 12/14 | Train Loss: 5.1979 | Train Acc: 20.54% | Val Loss: 5.1109 | Val Acc: 21.15% | Time: 535.9s
+  [MUON_SAM    ] Epoch 13/14 | Train Loss: 4.9981 | Train Acc: 22.10% | Val Loss: 4.9237 | Val Acc: 22.65% | Time: 522.4s
+  [MUON_SAM    ] Epoch 14/14 | Train Loss: 4.8280 | Train Acc: 23.48% | Val Loss: 4.7622 | Val Acc: 23.97% | Time: 521.8s
+
+  [Single CSV Saved]: logs/pythia70m_pretrain_chinchilla_logs.csv
+  [Unified Comparison Plot Saved]: logs/pythia70m_pretrain_chinchilla_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  pythia70m_pretrain_chinchilla       | Opt: muon           | Loss: 4.0690 | Perplexity    : 55.53 | Time: 4135.7s
+  pythia70m_pretrain_chinchilla       | Opt: muon_sam       | Loss: 4.8280 | Perplexity    : 117.00 | Time: 7317.2s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

@@ -1,0 +1,324 @@
+nohup: ignoring input
+
+>>> Synthetic Heavy-Tailed Sweep: algorithms=['fsam'] alphas=[1.2, 1.6, 2.0] seeds=[0, 1, 2, 3, 4] wandb=on, best-only (synthetic-experiment-alpha{alpha}) <<<
+
+[fsam         ] alpha=1.2 lr=0.003 rho=0.01 seed=0
+[fsam         ] alpha=1.2 lr=0.003 rho=0.01 seed=1
+[fsam         ] alpha=1.2 lr=0.003 rho=0.01 seed=2
+[fsam         ] alpha=1.2 lr=0.003 rho=0.01 seed=3
+[fsam         ] alpha=1.2 lr=0.003 rho=0.01 seed=4
+[fsam         ] alpha=1.2 lr=0.003 rho=0.02 seed=0
+[fsam         ] alpha=1.2 lr=0.003 rho=0.02 seed=1
+[fsam         ] alpha=1.2 lr=0.003 rho=0.02 seed=2
+[fsam         ] alpha=1.2 lr=0.003 rho=0.02 seed=3
+[fsam         ] alpha=1.2 lr=0.003 rho=0.02 seed=4
+[fsam         ] alpha=1.2 lr=0.003 rho=0.05 seed=0
+[fsam         ] alpha=1.2 lr=0.003 rho=0.05 seed=1
+[fsam         ] alpha=1.2 lr=0.003 rho=0.05 seed=2
+[fsam         ] alpha=1.2 lr=0.003 rho=0.05 seed=3
+[fsam         ] alpha=1.2 lr=0.003 rho=0.05 seed=4
+[fsam         ] alpha=1.2 lr=0.003 rho=0.1 seed=0
+[fsam         ] alpha=1.2 lr=0.003 rho=0.1 seed=1
+[fsam         ] alpha=1.2 lr=0.003 rho=0.1 seed=2
+[fsam         ] alpha=1.2 lr=0.003 rho=0.1 seed=3
+[fsam         ] alpha=1.2 lr=0.003 rho=0.1 seed=4
+[fsam         ] alpha=1.2 lr=0.01 rho=0.01 seed=0
+[fsam         ] alpha=1.2 lr=0.01 rho=0.01 seed=1
+[fsam         ] alpha=1.2 lr=0.01 rho=0.01 seed=2
+[fsam         ] alpha=1.2 lr=0.01 rho=0.01 seed=3
+[fsam         ] alpha=1.2 lr=0.01 rho=0.01 seed=4
+[fsam         ] alpha=1.2 lr=0.01 rho=0.02 seed=0
+[fsam         ] alpha=1.2 lr=0.01 rho=0.02 seed=1
+[fsam         ] alpha=1.2 lr=0.01 rho=0.02 seed=2
+[fsam         ] alpha=1.2 lr=0.01 rho=0.02 seed=3
+[fsam         ] alpha=1.2 lr=0.01 rho=0.02 seed=4
+[fsam         ] alpha=1.2 lr=0.01 rho=0.05 seed=0
+[fsam         ] alpha=1.2 lr=0.01 rho=0.05 seed=1
+[fsam         ] alpha=1.2 lr=0.01 rho=0.05 seed=2
+[fsam         ] alpha=1.2 lr=0.01 rho=0.05 seed=3
+[fsam         ] alpha=1.2 lr=0.01 rho=0.05 seed=4
+[fsam         ] alpha=1.2 lr=0.01 rho=0.1 seed=0
+[fsam         ] alpha=1.2 lr=0.01 rho=0.1 seed=1
+[fsam         ] alpha=1.2 lr=0.01 rho=0.1 seed=2
+[fsam         ] alpha=1.2 lr=0.01 rho=0.1 seed=3
+[fsam         ] alpha=1.2 lr=0.01 rho=0.1 seed=4
+[fsam         ] alpha=1.2 lr=0.03 rho=0.01 seed=0
+[fsam         ] alpha=1.2 lr=0.03 rho=0.01 seed=1
+[fsam         ] alpha=1.2 lr=0.03 rho=0.01 seed=2
+[fsam         ] alpha=1.2 lr=0.03 rho=0.01 seed=3
+[fsam         ] alpha=1.2 lr=0.03 rho=0.01 seed=4
+[fsam         ] alpha=1.2 lr=0.03 rho=0.02 seed=0
+[fsam         ] alpha=1.2 lr=0.03 rho=0.02 seed=1
+[fsam         ] alpha=1.2 lr=0.03 rho=0.02 seed=2
+[fsam         ] alpha=1.2 lr=0.03 rho=0.02 seed=3
+[fsam         ] alpha=1.2 lr=0.03 rho=0.02 seed=4
+[fsam         ] alpha=1.2 lr=0.03 rho=0.05 seed=0
+[fsam         ] alpha=1.2 lr=0.03 rho=0.05 seed=1
+[fsam         ] alpha=1.2 lr=0.03 rho=0.05 seed=2
+[fsam         ] alpha=1.2 lr=0.03 rho=0.05 seed=3
+[fsam         ] alpha=1.2 lr=0.03 rho=0.05 seed=4
+[fsam         ] alpha=1.2 lr=0.03 rho=0.1 seed=0
+[fsam         ] alpha=1.2 lr=0.03 rho=0.1 seed=1
+[fsam         ] alpha=1.2 lr=0.03 rho=0.1 seed=2
+[fsam         ] alpha=1.2 lr=0.03 rho=0.1 seed=3
+[fsam         ] alpha=1.2 lr=0.03 rho=0.1 seed=4
+[fsam         ] alpha=1.2 lr=0.1 rho=0.01 seed=0
+[fsam         ] alpha=1.2 lr=0.1 rho=0.01 seed=1
+[fsam         ] alpha=1.2 lr=0.1 rho=0.01 seed=2
+[fsam         ] alpha=1.2 lr=0.1 rho=0.01 seed=3
+[fsam         ] alpha=1.2 lr=0.1 rho=0.01 seed=4
+[fsam         ] alpha=1.2 lr=0.1 rho=0.02 seed=0
+[fsam         ] alpha=1.2 lr=0.1 rho=0.02 seed=1
+[fsam         ] alpha=1.2 lr=0.1 rho=0.02 seed=2
+[fsam         ] alpha=1.2 lr=0.1 rho=0.02 seed=3
+[fsam         ] alpha=1.2 lr=0.1 rho=0.02 seed=4
+[fsam         ] alpha=1.2 lr=0.1 rho=0.05 seed=0
+[fsam         ] alpha=1.2 lr=0.1 rho=0.05 seed=1
+[fsam         ] alpha=1.2 lr=0.1 rho=0.05 seed=2
+[fsam         ] alpha=1.2 lr=0.1 rho=0.05 seed=3
+[fsam         ] alpha=1.2 lr=0.1 rho=0.05 seed=4
+[fsam         ] alpha=1.2 lr=0.1 rho=0.1 seed=0
+[fsam         ] alpha=1.2 lr=0.1 rho=0.1 seed=1
+[fsam         ] alpha=1.2 lr=0.1 rho=0.1 seed=2
+[fsam         ] alpha=1.2 lr=0.1 rho=0.1 seed=3
+[fsam         ] alpha=1.2 lr=0.1 rho=0.1 seed=4
+[fsam         ] alpha=1.6 lr=0.003 rho=0.01 seed=0
+[fsam         ] alpha=1.6 lr=0.003 rho=0.01 seed=1
+[fsam         ] alpha=1.6 lr=0.003 rho=0.01 seed=2
+[fsam         ] alpha=1.6 lr=0.003 rho=0.01 seed=3
+[fsam         ] alpha=1.6 lr=0.003 rho=0.01 seed=4
+[fsam         ] alpha=1.6 lr=0.003 rho=0.02 seed=0
+[fsam         ] alpha=1.6 lr=0.003 rho=0.02 seed=1
+[fsam         ] alpha=1.6 lr=0.003 rho=0.02 seed=2
+[fsam         ] alpha=1.6 lr=0.003 rho=0.02 seed=3
+[fsam         ] alpha=1.6 lr=0.003 rho=0.02 seed=4
+[fsam         ] alpha=1.6 lr=0.003 rho=0.05 seed=0
+[fsam         ] alpha=1.6 lr=0.003 rho=0.05 seed=1
+[fsam         ] alpha=1.6 lr=0.003 rho=0.05 seed=2
+[fsam         ] alpha=1.6 lr=0.003 rho=0.05 seed=3
+[fsam         ] alpha=1.6 lr=0.003 rho=0.05 seed=4
+[fsam         ] alpha=1.6 lr=0.003 rho=0.1 seed=0
+[fsam         ] alpha=1.6 lr=0.003 rho=0.1 seed=1
+[fsam         ] alpha=1.6 lr=0.003 rho=0.1 seed=2
+[fsam         ] alpha=1.6 lr=0.003 rho=0.1 seed=3
+[fsam         ] alpha=1.6 lr=0.003 rho=0.1 seed=4
+[fsam         ] alpha=1.6 lr=0.01 rho=0.01 seed=0
+[fsam         ] alpha=1.6 lr=0.01 rho=0.01 seed=1
+[fsam         ] alpha=1.6 lr=0.01 rho=0.01 seed=2
+[fsam         ] alpha=1.6 lr=0.01 rho=0.01 seed=3
+[fsam         ] alpha=1.6 lr=0.01 rho=0.01 seed=4
+[fsam         ] alpha=1.6 lr=0.01 rho=0.02 seed=0
+[fsam         ] alpha=1.6 lr=0.01 rho=0.02 seed=1
+[fsam         ] alpha=1.6 lr=0.01 rho=0.02 seed=2
+[fsam         ] alpha=1.6 lr=0.01 rho=0.02 seed=3
+[fsam         ] alpha=1.6 lr=0.01 rho=0.02 seed=4
+[fsam         ] alpha=1.6 lr=0.01 rho=0.05 seed=0
+[fsam         ] alpha=1.6 lr=0.01 rho=0.05 seed=1
+[fsam         ] alpha=1.6 lr=0.01 rho=0.05 seed=2
+[fsam         ] alpha=1.6 lr=0.01 rho=0.05 seed=3
+[fsam         ] alpha=1.6 lr=0.01 rho=0.05 seed=4
+[fsam         ] alpha=1.6 lr=0.01 rho=0.1 seed=0
+[fsam         ] alpha=1.6 lr=0.01 rho=0.1 seed=1
+[fsam         ] alpha=1.6 lr=0.01 rho=0.1 seed=2
+[fsam         ] alpha=1.6 lr=0.01 rho=0.1 seed=3
+[fsam         ] alpha=1.6 lr=0.01 rho=0.1 seed=4
+[fsam         ] alpha=1.6 lr=0.03 rho=0.01 seed=0
+[fsam         ] alpha=1.6 lr=0.03 rho=0.01 seed=1
+[fsam         ] alpha=1.6 lr=0.03 rho=0.01 seed=2
+[fsam         ] alpha=1.6 lr=0.03 rho=0.01 seed=3
+[fsam         ] alpha=1.6 lr=0.03 rho=0.01 seed=4
+[fsam         ] alpha=1.6 lr=0.03 rho=0.02 seed=0
+[fsam         ] alpha=1.6 lr=0.03 rho=0.02 seed=1
+[fsam         ] alpha=1.6 lr=0.03 rho=0.02 seed=2
+[fsam         ] alpha=1.6 lr=0.03 rho=0.02 seed=3
+[fsam         ] alpha=1.6 lr=0.03 rho=0.02 seed=4
+[fsam         ] alpha=1.6 lr=0.03 rho=0.05 seed=0
+[fsam         ] alpha=1.6 lr=0.03 rho=0.05 seed=1
+[fsam         ] alpha=1.6 lr=0.03 rho=0.05 seed=2
+[fsam         ] alpha=1.6 lr=0.03 rho=0.05 seed=3
+[fsam         ] alpha=1.6 lr=0.03 rho=0.05 seed=4
+[fsam         ] alpha=1.6 lr=0.03 rho=0.1 seed=0
+[fsam         ] alpha=1.6 lr=0.03 rho=0.1 seed=1
+[fsam         ] alpha=1.6 lr=0.03 rho=0.1 seed=2
+[fsam         ] alpha=1.6 lr=0.03 rho=0.1 seed=3
+[fsam         ] alpha=1.6 lr=0.03 rho=0.1 seed=4
+[fsam         ] alpha=1.6 lr=0.1 rho=0.01 seed=0
+[fsam         ] alpha=1.6 lr=0.1 rho=0.01 seed=1
+[fsam         ] alpha=1.6 lr=0.1 rho=0.01 seed=2
+[fsam         ] alpha=1.6 lr=0.1 rho=0.01 seed=3
+[fsam         ] alpha=1.6 lr=0.1 rho=0.01 seed=4
+[fsam         ] alpha=1.6 lr=0.1 rho=0.02 seed=0
+[fsam         ] alpha=1.6 lr=0.1 rho=0.02 seed=1
+[fsam         ] alpha=1.6 lr=0.1 rho=0.02 seed=2
+[fsam         ] alpha=1.6 lr=0.1 rho=0.02 seed=3
+[fsam         ] alpha=1.6 lr=0.1 rho=0.02 seed=4
+[fsam         ] alpha=1.6 lr=0.1 rho=0.05 seed=0
+[fsam         ] alpha=1.6 lr=0.1 rho=0.05 seed=1
+[fsam         ] alpha=1.6 lr=0.1 rho=0.05 seed=2
+[fsam         ] alpha=1.6 lr=0.1 rho=0.05 seed=3
+[fsam         ] alpha=1.6 lr=0.1 rho=0.05 seed=4
+[fsam         ] alpha=1.6 lr=0.1 rho=0.1 seed=0
+[fsam         ] alpha=1.6 lr=0.1 rho=0.1 seed=1
+[fsam         ] alpha=1.6 lr=0.1 rho=0.1 seed=2
+[fsam         ] alpha=1.6 lr=0.1 rho=0.1 seed=3
+[fsam         ] alpha=1.6 lr=0.1 rho=0.1 seed=4
+[fsam         ] alpha=2.0 lr=0.003 rho=0.01 seed=0
+[fsam         ] alpha=2.0 lr=0.003 rho=0.01 seed=1wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run 39pgga0f
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260921_175741-39pgga0f
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/synthetic-experiment-alpha1.6
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/synthetic-experiment-alpha1.6/runs/39pgga0f
+wandb: updating run metadata; uploading summary
+wandb: uploading wandb-metadata.json; uploading requirements.txt; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-metadata.json; uploading requirements.txt; uploading config.yaml
+wandb: uploading history steps 0-99, summary
+wandb: 
+wandb: Run history:
+wandb:             F ▁▁▁▂▂▂▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▅▆▆▆▆▆▆▆▇▇▇▇▇█████
+wandb: dist_to_Wstar ▁▂▂▂▂▃▃▄▄▄▄▄▄▅▅▅▅▆▆▆▆▆▆▆▇▇▇▇▇▇▇▇▇▇▇▇████
+wandb:      diverged ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           gap ▁▁▂▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇█████
+wandb:      gradnorm ▁▂▂▂▂▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▅▅▆▆▆▆▇▇▇▇▇▇▇▇█████
+wandb: sharpness_gap ▄▃▄▃▄▄▄▄▄▄▅▅▅█▆▄▆████▄▄▃▃▂▂▃▃▄▁▁▄▃▃▅▆▃▅▅
+wandb:   wall_time_s ▁▁▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▆▆▆▇▇▇▇▇▇▇███
+wandb: 
+wandb: Run summary:
+wandb:             F 1.29055
+wandb: dist_to_Wstar 96.30083
+wandb:      diverged 0
+wandb:           gap 1.28747
+wandb:      gradnorm 0.01872
+wandb: sharpness_gap 0.0
+wandb:   wall_time_s 2.38782
+wandb: 
+wandb: 🚀 View run fsam at: https://wandb.ai/dcll-iiitd/synthetic-experiment-alpha1.6/runs/39pgga0f
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/synthetic-experiment-alpha1.6
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260921_175741-39pgga0f/logs
+wandb: setting up run sv6kif4w
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260921_175748-sv6kif4w
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/synthetic-experiment-alpha2.0
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/synthetic-experiment-alpha2.0/runs/sv6kif4w
+wandb: updating run metadata; uploading summary
+wandb: uploading summary
+wandb: uploading summary; uploading wandb-metadata.json; uploading requirements.txt; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-metadata.json; uploading wandb-summary.json
+wandb: uploading history steps 0-99, summary
+wandb: 
+wandb: Run history:
+wandb:             F ▁▁▁▂▂▂▂▂▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▅▅▆▆▆▆▆▆▆▆▇▇▇▇███
+wandb: dist_to_Wstar ▁▁▂▂▂▃▃▃▃▃▄▄▄▄▅▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇▇▇▇█████
+wandb:      diverged ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           gap ▁▂▂▂▂▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▆▆▆▇▇▇▇▇█████
+wandb:      gradnorm ▁▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▅▅▅▆▆▇▇▇▇▇▇▇▇▇▇▇▇██
+wandb: sharpness_gap ▄▃▃▆▄▄▅▅▆▅▅▃▇█▇▅▅▄▄▅▂▁▅▂▅▆▄▆▃▁▃▄▇▄▆▅▇▆▇▇
+wandb:   wall_time_s ▁▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▄▄▄▅▅▅▅▅▆▆▇▇▇▇▇████
+wandb: 
+wandb: Run summary:
+wandb:             F 0.37283
+wandb: dist_to_Wstar 36.08006
+wandb:      diverged 0
+wandb:           gap 0.36975
+wandb:      gradnorm 0.01285
+wandb: sharpness_gap 0.0
+wandb:   wall_time_s 2.42191
+wandb: 
+wandb: 🚀 View run fsam at: https://wandb.ai/dcll-iiitd/synthetic-experiment-alpha2.0/runs/sv6kif4w
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/synthetic-experiment-alpha2.0
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260921_175748-sv6kif4w/logs
+
+[fsam         ] alpha=2.0 lr=0.003 rho=0.01 seed=2
+[fsam         ] alpha=2.0 lr=0.003 rho=0.01 seed=3
+[fsam         ] alpha=2.0 lr=0.003 rho=0.01 seed=4
+[fsam         ] alpha=2.0 lr=0.003 rho=0.02 seed=0
+[fsam         ] alpha=2.0 lr=0.003 rho=0.02 seed=1
+[fsam         ] alpha=2.0 lr=0.003 rho=0.02 seed=2
+[fsam         ] alpha=2.0 lr=0.003 rho=0.02 seed=3
+[fsam         ] alpha=2.0 lr=0.003 rho=0.02 seed=4
+[fsam         ] alpha=2.0 lr=0.003 rho=0.05 seed=0
+[fsam         ] alpha=2.0 lr=0.003 rho=0.05 seed=1
+[fsam         ] alpha=2.0 lr=0.003 rho=0.05 seed=2
+[fsam         ] alpha=2.0 lr=0.003 rho=0.05 seed=3
+[fsam         ] alpha=2.0 lr=0.003 rho=0.05 seed=4
+[fsam         ] alpha=2.0 lr=0.003 rho=0.1 seed=0
+[fsam         ] alpha=2.0 lr=0.003 rho=0.1 seed=1
+[fsam         ] alpha=2.0 lr=0.003 rho=0.1 seed=2
+[fsam         ] alpha=2.0 lr=0.003 rho=0.1 seed=3
+[fsam         ] alpha=2.0 lr=0.003 rho=0.1 seed=4
+[fsam         ] alpha=2.0 lr=0.01 rho=0.01 seed=0
+[fsam         ] alpha=2.0 lr=0.01 rho=0.01 seed=1
+[fsam         ] alpha=2.0 lr=0.01 rho=0.01 seed=2
+[fsam         ] alpha=2.0 lr=0.01 rho=0.01 seed=3
+[fsam         ] alpha=2.0 lr=0.01 rho=0.01 seed=4
+[fsam         ] alpha=2.0 lr=0.01 rho=0.02 seed=0
+[fsam         ] alpha=2.0 lr=0.01 rho=0.02 seed=1
+[fsam         ] alpha=2.0 lr=0.01 rho=0.02 seed=2
+[fsam         ] alpha=2.0 lr=0.01 rho=0.02 seed=3
+[fsam         ] alpha=2.0 lr=0.01 rho=0.02 seed=4
+[fsam         ] alpha=2.0 lr=0.01 rho=0.05 seed=0
+[fsam         ] alpha=2.0 lr=0.01 rho=0.05 seed=1
+[fsam         ] alpha=2.0 lr=0.01 rho=0.05 seed=2
+[fsam         ] alpha=2.0 lr=0.01 rho=0.05 seed=3
+[fsam         ] alpha=2.0 lr=0.01 rho=0.05 seed=4
+[fsam         ] alpha=2.0 lr=0.01 rho=0.1 seed=0
+[fsam         ] alpha=2.0 lr=0.01 rho=0.1 seed=1
+[fsam         ] alpha=2.0 lr=0.01 rho=0.1 seed=2
+[fsam         ] alpha=2.0 lr=0.01 rho=0.1 seed=3
+[fsam         ] alpha=2.0 lr=0.01 rho=0.1 seed=4
+[fsam         ] alpha=2.0 lr=0.03 rho=0.01 seed=0
+[fsam         ] alpha=2.0 lr=0.03 rho=0.01 seed=1
+[fsam         ] alpha=2.0 lr=0.03 rho=0.01 seed=2
+[fsam         ] alpha=2.0 lr=0.03 rho=0.01 seed=3
+[fsam         ] alpha=2.0 lr=0.03 rho=0.01 seed=4
+[fsam         ] alpha=2.0 lr=0.03 rho=0.02 seed=0
+[fsam         ] alpha=2.0 lr=0.03 rho=0.02 seed=1
+[fsam         ] alpha=2.0 lr=0.03 rho=0.02 seed=2
+[fsam         ] alpha=2.0 lr=0.03 rho=0.02 seed=3
+[fsam         ] alpha=2.0 lr=0.03 rho=0.02 seed=4
+[fsam         ] alpha=2.0 lr=0.03 rho=0.05 seed=0
+[fsam         ] alpha=2.0 lr=0.03 rho=0.05 seed=1
+[fsam         ] alpha=2.0 lr=0.03 rho=0.05 seed=2
+[fsam         ] alpha=2.0 lr=0.03 rho=0.05 seed=3
+[fsam         ] alpha=2.0 lr=0.03 rho=0.05 seed=4
+[fsam         ] alpha=2.0 lr=0.03 rho=0.1 seed=0
+[fsam         ] alpha=2.0 lr=0.03 rho=0.1 seed=1
+[fsam         ] alpha=2.0 lr=0.03 rho=0.1 seed=2
+[fsam         ] alpha=2.0 lr=0.03 rho=0.1 seed=3
+[fsam         ] alpha=2.0 lr=0.03 rho=0.1 seed=4
+[fsam         ] alpha=2.0 lr=0.1 rho=0.01 seed=0
+[fsam         ] alpha=2.0 lr=0.1 rho=0.01 seed=1
+[fsam         ] alpha=2.0 lr=0.1 rho=0.01 seed=2
+[fsam         ] alpha=2.0 lr=0.1 rho=0.01 seed=3
+[fsam         ] alpha=2.0 lr=0.1 rho=0.01 seed=4
+[fsam         ] alpha=2.0 lr=0.1 rho=0.02 seed=0
+[fsam         ] alpha=2.0 lr=0.1 rho=0.02 seed=1
+[fsam         ] alpha=2.0 lr=0.1 rho=0.02 seed=2
+[fsam         ] alpha=2.0 lr=0.1 rho=0.02 seed=3
+[fsam         ] alpha=2.0 lr=0.1 rho=0.02 seed=4
+[fsam         ] alpha=2.0 lr=0.1 rho=0.05 seed=0
+[fsam         ] alpha=2.0 lr=0.1 rho=0.05 seed=1
+[fsam         ] alpha=2.0 lr=0.1 rho=0.05 seed=2
+[fsam         ] alpha=2.0 lr=0.1 rho=0.05 seed=3
+[fsam         ] alpha=2.0 lr=0.1 rho=0.05 seed=4
+[fsam         ] alpha=2.0 lr=0.1 rho=0.1 seed=0
+[fsam         ] alpha=2.0 lr=0.1 rho=0.1 seed=1
+[fsam         ] alpha=2.0 lr=0.1 rho=0.1 seed=2
+[fsam         ] alpha=2.0 lr=0.1 rho=0.1 seed=3
+[fsam         ] alpha=2.0 lr=0.1 rho=0.1 seed=4
+
+Raw per-iteration log saved to logs/synthetic_heavy_tailed/synthetic_heavy_tailed_raw.csv
+Per-hyperparameter summary saved to logs/synthetic_heavy_tailed/synthetic_heavy_tailed_summary.csv
+Best hyperparameters per (algorithm, alpha) saved to logs/synthetic_heavy_tailed/synthetic_heavy_tailed_best.csv
+  wandb: logged fsam (alpha=1.6, lr=0.003, rho=0.02) to project synthetic-experiment-alpha1.6
+  wandb: logged fsam (alpha=2.0, lr=0.003, rho=0.05) to project synthetic-experiment-alpha2.0
+Saved plot: logs/synthetic_heavy_tailed/synthetic_heavy_tailed_alpha1.6_plot.png
+Saved plot: logs/synthetic_heavy_tailed/synthetic_heavy_tailed_alpha2.0_plot.png

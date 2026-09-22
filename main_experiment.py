@@ -96,7 +96,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "lr": opt_dict.get("lr", 0.0325 if task_type != "image_classification" else 0.02),
                 "momentum": opt_dict.get("momentum", 0.9665 if task_type != "image_classification" else 0.95),
                 "weight_decay": opt_dict.get("weight_decay", 0.01),
-                "adam_lr": 0.002,
+                "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
             }
         elif opt_name in ["adam", "adamw"]:
             opt_dict = opts_cfg.get("adamw_baseline", {}) or opts_cfg.get("adamw", {}) or opts_cfg.get("adam", {})
