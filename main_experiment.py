@@ -98,8 +98,8 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "weight_decay": opt_dict.get("weight_decay", 0.0001),
                 "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
             }
-        elif opt_name == "muon_sam":
-            opt_dict = opts_cfg.get("muon_sam", {})
+        elif opt_name in ["muon_sam", "muon_sam_frob", "muon_sam_stale"]:
+            opt_dict = opts_cfg.get(opt_name, {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.035),
                 "momentum": opt_dict.get("momentum", 0.9665),

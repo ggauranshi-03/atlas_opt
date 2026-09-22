@@ -69,3 +69,17 @@ optimizers:
     rho: 0.0015
     rho_vector: 0.01
     schatten_r: inf
+  muon_sam_frob:
+    optimizer: muon_sam_frob
+    lr: 0.015
+    momentum: 0.95
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01
+  muon_sam_stale:
+    optimizer: muon_sam_stale
+    lr: 0.015
+    momentum: 0.95
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01

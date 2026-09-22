@@ -60,3 +60,17 @@ optimizers:
     weight_decay: 0.0001
     rho: 0.0015
     rho_vector: 0.01
+  muon_sam_frob:
+    optimizer: muon_sam_frob
+    lr: 0.02
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01
+  muon_sam_stale:
+    optimizer: muon_sam_stale
+    lr: 0.02
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.0015
+    rho_vector: 0.01

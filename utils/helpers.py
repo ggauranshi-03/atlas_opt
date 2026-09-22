@@ -11,6 +11,8 @@ from optimizers.atlas_baseline import AtlasOptimizer
 from optimizers.atlas_raw_grad import AtlasOptimizerRaw
 from optimizers.atlas_random import AtlasOptimizerRandom
 from optimizers.muon_sam import MuonSAM
+from optimizers.muon_sam_frob import MuonSAMFrob
+from optimizers.muon_sam_stale import MuonSAMStale
 from utils.models import AirbenchCNN
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -90,7 +92,7 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
         return opt, get_wsd_schedule(opt)
     elif name in ["muon", "muon_nesterov", "muon_polyak"]:
         try:
-            from muon import SingleDeviceMuonWithAuxAdam
+            from optimizers.muon import SingleDeviceMuonWithAuxAdam
             muon_params, adam_params = [], []
             for n, p in model.named_parameters():
                 if not p.requires_grad: continue
@@ -104,13 +106,12 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
         except Exception:
             opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd)
         return opt, get_wsd_schedule(opt)
-    elif name == "muon_sam":
+    elif name in ["muon_sam", "muon_sam_frob", "muon_sam_stale"]:
         try:
-            from muon import SingleDeviceMuonWithAuxAdam
+            from optimizers.muon import SingleDeviceMuonWithAuxAdam
             muon_params, adam_params = [], []
-            for n, p in model.named_parameters():
-                if not p.requires_grad: continue
-                if p.ndim >= 2 and "embed" not in n and "wte" not in n and "wpe" not in n:
+            for p in trainable_params:
+                if p.ndim >= 2:
                     muon_params.append(p)
                 else:
                     adam_params.append(p)
@@ -119,9 +120,18 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
             base_opt = SingleDeviceMuonWithAuxAdam([*adam_groups, muon_group])
         except Exception:
             base_opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd)
-        opt = MuonSAM(base_opt, rho=params.get("rho", 0.0015),
-                      rho_vector=params.get("rho_vector", 0.01),
-                      ns_steps=params.get("ns_steps", 5))
+            
+        if name == "muon_sam":
+            opt = MuonSAM(base_opt, rho=params.get("rho", 0.0015),
+                          rho_vector=params.get("rho_vector", 0.01),
+                          ns_steps=params.get("ns_steps", 5))
+        elif name == "muon_sam_frob":
+            opt = MuonSAMFrob(base_opt, rho=params.get("rho", 0.0015),
+                              rho_vector=params.get("rho_vector", 0.01))
+        elif name == "muon_sam_stale":
+            opt = MuonSAMStale(base_opt, rho=params.get("rho", 0.0015),
+                               rho_vector=params.get("rho_vector", 0.01))
+                               
         return opt, get_wsd_schedule(opt)
     elif name == "adam":
         opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd, eps=1e-7)
@@ -138,7 +148,7 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
     micro_batches = []
     t0 = time.time()
     
-    is_closure_opt = isinstance(optimizer, (AtlasOptimizer, AtlasOptimizerRaw, AtlasOptimizerRandom, MuonSAM))
+    is_closure_opt = isinstance(optimizer, (AtlasOptimizer, AtlasOptimizerRaw, AtlasOptimizerRandom, MuonSAM, MuonSAMFrob, MuonSAMStale))
     steps = 0
     
     for batch_idx, batch in enumerate(dataloader):
