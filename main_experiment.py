@@ -117,7 +117,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
         elif opt_name == "sgd":
             opt_dict = opts_cfg.get("sgd", {})
             best_params = {
-                "lr": opt_dict.get("lr", 0.1),
+                "lr": opt_dict.get("lr", 0.001),
                 "momentum": opt_dict.get("momentum", 0.9),
                 "weight_decay": opt_dict.get("weight_decay", 0.01),
             }
