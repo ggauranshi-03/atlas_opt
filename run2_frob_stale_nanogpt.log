@@ -1,0 +1,150 @@
+nohup: ignoring input
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run uqhmo3u5
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260922_142705-uqhmo3u5
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon_sam_frob
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/uqhmo3u5
+2026-09-22 14:27:07.447055: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1790087227.469130  577297 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1790087227.476521  577297 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1790087227.496944  577297 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790087227.496989  577297 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790087227.496994  577297 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790087227.496998  577297 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-09-22 14:27:07.501883: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading output.log; uploading wandb-summary.json; uploading history steps 14-14, summary, console lines 21-21
+wandb: uploading data
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s ▃█▅▇▆▅▇▅▂▃▁▂▂▂▁
+wandb: train/accuracy ▁▂▄▄▅▅▅▆▆▆▇▇▇██
+wandb:     train/loss █▇▆▅▄▄▃▃▃▂▂▂▁▁▁
+wandb:   val/accuracy ▁▃▄▄▅▅▅▆▆▆▇▇▇██
+wandb:       val/loss █▇▅▅▄▄▃▃▂▂▂▂▁▁▁
+wandb: val/perplexity █▆▃▂▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 1471.59625
+wandb: train/accuracy 27.22154
+wandb:     train/loss 4.45378
+wandb:   val/accuracy 28.89457
+wandb:       val/loss 4.26777
+wandb: val/perplexity 71.36267
+wandb: 
+wandb: 🚀 View run muon_sam_frob at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/uqhmo3u5
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260922_142705-uqhmo3u5/logs
+wandb: setting up run 1lppnuiu
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260922_203924-1lppnuiu
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon_sam_stale
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/1lppnuiu
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 14-14, summary, console lines 20-20
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s █▁▁▁▁▂▂▂▂▃▂▃▃▂▂
+wandb: train/accuracy ▁▂▄▄▅▅▅▆▆▆▇▇▇██
+wandb:     train/loss █▇▆▅▄▄▃▃▂▂▂▂▁▁▁
+wandb:   val/accuracy ▁▃▄▄▅▅▅▆▆▆▇▇▇██
+wandb:       val/loss █▇▅▅▄▄▃▃▂▂▂▂▁▁▁
+wandb: val/perplexity █▆▃▂▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 774.86872
+wandb: train/accuracy 27.38435
+wandb:     train/loss 4.43409
+wandb:   val/accuracy 29.01737
+wandb:       val/loss 4.24971
+wandb: val/perplexity 70.08538
+wandb: 
+wandb: 🚀 View run muon_sam_stale at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers/runs/1lppnuiu
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260922_203924-1lppnuiu/logs
+
+>>> Running Benchmark for Optimizers: ['muon_sam_frob', 'muon_sam_stale'] across 1 configs <<<
+
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: MUON_SAM_FROB | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [muon_sam_frob] for 15 epochs...
+  [MUON_SAM_FROB] Epoch  1/15 | Train Loss: 11.0214 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 1474.4s
+  [MUON_SAM_FROB] Epoch  2/15 | Train Loss: 10.2563 | Train Acc: 4.85% | Val Loss: 9.6088 | Val Acc: 7.75% | Time: 1479.8s
+  [MUON_SAM_FROB] Epoch  3/15 | Train Loss: 9.0114 | Train Acc: 10.41% | Val Loss: 8.5414 | Val Acc: 12.29% | Time: 1476.6s
+  [MUON_SAM_FROB] Epoch  4/15 | Train Loss: 8.1341 | Train Acc: 13.34% | Val Loss: 7.8271 | Val Acc: 14.36% | Time: 1478.2s
+  [MUON_SAM_FROB] Epoch  5/15 | Train Loss: 7.5304 | Train Acc: 14.78% | Val Loss: 7.2830 | Val Acc: 15.52% | Time: 1477.8s
+  [MUON_SAM_FROB] Epoch  6/15 | Train Loss: 7.0419 | Train Acc: 15.80% | Val Loss: 6.8097 | Val Acc: 16.51% | Time: 1476.3s
+  [MUON_SAM_FROB] Epoch  7/15 | Train Loss: 6.6083 | Train Acc: 16.85% | Val Loss: 6.3827 | Val Acc: 17.71% | Time: 1478.0s
+  [MUON_SAM_FROB] Epoch  8/15 | Train Loss: 6.2164 | Train Acc: 17.93% | Val Loss: 6.0009 | Val Acc: 18.72% | Time: 1476.0s
+  [MUON_SAM_FROB] Epoch  9/15 | Train Loss: 5.8625 | Train Acc: 19.11% | Val Loss: 5.6480 | Val Acc: 20.12% | Time: 1473.2s
+  [MUON_SAM_FROB] Epoch 10/15 | Train Loss: 5.5431 | Train Acc: 20.52% | Val Loss: 5.3312 | Val Acc: 21.77% | Time: 1474.0s
+  [MUON_SAM_FROB] Epoch 11/15 | Train Loss: 5.2559 | Train Acc: 22.05% | Val Loss: 5.0456 | Val Acc: 23.49% | Time: 1471.5s
+  [MUON_SAM_FROB] Epoch 12/15 | Train Loss: 5.0084 | Train Acc: 23.50% | Val Loss: 4.8128 | Val Acc: 24.89% | Time: 1472.2s
+  [MUON_SAM_FROB] Epoch 13/15 | Train Loss: 4.7995 | Train Acc: 24.81% | Val Loss: 4.6132 | Val Acc: 26.25% | Time: 1472.4s
+  [MUON_SAM_FROB] Epoch 14/15 | Train Loss: 4.6156 | Train Acc: 26.06% | Val Loss: 4.4283 | Val Acc: 27.63% | Time: 1473.1s
+  [MUON_SAM_FROB] Epoch 15/15 | Train Loss: 4.4538 | Train Acc: 27.22% | Val Loss: 4.2678 | Val Acc: 28.89% | Time: 1471.6s
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: MUON_SAM_STALE | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [muon_sam_stale] for 15 epochs...
+  [MUON_SAM_STALE] Epoch  1/15 | Train Loss: 11.0688 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 781.1s
+  [MUON_SAM_STALE] Epoch  2/15 | Train Loss: 10.2822 | Train Acc: 4.80% | Val Loss: 9.6115 | Val Acc: 7.74% | Time: 774.2s
+  [MUON_SAM_STALE] Epoch  3/15 | Train Loss: 9.0233 | Train Acc: 10.28% | Val Loss: 8.5521 | Val Acc: 12.09% | Time: 773.8s
+  [MUON_SAM_STALE] Epoch  4/15 | Train Loss: 8.1476 | Train Acc: 13.21% | Val Loss: 7.8439 | Val Acc: 14.25% | Time: 773.9s
+  [MUON_SAM_STALE] Epoch  5/15 | Train Loss: 7.5440 | Train Acc: 14.71% | Val Loss: 7.2950 | Val Acc: 15.42% | Time: 773.8s
+  [MUON_SAM_STALE] Epoch  6/15 | Train Loss: 7.0525 | Train Acc: 15.75% | Val Loss: 6.8190 | Val Acc: 16.50% | Time: 774.8s
+  [MUON_SAM_STALE] Epoch  7/15 | Train Loss: 6.6156 | Train Acc: 16.82% | Val Loss: 6.3872 | Val Acc: 17.67% | Time: 774.8s
+  [MUON_SAM_STALE] Epoch  8/15 | Train Loss: 6.2170 | Train Acc: 17.96% | Val Loss: 5.9961 | Val Acc: 18.87% | Time: 774.7s
+  [MUON_SAM_STALE] Epoch  9/15 | Train Loss: 5.8518 | Train Acc: 19.22% | Val Loss: 5.6303 | Val Acc: 20.33% | Time: 775.0s
+  [MUON_SAM_STALE] Epoch 10/15 | Train Loss: 5.5185 | Train Acc: 20.76% | Val Loss: 5.2987 | Val Acc: 22.11% | Time: 775.3s
+  [MUON_SAM_STALE] Epoch 11/15 | Train Loss: 5.2239 | Train Acc: 22.35% | Val Loss: 5.0201 | Val Acc: 23.70% | Time: 774.5s
+  [MUON_SAM_STALE] Epoch 12/15 | Train Loss: 4.9788 | Train Acc: 23.77% | Val Loss: 4.7847 | Val Acc: 25.16% | Time: 775.9s
+  [MUON_SAM_STALE] Epoch 13/15 | Train Loss: 4.7718 | Train Acc: 25.05% | Val Loss: 4.5858 | Val Acc: 26.54% | Time: 775.4s
+  [MUON_SAM_STALE] Epoch 14/15 | Train Loss: 4.5919 | Train Acc: 26.25% | Val Loss: 4.4036 | Val Acc: 27.85% | Time: 774.4s
+  [MUON_SAM_STALE] Epoch 15/15 | Train Loss: 4.4341 | Train Acc: 27.38% | Val Loss: 4.2497 | Val Acc: 29.02% | Time: 774.9s
+
+  [Single CSV Saved]: logs/nanogpt_fineweb_logs.csv
+  [Unified Comparison Plot Saved]: logs/nanogpt_fineweb_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  nanogpt_fineweb                     | Opt: muon_sam_frob  | Loss: 4.4538 | Perplexity    : 71.36 | Time: 22125.1s
+  nanogpt_fineweb                     | Opt: muon_sam_stale | Loss: 4.4341 | Perplexity    : 70.09 | Time: 11626.4s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+
