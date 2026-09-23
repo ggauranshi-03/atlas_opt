@@ -68,6 +68,15 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
             if current_step < stable_steps: return 1.0
             return max(0.0, 1.0 - float(current_step - stable_steps) / float(max(1, decay_steps)))
         return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
+        
+    def get_cosine_schedule(optimizer):
+        def lr_lambda(current_step):
+            if current_step < warmup_steps:
+                return float(current_step) / float(max(1, warmup_steps))
+            progress = float(current_step - warmup_steps) / float(max(1, total_steps - warmup_steps))
+            return 0.5 * (1.0 + math.cos(math.pi * progress))
+        return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
+
     
     if name == "atlas":
         opt = AtlasOptimizer(model, lr=lr, weight_decay=wd, 
@@ -138,6 +147,9 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
         return opt, get_wsd_schedule(opt)
     elif name == "sgd":
         opt = torch.optim.SGD(trainable_params, lr=lr, momentum=params.get("momentum", 0.9), weight_decay=wd, nesterov=params.get("nesterov", True))
+        sched_type = params.get("scheduler", "wsd")
+        if sched_type == "cosine":
+            return opt, get_cosine_schedule(opt)
         return opt, get_wsd_schedule(opt)
 
     raise ValueError(f"Unknown optimizer: {name}")

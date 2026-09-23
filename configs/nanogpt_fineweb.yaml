@@ -32,6 +32,7 @@ optimizers:
     momentum: 0.95
     nesterov: true
     weight_decay: 0.01
+    scheduler: cosine
   muon:
     optimizer: muon
     lr: 0.015

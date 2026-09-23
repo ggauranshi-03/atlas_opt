@@ -33,6 +33,7 @@ optimizers:
     nesterov: true
     weight_decay: 0.01
     schatten_r: 2.0
+    scheduler: cosine
   muon:
     optimizer: muon
     lr: 0.015
