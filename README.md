@@ -187,7 +187,9 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | **AdamW** | 1.0577 | 63.27% | 1.0548 | 62.87% |
 | **Muon** | 0.5922 | 80.16% | 0.6242 | 78.50% |
 | **Muon-SAM** | 0.9166 | 34.67% | 0.8812 | 69.37% |
-| **SGD** | 2.2712 | 16.02% | 2.2474 | 17.56% |
+| **Muon-SAM (Frob)** | 0.6736 | 38.76% | 0.6606 | 77.16% |
+| **Muon-SAM (Stale)** | 0.6771 | 38.64% | 0.6746 | 76.61% |
+| **SGD** | 1.0571 | 62.96% | 1.1096 | 60.99% |
 
 #### Experiment 2: nanoGPT Continual Pre-Training
 | Optimizer | Final Train Loss | Final Train Acc | Final Val Loss | Final Val Acc |
@@ -198,7 +200,9 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | **AdamW** | 4.5826 | 27.24% | 4.4446 | 28.50% |
 | **Muon** | 3.9330 | 32.28% | 3.7586 | 34.04% |
 | **Muon-SAM** | 4.7394 | 24.12% | 4.5769 | 25.40% |
-| **SGD** | 8.2731 | 9.10% | 8.2703 | 9.26% |
+| **Muon-SAM (Frob)** | 4.4538 | 27.22% | 4.2678 | 28.89% |
+| **Muon-SAM (Stale)** | 4.4341 | 27.38% | 4.2497 | 29.02% |
+| **SGD** | 7.3141 | 13.21% | 7.2956 | 13.59% |
 
 #### Experiment 3: Pythia-70M Continual Pre-Training
 | Optimizer | Final Train Loss | Final Train Acc | Final Val Loss | Final Val Acc |
@@ -209,7 +213,9 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | **AdamW** | 4.9518 | 23.79% | 4.9156 | 23.91% |
 | **Muon** | 4.0690 | 31.48% | 4.0169 | 31.87% |
 | **Muon-SAM** | 4.8280 | 23.48% | 4.7622 | 23.97% |
-| **SGD** | 8.1014 | 6.38% | 8.0589 | 6.87% |
+| **Muon-SAM (Frob)** | 4.4951 | 27.45% | 4.4271 | 27.94% |
+| **Muon-SAM (Stale)** | 4.4722 | 27.73% | 4.4056 | 28.16% |
+| **SGD** | 7.4629 | 11.42% | 7.4197 | 11.54% |
 
 ### Language Modeling Validation Perplexity Results
 
@@ -222,7 +228,9 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | **AdamW** | 85.17 |
 | **Muon** | 42.89 |
 | **Muon-SAM** | 97.21 |
-| **SGD** | 3906.12 |
+| **Muon-SAM (Frob)** | 71.36 |
+| **Muon-SAM (Stale)** | 70.08 |
+| **SGD** | 1473.80 |
 
 #### Experiment 3: Pythia-70M Continual Pre-Training
 | Optimizer | Final Validation Perplexity |
@@ -233,7 +241,9 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | **AdamW** | 136.40 |
 | **Muon** | 55.53 |
 | **Muon-SAM** | 117.00 |
-| **SGD** | 3161.81 |
+| **Muon-SAM (Frob)** | 83.69 |
+| **Muon-SAM (Stale)** | 81.91 |
+| **SGD** | 1668.53 |
 
 *(Note: CIFAR-10 is an image classification task evaluated on Cross-Entropy Loss and Accuracy, and therefore does not have a Perplexity metric).*
 
