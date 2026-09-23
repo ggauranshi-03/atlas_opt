@@ -149,30 +149,36 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | Optimizer | LR | Adam LR | Momentum | Weight Decay | rho | rho_vector |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | AdamW | 0.0018 | — | betas (0.9, 0.95) | 0.01 | — | — |
-| SGD (Nesterov) | 0.001 | — | 0.9 | 0.01 | — | — |
+| SGD  | 0.001 | — | 0.9 | 0.01 | — | — |
 | Muon (Nesterov/Polyak) | 0.015 | 0.003 | 0.9665 | 0.0001 | — | — |
 | Atlas | 0.015 | 0.003 | 0.9665 | 0.0001 | 0.0015 | 0.01 |
 | Muon-SAM | 0.015 | 0.003 | 0.9665 | 0.0001 | 0.0015 | 0.01 |
+| Muon-SAM (Frob) | 0.015 | 0.003 | 0.9665 | 0.0001 | 0.0015 | 0.01 |
+| Muon-SAM (Stale) | 0.015 | 0.003 | 0.9665 | 0.0001 | 0.0015 | 0.01 |
 
 **CIFAR-10 CNN** (`cifar10_cnn.yaml`)
 
 | Optimizer | LR | Adam LR | Momentum | Weight Decay | rho | rho_vector |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | AdamW | 0.001 | — | — | 0.001 | — | — |
-| SGD (Nesterov) | 0.001 | — | 0.9 | 0.001 | — | — |
+| SGD  | 0.001 | — | 0.9 | 0.001 | — | — |
 | Muon (Nesterov/Polyak) | 0.02 | 0.001 | 0.9665 | 0.0001 | — | — |
 | Atlas | 0.02 | 0.001 | 0.9665 | 0.0001 | 0.0015 | 0.01 |
 | Muon-SAM | 0.02 | 0.001 | 0.9665 | 0.0001 | 0.0015 | 0.01 |
+| Muon-SAM (Frob) | 0.02 | 0.001 | 0.9665 | 0.0001 | 0.0015 | 0.01 |
+| Muon-SAM (Stale) | 0.02 | 0.001 | 0.9665 | 0.0001 | 0.0015 | 0.01 |
 
 **Pythia-70M Chinchilla** (`pythia70m_pretrain_chinchilla.yaml`)
 
 | Optimizer | LR | Adam LR | Momentum | Weight Decay | rho | rho_vector |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | AdamW | 0.0018 | — | betas (0.9, 0.95) | 0.01 | — | — |
-| SGD (Euclidean, Schatten-2) | 0.001 | — | 0.95 | 0.1 | — | — |
+| SGD  | 0.001 | — | 0.95 | 0.1 | — | — |
 | Muon (Schatten-∞) | 0.015 | 0.003 | 0.95 | 0.0001 | — | — |
 | Atlas | 0.015 | 0.003 | 0.95 | 0.0001 | 0.0015 | 0.01 |
 | Muon-SAM | 0.015 | 0.003 | 0.95 | 0.0001 | 0.0015 | 0.01 |
+| Muon-SAM (Frob) | 0.015 | 0.003 | 0.95 | 0.0001 | 0.0015 | 0.01 |
+| Muon-SAM (Stale) | 0.015 | 0.003 | 0.95 | 0.0001 | 0.0015 | 0.01 |
 
 ---
 
