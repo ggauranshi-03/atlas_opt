@@ -13,6 +13,7 @@ from optimizers.atlas_random import AtlasOptimizerRandom
 from optimizers.muon_sam import MuonSAM
 from optimizers.muon_sam_frob import MuonSAMFrob
 from optimizers.muon_sam_stale import MuonSAMStale
+from optimizers.fsam_muon import FSAMMuon
 from utils.models import AirbenchCNN
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -115,7 +116,7 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
         except Exception:
             opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd)
         return opt, get_wsd_schedule(opt)
-    elif name in ["muon_sam", "muon_sam_frob", "muon_sam_stale"]:
+    elif name in ["muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon"]:
         try:
             from optimizers.muon import SingleDeviceMuonWithAuxAdam
             muon_params, adam_params = [], []
@@ -140,6 +141,10 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
         elif name == "muon_sam_stale":
             opt = MuonSAMStale(base_opt, rho=params.get("rho", 0.0015),
                                rho_vector=params.get("rho_vector", 0.01))
+        elif name == "fsam_muon":
+            opt = FSAMMuon(base_opt, rho=params.get("rho", 0.0015),
+                           fsam_lambda=params.get("fsam_lambda", 0.9),
+                           fsam_sigma=params.get("fsam_sigma", 1.0))
                                
         return opt, get_wsd_schedule(opt)
     elif name == "adam":
@@ -160,7 +165,7 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
     micro_batches = []
     t0 = time.time()
     
-    is_closure_opt = isinstance(optimizer, (AtlasOptimizer, AtlasOptimizerRaw, AtlasOptimizerRandom, MuonSAM, MuonSAMFrob, MuonSAMStale))
+    is_closure_opt = isinstance(optimizer, (AtlasOptimizer, AtlasOptimizerRaw, AtlasOptimizerRandom, MuonSAM, MuonSAMFrob, MuonSAMStale, FSAMMuon))
     steps = 0
     
     for batch_idx, batch in enumerate(dataloader):

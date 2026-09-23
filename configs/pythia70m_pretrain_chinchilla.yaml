@@ -85,3 +85,11 @@ optimizers:
     weight_decay: 0.0001
     rho: 0.0015
     rho_vector: 0.01
+  fsam_muon:
+    optimizer: fsam_muon
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.0015
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0

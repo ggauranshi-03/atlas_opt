@@ -98,7 +98,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "weight_decay": opt_dict.get("weight_decay", 0.0001),
                 "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
             }
-        elif opt_name in ["muon_sam", "muon_sam_frob", "muon_sam_stale"]:
+        elif opt_name in ["muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon"]:
             opt_dict = opts_cfg.get(opt_name, {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.035),
@@ -106,6 +106,8 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "weight_decay": opt_dict.get("weight_decay", 0.0001),
                 "rho": opt_dict.get("rho", 0.015),
                 "rho_vector": opt_dict.get("rho_vector", 0.015),
+                "fsam_lambda": opt_dict.get("fsam_lambda", 0.9),
+                "fsam_sigma": opt_dict.get("fsam_sigma", 1.0),
                 "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
             }
         elif opt_name == "adam":
