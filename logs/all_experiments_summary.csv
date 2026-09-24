@@ -73,3 +73,8 @@ pythia70m_pretrain_chinchilla,muon_sam_frob,4.4951,83.69,Perplexity,7221.5,0.015
 pythia70m_pretrain_chinchilla,muon_sam_stale,4.4722,81.91,Perplexity,4171.5,0.015,0.0015
 nanogpt_fineweb,muon_sam_frob,4.4538,71.36,Perplexity,22125.1,0.015,0.0015
 nanogpt_fineweb,muon_sam_stale,4.4341,70.09,Perplexity,11626.4,0.015,0.0015
+cifar10_cnn,fsam_muon,0.7493,74.62,Val Acc (%),171.3,0.015,0.0015
+pythia70m_pretrain_chinchilla,sgd,7.4646,1671.04,Perplexity,4084.4,0.05,-
+nanogpt_fineweb,sgd,7.3139,1473.54,Perplexity,11577.9,0.05,-
+pythia70m_pretrain_chinchilla,fsam_muon,4.3689,73.22,Perplexity,7225.4,0.015,0.0015
+nanogpt_fineweb,fsam_muon,4.4333,70.11,Perplexity,22171.7,0.015,0.0015
