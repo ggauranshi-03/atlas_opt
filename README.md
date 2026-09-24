@@ -195,6 +195,7 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | **Muon-SAM** | 0.9166 | 34.67% | 0.8812 | 69.37% |
 | **Muon-SAM (Frob)** | 0.6736 | 38.76% | 0.6606 | 77.16% |
 | **Muon-SAM (Stale)** | 0.6771 | 38.64% | 0.6746 | 76.61% |
+| **FSAM-Muon** | 0.7493 | 37.42% | 0.7197 | 74.62% |
 | **SGD** | 1.0571 | 62.96% | 1.1096 | 60.99% |
 
 #### Experiment 2: nanoGPT Continual Pre-Training
@@ -208,7 +209,9 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | **Muon-SAM** | 4.7394 | 24.12% | 4.5769 | 25.40% |
 | **Muon-SAM (Frob)** | 4.4538 | 27.22% | 4.2678 | 28.89% |
 | **Muon-SAM (Stale)** | 4.4341 | 27.38% | 4.2497 | 29.02% |
+| **FSAM-Muon** | 4.4333 | 27.43% | 4.2501 | 29.05% |
 | **SGD** | 7.3141 | 13.21% | 7.2956 | 13.59% |
+| **SGD (Cosine)** | 7.3139 | 13.21% | 7.2954 | 13.61% |
 
 #### Experiment 3: Pythia-70M Continual Pre-Training
 | Optimizer | Final Train Loss | Final Train Acc | Final Val Loss | Final Val Acc |
@@ -221,7 +224,9 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | **Muon-SAM** | 4.8280 | 23.48% | 4.7622 | 23.97% |
 | **Muon-SAM (Frob)** | 4.4951 | 27.45% | 4.4271 | 27.94% |
 | **Muon-SAM (Stale)** | 4.4722 | 27.73% | 4.4056 | 28.16% |
+| **FSAM-Muon** | 4.3689 | 28.67% | 4.2935 | 29.24% |
 | **SGD** | 7.4629 | 11.42% | 7.4197 | 11.54% |
+| **SGD (Cosine)** | 7.4646 | 11.42% | 7.4212 | 11.53% |
 
 ### Language Modeling Validation Perplexity Results
 
@@ -236,7 +241,9 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | **Muon-SAM** | 97.21 |
 | **Muon-SAM (Frob)** | 71.36 |
 | **Muon-SAM (Stale)** | 70.08 |
+| **FSAM-Muon** | 70.11 |
 | **SGD** | 1473.80 |
+| **SGD (Cosine)** | 1473.51 |
 
 #### Experiment 3: Pythia-70M Continual Pre-Training
 | Optimizer | Final Validation Perplexity |
@@ -249,7 +256,9 @@ Output: `final_logs/<name>_logs.csv` (with `step` column) and `final_logs/<name>
 | **Muon-SAM** | 117.00 |
 | **Muon-SAM (Frob)** | 83.69 |
 | **Muon-SAM (Stale)** | 81.91 |
+| **FSAM-Muon** | 73.22 |
 | **SGD** | 1668.53 |
+| **SGD (Cosine)** | 1671.04 |
 
 *(Note: CIFAR-10 is an image classification task evaluated on Cross-Entropy Loss and Accuracy, and therefore does not have a Perplexity metric).*
 

@@ -64,7 +64,9 @@ def plot_metrics(csv_path, plot_path_prefix, title):
         'sgd': 'tab:brown', 
         'muon_sam': 'tab:pink',
         'muon_sam_frob': 'tab:olive',
-        'muon_sam_stale': 'tab:cyan'
+        'muon_sam_stale': 'tab:cyan',
+        'fsam_muon': 'magenta',
+        'sgd_cosine': 'black'
     }
     
     # 1. PPL Plot (if not cifar)
@@ -131,7 +133,7 @@ def generate_markdown_tables():
             md_ppl += "| Optimizer | Final Validation Perplexity |\n"
             md_ppl += "| :--- | :--- |\n"
             
-        opts_order = ['atlas_random', 'atlas_raw', 'atlas', 'adam', 'muon', 'muon_sam', 'muon_sam_frob', 'muon_sam_stale', 'sgd']
+        opts_order = ['atlas_random', 'atlas_raw', 'atlas', 'adam', 'muon', 'muon_sam', 'muon_sam_frob', 'muon_sam_stale', 'fsam_muon', 'sgd', 'sgd_cosine']
         for opt in opts_order:
             opt_df = df[df['optimizer'].str.lower() == opt]
             if opt_df.empty: continue
@@ -146,8 +148,10 @@ def generate_markdown_tables():
             if display_name == 'MUON_SAM': display_name = 'Muon-SAM'
             elif display_name == 'MUON_SAM_FROB': display_name = 'Muon-SAM (Frob)'
             elif display_name == 'MUON_SAM_STALE': display_name = 'Muon-SAM (Stale)'
+            elif display_name == 'FSAM_MUON': display_name = 'FSAM-Muon'
             elif display_name == 'ADAM': display_name = 'AdamW'
             elif display_name == 'SGD': display_name = 'SGD'
+            elif display_name == 'SGD_COSINE': display_name = 'SGD (Cosine)'
             elif display_name == 'MUON': display_name = 'Muon'
             elif display_name == 'ATLAS': display_name = 'Atlas'
             elif display_name == 'ATLAS_RAW': display_name = 'Atlas Raw'
@@ -181,21 +185,24 @@ def update_readme():
 
 if __name__ == '__main__':
     # 1. CIFAR10
-    df_frob_stale_1 = parse_log_text('run1_frob_stale_cifar10.log', 100)
-    df_sgd_1 = parse_log_text('final_logs/run1_sgd_new.log', 100)
-    combine_and_save_csv('final_logs/run1_cifar10_logs.csv', [df_frob_stale_1, df_sgd_1])
+    df_fsam_1 = parse_log_text('run1_fsam_muon_cifar10.log', 100)
+    combine_and_save_csv('final_logs/run1_cifar10_logs.csv', [df_fsam_1])
     plot_metrics('final_logs/run1_cifar10_logs.csv', 'final_logs/run1_cifar10', 'Experiment 1: CIFAR-10')
 
     # 2. NanoGPT
-    df_frob_stale_2 = parse_log_text('run2_frob_stale_nanogpt.log', 100)
-    df_sgd_2 = parse_log_text('final_logs/run2_sgd_new.log', 100)
-    combine_and_save_csv('final_logs/run2_nanogpt_logs.csv', [df_frob_stale_2, df_sgd_2])
+    df_fsam_2 = parse_log_text('run2_fsam_muon_nanogpt.log', 100)
+    df_sgd_cos_2 = parse_log_text('run2_sgd_cosine_nanogpt.log', 100)
+    if not df_sgd_cos_2.empty:
+        df_sgd_cos_2['optimizer'] = 'sgd_cosine'
+    combine_and_save_csv('final_logs/run2_nanogpt_logs.csv', [df_fsam_2, df_sgd_cos_2])
     plot_metrics('final_logs/run2_nanogpt_logs.csv', 'final_logs/run2_nanogpt', 'Experiment 2: NanoGPT')
 
     # 3. Pythia
-    df_frob_stale_3 = parse_log_text('run3_frob_stale_pythia.log', 100)
-    df_sgd_3 = parse_log_text('final_logs/run3_sgd_new.log', 100)
-    combine_and_save_csv('final_logs/run3_pythia_logs.csv', [df_frob_stale_3, df_sgd_3])
+    df_fsam_3 = parse_log_text('run3_fsam_muon_pythia.log', 100)
+    df_sgd_cos_3 = parse_log_text('run3_sgd_cosine_pythia.log', 100)
+    if not df_sgd_cos_3.empty:
+        df_sgd_cos_3['optimizer'] = 'sgd_cosine'
+    combine_and_save_csv('final_logs/run3_pythia_logs.csv', [df_fsam_3, df_sgd_cos_3])
     plot_metrics('final_logs/run3_pythia_logs.csv', 'final_logs/run3_pythia', 'Experiment 3: Pythia')
 
     update_readme()
