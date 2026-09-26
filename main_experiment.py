@@ -89,7 +89,8 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "ns_steps": 5,
                 "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
             }
-            best_params = tune_atlas_hyperparameters(model_builder, train_loader, task_type, base_params)
+            # best_params = tune_atlas_hyperparameters(model_builder, train_loader, task_type, base_params)
+            best_params = base_params
         elif opt_name == "muon":
             opt_dict = opts_cfg.get("muon", {})
             best_params = {
@@ -98,17 +99,28 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "weight_decay": opt_dict.get("weight_decay", 0.0001),
                 "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
             }
-        elif opt_name in ["muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon"]:
+        elif opt_name in ["muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon", "fsam_ortho_muon"]:
             opt_dict = opts_cfg.get(opt_name, {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.035),
                 "momentum": opt_dict.get("momentum", 0.9665),
                 "weight_decay": opt_dict.get("weight_decay", 0.0001),
                 "rho": opt_dict.get("rho", 0.015),
-                "rho_vector": opt_dict.get("rho_vector", 0.015),
+                "rho_vector": opt_dict.get("rho_vector", opt_dict.get("rho_vector", 0.015)),
+                "ns_steps": opt_dict.get("ns_steps", 5),
                 "fsam_lambda": opt_dict.get("fsam_lambda", 0.9),
                 "fsam_sigma": opt_dict.get("fsam_sigma", 1.0),
                 "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
+            }
+        elif opt_name in ["fsam_ortho", "fsam"]:
+            opt_dict = opts_cfg.get(opt_name, {})
+            best_params = {
+                "lr": opt_dict.get("lr", 0.01),
+                "rho": opt_dict.get("rho", 0.05),
+                "rho_vector": opt_dict.get("rho_vector", opt_dict.get("rho_vector", 0.05)),
+                "fsam_lambda": opt_dict.get("fsam_lambda", 0.9),
+                "fsam_sigma": opt_dict.get("fsam_sigma", 1.0),
+                "ns_steps": opt_dict.get("ns_steps", 5),
             }
         elif opt_name == "adam":
             opt_dict = opts_cfg.get("adam", {})
@@ -159,7 +171,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "time_s": ep_time
             })
             
-            ckpt_path = f"checkpoints/{run_name}_epoch{epoch+1}.pt"
+            ckpt_path = f"checkpoints/{config_id}_{run_name}_epoch{epoch+1}.pt"
             torch.save(model.state_dict(), ckpt_path)
             
             config_epoch_logs.append({
@@ -195,12 +207,20 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
 
     os.makedirs("logs", exist_ok=True)
     single_csv = f"logs/{config_id}_logs.csv"
+    csv_header = ["epoch", "optimizer", "train_loss", "train_accuracy", "val_loss", "val_accuracy", "val_perplexity", "time_s"]
+    # Keep rows of optimizers not run in this invocation, so optimizers can be trained in separate processes.
+    kept_rows = []
+    if os.path.exists(single_csv):
+        with open(single_csv, newline="") as f:
+            kept_rows = [r for r in csv.DictReader(f) if r.get("optimizer") not in config_results]
     with open(single_csv, mode="w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["epoch", "optimizer", "train_loss", "train_accuracy", "val_loss", "val_accuracy", "val_perplexity", "time_s"])
+        writer.writerow(csv_header)
+        for r in kept_rows:
+            writer.writerow([r.get(k, "") for k in csv_header])
         for row in config_epoch_logs:
             writer.writerow([
-                row["epoch"], row["optimizer"], 
+                row["epoch"], row["optimizer"],
                 f"{row['train_loss']:.4f}", f"{row['train_accuracy']:.2f}",
                 f"{row['val_loss']:.4f}", f"{row['val_accuracy']:.2f}", f"{row['val_perplexity']:.2f}",
                 f"{row['time_s']:.1f}"
@@ -217,12 +237,19 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
         "sgd":   {"color": "#dc2626", "marker": "D", "label": "SGD", "linewidth": 2.0, "zorder": 1},
     }
 
-    epochs_range = list(range(1, epochs + 1))
+    series = {}
+    for r in kept_rows:
+        s = series.setdefault(r["optimizer"], ([], [], []))
+        s[0].append(int(r["epoch"]))
+        s[1].append(float(r["train_loss"]))
+        s[2].append(float(r["val_accuracy"] if task_type == "image_classification" else r["val_perplexity"]))
     for opt_name, r in config_results.items():
+        series[opt_name] = (list(range(1, len(r["train_losses"]) + 1)), r["train_losses"], r["val_metrics"])
+    for opt_name, (ep, tl, vm) in series.items():
         style = opt_styles.get(opt_name, {"color": "gray", "marker": "x", "label": opt_name, "linewidth": 1.5, "zorder": 1})
-        ax[0].plot(epochs_range, r["train_losses"], marker=style["marker"], color=style["color"],
+        ax[0].plot(ep, tl, marker=style["marker"], color=style["color"],
                    label=style["label"], linewidth=style["linewidth"], zorder=style.get("zorder", 1))
-        ax[1].plot(epochs_range, r["val_metrics"], marker=style["marker"], color=style["color"],
+        ax[1].plot(ep, vm, marker=style["marker"], color=style["color"],
                    label=style["label"], linewidth=style["linewidth"], zorder=style.get("zorder", 1))
 
     ax[0].set_xlabel("Epoch", fontsize=11, fontweight="bold")

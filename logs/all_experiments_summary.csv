@@ -78,3 +78,45 @@ pythia70m_pretrain_chinchilla,sgd,7.4646,1671.04,Perplexity,4084.4,0.05,-
 nanogpt_fineweb,sgd,7.3139,1473.54,Perplexity,11577.9,0.05,-
 pythia70m_pretrain_chinchilla,fsam_muon,4.3689,73.22,Perplexity,7225.4,0.015,0.0015
 nanogpt_fineweb,fsam_muon,4.4333,70.11,Perplexity,22171.7,0.015,0.0015
+cifar10_cnn,atlas,16.0897,9.64,Val Acc (%),156.5,0.02,0.8
+cifar10_cnn,atlas_raw,6.4531,14.96,Val Acc (%),156.8,0.02,0.8
+cifar10_cnn,atlas_random,1.3207,65.15,Val Acc (%),157.5,0.02,0.8
+cifar10_cnn,muon,0.6708,77.10,Val Acc (%),157.9,0.02,-
+cifar10_cnn,adam,1.0577,62.87,Val Acc (%),154.4,0.001,-
+cifar10_cnn,sgd,1.0571,60.99,Val Acc (%),153.7,0.1,-
+pythia70m_pretrain_chinchilla,fsam_ortho_muon,4.4110,76.51,Perplexity,7288.5,0.015,0.0015
+nanogpt_fineweb,fsam_ortho,9.0585,8296.67,Perplexity,22184.5,0.015,0.0015
+nanogpt_fineweb,fsam_ortho_muon,4.5025,74.93,Perplexity,22408.9,0.015,0.0015
+pythia70m_pretrain_chinchilla,fsam_ortho,9.5075,12874.31,Perplexity,7235.3,0.015,0.0015
+pythia70m_pretrain_chinchilla,atlas,6.4559,462.65,Perplexity,4135.3,0.015,0.1
+pythia70m_pretrain_chinchilla,atlas_raw,5.9880,317.10,Perplexity,4209.2,0.015,0.1
+pythia70m_pretrain_chinchilla,atlas_random,5.3410,182.98,Perplexity,4230.9,0.015,0.1
+pythia70m_pretrain_chinchilla,muon,4.3748,74.06,Perplexity,4203.0,0.015,-
+pythia70m_pretrain_chinchilla,adam,4.9531,137.25,Perplexity,4103.3,0.0018,-
+pythia70m_pretrain_chinchilla,sgd,7.4640,1670.26,Perplexity,4085.5,0.05,-
+cifar10_cnn,fsam_ortho_muon,2.2821,11.89,Val Acc (%),372.6,0.015,0.8
+cifar10_cnn,atlas,12.5143,12.64,Val Acc (%),334.0,0.02,0.8
+cifar10_cnn,muon,0.3926,82.34,Val Acc (%),336.2,0.02,-
+nanogpt_fineweb,atlas,8.2124,2764.42,Perplexity,12193.1,0.015,0.1
+nanogpt_fineweb,atlas_raw,7.6920,1111.43,Perplexity,12086.1,0.015,0.1
+nanogpt_fineweb,atlas_random,5.9751,332.03,Perplexity,11758.1,0.015,0.1
+nanogpt_fineweb,muon,4.2127,56.17,Perplexity,11601.5,0.015,-
+nanogpt_fineweb,adam,4.5873,85.25,Perplexity,11535.9,0.0018,-
+nanogpt_fineweb,sgd,7.3136,1476.96,Perplexity,11549.0,0.05,-
+cifar10_cnn,adam,1.0577,62.87,Val Acc (%),157.2,0.001,-
+cifar10_cnn,sgd,1.0571,60.99,Val Acc (%),154.8,0.1,-
+cifar10_cnn,muon,0.6708,77.10,Val Acc (%),158.5,0.02,-
+cifar10_cnn,muon_sam,2.2797,10.21,Val Acc (%),173.6,0.02,0.8
+cifar10_cnn,atlas,16.0897,9.64,Val Acc (%),157.4,0.02,0.8
+cifar10_cnn,atlas_raw,6.4531,14.96,Val Acc (%),156.4,0.02,0.8
+cifar10_cnn,atlas_random,1.3207,65.15,Val Acc (%),157.7,0.02,0.8
+cifar10_cnn,muon_sam_frob,2.1631,14.27,Val Acc (%),172.3,0.02,0.8
+cifar10_cnn,muon_sam_stale,9.4157,24.07,Val Acc (%),157.1,0.02,0.8
+cifar10_cnn,fsam_muon,1.8413,37.53,Val Acc (%),178.7,0.015,0.8
+cifar10_cnn,fsam_ortho_muon,2.3384,14.59,Val Acc (%),201.6,0.015,0.8
+pythia70m_pretrain_chinchilla,adam,4.9564,136.80,Perplexity,4569.9,0.0018,-
+cifar10_cnn,fsam_ortho,2.2324,10.00,Val Acc (%),194.9,0.015,0.8
+cifar10_cnn,fsam,2.0980,23.88,Val Acc (%),178.8,0.015,0.8
+pythia70m_pretrain_chinchilla,sgd,7.4662,1673.43,Perplexity,4096.2,0.05,-
+pythia70m_pretrain_chinchilla,muon,4.3750,74.41,Perplexity,4108.5,0.015,-
+nanogpt_fineweb,adam,4.5802,83.59,Perplexity,11484.9,0.0018,-

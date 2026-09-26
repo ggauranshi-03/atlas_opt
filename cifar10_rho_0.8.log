@@ -1,0 +1,327 @@
+nohup: ignoring input
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run 9c6gnnsi
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260924_140244-9c6gnnsi
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/9c6gnnsi
+wandb: updating run metadata
+wandb: uploading config.yaml; uploading output.log; uploading wandb-summary.json
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading history steps 6-6, summary, console lines 11-11
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▃▅▆▇█
+wandb:         time_s █▁▁▃▂▂▁
+wandb: train/accuracy █▂▁▁▁▃▇
+wandb:     train/loss ▆█▇▅▂▁▄
+wandb:   val/accuracy ▆▆▆▇█▁▅
+wandb:       val/loss ▁▁▁▁▃▃█
+wandb: val/perplexity ▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 7
+wandb:         time_s 22.17075
+wandb: train/accuracy 2.854
+wandb:     train/loss 16.08971
+wandb:   val/accuracy 9.64
+wandb:       val/loss 10.15837
+wandb: val/perplexity 0
+wandb: 
+wandb: 🚀 View run atlas at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/9c6gnnsi
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260924_140244-9c6gnnsi/logs
+wandb: setting up run egjjwtfx
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260924_140554-egjjwtfx
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_raw
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/egjjwtfx
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 6-6, summary, console lines 11-11
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▃▅▆▇█
+wandb:         time_s ▅▄▁▅▄▇█
+wandb: train/accuracy ▁▁▁▃▃█▅
+wandb:     train/loss █▇▄▁▂▁▁
+wandb:   val/accuracy ▁▃█▂▃▅▆
+wandb:       val/loss ▃▂▁█▇█▃
+wandb: val/perplexity ▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 7
+wandb:         time_s 22.55172
+wandb: train/accuracy 6.33
+wandb:     train/loss 6.45313
+wandb:   val/accuracy 14.96
+wandb:       val/loss 2.43159
+wandb: val/perplexity 0
+wandb: 
+wandb: 🚀 View run atlas_raw at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/egjjwtfx
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260924_140554-egjjwtfx/logs
+wandb: setting up run ywru57eu
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260924_140904-ywru57eu
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_random
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/ywru57eu
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 6-6, summary, console lines 11-11
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▃▅▆▇█
+wandb:         time_s ▃▁▁▂██▄
+wandb: train/accuracy ▁▁▃▅▆▇█
+wandb:     train/loss █▆▄▃▂▂▁
+wandb:   val/accuracy ▁▄▅▅▆▇█
+wandb:       val/loss █▆▄▄▃▂▁
+wandb: val/perplexity ▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 7
+wandb:         time_s 22.5044
+wandb: train/accuracy 25.537
+wandb:     train/loss 1.32069
+wandb:   val/accuracy 65.15
+wandb:       val/loss 1.00018
+wandb: val/perplexity 0
+wandb: 
+wandb: 🚀 View run atlas_random at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/ywru57eu
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260924_140904-ywru57eu/logs
+wandb: setting up run u7yqcld8
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260924_141213-u7yqcld8
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/u7yqcld8
+wandb: updating run metadata
+wandb: uploading config.yaml; uploading output.log; uploading wandb-summary.json
+wandb: uploading config.yaml; uploading wandb-summary.json
+wandb: uploading history steps 6-6, summary, console lines 11-11
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▃▅▆▇█
+wandb:         time_s █▃▅▁▃▆▁
+wandb: train/accuracy ▁▃▅▆▇██
+wandb:     train/loss █▇▅▃▂▁▁
+wandb:   val/accuracy ▁▄▅▆▇██
+wandb:       val/loss █▆▄▃▂▁▁
+wandb: val/perplexity ▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 7
+wandb:         time_s 22.42223
+wandb: train/accuracy 77.476
+wandb:     train/loss 0.67077
+wandb:   val/accuracy 77.1
+wandb:       val/loss 0.66492
+wandb: val/perplexity 0
+wandb: 
+wandb: 🚀 View run muon at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/u7yqcld8
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260924_141213-u7yqcld8/logs
+wandb: setting up run n8oyg6dr
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260924_141523-n8oyg6dr
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run adam
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/n8oyg6dr
+HTTP Error 500 thrown while requesting HEAD https://huggingface.co/datasets/uoft-cs/cifar10/resolve/main/README.md
+Retrying in 1s [Retry 1/5].
+HTTP Error 500 thrown while requesting HEAD https://huggingface.co/datasets/cifar10/resolve/0b2714987fa478483af9968de7c934580d0bb9a2/cifar10.py
+Retrying in 1s [Retry 1/5].
+wandb: uploading data; updating run metadata
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml; uploading output.log
+wandb: uploading config.yaml; uploading output.log
+wandb: uploading history steps 6-6, summary, console lines 15-15
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▃▅▆▇█
+wandb:         time_s ▆█▃▄▂▂▁
+wandb: train/accuracy ▁▄▆▇▇██
+wandb:     train/loss █▅▃▂▂▁▁
+wandb:   val/accuracy ▁▅▆▇▇▇█
+wandb:       val/loss █▄▃▂▂▂▁
+wandb: val/perplexity ▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 7
+wandb:         time_s 21.93858
+wandb: train/accuracy 63.27
+wandb:     train/loss 1.05767
+wandb:   val/accuracy 62.87
+wandb:       val/loss 1.0548
+wandb: val/perplexity 0
+wandb: 
+wandb: 🚀 View run adam at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/n8oyg6dr
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260924_141523-n8oyg6dr/logs
+wandb: setting up run 2vzls25g
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260924_141847-2vzls25g
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sgd
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/2vzls25g
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml; uploading output.log
+wandb: uploading history steps 6-6, summary, console lines 11-11
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▃▅▆▇█
+wandb:         time_s █▂▂▃▂▃▁
+wandb: train/accuracy ▁▄▆▇▇██
+wandb:     train/loss █▅▃▂▂▁▁
+wandb:   val/accuracy ▁▅▆▇▇██
+wandb:       val/loss █▄▂▂▁▁▁
+wandb: val/perplexity ▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 7
+wandb:         time_s 21.89221
+wandb: train/accuracy 62.964
+wandb:     train/loss 1.05707
+wandb:   val/accuracy 60.99
+wandb:       val/loss 1.1096
+wandb: val/perplexity 0
+wandb: 
+wandb: 🚀 View run sgd at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08/runs/2vzls25g
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers-rho0.08
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260924_141847-2vzls25g/logs
+
+>>> Running Benchmark for Optimizers: ['atlas', 'atlas_raw', 'atlas_random', 'muon', 'adam', 'sgd'] across 1 configs <<<
+
+
+######################################################################
+# Config: cifar10_cnn | Optimizer: ATLAS | Epochs: 7
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [cifar10_cnn] with optimizer [atlas] for 7 epochs...
+  [ATLAS       ] Epoch  1/7 | Train Loss: 19.5744 | Train Acc: 3.00% | Val Loss: 2.3411 | Val Acc: 10.00% | Time: 23.1s
+  [ATLAS       ] Epoch  2/7 | Train Loss: 22.2718 | Train Acc: 2.07% | Val Loss: 2.3246 | Val Acc: 10.00% | Time: 22.2s
+  [ATLAS       ] Epoch  3/7 | Train Loss: 20.8309 | Train Acc: 1.91% | Val Loss: 2.3336 | Val Acc: 9.98% | Time: 22.2s
+  [ATLAS       ] Epoch  4/7 | Train Loss: 16.9921 | Train Acc: 1.86% | Val Loss: 2.7378 | Val Acc: 10.25% | Time: 22.4s
+  [ATLAS       ] Epoch  5/7 | Train Loss: 13.0201 | Train Acc: 1.93% | Val Loss: 4.5569 | Val Acc: 10.46% | Time: 22.2s
+  [ATLAS       ] Epoch  6/7 | Train Loss: 11.3913 | Train Acc: 2.13% | Val Loss: 4.9526 | Val Acc: 8.68% | Time: 22.2s
+  [ATLAS       ] Epoch  7/7 | Train Loss: 16.0897 | Train Acc: 2.85% | Val Loss: 10.1584 | Val Acc: 9.64% | Time: 22.2s
+
+######################################################################
+# Config: cifar10_cnn | Optimizer: ATLAS_RAW | Epochs: 7
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [cifar10_cnn] with optimizer [atlas_raw] for 7 epochs...
+  [ATLAS_RAW   ] Epoch  1/7 | Train Loss: 15.9464 | Train Acc: 5.00% | Val Loss: 2.4153 | Val Acc: 9.35% | Time: 22.4s
+  [ATLAS_RAW   ] Epoch  2/7 | Train Loss: 14.2254 | Train Acc: 5.00% | Val Loss: 2.3073 | Val Acc: 11.73% | Time: 22.4s
+  [ATLAS_RAW   ] Epoch  3/7 | Train Loss: 10.8224 | Train Acc: 5.00% | Val Loss: 2.2621 | Val Acc: 17.94% | Time: 22.2s
+  [ATLAS_RAW   ] Epoch  4/7 | Train Loss: 7.1292 | Train Acc: 5.62% | Val Loss: 2.7737 | Val Acc: 10.06% | Time: 22.4s
+  [ATLAS_RAW   ] Epoch  5/7 | Train Loss: 7.1811 | Train Acc: 5.61% | Val Loss: 2.6743 | Val Acc: 11.49% | Time: 22.3s
+  [ATLAS_RAW   ] Epoch  6/7 | Train Loss: 6.5847 | Train Acc: 7.41% | Val Loss: 2.7485 | Val Acc: 13.78% | Time: 22.5s
+  [ATLAS_RAW   ] Epoch  7/7 | Train Loss: 6.4531 | Train Acc: 6.33% | Val Loss: 2.4316 | Val Acc: 14.96% | Time: 22.6s
+
+######################################################################
+# Config: cifar10_cnn | Optimizer: ATLAS_RANDOM | Epochs: 7
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [cifar10_cnn] with optimizer [atlas_random] for 7 epochs...
+  [ATLAS_RANDOM] Epoch  1/7 | Train Loss: 2.8686 | Train Acc: 5.00% | Val Loss: 2.3609 | Val Acc: 10.43% | Time: 22.4s
+  [ATLAS_RANDOM] Epoch  2/7 | Train Loss: 2.4677 | Train Acc: 5.83% | Val Loss: 1.9720 | Val Acc: 31.95% | Time: 22.3s
+  [ATLAS_RANDOM] Epoch  3/7 | Train Loss: 2.0901 | Train Acc: 11.73% | Val Loss: 1.6687 | Val Acc: 40.80% | Time: 22.3s
+  [ATLAS_RANDOM] Epoch  4/7 | Train Loss: 1.8342 | Train Acc: 16.24% | Val Loss: 1.4986 | Val Acc: 44.43% | Time: 22.3s
+  [ATLAS_RANDOM] Epoch  5/7 | Train Loss: 1.6227 | Train Acc: 20.02% | Val Loss: 1.4266 | Val Acc: 50.40% | Time: 22.9s
+  [ATLAS_RANDOM] Epoch  6/7 | Train Loss: 1.4428 | Train Acc: 23.51% | Val Loss: 1.1925 | Val Acc: 56.43% | Time: 22.9s
+  [ATLAS_RANDOM] Epoch  7/7 | Train Loss: 1.3207 | Train Acc: 25.54% | Val Loss: 1.0002 | Val Acc: 65.15% | Time: 22.5s
+
+######################################################################
+# Config: cifar10_cnn | Optimizer: MUON | Epochs: 7
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [cifar10_cnn] with optimizer [muon] for 7 epochs...
+  [MUON        ] Epoch  1/7 | Train Loss: 2.3937 | Train Acc: 11.01% | Val Loss: 2.3690 | Val Acc: 10.69% | Time: 22.8s
+  [MUON        ] Epoch  2/7 | Train Loss: 2.0688 | Train Acc: 28.08% | Val Loss: 1.8497 | Val Acc: 37.33% | Time: 22.5s
+  [MUON        ] Epoch  3/7 | Train Loss: 1.6069 | Train Acc: 46.22% | Val Loss: 1.4020 | Val Acc: 51.58% | Time: 22.6s
+  [MUON        ] Epoch  4/7 | Train Loss: 1.2263 | Train Acc: 58.62% | Val Loss: 1.1046 | Val Acc: 61.44% | Time: 22.4s
+  [MUON        ] Epoch  5/7 | Train Loss: 0.9670 | Train Acc: 67.30% | Val Loss: 0.8859 | Val Acc: 69.05% | Time: 22.5s
+  [MUON        ] Epoch  6/7 | Train Loss: 0.7935 | Train Acc: 73.21% | Val Loss: 0.7753 | Val Acc: 72.83% | Time: 22.6s
+  [MUON        ] Epoch  7/7 | Train Loss: 0.6708 | Train Acc: 77.48% | Val Loss: 0.6649 | Val Acc: 77.10% | Time: 22.4s
+
+######################################################################
+# Config: cifar10_cnn | Optimizer: ADAM | Epochs: 7
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [cifar10_cnn] with optimizer [adam] for 7 epochs...
+  [ADAM        ] Epoch  1/7 | Train Loss: 2.3937 | Train Acc: 11.01% | Val Loss: 2.3690 | Val Acc: 10.69% | Time: 22.2s
+  [ADAM        ] Epoch  2/7 | Train Loss: 1.8009 | Train Acc: 35.75% | Val Loss: 1.5992 | Val Acc: 42.37% | Time: 22.3s
+  [ADAM        ] Epoch  3/7 | Train Loss: 1.4391 | Train Acc: 50.11% | Val Loss: 1.3723 | Val Acc: 50.64% | Time: 22.0s
+  [ADAM        ] Epoch  4/7 | Train Loss: 1.2748 | Train Acc: 55.78% | Val Loss: 1.2431 | Val Acc: 55.51% | Time: 22.1s
+  [ADAM        ] Epoch  5/7 | Train Loss: 1.1830 | Train Acc: 58.94% | Val Loss: 1.1857 | Val Acc: 57.87% | Time: 22.0s
+  [ADAM        ] Epoch  6/7 | Train Loss: 1.1089 | Train Acc: 61.67% | Val Loss: 1.2027 | Val Acc: 55.98% | Time: 22.0s
+  [ADAM        ] Epoch  7/7 | Train Loss: 1.0577 | Train Acc: 63.27% | Val Loss: 1.0548 | Val Acc: 62.87% | Time: 21.9s
+
+######################################################################
+# Config: cifar10_cnn | Optimizer: SGD | Epochs: 7
+######################################################################
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 50,000 | Val: 10,000
+
+  Starting training [cifar10_cnn] with optimizer [sgd] for 7 epochs...
+  [SGD         ] Epoch  1/7 | Train Loss: 2.3937 | Train Acc: 11.01% | Val Loss: 2.3690 | Val Acc: 10.69% | Time: 22.1s
+  [SGD         ] Epoch  2/7 | Train Loss: 1.8267 | Train Acc: 34.52% | Val Loss: 1.6567 | Val Acc: 39.70% | Time: 21.9s
+  [SGD         ] Epoch  3/7 | Train Loss: 1.4700 | Train Acc: 48.05% | Val Loss: 1.3771 | Val Acc: 49.89% | Time: 21.9s
+  [SGD         ] Epoch  4/7 | Train Loss: 1.2877 | Train Acc: 54.66% | Val Loss: 1.2608 | Val Acc: 54.74% | Time: 22.0s
+  [SGD         ] Epoch  5/7 | Train Loss: 1.1904 | Train Acc: 58.33% | Val Loss: 1.1915 | Val Acc: 57.36% | Time: 21.9s
+  [SGD         ] Epoch  6/7 | Train Loss: 1.1173 | Train Acc: 60.85% | Val Loss: 1.1621 | Val Acc: 58.23% | Time: 21.9s
+  [SGD         ] Epoch  7/7 | Train Loss: 1.0571 | Train Acc: 62.96% | Val Loss: 1.1096 | Val Acc: 60.99% | Time: 21.9s
+
+  [Single CSV Saved]: logs/cifar10_cnn_logs.csv
+  [Unified Comparison Plot Saved]: logs/cifar10_cnn_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  cifar10_cnn                         | Opt: atlas          | Loss: 16.0897 | Val Acc (%)   : 9.64 | Time: 156.5s
+  cifar10_cnn                         | Opt: atlas_raw      | Loss: 6.4531 | Val Acc (%)   : 14.96 | Time: 156.8s
+  cifar10_cnn                         | Opt: atlas_random   | Loss: 1.3207 | Val Acc (%)   : 65.15 | Time: 157.5s
+  cifar10_cnn                         | Opt: muon           | Loss: 0.6708 | Val Acc (%)   : 77.10 | Time: 157.9s
+  cifar10_cnn                         | Opt: adam           | Loss: 1.0577 | Val Acc (%)   : 62.87 | Time: 154.4s
+  cifar10_cnn                         | Opt: sgd            | Loss: 1.0571 | Val Acc (%)   : 60.99 | Time: 153.7s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

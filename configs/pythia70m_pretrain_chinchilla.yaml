@@ -1,6 +1,6 @@
 experiment:
   experiment_id: pythia70m_pretrain_chinchilla
-  wandb_project: Pythia70M-Fineweb-optimizers
+  wandb_project: rho0.1-Pythia70M-Fineweb-optimizers
   task_type: causal_lm
   model_name: EleutherAI/pythia-70m
   dataset_name: HuggingFaceFW/fineweb-edu
@@ -45,51 +45,78 @@ optimizers:
     lr: 0.015
     momentum: 0.95
     weight_decay: 0.0001
-    rho: 0.0015
-    rho_vector: 0.01
+    rho: 0.1
+    rho_vector: 0.1
   atlas:
     optimizer: atlas
     lr: 0.015
     momentum: 0.95
     weight_decay: 0.0001
-    rho: 0.0015
-    rho_vector: 0.01
+    rho: 0.1
+    rho_vector: 0.1
     schatten_r: inf
   atlas_raw:
     optimizer: atlas_raw
     lr: 0.015
     momentum: 0.95
     weight_decay: 0.0001
-    rho: 0.0015
-    rho_vector: 0.01
+    rho: 0.1
+    rho_vector: 0.1
     schatten_r: inf
   atlas_random:
     optimizer: atlas_random
     lr: 0.015
     momentum: 0.95
     weight_decay: 0.0001
-    rho: 0.0015
-    rho_vector: 0.01
+    rho: 0.1
+    rho_vector: 0.1
     schatten_r: inf
   muon_sam_frob:
     optimizer: muon_sam_frob
     lr: 0.015
     momentum: 0.95
     weight_decay: 0.0001
-    rho: 0.0015
-    rho_vector: 0.01
+    rho: 0.1
+    rho_vector: 0.1
   muon_sam_stale:
     optimizer: muon_sam_stale
     lr: 0.015
     momentum: 0.95
     weight_decay: 0.0001
-    rho: 0.0015
-    rho_vector: 0.01
+    rho: 0.1
+    rho_vector: 0.1
   fsam_muon:
     optimizer: fsam_muon
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
-    rho: 0.0015
+    rho: 0.1
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+
+  fsam_ortho_muon:
+    optimizer: fsam_ortho_muon
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.1
+    rho_vector: 0.1
+    ns_steps: 5
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+
+  fsam_ortho:
+    optimizer: fsam_ortho
+    lr: 0.015
+    rho: 0.1
+    rho_vector: 0.1
+    ns_steps: 5
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+
+  fsam:
+    optimizer: fsam
+    lr: 0.015
+    rho: 0.1
     fsam_lambda: 0.9
     fsam_sigma: 1.0

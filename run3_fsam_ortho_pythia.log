@@ -1,0 +1,87 @@
+nohup: ignoring input
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run hqt4imq4
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260925_024157-hqt4imq4
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam_ortho
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/hqt4imq4
+2026-09-25 02:41:58.881151: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1790304118.902879 1005356 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1790304118.910017 1005356 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1790304118.928191 1005356 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790304118.928236 1005356 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790304118.928243 1005356 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790304118.928248 1005356 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-09-25 02:41:58.933029: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading output.log
+wandb: uploading data
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:         time_s █▄▂▂▁▁▁▃▁▃▃▂▄▇
+wandb: train/accuracy ▁▁▁▁▁▁▄▆▇▇▇███
+wandb:     train/loss █████▇▇▆▅▄▃▂▁▁
+wandb:   val/accuracy ▁▁▁▁▁▂▅▇▇▇▇███
+wandb:       val/loss ████▇▇▆▆▅▄▃▂▁▁
+wandb: val/perplexity ██████████▅▃▂▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:         time_s 518.39757
+wandb: train/accuracy 5.11781
+wandb:     train/loss 9.50751
+wandb:   val/accuracy 5.27862
+wandb:       val/loss 9.46299
+wandb: val/perplexity 12874.31452
+wandb: 
+wandb: 🚀 View run fsam_ortho at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/hqt4imq4
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260925_024157-hqt4imq4/logs
+
+>>> Running Benchmark for Optimizers: ['fsam_ortho'] across 1 configs <<<
+
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: FSAM_ORTHO | Epochs: 14
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [fsam_ortho] for 14 epochs...
+  [FSAM_ORTHO  ] Epoch  1/14 | Train Loss: 10.9548 | Train Acc: 0.00% | Val Loss: 10.9574 | Val Acc: 0.00% | Time: 519.0s
+  [FSAM_ORTHO  ] Epoch  2/14 | Train Loss: 10.9505 | Train Acc: 0.00% | Val Loss: 10.9488 | Val Acc: 0.00% | Time: 517.1s
+  [FSAM_ORTHO  ] Epoch  3/14 | Train Loss: 10.9350 | Train Acc: 0.00% | Val Loss: 10.9264 | Val Acc: 0.00% | Time: 516.5s
+  [FSAM_ORTHO  ] Epoch  4/14 | Train Loss: 10.9042 | Train Acc: 0.00% | Val Loss: 10.8870 | Val Acc: 0.00% | Time: 516.2s
+  [FSAM_ORTHO  ] Epoch  5/14 | Train Loss: 10.8533 | Train Acc: 0.01% | Val Loss: 10.8230 | Val Acc: 0.02% | Time: 516.0s
+  [FSAM_ORTHO  ] Epoch  6/14 | Train Loss: 10.7765 | Train Acc: 0.24% | Val Loss: 10.7344 | Val Acc: 0.67% | Time: 516.1s
+  [FSAM_ORTHO  ] Epoch  7/14 | Train Loss: 10.6729 | Train Acc: 1.85% | Val Loss: 10.6167 | Val Acc: 2.92% | Time: 516.1s
+  [FSAM_ORTHO  ] Epoch  8/14 | Train Loss: 10.5384 | Train Acc: 4.02% | Val Loss: 10.4642 | Val Acc: 4.43% | Time: 516.8s
+  [FSAM_ORTHO  ] Epoch  9/14 | Train Loss: 10.3595 | Train Acc: 4.36% | Val Loss: 10.2549 | Val Acc: 4.47% | Time: 516.1s
+  [FSAM_ORTHO  ] Epoch 10/14 | Train Loss: 10.1270 | Train Acc: 4.46% | Val Loss: 10.0069 | Val Acc: 4.60% | Time: 516.8s
+  [FSAM_ORTHO  ] Epoch 11/14 | Train Loss: 9.8975 | Train Acc: 4.60% | Val Loss: 9.8022 | Val Acc: 4.80% | Time: 516.8s
+  [FSAM_ORTHO  ] Epoch 12/14 | Train Loss: 9.7274 | Train Acc: 4.86% | Val Loss: 9.6533 | Val Acc: 5.07% | Time: 516.3s
+  [FSAM_ORTHO  ] Epoch 13/14 | Train Loss: 9.6001 | Train Acc: 5.04% | Val Loss: 9.5422 | Val Acc: 5.22% | Time: 517.1s
+  [FSAM_ORTHO  ] Epoch 14/14 | Train Loss: 9.5075 | Train Acc: 5.12% | Val Loss: 9.4630 | Val Acc: 5.28% | Time: 518.4s
+
+  [Single CSV Saved]: logs/pythia70m_pretrain_chinchilla_logs.csv
+  [Unified Comparison Plot Saved]: logs/pythia70m_pretrain_chinchilla_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  pythia70m_pretrain_chinchilla       | Opt: fsam_ortho     | Loss: 9.5075 | Perplexity    : 12874.31 | Time: 7235.3s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

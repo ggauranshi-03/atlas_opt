@@ -1,0 +1,5 @@
+config_id,optimizer,checkpoint,method,wbits,group_size,calib_seed,calib_nsamples,wikitext2_ppl,fineweb_ppl,fineweb_acc,test_acc,test_loss,quant_time_s,status
+nanogpt_fineweb,adam,nanogpt_fineweb_adam_epoch15.pt,fp,16,,,,300.2566683909694,88.28851769851863,28.46622355063601,,,0.0,ok
+nanogpt_fineweb,adam,nanogpt_fineweb_adam_epoch15.pt,awq,4,128,0,128,303.37654482079,88.86733851567851,28.388155883072407,,,61.57,ok
+nanogpt_fineweb,adam,nanogpt_fineweb_adam_epoch15.pt,awq,4,128,1,128,304.75135798447843,88.90084399893583,28.388155883072407,,,61.72,ok
+nanogpt_fineweb,adam,nanogpt_fineweb_adam_epoch15.pt,awq,4,128,2,128,304.60128353825326,88.86239725120487,28.3909269508317,,,61.61,ok

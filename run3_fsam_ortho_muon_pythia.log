@@ -1,0 +1,86 @@
+nohup: ignoring input
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run u7gex4eq
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260924_173705-u7gex4eq
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam_ortho_muon
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/u7gex4eq
+2026-09-24 17:37:09.385885: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1790271429.408499  965489 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1790271429.416118  965489 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1790271429.435131  965489 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790271429.435183  965489 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790271429.435190  965489 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790271429.435196  965489 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-09-24 17:37:09.440114: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+wandb: uploading data; updating run metadata
+wandb: uploading config.yaml; uploading output.log; uploading wandb-summary.json
+wandb: uploading config.yaml; uploading wandb-summary.json
+wandb: uploading history steps 13-13, summary, console lines 18-18
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:         time_s █▁▃▄▂▂▂▃▂▂▃▁▂▂
+wandb: train/accuracy ▁▂▄▄▅▅▅▅▆▆▇▇██
+wandb:     train/loss ██▆▅▄▄▃▃▂▂▂▁▁▁
+wandb:   val/accuracy ▁▄▄▄▅▅▅▆▆▆▇▇██
+wandb:       val/loss █▇▆▅▄▄▃▃▂▂▂▁▁▁
+wandb: val/perplexity ██▃▂▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:         time_s 520.2425
+wandb: train/accuracy 28.09292
+wandb:     train/loss 4.41099
+wandb:   val/accuracy 28.61204
+wandb:       val/loss 4.33736
+wandb: val/perplexity 76.50559
+wandb: 
+wandb: 🚀 View run fsam_ortho_muon at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers/runs/u7gex4eq
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260924_173705-u7gex4eq/logs
+
+>>> Running Benchmark for Optimizers: ['fsam_ortho_muon'] across 1 configs <<<
+
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: FSAM_ORTHO_MUON | Epochs: 14
+######################################################################
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [fsam_ortho_muon] for 14 epochs...
+  [FSAM_ORTHO_MUON] Epoch  1/14 | Train Loss: 10.9548 | Train Acc: 0.00% | Val Loss: 10.9574 | Val Acc: 0.00% | Time: 524.1s
+  [FSAM_ORTHO_MUON] Epoch  2/14 | Train Loss: 10.5019 | Train Acc: 5.85% | Val Loss: 10.0947 | Val Acc: 10.61% | Time: 519.5s
+  [FSAM_ORTHO_MUON] Epoch  3/14 | Train Loss: 9.3911 | Train Acc: 11.98% | Val Loss: 8.8760 | Val Acc: 12.80% | Time: 521.0s
+  [FSAM_ORTHO_MUON] Epoch  4/14 | Train Loss: 8.3653 | Train Acc: 13.60% | Val Loss: 8.0189 | Val Acc: 14.04% | Time: 521.3s
+  [FSAM_ORTHO_MUON] Epoch  5/14 | Train Loss: 7.6536 | Train Acc: 14.70% | Val Loss: 7.4045 | Val Acc: 15.02% | Time: 520.1s
+  [FSAM_ORTHO_MUON] Epoch  6/14 | Train Loss: 7.0957 | Train Acc: 15.70% | Val Loss: 6.8827 | Val Acc: 16.07% | Time: 520.3s
+  [FSAM_ORTHO_MUON] Epoch  7/14 | Train Loss: 6.6170 | Train Acc: 16.72% | Val Loss: 6.4347 | Val Acc: 17.12% | Time: 520.1s
+  [FSAM_ORTHO_MUON] Epoch  8/14 | Train Loss: 6.1976 | Train Acc: 17.87% | Val Loss: 6.0297 | Val Acc: 18.41% | Time: 521.0s
+  [FSAM_ORTHO_MUON] Epoch  9/14 | Train Loss: 5.7970 | Train Acc: 19.60% | Val Loss: 5.6218 | Val Acc: 20.36% | Time: 520.4s
+  [FSAM_ORTHO_MUON] Epoch 10/14 | Train Loss: 5.4062 | Train Acc: 21.67% | Val Loss: 5.2557 | Val Acc: 22.40% | Time: 520.0s
+  [FSAM_ORTHO_MUON] Epoch 11/14 | Train Loss: 5.0797 | Train Acc: 23.50% | Val Loss: 4.9606 | Val Acc: 24.11% | Time: 520.6s
+  [FSAM_ORTHO_MUON] Epoch 12/14 | Train Loss: 4.8145 | Train Acc: 25.13% | Val Loss: 4.7222 | Val Acc: 25.55% | Time: 519.8s
+  [FSAM_ORTHO_MUON] Epoch 13/14 | Train Loss: 4.5981 | Train Acc: 26.62% | Val Loss: 4.5171 | Val Acc: 27.17% | Time: 520.1s
+  [FSAM_ORTHO_MUON] Epoch 14/14 | Train Loss: 4.4110 | Train Acc: 28.09% | Val Loss: 4.3374 | Val Acc: 28.61% | Time: 520.2s
+
+  [Single CSV Saved]: logs/pythia70m_pretrain_chinchilla_logs.csv
+  [Unified Comparison Plot Saved]: logs/pythia70m_pretrain_chinchilla_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  pythia70m_pretrain_chinchilla       | Opt: fsam_ortho_muon | Loss: 4.4110 | Perplexity    : 76.51 | Time: 7288.5s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

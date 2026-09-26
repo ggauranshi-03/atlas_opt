@@ -5,3 +5,7 @@ checkpoints/*
 utils/__pycache__
 data/__pycache__
 optimizers/__pycache__
+ptq/__pycache__
+ptq_campaign/__pycache__
+logs/ptq_campaign/*
+ptq_cache

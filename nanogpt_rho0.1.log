@@ -1,0 +1,427 @@
+nohup: ignoring input
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/gauranshi/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run nrmztpb8
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260925_045007-nrmztpb8
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/nrmztpb8
+2026-09-25 04:50:09.751250: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1790311809.777222 1017143 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1790311809.784872 1017143 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1790311809.803934 1017143 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790311809.803993 1017143 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790311809.804002 1017143 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1790311809.804009 1017143 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-09-25 04:50:09.808988: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading history steps 14-14, summary, console lines 21-21
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s ▂▁▁▁▁▂▂▇█████▇█
+wandb: train/accuracy ▁▁█▄▂▁▃█▆▆█▇▇██
+wandb:     train/loss ███▇▆▆▄▇▅▃▂▂▁▁▁
+wandb:   val/accuracy ▁▁▁▂▄▇█▅▂▇▇▇▇▄█
+wandb:       val/loss █████▅▃▅▄▃▂▂▁▁▁
+wandb: val/perplexity █████▆▂▆▅▂▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 836.80168
+wandb: train/accuracy 2.87174
+wandb:     train/loss 8.21236
+wandb:   val/accuracy 3.9885
+wandb:       val/loss 7.92459
+wandb: val/perplexity 2764.42424
+wandb: 
+wandb: 🚀 View run atlas at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/nrmztpb8
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260925_045007-nrmztpb8/logs
+wandb: setting up run jotqv3a4
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260925_081715-jotqv3a4
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_raw
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/jotqv3a4
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 14-14, summary, console lines 20-20
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s █▇▇▇▇▇▁▁▁▁▁▁▁▁▁
+wandb: train/accuracy ▁▁▃▃▄▂▄▄▄▄▅▇▇██
+wandb:     train/loss █▇▆▆▄▅▃▃▃▂▃▂▂▁▁
+wandb:   val/accuracy ▁▄▆▆▅▂▅▆▅▇▆▇█▇█
+wandb:       val/loss █▇▅▃▃▃▃▃▂▂▂▂▂▁▁
+wandb: val/perplexity ██▄▂▂▂▂▂▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 784.0939
+wandb: train/accuracy 6.80537
+wandb:     train/loss 7.69202
+wandb:   val/accuracy 9.71942
+wandb:       val/loss 7.01341
+wandb: val/perplexity 1111.4349
+wandb: 
+wandb: 🚀 View run atlas_raw at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/jotqv3a4
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260925_081715-jotqv3a4/logs
+wandb: setting up run yhoucuxe
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260925_114226-yhoucuxe
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_random
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/yhoucuxe
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+'(MaxRetryError("HTTPSConnectionPool(host='us.aws.cdn.hf.co', port=443): Max retries exceeded with url: /xet-bridge-us/6655eb19d17e141dcb546ed5/75e3d0530e0153b1260904449807a6aca765eb899b669cf3d1da290e52eedae8?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27000_00000.parquet%3B+filename%3D%22000_00000.parquet%22%3B&X-Xet-Cas-Uid=public&user_id=public&Expires=1790344936&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjY1NWViMTlkMTdlMTQxZGNiNTQ2ZWQ1Lzc1ZTNkMDUzMGUwMTUzYjEyNjA5MDQ0NDk4MDdhNmFjYTc2NWViODk5YjY2OWNmM2QxZGEyOTBlNTJlZWRhZThcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3MDAwXzAwMDAwLnBhcnF1ZXQlM0IrZmlsZW5hbWUlM0QlMjIwMDBfMDAwMDAucGFycXVldCUyMiUzQiZYLVhldC1DYXMtVWlkPXB1YmxpYyZ1c2VyX2lkPXB1YmxpYyIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkwMzQ0OTM2fX19XX0_&Signature=MEQCIEdkLRdjCXf6yAdBui-Kb2eCJ74B3WSpy-G73Z4AwjOJAiAWSlg9tl0aUgrRx2w2N6E1Nh58qU97TLwdRzhfFZ6icA__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))"), '(Request ID: 26179f40-d52e-4b89-8100-ac84b9e6ed15)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 1s [Retry 1/5].
+'(ReadTimeoutError("HTTPSConnectionPool(host='us.aws.cdn.hf.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: 0dd936a3-4d10-47af-8ebf-55450cc1ae12)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 1s [Retry 1/5].
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading config.yaml
+wandb: uploading history steps 14-14, summary, console lines 24-24
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s █▃▁▁▂▃▄▂▃▂▂▂▃▂▄
+wandb: train/accuracy ▁▁▃▂▂▂▂▃▄▆▆▇▇██
+wandb:     train/loss █▇▆▆▅▄▄▃▃▂▂▂▁▁▁
+wandb:   val/accuracy ▁▃▃▂▃▃▄▄▆▆▆▇▇▇█
+wandb:       val/loss █▇▄▅▄▄▄▃▂▂▂▂▁▁▁
+wandb: val/perplexity ██▂▃▂▂▂▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 785.4846
+wandb: train/accuracy 13.65415
+wandb:     train/loss 5.97509
+wandb:   val/accuracy 15.82314
+wandb:       val/loss 5.80524
+wandb: val/perplexity 332.03467
+wandb: 
+wandb: 🚀 View run atlas_random at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/yhoucuxe
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260925_114226-yhoucuxe/logs
+wandb: setting up run c9v823tk
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260925_150213-c9v823tk
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/c9v823tk
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+
+>>> Running Benchmark for Optimizers: ['atlas', 'atlas_raw', 'atlas_random', 'muon', 'adam', 'sgd'] across 1 configs <<<
+
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: ATLAS | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [atlas] for 15 epochs...
+  [ATLAS       ] Epoch  1/15 | Train Loss: 12.6120 | Train Acc: 0.04% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 789.8s
+  [ATLAS       ] Epoch  2/15 | Train Loss: 12.5010 | Train Acc: 0.11% | Val Loss: 10.8908 | Val Acc: 0.00% | Time: 783.8s
+  [ATLAS       ] Epoch  3/15 | Train Loss: 12.5117 | Train Acc: 2.85% | Val Loss: 11.0762 | Val Acc: 0.00% | Time: 783.8s
+  [ATLAS       ] Epoch  4/15 | Train Loss: 11.7201 | Train Acc: 1.17% | Val Loss: 10.9163 | Val Acc: 0.46% | Time: 784.4s
+  [ATLAS       ] Epoch  5/15 | Train Loss: 11.3734 | Train Acc: 0.33% | Val Loss: 10.8679 | Val Acc: 1.93% | Time: 783.5s
+  [ATLAS       ] Epoch  6/15 | Train Loss: 11.3651 | Train Acc: 0.10% | Val Loss: 9.6390 | Val Acc: 3.95% | Time: 789.5s
+  [ATLAS       ] Epoch  7/15 | Train Loss: 10.1500 | Train Acc: 0.85% | Val Loss: 8.6190 | Val Acc: 4.27% | Time: 792.7s
+  [ATLAS       ] Epoch  8/15 | Train Loss: 11.8989 | Train Acc: 2.87% | Val Loss: 9.6823 | Val Acc: 2.47% | Time: 830.0s
+  [ATLAS       ] Epoch  9/15 | Train Loss: 10.8931 | Train Acc: 1.98% | Val Loss: 9.4610 | Val Acc: 0.40% | Time: 836.0s
+  [ATLAS       ] Epoch 10/15 | Train Loss: 9.4158 | Train Acc: 1.96% | Val Loss: 8.7424 | Val Acc: 3.77% | Time: 836.1s
+  [ATLAS       ] Epoch 11/15 | Train Loss: 8.8078 | Train Acc: 2.80% | Val Loss: 8.2978 | Val Acc: 3.77% | Time: 837.8s
+  [ATLAS       ] Epoch 12/15 | Train Loss: 8.5281 | Train Acc: 2.55% | Val Loss: 8.1576 | Val Acc: 3.77% | Time: 837.2s
+  [ATLAS       ] Epoch 13/15 | Train Loss: 8.3027 | Train Acc: 2.62% | Val Loss: 8.0415 | Val Acc: 3.77% | Time: 837.9s
+  [ATLAS       ] Epoch 14/15 | Train Loss: 8.2335 | Train Acc: 2.73% | Val Loss: 7.9687 | Val Acc: 1.97% | Time: 833.7s
+  [ATLAS       ] Epoch 15/15 | Train Loss: 8.2124 | Train Acc: 2.87% | Val Loss: 7.9246 | Val Acc: 3.99% | Time: 836.8s
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: ATLAS_RAW | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [atlas_raw] for 15 epochs...
+  [ATLAS_RAW   ] Epoch  1/15 | Train Loss: 11.3471 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 843.2s
+  [ATLAS_RAW   ] Epoch  2/15 | Train Loss: 10.9696 | Train Acc: 0.46% | Val Loss: 10.4665 | Val Acc: 4.84% | Time: 836.6s
+  [ATLAS_RAW   ] Epoch  3/15 | Train Loss: 10.5014 | Train Acc: 1.98% | Val Loss: 9.1296 | Val Acc: 7.16% | Time: 835.2s
+  [ATLAS_RAW   ] Epoch  4/15 | Train Loss: 10.4768 | Train Acc: 2.40% | Val Loss: 7.8099 | Val Acc: 7.39% | Time: 831.3s
+  [ATLAS_RAW   ] Epoch  5/15 | Train Loss: 8.9128 | Train Acc: 3.46% | Val Loss: 8.0259 | Val Acc: 6.10% | Time: 832.6s
+  [ATLAS_RAW   ] Epoch  6/15 | Train Loss: 9.8217 | Train Acc: 1.24% | Val Loss: 7.9411 | Val Acc: 1.92% | Time: 835.7s
+  [ATLAS_RAW   ] Epoch  7/15 | Train Loss: 8.7899 | Train Acc: 2.60% | Val Loss: 8.1694 | Val Acc: 5.27% | Time: 786.4s
+  [ATLAS_RAW   ] Epoch  8/15 | Train Loss: 8.4419 | Train Acc: 2.73% | Val Loss: 7.8113 | Val Acc: 6.81% | Time: 786.0s
+  [ATLAS_RAW   ] Epoch  9/15 | Train Loss: 8.5917 | Train Acc: 2.77% | Val Loss: 7.6691 | Val Acc: 6.01% | Time: 785.7s
+  [ATLAS_RAW   ] Epoch 10/15 | Train Loss: 8.2401 | Train Acc: 3.12% | Val Loss: 7.5292 | Val Acc: 8.59% | Time: 786.4s
+  [ATLAS_RAW   ] Epoch 11/15 | Train Loss: 8.3893 | Train Acc: 3.54% | Val Loss: 7.5280 | Val Acc: 7.49% | Time: 785.8s
+  [ATLAS_RAW   ] Epoch 12/15 | Train Loss: 8.2470 | Train Acc: 5.87% | Val Loss: 7.4668 | Val Acc: 8.83% | Time: 786.6s
+  [ATLAS_RAW   ] Epoch 13/15 | Train Loss: 7.9689 | Train Acc: 5.99% | Val Loss: 7.3113 | Val Acc: 9.94% | Time: 786.9s
+  [ATLAS_RAW   ] Epoch 14/15 | Train Loss: 7.4235 | Train Acc: 7.06% | Val Loss: 6.8576 | Val Acc: 9.19% | Time: 783.6s
+  [ATLAS_RAW   ] Epoch 15/15 | Train Loss: 7.6920 | Train Acc: 6.81% | Val Loss: 7.0134 | Val Acc: 9.72% | Time: 784.1s
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: ATLAS_RANDOM | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [atlas_random] for 15 epochs...
+  [ATLAS_RANDOM] Epoch  1/15 | Train Loss: 11.3850 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 791.1s
+  [ATLAS_RANDOM] Epoch  2/15 | Train Loss: 10.9393 | Train Acc: 0.10% | Val Loss: 9.9679 | Val Acc: 5.38% | Time: 783.7s
+  [ATLAS_RANDOM] Epoch  3/15 | Train Loss: 9.8305 | Train Acc: 3.91% | Val Loss: 8.2681 | Val Acc: 4.82% | Time: 782.0s
+  [ATLAS_RANDOM] Epoch  4/15 | Train Loss: 9.6407 | Train Acc: 2.34% | Val Loss: 8.7252 | Val Acc: 2.54% | Time: 781.5s
+  [ATLAS_RANDOM] Epoch  5/15 | Train Loss: 8.8448 | Train Acc: 2.05% | Val Loss: 8.1822 | Val Acc: 4.71% | Time: 782.2s
+  [ATLAS_RANDOM] Epoch  6/15 | Train Loss: 8.4276 | Train Acc: 2.55% | Val Loss: 7.8398 | Val Acc: 4.58% | Time: 784.4s
+  [ATLAS_RANDOM] Epoch  7/15 | Train Loss: 8.2646 | Train Acc: 2.46% | Val Loss: 7.6708 | Val Acc: 5.79% | Time: 785.0s
+  [ATLAS_RANDOM] Epoch  8/15 | Train Loss: 7.8679 | Train Acc: 3.74% | Val Loss: 7.1388 | Val Acc: 7.57% | Time: 782.8s
+  [ATLAS_RANDOM] Epoch  9/15 | Train Loss: 7.2986 | Train Acc: 6.78% | Val Loss: 6.7685 | Val Acc: 10.69% | Time: 784.6s
+  [ATLAS_RANDOM] Epoch 10/15 | Train Loss: 6.8654 | Train Acc: 8.92% | Val Loss: 6.5170 | Val Acc: 11.79% | Time: 783.1s
+  [ATLAS_RANDOM] Epoch 11/15 | Train Loss: 6.6515 | Train Acc: 10.49% | Val Loss: 6.3617 | Val Acc: 12.24% | Time: 782.3s
+  [ATLAS_RANDOM] Epoch 12/15 | Train Loss: 6.4470 | Train Acc: 11.43% | Val Loss: 6.2173 | Val Acc: 13.61% | Time: 782.8s
+  [ATLAS_RANDOM] Epoch 13/15 | Train Loss: 6.2679 | Train Acc: 12.34% | Val Loss: 6.0799 | Val Acc: 13.75% | Time: 783.9s
+  [ATLAS_RANDOM] Epoch 14/15 | Train Loss: 6.1238 | Train Acc: 13.21% | Val Loss: 5.9301 | Val Acc: 14.57% | Time: 783.0s
+  [ATLAS_RANDOM] Epoch 15/15 | Train Loss: 5.9751 | Train Acc: 13.65% | Val Loss: 5.8052 | Val Acc: 15.82% | Time: 785.5s
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: MUON | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [muon] for 15 epochs...
+  [MUON        ] Epoch  1/15 | Train Loss: 11.0215 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 774.5s
+  [MUON        ] Epoch  2/15 | Train Loss: 9.6487 | Train Acc: 4.17% | Val Loss: 8.4392 | Val Acc: 5.89% | Time: 772.1s
+  [MUON        ] Epoch  3/15 | Train Loss: 7.3709 | Train Acc: 10.96% | Val Loss: 6.8913 | Val Acc: 13.80% | Time: 774.2s
+  [MUON        ] Epoch  4/15 | Train Loss: 6.5433 | Train Acc: 14.61% | Val Loss: 6.3177 | Val Acc: 15.41% | Time: 774.0s
+  [MUON        ] Epoch  5/15 | Train Loss: 6.1378 | Train Acc: 15.84% | Val Loss: 5.9684 | Val Acc: 16.63% | Time: 773.7s
+  [MUON        ] Epoch  6/15 | Train Loss: 5.8507 | Train Acc: 16.97% | Val Loss: 5.6979 | Val Acc: 17.80% | Time: 775.8s
+  [MUON        ] Epoch  7/15 | Train Loss: 5.6228 | Train Acc: 18.08% | Val Loss: 5.4752 | Val Acc: 18.95% | Time: 773.9s'(MaxRetryError("HTTPSConnectionPool(host='us.aws.cdn.hf.co', port=443): Max retries exceeded with url: /xet-bridge-us/6655eb19d17e141dcb546ed5/75e3d0530e0153b1260904449807a6aca765eb899b669cf3d1da290e52eedae8?user_id=public&X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27000_00000.parquet%3B+filename%3D%22000_00000.parquet%22%3B&Expires=1790360792&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjY1NWViMTlkMTdlMTQxZGNiNTQ2ZWQ1Lzc1ZTNkMDUzMGUwMTUzYjEyNjA5MDQ0NDk4MDdhNmFjYTc2NWViODk5YjY2OWNmM2QxZGEyOTBlNTJlZWRhZThcXD91c2VyX2lkPXB1YmxpYyZYLVhldC1DYXMtVWlkPXB1YmxpYyZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3MDAwXzAwMDAwLnBhcnF1ZXQlM0IrZmlsZW5hbWUlM0QlMjIwMDBfMDAwMDAucGFycXVldCUyMiUzQiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkwMzYwNzkyfX19XX0_&Signature=MEUCICfjHBmIfQMeWfX~t1cDe28HRFq8LjTWxZwu2ep4bXuKAiEAyHHAsBbSSIW7XlKFEphaWVo-BpX2O8~B7atVwZ8BWCc_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))"), '(Request ID: 7c85c16d-b7b7-433b-820a-998920ef6140)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+'(MaxRetryError("HTTPSConnectionPool(host='us.aws.cdn.hf.co', port=443): Max retries exceeded with url: /xet-bridge-us/6655eb19d17e141dcb546ed5/75e3d0530e0153b1260904449807a6aca765eb899b669cf3d1da290e52eedae8?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27000_00000.parquet%3B+filename%3D%22000_00000.parquet%22%3B&user_id=public&X-Xet-Cas-Uid=public&Expires=1790360792&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjY1NWViMTlkMTdlMTQxZGNiNTQ2ZWQ1Lzc1ZTNkMDUzMGUwMTUzYjEyNjA5MDQ0NDk4MDdhNmFjYTc2NWViODk5YjY2OWNmM2QxZGEyOTBlNTJlZWRhZThcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3MDAwXzAwMDAwLnBhcnF1ZXQlM0IrZmlsZW5hbWUlM0QlMjIwMDBfMDAwMDAucGFycXVldCUyMiUzQiZ1c2VyX2lkPXB1YmxpYyZYLVhldC1DYXMtVWlkPXB1YmxpYyIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkwMzYwNzkyfX19XX0_&Signature=MEUCIDEhCsSPF4uUvO-zRwrBEeO5Yo4yxiUz1xo9-0WLl3MMAiEA2XIxcyJtBytwbyCsPP9lVQY~5qmaziACQXHvuEpemlo_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))"), '(Request ID: 0b9fe5db-96ac-4cdf-a5a6-bb157ac10c70)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 1s [Retry 1/5].
+Retrying in 1s [Retry 1/5].
+wandb: updating run metadata
+wandb: updating run metadata; uploading history steps 14-14, summary, console lines 24-24
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading data
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s ▆▂▅▅▅█▅▁▄▃▂▅▄▅▂
+wandb: train/accuracy ▁▂▄▅▅▅▅▆▆▆▇▇▇██
+wandb:     train/loss █▇▄▃▃▃▂▂▂▂▂▁▁▁▁
+wandb:   val/accuracy ▁▂▄▅▅▅▅▆▆▆▇▇▇██
+wandb:       val/loss █▅▄▃▃▃▂▂▂▂▂▁▁▁▁
+wandb: val/perplexity █▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 772.26302
+wandb: train/accuracy 29.03024
+wandb:     train/loss 4.21272
+wandb:   val/accuracy 30.807
+wandb:       val/loss 4.02831
+wandb: val/perplexity 56.16614
+wandb: 
+wandb: 🚀 View run muon at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/c9v823tk
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260925_150213-c9v823tk/logs
+wandb: setting up run 1xn7ufpw
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260925_181919-1xn7ufpw
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run adam
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/1xn7ufpw
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml; uploading history steps 14-14, summary, console lines 20-20
+wandb: uploading output.log; uploading config.yaml
+wandb: uploading data
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s ▂▁▄▄▅▆▇▅▇▇▆▆▆▇█
+wandb: train/accuracy ▁▃▄▅▅▅▅▆▆▆▇▇▇██
+wandb:     train/loss █▅▄▃▃▃▃▂▂▂▂▁▁▁▁
+wandb:   val/accuracy ▁▃▄▅▅▅▅▆▆▆▇▇▇██
+wandb:       val/loss █▅▄▃▃▃▃▂▂▂▂▁▁▁▁
+wandb: val/perplexity █▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 770.58737
+wandb: train/accuracy 27.19365
+wandb:     train/loss 4.58728
+wandb:   val/accuracy 28.48973
+wandb:       val/loss 4.44559
+wandb: val/perplexity 85.24991
+wandb: 
+wandb: 🚀 View run adam at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/1xn7ufpw
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260925_181919-1xn7ufpw/logs
+wandb: setting up run g23wyz5a
+wandb: Tracking run with wandb version 0.28.2
+wandb: Run data is saved locally in /mnt/disk1/slakshna/atlas_opt/wandb/run-20260925_213453-g23wyz5a
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sgd
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/g23wyz5a
+Token indices sequence length is longer than the specified maximum sequence length for this model (1055 > 1024). Running this sequence through the model will result in indexing errors
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: 10f8c0a5-3a28-4d24-be45-8fa690675021)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 1s [Retry 1/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: 32f0b108-bc40-4004-8b2d-ec17cbb44b3a)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 1s [Retry 1/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: f8026d83-ebad-4ce8-9f7b-cde5ccd253da)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 2s [Retry 2/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: c61dd7b9-0dc5-4eac-9a8f-55a23b9ac17f)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 2s [Retry 2/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: f8e34dec-13e7-447a-8de3-ccf116dcd0b0)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 4s [Retry 3/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: 9ade9e92-3136-4e4a-872b-e2d0662cf394)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 4s [Retry 3/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: 736b804f-94e2-4870-b2de-fb79accc0e02)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 8s [Retry 4/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: 50b6ee4e-05a5-4012-8d06-a508701fd0f8)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 8s [Retry 4/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: a267985f-563e-4a87-a498-629051d9cb10)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 8s [Retry 5/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: c64d2764-316e-4009-901f-ce8036504e3e)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 8s [Retry 5/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: dfb1f8a1-9090-41e4-a3df-9a35fb68d4a8)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Got disconnected from remote data host. Retrying in 5sec [1/20]
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: 980061e4-abb5-4f9c-9122-70306b4fbab6)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Got disconnected from remote data host. Retrying in 5sec [1/20]
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: 2c081721-62fa-47c8-9770-83011153f0de)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 1s [Retry 1/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: f452897a-4e4c-45ed-9b21-65b4e22c3743)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 2s [Retry 2/5].
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno -3] Temporary failure in name resolution)"))'), '(Request ID: 6a89a30c-d0b4-43c7-be6e-2618d9702a69)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 4s [Retry 3/5].
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading config.yaml
+wandb: uploading data
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:         time_s ▅▄▂▂▁▂▁█▅▄▅▄▄▄▃
+wandb: train/accuracy ▁▃▄▆▆▆▇▇▇▇▇████
+wandb:     train/loss █▆▄▃▂▂▂▂▂▂▁▁▁▁▁
+wandb:   val/accuracy ▁▄▅▆▆▆▇▇▇▇▇████
+wandb:       val/loss █▄▃▃▂▂▂▂▂▁▁▁▁▁▁
+wandb: val/perplexity █▄▂▂▂▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:         time_s 769.49634
+wandb: train/accuracy 13.21112
+wandb:     train/loss 7.31362
+wandb:   val/accuracy 13.56678
+wandb:       val/loss 7.29774
+wandb: val/perplexity 1476.9646
+wandb: 
+wandb: 🚀 View run sgd at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/g23wyz5a
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260925_213453-g23wyz5a/logs
+
+  [MUON        ] Epoch  8/15 | Train Loss: 5.4183 | Train Acc: 19.25% | Val Loss: 5.2451 | Val Acc: 20.43% | Time: 771.5s
+  [MUON        ] Epoch  9/15 | Train Loss: 5.2113 | Train Acc: 20.64% | Val Loss: 5.0218 | Val Acc: 21.92% | Time: 773.4s
+  [MUON        ] Epoch 10/15 | Train Loss: 5.0041 | Train Acc: 22.19% | Val Loss: 4.8066 | Val Acc: 23.60% | Time: 772.6s
+  [MUON        ] Epoch 11/15 | Train Loss: 4.8105 | Train Acc: 23.67% | Val Loss: 4.6186 | Val Acc: 25.13% | Time: 772.4s
+  [MUON        ] Epoch 12/15 | Train Loss: 4.6407 | Train Acc: 25.02% | Val Loss: 4.4530 | Val Acc: 26.58% | Time: 773.8s
+  [MUON        ] Epoch 13/15 | Train Loss: 4.4856 | Train Acc: 26.37% | Val Loss: 4.2908 | Val Acc: 28.13% | Time: 773.5s
+  [MUON        ] Epoch 14/15 | Train Loss: 4.3413 | Train Acc: 27.76% | Val Loss: 4.1528 | Val Acc: 29.58% | Time: 773.8s
+  [MUON        ] Epoch 15/15 | Train Loss: 4.2127 | Train Acc: 29.03% | Val Loss: 4.0283 | Val Acc: 30.81% | Time: 772.3s
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: ADAM | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [adam] for 15 epochs...
+  [ADAM        ] Epoch  1/15 | Train Loss: 11.0215 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 767.3s
+  [ADAM        ] Epoch  2/15 | Train Loss: 8.7111 | Train Acc: 7.90% | Val Loss: 7.8936 | Val Acc: 10.14% | Time: 766.5s
+  [ADAM        ] Epoch  3/15 | Train Loss: 7.2074 | Train Acc: 12.30% | Val Loss: 6.8972 | Val Acc: 13.53% | Time: 768.4s
+  [ADAM        ] Epoch  4/15 | Train Loss: 6.6746 | Train Acc: 14.14% | Val Loss: 6.5396 | Val Acc: 14.67% | Time: 768.4s
+  [ADAM        ] Epoch  5/15 | Train Loss: 6.4185 | Train Acc: 14.96% | Val Loss: 6.3231 | Val Acc: 15.41% | Time: 768.6s
+  [ADAM        ] Epoch  6/15 | Train Loss: 6.2168 | Train Acc: 15.85% | Val Loss: 6.0960 | Val Acc: 16.62% | Time: 769.5s
+  [ADAM        ] Epoch  7/15 | Train Loss: 5.9984 | Train Acc: 17.16% | Val Loss: 5.8564 | Val Acc: 18.07% | Time: 770.0s
+  [ADAM        ] Epoch  8/15 | Train Loss: 5.7727 | Train Acc: 18.51% | Val Loss: 5.6278 | Val Acc: 19.50% | Time: 768.8s
+  [ADAM        ] Epoch  9/15 | Train Loss: 5.5612 | Train Acc: 19.80% | Val Loss: 5.4189 | Val Acc: 20.78% | Time: 770.0s
+  [ADAM        ] Epoch 10/15 | Train Loss: 5.3699 | Train Acc: 20.98% | Val Loss: 5.2265 | Val Acc: 21.99% | Time: 769.8s
+  [ADAM        ] Epoch 11/15 | Train Loss: 5.1920 | Train Acc: 22.17% | Val Loss: 5.0501 | Val Acc: 23.23% | Time: 769.6s
+  [ADAM        ] Epoch 12/15 | Train Loss: 5.0237 | Train Acc: 23.41% | Val Loss: 4.8755 | Val Acc: 24.66% | Time: 769.3s
+  [ADAM        ] Epoch 13/15 | Train Loss: 4.8619 | Train Acc: 24.78% | Val Loss: 4.7105 | Val Acc: 26.09% | Time: 769.4s
+  [ADAM        ] Epoch 14/15 | Train Loss: 4.7108 | Train Acc: 26.14% | Val Loss: 4.5712 | Val Acc: 27.38% | Time: 769.7s
+  [ADAM        ] Epoch 15/15 | Train Loss: 4.5873 | Train Acc: 27.19% | Val Loss: 4.4456 | Val Acc: 28.49% | Time: 770.6s
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: SGD | Epochs: 15
+######################################################################
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512)...
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [sgd] for 15 epochs...
+  [SGD         ] Epoch  1/15 | Train Loss: 11.0215 | Train Acc: 0.00% | Val Loss: 11.0258 | Val Acc: 0.00% | Time: 771.6s
+  [SGD         ] Epoch  2/15 | Train Loss: 9.8014 | Train Acc: 4.05% | Val Loss: 9.1382 | Val Acc: 5.15% | Time: 770.2s
+  [SGD         ] Epoch  3/15 | Train Loss: 8.7290 | Train Acc: 6.55% | Val Loss: 8.4897 | Val Acc: 7.91% | Time: 768.5s
+  [SGD         ] Epoch  4/15 | Train Loss: 8.2822 | Train Acc: 8.79% | Val Loss: 8.1870 | Val Acc: 9.40% | Time: 768.1s
+  [SGD         ] Epoch  5/15 | Train Loss: 8.0659 | Train Acc: 9.67% | Val Loss: 8.0215 | Val Acc: 10.06% | Time: 767.6s
+  [SGD         ] Epoch  6/15 | Train Loss: 7.9258 | Train Acc: 10.29% | Val Loss: 7.8943 | Val Acc: 10.63% | Time: 768.3s
+  [SGD         ] Epoch  7/15 | Train Loss: 7.8143 | Train Acc: 10.77% | Val Loss: 7.7901 | Val Acc: 11.09% | Time: 767.8s
+  [SGD         ] Epoch  8/15 | Train Loss: 7.7268 | Train Acc: 11.16% | Val Loss: 7.7082 | Val Acc: 11.47% | Time: 774.0s
+  [SGD         ] Epoch  9/15 | Train Loss: 7.6522 | Train Acc: 11.49% | Val Loss: 7.6340 | Val Acc: 11.77% | Time: 771.4s
+  [SGD         ] Epoch 10/15 | Train Loss: 7.5822 | Train Acc: 11.81% | Val Loss: 7.5639 | Val Acc: 12.14% | Time: 770.6s
+  [SGD         ] Epoch 11/15 | Train Loss: 7.5187 | Train Acc: 12.12% | Val Loss: 7.5006 | Val Acc: 12.43% | Time: 771.1s
+  [SGD         ] Epoch 12/15 | Train Loss: 7.4614 | Train Acc: 12.39% | Val Loss: 7.4436 | Val Acc: 12.71% | Time: 770.3s
+  [SGD         ] Epoch 13/15 | Train Loss: 7.4099 | Train Acc: 12.66% | Val Loss: 7.3925 | Val Acc: 13.03% | Time: 770.3s
+  [SGD         ] Epoch 14/15 | Train Loss: 7.3627 | Train Acc: 12.93% | Val Loss: 7.3428 | Val Acc: 13.37% | Time: 769.9s
+  [SGD         ] Epoch 15/15 | Train Loss: 7.3136 | Train Acc: 13.21% | Val Loss: 7.2977 | Val Acc: 13.57% | Time: 769.5s
+
+  [Single CSV Saved]: logs/nanogpt_fineweb_logs.csv
+  [Unified Comparison Plot Saved]: logs/nanogpt_fineweb_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  nanogpt_fineweb                     | Opt: atlas          | Loss: 8.2124 | Perplexity    : 2764.42 | Time: 12193.1s
+  nanogpt_fineweb                     | Opt: atlas_raw      | Loss: 7.6920 | Perplexity    : 1111.43 | Time: 12086.1s
+  nanogpt_fineweb                     | Opt: atlas_random   | Loss: 5.9751 | Perplexity    : 332.03 | Time: 11758.1s
+  nanogpt_fineweb                     | Opt: muon           | Loss: 4.2127 | Perplexity    : 56.17 | Time: 11601.5s
+  nanogpt_fineweb                     | Opt: adam           | Loss: 4.5873 | Perplexity    : 85.25 | Time: 11535.9s
+  nanogpt_fineweb                     | Opt: sgd            | Loss: 7.3136 | Perplexity    : 1476.96 | Time: 11549.0s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

@@ -1,0 +1,218 @@
+{
+  "config": {
+    "experiment": {
+      "experiment_id": "pythia70m_pretrain_chinchilla",
+      "wandb_project": "rho0.1-Pythia70M-Fineweb-optimizers",
+      "task_type": "causal_lm",
+      "model_name": "EleutherAI/pythia-70m",
+      "dataset_name": "HuggingFaceFW/fineweb-edu",
+      "dataset_config": "sample-10BT",
+      "max_len": 2048,
+      "total_tokens": 1400000000,
+      "train_epochs": 14
+    },
+    "batch_size": 16,
+    "grad_acc": 32,
+    "lr_schedule": {
+      "type": "wsd",
+      "warmup_ratio": 0.05,
+      "cooldown_ratio": 0.2,
+      "min_lr_ratio": 0.0
+    },
+    "parameter_routing": {
+      "hidden_matrices": "muon",
+      "embeddings_and_head": "adamw"
+    },
+    "optimizers": {
+      "adam": {
+        "optimizer": "adam",
+        "lr": 0.0018,
+        "betas": [
+          0.9,
+          0.95
+        ],
+        "weight_decay": 0.01
+      },
+      "sgd": {
+        "optimizer": "sgd",
+        "lr": 0.05,
+        "momentum": 0.95,
+        "nesterov": true,
+        "weight_decay": 0.01,
+        "schatten_r": 2.0,
+        "scheduler": "cosine"
+      },
+      "muon": {
+        "optimizer": "muon",
+        "lr": 0.015,
+        "momentum": 0.95,
+        "weight_decay": 0.0001,
+        "schatten_r": "inf"
+      },
+      "muon_sam": {
+        "optimizer": "muon_sam",
+        "lr": 0.015,
+        "momentum": 0.95,
+        "weight_decay": 0.0001,
+        "rho": 0.1,
+        "rho_vector": 0.1
+      },
+      "atlas": {
+        "optimizer": "atlas",
+        "lr": 0.015,
+        "momentum": 0.95,
+        "weight_decay": 0.0001,
+        "rho": 0.1,
+        "rho_vector": 0.1,
+        "schatten_r": "inf"
+      },
+      "atlas_raw": {
+        "optimizer": "atlas_raw",
+        "lr": 0.015,
+        "momentum": 0.95,
+        "weight_decay": 0.0001,
+        "rho": 0.1,
+        "rho_vector": 0.1,
+        "schatten_r": "inf"
+      },
+      "atlas_random": {
+        "optimizer": "atlas_random",
+        "lr": 0.015,
+        "momentum": 0.95,
+        "weight_decay": 0.0001,
+        "rho": 0.1,
+        "rho_vector": 0.1,
+        "schatten_r": "inf"
+      },
+      "muon_sam_frob": {
+        "optimizer": "muon_sam_frob",
+        "lr": 0.015,
+        "momentum": 0.95,
+        "weight_decay": 0.0001,
+        "rho": 0.1,
+        "rho_vector": 0.1
+      },
+      "muon_sam_stale": {
+        "optimizer": "muon_sam_stale",
+        "lr": 0.015,
+        "momentum": 0.95,
+        "weight_decay": 0.0001,
+        "rho": 0.1,
+        "rho_vector": 0.1
+      },
+      "fsam_muon": {
+        "optimizer": "fsam_muon",
+        "lr": 0.015,
+        "momentum": 0.9665,
+        "weight_decay": 0.0001,
+        "rho": 0.1,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      },
+      "fsam_ortho_muon": {
+        "optimizer": "fsam_ortho_muon",
+        "lr": 0.015,
+        "momentum": 0.9665,
+        "weight_decay": 0.0001,
+        "rho": 0.1,
+        "rho_vector": 0.1,
+        "ns_steps": 5,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      },
+      "fsam_ortho": {
+        "optimizer": "fsam_ortho",
+        "lr": 0.015,
+        "rho": 0.1,
+        "rho_vector": 0.1,
+        "ns_steps": 5,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      },
+      "fsam": {
+        "optimizer": "fsam",
+        "lr": 0.015,
+        "rho": 0.1,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      }
+    }
+  },
+  "args": {
+    "config": "configs/pythia70m_pretrain_chinchilla.yaml",
+    "optimizer": "sgd",
+    "checkpoint": "checkpoints/pythia70m_pretrain_chinchilla_sgd_epoch14.pt",
+    "methods": "awq",
+    "settings": "4:128",
+    "seeds": "0,1,2",
+    "nsamples": null,
+    "seqlen": 512,
+    "out_dir": "ptq_results"
+  },
+  "git_commit": "a09277ca600309121fd2639e2fb18c0457fb28b7",
+  "torch": "2.9.0+cu128",
+  "quantized_params": 18874368,
+  "total_params": 70426624,
+  "rows": [
+    {
+      "config_id": "pythia70m_pretrain_chinchilla",
+      "optimizer": "sgd",
+      "checkpoint": "pythia70m_pretrain_chinchilla_sgd_epoch14.pt",
+      "calib_nsamples": "",
+      "method": "fp",
+      "wbits": 16,
+      "group_size": "",
+      "calib_seed": "",
+      "quant_time_s": 0.0,
+      "status": "ok",
+      "wikitext2_ppl": 4962.091609254178,
+      "fineweb_ppl": 1529.850709978834,
+      "fineweb_acc": 11.911578094422701
+    },
+    {
+      "config_id": "pythia70m_pretrain_chinchilla",
+      "optimizer": "sgd",
+      "checkpoint": "pythia70m_pretrain_chinchilla_sgd_epoch14.pt",
+      "calib_nsamples": 128,
+      "method": "awq",
+      "wbits": 4,
+      "group_size": 128,
+      "calib_seed": 0,
+      "quant_time_s": 10.34,
+      "status": "ok",
+      "wikitext2_ppl": 5042.5941944581855,
+      "fineweb_ppl": 1584.2656010567368,
+      "fineweb_acc": 11.63924902152642
+    },
+    {
+      "config_id": "pythia70m_pretrain_chinchilla",
+      "optimizer": "sgd",
+      "checkpoint": "pythia70m_pretrain_chinchilla_sgd_epoch14.pt",
+      "calib_nsamples": 128,
+      "method": "awq",
+      "wbits": 4,
+      "group_size": 128,
+      "calib_seed": 1,
+      "quant_time_s": 10.27,
+      "status": "ok",
+      "wikitext2_ppl": 5049.807749253481,
+      "fineweb_ppl": 1585.6122814760724,
+      "fineweb_acc": 11.633897994129159
+    },
+    {
+      "config_id": "pythia70m_pretrain_chinchilla",
+      "optimizer": "sgd",
+      "checkpoint": "pythia70m_pretrain_chinchilla_sgd_epoch14.pt",
+      "calib_nsamples": 128,
+      "method": "awq",
+      "wbits": 4,
+      "group_size": 128,
+      "calib_seed": 2,
+      "quant_time_s": 10.3,
+      "status": "ok",
+      "wikitext2_ppl": 5062.826748006643,
+      "fineweb_ppl": 1585.8572462717989,
+      "fineweb_acc": 11.640586778375734
+    }
+  ]
+}

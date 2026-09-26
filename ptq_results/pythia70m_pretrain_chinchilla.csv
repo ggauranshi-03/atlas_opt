@@ -1,0 +1,13 @@
+config_id,optimizer,checkpoint,method,wbits,group_size,calib_seed,calib_nsamples,wikitext2_ppl,fineweb_ppl,fineweb_acc,test_acc,test_loss,quant_time_s,status
+pythia70m_pretrain_chinchilla,adam,pythia70m_pretrain_chinchilla_adam_epoch14.pt,fp,16,,,,676.2690999072672,147.1986371846785,23.598508592221133,,,0.0,ok
+pythia70m_pretrain_chinchilla,adam,pythia70m_pretrain_chinchilla_adam_epoch14.pt,awq,4,128,0,128,686.3203154302197,150.96697422435778,23.40778268713307,,,10.22,ok
+pythia70m_pretrain_chinchilla,adam,pythia70m_pretrain_chinchilla_adam_epoch14.pt,awq,4,128,1,128,681.6960407070942,150.94311147517067,23.39344957803327,,,10.22,ok
+pythia70m_pretrain_chinchilla,adam,pythia70m_pretrain_chinchilla_adam_epoch14.pt,awq,4,128,2,128,690.3794486295079,151.00412560347164,23.40663603840509,,,10.27,ok
+pythia70m_pretrain_chinchilla,sgd,pythia70m_pretrain_chinchilla_sgd_epoch14.pt,fp,16,,,,4962.091609254178,1529.850709978834,11.911578094422701,,,0.0,ok
+pythia70m_pretrain_chinchilla,sgd,pythia70m_pretrain_chinchilla_sgd_epoch14.pt,awq,4,128,0,128,5042.5941944581855,1584.2656010567368,11.63924902152642,,,10.34,ok
+pythia70m_pretrain_chinchilla,sgd,pythia70m_pretrain_chinchilla_sgd_epoch14.pt,awq,4,128,1,128,5049.807749253481,1585.6122814760724,11.633897994129159,,,10.27,ok
+pythia70m_pretrain_chinchilla,sgd,pythia70m_pretrain_chinchilla_sgd_epoch14.pt,awq,4,128,2,128,5062.826748006643,1585.8572462717989,11.640586778375734,,,10.3,ok
+pythia70m_pretrain_chinchilla,muon,pythia70m_pretrain_chinchilla_muon_epoch14.pt,fp,16,,,,395.9077852174807,96.46648271187242,26.153146404109588,,,0.0,ok
+pythia70m_pretrain_chinchilla,muon,pythia70m_pretrain_chinchilla_muon_epoch14.pt,awq,4,128,0,128,413.49107121494905,100.88877021782231,25.759081457925635,,,10.32,ok
+pythia70m_pretrain_chinchilla,muon,pythia70m_pretrain_chinchilla_muon_epoch14.pt,awq,4,128,1,128,410.37943409868683,100.79742275911993,25.769687958659492,,,10.27,ok
+pythia70m_pretrain_chinchilla,muon,pythia70m_pretrain_chinchilla_muon_epoch14.pt,awq,4,128,2,128,407.7635002106416,100.86133101353988,25.757934809197653,,,10.31,ok
