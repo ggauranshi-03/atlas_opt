@@ -89,8 +89,8 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None):
                 "ns_steps": 5,
                 "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
             }
-            # best_params = tune_atlas_hyperparameters(model_builder, train_loader, task_type, base_params)
-            best_params = base_params
+            best_params = tune_atlas_hyperparameters(model_builder, train_loader, task_type, base_params)
+            # best_params = base_params
         elif opt_name == "muon":
             opt_dict = opts_cfg.get("muon", {})
             best_params = {
