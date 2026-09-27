@@ -165,7 +165,9 @@ def make_all(out):
     figures = out / "figures"
     figures.mkdir(exist_ok=True)
     depth = int(finals["depth"].iloc[0])
-    metrics = ["gap", "excess_risk"] + (["lambda_max", "balancedness"] if depth >= 2 else ["lambda_max"])
+    #metrics = ["gap", "excess_risk"] + (["lambda_max", "balancedness"] if depth >= 2 else ["lambda_max"])
+
+    metrics = ["gap"]  # User requested only gap plots, skips lambda_max to avoid NaN crash
 
     gap_table = final_table(finals, "gap")
     best = best_rho(gap_table)
@@ -176,9 +178,9 @@ def make_all(out):
             table = gap_table if metric == "gap" else final_table(finals, metric)
             plot_vs_rho(table, metric, group, figures / f"{metric}_vs_rho_{group}.png")
         plot_vs_rho(gap_table, "gap", group, figures / f"gap_vs_perturbation_{group}.png", x="perturbation")
-        plot_curves(curves, best, group, figures / f"gap_vs_step_best_rho_{group}.png")
-        plot_curves(curves, best, group, figures / f"gap_vs_oracle_calls_best_rho_{group}.png", x="oracle_calls")
-        plot_robustness(best, group, figures / f"robustness_vs_alpha_{group}.png")
+        # plot_curves(curves, best, group, figures / f"gap_vs_step_best_rho_{group}.png")
+        # plot_curves(curves, best, group, figures / f"gap_vs_oracle_calls_best_rho_{group}.png", x="oracle_calls")
+        # plot_robustness(best, group, figures / f"robustness_vs_alpha_{group}.png")
     print(f"Figures written to {figures}")
 
 

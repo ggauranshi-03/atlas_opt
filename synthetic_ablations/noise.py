@@ -46,6 +46,28 @@ class Oracle:
         if self.model == "additive":
             init = [w.unsqueeze(0) for w in problem.init]
             self.tau = [g.square().mean().sqrt().item() for g in full_gradient(init, problem)]
+            
+            cond_noise = float(cfg.get("cond_noise", 1.0))
+            self.L = []
+            self.R = []
+            from .objective import _random_orthonormal, _geometric
+            for shape in problem.shapes:
+                out_dim, in_dim = shape
+                if cond_noise > 1.0:
+                    U_L = _random_orthonormal(out_dim, out_dim, generator, dtype)
+                    ell = _geometric(out_dim, cond_noise, dtype)
+                    ell = ell * out_dim / ell.sum()
+                    L = (U_L * ell.sqrt()) @ U_L.T
+                    
+                    U_R = _random_orthonormal(in_dim, in_dim, generator, dtype)
+                    r = _geometric(in_dim, cond_noise, dtype)
+                    r = r * in_dim / r.sum()
+                    R = (U_R * r.sqrt()) @ U_R.T
+                else:
+                    L = torch.eye(out_dim, dtype=dtype)
+                    R = torch.eye(in_dim, dtype=dtype)
+                self.L.append(L)
+                self.R.append(R)
         elif self.model != "label":
             raise ValueError(f"Unknown noise model: {self.model}")
 
@@ -59,9 +81,11 @@ class Oracle:
             sample["noise"] = self.scale * two_sided_pareto(
                 (self.seeds, rows, self.problem.k), self.alpha, self.generator, self.dtype)
         else:
-            sample["noise"] = [self.scale * tau * two_sided_pareto(
-                (self.seeds, *shape), self.alpha, self.generator, self.dtype)
-                for tau, shape in zip(self.tau, self.problem.shapes)]
+            sample["noise"] = []
+            for tau, shape, L, R in zip(self.tau, self.problem.shapes, self.L, self.R):
+                Z = two_sided_pareto((self.seeds, *shape), self.alpha, self.generator, self.dtype)
+                Xi = L @ Z @ R.T
+                sample["noise"].append(self.scale * tau * Xi)
         return sample
 
     def _batch(self, sample):
@@ -71,7 +95,11 @@ class Oracle:
 
     def loss(self, Ws, sample):
         X, Y = self._batch(sample)
-        value = objective(Ws, X, Y, self.problem.ridge)
+        if self.problem.loss_type == "l1":
+            from .objective_l1 import objective_l1
+            value = objective_l1(Ws, X, Y, self.problem.ridge)
+        else:
+            value = objective(Ws, X, Y, self.problem.ridge)
         if self.model == "label":
             outputs = X @ end_to_end(Ws).transpose(-1, -2)
             rows = outputs.shape[-2]

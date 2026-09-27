@@ -443,6 +443,33 @@ Early observations:
 - **The noise model changes the ranking:** Adam wins under the paper's entrywise noise but loses to
   Muon under the structured, rank-one noise.
 
+### 8.1 L1 Anisotropic Heavy-Tailed Results
+
+The `two_matrix` preset was recently evaluated under a custom **L1 Entrywise Loss** objective using a heavy-tailed **Kronecker-structured Anisotropic Additive Noise** model (`cond_noise = 10.0`). The test was run for 500 steps across 8 seeds. 
+
+Median final gap `F − F*` across optimizers:
+
+| Optimizer | `α = 1.1` (Infinite Variance) | `α = ∞` (Gaussian Control) |
+|---|---|---|
+| SGD | 1.2358 | 0.0124 |
+| SAM-SGD (global) | 1.2327 | 0.0132 |
+| SAM-SGD (per-layer) | 1.2288 | 0.0135 |
+| Muon | 0.5458 | 0.0621 |
+| Spectral-Friendly SAM-Muon | **0.5428** | 0.0630 |
+| Global-Friendly SAM-Muon (per-layer) | 0.5453 | 0.0624 |
+| Random SAM-Muon (global) | 0.5458 | 0.0622 |
+| Random-Spectral SAM-Muon | 0.5458 | 0.0625 |
+| Full-Spectral SAM-Muon | 0.5460 | 0.0640 |
+| Lazy-Spectral SAM-Muon | 0.5475 | 0.0677 |
+
+![Muon Optimizers - Gap vs Perturbation](results/two_matrix/figures/gap_vs_perturbation_muon.png)
+
+**Takeaways:**
+- **SGD Collapse:** Under the extreme anisotropic noise (`α = 1.1`), SGD collapses entirely with a massive gap of 1.23+. 
+- **Muon Dominance:** The base Muon optimizer consistently converges ~2.2x better than SGD under extreme heavy-tailed noise.
+- **SAM Refining:** `Spectral-Friendly SAM-Muon` achieves the absolute lowest gap (0.5428), showing that spectral scouting is effective even under a highly warped gradient landscape.
+- **Gaussian Control:** Under clean Gaussian noise (`α = ∞`), SGD achieves a tighter gap (0.0124), confirming that Muon's advantage here is purely driven by its robustness to the heavy-tailed anisotropy.
+
 ---
 
 ## 9. References

@@ -32,6 +32,7 @@ class Problem:
     radius: float
     init: list = field(default_factory=list)
     rank_budget: int = 0
+    loss_type: str = "mse"
 
 
 def layer_shapes(depth, d, k, hidden):
@@ -71,6 +72,9 @@ def objective(Ws, X, Y, ridge=0.0):
 
 
 def full_objective(Ws, problem):
+    if problem.loss_type == "l1":
+        from .objective_l1 import objective_l1
+        return objective_l1(Ws, problem.X, problem.Y, problem.ridge)
     return objective(Ws, problem.X, problem.Y, problem.ridge)
 
 
@@ -189,14 +193,18 @@ def make_problem(cfg, dtype=torch.float64):
 
     problem = Problem(depth=depth, d=d, k=k, hidden=hidden, n=n, shapes=shapes, X=X, Y=Y,
                       sigma=sigma, P_star=P_star, P_opt=P_opt, F_star=0.0, ridge=ridge,
-                      constraint=constraint, radius=radius, init=init, rank_budget=rank_budget)
+                      constraint=constraint, radius=radius, init=init, rank_budget=rank_budget,
+                      loss_type=cfg.get("loss_type", "mse"))
     problem.F_star = _objective_of_product(P_opt, problem)
     return problem
 
 
 def _objective_of_product(P, problem):
     residual = problem.X @ P.T - problem.Y
-    value = residual.square().sum() / (2.0 * problem.n * problem.k)
+    if problem.loss_type == "l1":
+        value = residual.abs().sum() / (problem.n * problem.k)
+    else:
+        value = residual.square().sum() / (2.0 * problem.n * problem.k)
     if problem.ridge:
         value = value + 0.5 * problem.ridge * P.square().sum()
     return value.item()
