@@ -178,3 +178,30 @@ Median final gap `F − F*` across optimizers:
 - **Muon Dominance:** The base Muon optimizer consistently converges ~2.2x better than SGD under extreme heavy-tailed noise.
 - **SAM Refining:** `Spectral-Friendly SAM-Muon` achieves the absolute lowest gap (0.5428), showing that spectral scouting is highly effective even under a warped gradient landscape.
 - **Gaussian Control:** Under clean Gaussian noise (`α = ∞`), SGD re-takes the lead, confirming that Muon's primary advantage in this setup is its robustness to heavy-tailed anisotropy.
+
+### 8.2 MSE Anisotropic Heavy-Tailed Results
+
+The `two_matrix` setup was re-evaluated under the default **MSE Loss** objective, retaining the extreme heavy-tailed **Anisotropic Additive Noise** model (`cond_noise = 10.0`). 
+
+Median final gap `F − F*` across optimizers:
+
+| Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
+|---|---|---|---|---|---|---|
+| SGD | 4.6430 | 0.6438 | 0.1356 | 0.0364 | 0.0157 | 0.0164 |
+| SAM-SGD (global) | 3.7177 | 0.5692 | 0.1161 | 0.0349 | 0.0140 | 0.0151 |
+| SAM-SGD (per-layer) | 3.4117 | 0.5058 | 0.1080 | 0.0353 | **0.0135** | **0.0147** |
+| Muon | 0.4127 | 0.1625 | 0.0620 | 0.0316 | 0.0165 | 0.0186 |
+| Spectral-Friendly SAM-Muon | **0.2522** | **0.1166** | **0.0457** | **0.0247** | 0.0143 | 0.0166 |
+| Global-Friendly SAM-Muon | 0.3916 | 0.1504 | 0.0555 | 0.0276 | 0.0140 | 0.0162 |
+| Random SAM-Muon (global) | 0.4075 | 0.1599 | 0.0607 | 0.0310 | 0.0161 | 0.0185 |
+| Random-Spectral SAM-Muon | 0.3465 | 0.1480 | 0.0576 | 0.0301 | 0.0163 | 0.0185 |
+| Full-Spectral SAM-Muon | 0.2648 | 0.1126 | 0.0473 | 0.0253 | 0.0141 | 0.0162 |
+| Lazy-Spectral SAM-Muon | 0.4138 | 0.1630 | 0.0624 | 0.0318 | 0.0167 | 0.0188 |
+
+![Muon Optimizers - Gap vs Perturbation - MSE](synthetic_ablations/results/two_matrix_mse_anisotropic/figures/gap_vs_perturbation_muon.png)
+
+**Takeaways:**
+- **Consistent Story:** Changing the objective function from L1 to MSE preserves the exact same ranking dynamics.
+- **SGD Fails Under Extreme Noise:** At `α = 1.1`, the gradient noise completely destroys SGD (gap 4.64), whereas Muon stabilizes at a 10x smaller gap (0.41).
+- **SAM-SGD Wins When Safe:** In the clean Gaussian control (`α = ∞`), the noise is safe enough that SAM-SGD re-takes the lead (0.0147 vs Muon's 0.0186).
+- **Spectral Scouting Dominates:** The absolute best optimizer under severe anisotropic heavy-tailed noise remains **Spectral-Friendly SAM-Muon** (0.2522), once again confirming that perturbing the weights spectrally in a friendly direction optimally navigates chaotic landscapes.

@@ -19,7 +19,7 @@ problem:
   init_scale: 1.0         # W_l ~ N(0, init_scale^2 / fan_in), identical for all seeds (like the paper's fixed x0)
   constraint: spectral    # spectral | entrywise | none   (projection after every step)
   radius_factor: 3.0      # R = factor * max(||P_opt||_2^(1/L), ||W_0||_2): optimum strictly feasible
-  loss_type: l1
+  loss_type: mse
 
 noise:
   model: additive         # label (backpropagated per-sample Pareto noise) | additive (paper, entrywise)
