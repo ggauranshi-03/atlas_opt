@@ -1,11 +1,13 @@
-"""Weight-only PTQ benchmark (RTN / GPTQ / AWQ) for one trained checkpoint.
+"""Weight-only PTQ benchmark (INT4 AWQ by default; RTN / GPTQ available) for one trained checkpoint.
 
 Example:
-  python run_ptq.py -c configs/nanogpt_fineweb.yaml -o adam -ckpt checkpoints/nanogpt_fineweb_adam_epoch15.pt
+  python run_ptq.py -c configs/nanogpt_fineweb.yaml -o adam --seed 42 \
+      -ckpt checkpoints/nanogpt_fineweb_adam_seed42_epoch15.pt
 
-Results are upserted (by optimizer) into ptq_results/<config_id>.csv; a JSON with the full record
-is written to ptq_results/<config_id>/<optimizer>.json.
+Results are upserted (by optimizer and training seed) into ptq_results/<config_id>.csv; a JSON with
+the full record is written to ptq_results/<config_id>/<optimizer>_seed<seed>.json.
 """
+import fcntl
 import os
 import sys
 import csv
@@ -24,7 +26,7 @@ from utils.helpers import build_model, device
 from ptq.quant import apply_ptq, conv1d_to_linear, quantized_layers
 from ptq import data as pdata
 
-CSV_FIELDS = ["config_id", "optimizer", "checkpoint", "method", "wbits", "group_size", "calib_seed",
+CSV_FIELDS = ["config_id", "optimizer", "seed", "checkpoint", "method", "wbits", "group_size", "calib_seed",
               "calib_nsamples", "wikitext2_ppl", "fineweb_ppl", "fineweb_acc", "test_acc", "test_loss",
               "quant_time_s", "status"]
 
@@ -72,18 +74,22 @@ def evaluate(model, task_type, eval_data):
     return {"wikitext2_ppl": wt_ppl, "fineweb_ppl": fw_ppl, "fineweb_acc": fw_acc}
 
 
-def upsert_rows(csv_path, optimizer, rows):
-    existing = []
-    if os.path.exists(csv_path):
-        with open(csv_path, newline="") as f:
-            existing = [r for r in csv.DictReader(f) if r["optimizer"] != optimizer]
-    tmp = csv_path + f".tmp{os.getpid()}"
-    with open(tmp, "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=CSV_FIELDS)
-        w.writeheader()
-        for r in existing + rows:
-            w.writerow({k: r.get(k, "") for k in CSV_FIELDS})
-    os.replace(tmp, csv_path)
+def upsert_rows(csv_path, optimizer, seed, rows):
+    # Several PTQ jobs for the same config may finish at once (one per GPU): serialize read-modify-write.
+    with open(csv_path + ".lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        existing = []
+        if os.path.exists(csv_path):
+            with open(csv_path, newline="") as f:
+                existing = [r for r in csv.DictReader(f)
+                            if not (r["optimizer"] == optimizer and r.get("seed", "") == str(seed))]
+        tmp = csv_path + f".tmp{os.getpid()}"
+        with open(tmp, "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=CSV_FIELDS)
+            w.writeheader()
+            for r in existing + rows:
+                w.writerow({k: r.get(k, "") for k in CSV_FIELDS})
+        os.replace(tmp, csv_path)
 
 
 def fmt(v):
@@ -95,9 +101,10 @@ def main():
     ap.add_argument("--config", "-c", required=True)
     ap.add_argument("--optimizer", "-o", required=True, help="Label of the optimizer that produced the checkpoint")
     ap.add_argument("--checkpoint", "-ckpt", required=True)
-    ap.add_argument("--methods", default="rtn,gptq,awq")
-    ap.add_argument("--settings", default="4:128,3:128,4:-1", help="Comma list of wbits:group_size (-1 = per-channel)")
-    ap.add_argument("--seeds", default="0,1,2", help="Calibration seeds for GPTQ/AWQ (RTN is data-free)")
+    ap.add_argument("--seed", type=int, default=42, help="Training seed of the checkpoint (bookkeeping only)")
+    ap.add_argument("--methods", default="awq", help="Comma list from rtn,gptq,awq")
+    ap.add_argument("--settings", default="4:128", help="Comma list of wbits:group_size (-1 = per-channel)")
+    ap.add_argument("--calib-seeds", default="0,1,2", help="Calibration seeds for GPTQ/AWQ (RTN is data-free)")
     ap.add_argument("--nsamples", type=int, default=None, help="Calibration size (default: 128 seqs LM, 1024 images CNN)")
     ap.add_argument("--seqlen", type=int, default=512, help="LM calibration/eval length (= training context)")
     ap.add_argument("--out-dir", default="ptq_results")
@@ -112,14 +119,14 @@ def main():
     config_id = exp.get("experiment_id", os.path.splitext(os.path.basename(args.config))[0])
     methods = [m.strip() for m in args.methods.split(",") if m.strip()]
     settings = parse_settings(args.settings)
-    seeds = [int(s) for s in args.seeds.split(",")]
+    seeds = [int(s) for s in args.calib_seeds.split(",")]
 
     os.makedirs(os.path.join(args.out_dir, config_id), exist_ok=True)
     csv_path = os.path.join(args.out_dir, f"{config_id}.csv")
-    json_path = os.path.join(args.out_dir, config_id, f"{args.optimizer}.json")
+    json_path = os.path.join(args.out_dir, config_id, f"{args.optimizer}_seed{args.seed}.json")
 
     print("=" * 90)
-    print(f"  PTQ BENCHMARK | config={config_id} | optimizer={args.optimizer}")
+    print(f"  PTQ BENCHMARK | config={config_id} | optimizer={args.optimizer} | training seed={args.seed}")
     print(f"  checkpoint={args.checkpoint}")
     print(f"  methods={methods} | settings(wbits:group)={settings} | calib seeds={seeds}")
     print("=" * 90, flush=True)
@@ -133,7 +140,7 @@ def main():
 
     is_lm = task_type != "image_classification"
     nsamples = args.nsamples or (128 if is_lm else 1024)
-    base_row = {"config_id": config_id, "optimizer": args.optimizer,
+    base_row = {"config_id": config_id, "optimizer": args.optimizer, "seed": args.seed,
                 "checkpoint": os.path.basename(args.checkpoint), "calib_nsamples": nsamples}
     rows = []
 
@@ -144,14 +151,16 @@ def main():
         print(f"  eval tokens: wikitext2={eval_data['wikitext2'].numel():,} fineweb={eval_data['fineweb'].numel():,}")
     else:
         eval_data = pdata.cifar_eval_loader(batch_size=500)
-        get_calib = lambda seed: pdata.cifar_calibration(eval_data, nsamples, seed)
+        get_calib = lambda seed: pdata.cifar_calibration(nsamples, seed)
         calib_bs = 128
 
     finite = all(torch.isfinite(p).all() for p in model.parameters())
     if not finite:
         print("  [SKIP] checkpoint contains non-finite weights (diverged training)")
         rows.append({**base_row, "method": "fp", "status": "nonfinite_checkpoint"})
-        upsert_rows(csv_path, args.optimizer, rows)
+        upsert_rows(csv_path, args.optimizer, args.seed, rows)
+        with open(json_path, "w") as f:
+            json.dump({"config": config, "args": vars(args), "rows": rows}, f, indent=2, default=str)
         return
 
     n_q = sum(l.weight.numel() for l in quantized_layers(model).values())
@@ -162,7 +171,7 @@ def main():
     rows.append({**base_row, "method": "fp", "wbits": 16, "group_size": "", "calib_seed": "", "calib_nsamples": "",
                  "quant_time_s": 0.0, "status": "ok", **fp})
     print(f"  [FP     ] " + " | ".join(f"{k}={fmt(v)}" for k, v in fp.items()), flush=True)
-    upsert_rows(csv_path, args.optimizer, rows)
+    upsert_rows(csv_path, args.optimizer, args.seed, rows)
 
     base = copy.deepcopy(model).cpu()
     del model
@@ -190,7 +199,7 @@ def main():
                              "calib_seed": "" if seed is None else seed,
                              "calib_nsamples": "" if method == "rtn" else nsamples,
                              "quant_time_s": round(qt, 2), "status": status, **res})
-                upsert_rows(csv_path, args.optimizer, rows)
+                upsert_rows(csv_path, args.optimizer, args.seed, rows)
                 del m, calib
                 torch.cuda.empty_cache()
 

@@ -56,6 +56,27 @@ def build_model(config_dict, device):
     model = model.to(device)
     return model, task_type, tokenizer
 
+def split_muon_params(model):
+    """Hidden matrices -> Muon; embeddings, LM head (tied to wte in GPT-2) and 1D params -> AdamW.
+    Same routing as AtlasOptimizer, so every Muon-based optimizer treats each parameter identically."""
+    muon_params, adam_params = [], []
+    for n, p in model.named_parameters():
+        if not p.requires_grad: continue
+        if p.ndim >= 2 and "embed" not in n and "wte" not in n and "wpe" not in n:
+            muon_params.append(p)
+        else:
+            adam_params.append(p)
+    return muon_params, adam_params
+
+
+def _muon_with_aux_adam(model, lr, wd, params):
+    from optimizers.muon import SingleDeviceMuonWithAuxAdam
+    muon_params, adam_params = split_muon_params(model)
+    adam_groups = [dict(params=adam_params, lr=params.get("adam_lr", 0.002), betas=(0.9, 0.95), eps=1e-10, weight_decay=wd, use_muon=False)]
+    muon_group = dict(params=muon_params, lr=lr, momentum=params.get("momentum", 0.95), weight_decay=wd, use_muon=True)
+    return SingleDeviceMuonWithAuxAdam([*adam_groups, muon_group])
+
+
 def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
     lr = params.get("lr", 0.02)
     wd = params.get("weight_decay", 1e-4)
@@ -72,16 +93,8 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
             if current_step < stable_steps: return 1.0
             return max(0.0, 1.0 - float(current_step - stable_steps) / float(max(1, decay_steps)))
         return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
-        
-    def get_cosine_schedule(optimizer):
-        def lr_lambda(current_step):
-            if current_step < warmup_steps:
-                return float(current_step) / float(max(1, warmup_steps))
-            progress = float(current_step - warmup_steps) / float(max(1, total_steps - warmup_steps))
-            return 0.5 * (1.0 + math.cos(math.pi * progress))
-        return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
 
-    
+
     if name == "atlas":
         opt = AtlasOptimizer(model, lr=lr, weight_decay=wd, 
                              rho=params.get("rho", 0.015), 
@@ -104,36 +117,10 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
                                    adam_lr=params.get("adam_lr", 0.002))
         return opt, get_wsd_schedule(opt)
     elif name in ["muon", "muon_nesterov", "muon_polyak"]:
-        try:
-            from optimizers.muon import SingleDeviceMuonWithAuxAdam
-            muon_params, adam_params = [], []
-            for n, p in model.named_parameters():
-                if not p.requires_grad: continue
-                if p.ndim >= 2 and "embed" not in n and "wte" not in n and "wpe" not in n:
-                    muon_params.append(p)
-                else:
-                    adam_params.append(p)
-            adam_groups = [dict(params=adam_params, lr=params.get("adam_lr", 0.002), betas=(0.9, 0.95), eps=1e-10, weight_decay=wd, use_muon=False)]
-            muon_group = dict(params=muon_params, lr=lr, momentum=params.get("momentum", 0.95), weight_decay=wd, use_muon=True)
-            opt = SingleDeviceMuonWithAuxAdam([*adam_groups, muon_group])
-        except Exception:
-            opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd)
+        opt = _muon_with_aux_adam(model, lr, wd, params)
         return opt, get_wsd_schedule(opt)
     elif name in ["muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon", "fsam_ortho_muon"]:
-        try:
-            from optimizers.muon import SingleDeviceMuonWithAuxAdam
-            muon_params, adam_params = [], []
-            for p in trainable_params:
-                if p.ndim >= 2:
-                    muon_params.append(p)
-                else:
-                    adam_params.append(p)
-            adam_groups = [dict(params=adam_params, lr=params.get("adam_lr", 0.002), betas=(0.9, 0.95), eps=1e-10, weight_decay=wd, use_muon=False)]
-            muon_group = dict(params=muon_params, lr=lr, momentum=params.get("momentum", 0.95), weight_decay=wd, use_muon=True)
-            base_opt = SingleDeviceMuonWithAuxAdam([*adam_groups, muon_group])
-        except Exception:
-            base_opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd)
-            
+        base_opt = _muon_with_aux_adam(model, lr, wd, params)
         if name == "muon_sam":
             opt = MuonSAM(base_opt, rho=params.get("rho", 0.0015),
                           rho_vector=params.get("rho_vector", 0.01),
@@ -164,17 +151,22 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
             rho_vector=params.get("rho_vector", params.get("rho", 0.05)),
             lam=params.get("fsam_lambda", 0.9),
             sigma=params.get("fsam_sigma", 1.0),
-            ns_steps=params.get("ns_steps", 5)
+            ns_steps=params.get("ns_steps", 5),
+            momentum=params.get("momentum", 0.9),
+            nesterov=params.get("nesterov", True),
+            weight_decay=wd,
         )
         return opt, get_wsd_schedule(opt)
     elif name == "fsam":
-        from optimizers.fsam import FSAM
         opt = FSAM(
             trainable_params,
             lr=lr,
             rho=params.get("rho", 0.05),
             lam=params.get("fsam_lambda", 0.9),
-            sigma=params.get("fsam_sigma", 1.0)
+            sigma=params.get("fsam_sigma", 1.0),
+            momentum=params.get("momentum", 0.9),
+            nesterov=params.get("nesterov", True),
+            weight_decay=wd,
         )
         return opt, get_wsd_schedule(opt)
     elif name == "adam":
@@ -182,14 +174,13 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
         return opt, get_wsd_schedule(opt)
     elif name == "sgd":
         opt = torch.optim.SGD(trainable_params, lr=lr, momentum=params.get("momentum", 0.9), weight_decay=wd, nesterov=params.get("nesterov", True))
-        sched_type = params.get("scheduler", "wsd")
-        if sched_type == "cosine":
-            return opt, get_cosine_schedule(opt)
         return opt, get_wsd_schedule(opt)
 
     raise ValueError(f"Unknown optimizer: {name}")
 
-def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, steps_per_epoch=100):
+def train_epoch(model, optimizer, criterion, batch_iter, task_type, grad_acc=1, steps_per_epoch=100, scheduler=None):
+    """Run `steps_per_epoch` optimizer updates, pulling micro-batches from a persistent iterator so the
+    data stream continues across epochs. The LR scheduler is defined in optimizer steps and advanced here."""
     model.train()
     total_loss, correct, total = 0.0, 0, 0
     micro_batches = []
@@ -198,10 +189,8 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
     is_closure_opt = isinstance(optimizer, (AtlasOptimizer, AtlasOptimizerRaw, AtlasOptimizerRandom, MuonSAM, MuonSAMFrob, MuonSAMStale, FSAMMuon, FSAMOrthoMuon, FSAMOrtho, FSAM))
     steps = 0
     
-    for batch_idx, batch in enumerate(dataloader):
-        if steps >= steps_per_epoch: break
-        
-        micro_batches.append(batch)
+    while steps < steps_per_epoch:
+        micro_batches.append(next(batch_iter))
         if len(micro_batches) == grad_acc:
             curr_acc = len(micro_batches)
             
@@ -237,7 +226,9 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
                                 temp_total += mask.sum().item()
                         loss.backward()
                         c_loss = c_loss + loss.detach()
-                        
+                    # Same clipping as the non-closure path, applied to every gradient the optimizer consumes.
+                    nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+
                     if closure_calls == 0:
                         cls_correct = temp_correct
                         cls_total = temp_total
@@ -276,13 +267,13 @@ def train_epoch(model, optimizer, criterion, dataloader, task_type, grad_acc=1, 
                 nn.utils.clip_grad_norm_(model.parameters(), 1.0)
                 optimizer.step()
 
-            with torch.no_grad():
-                for mb in micro_batches:
-                    if task_type == "image_classification":
-                        total += mb["label"].size(0)
+            if not is_closure_opt and task_type == "image_classification":
+                total += sum(mb["label"].size(0) for mb in micro_batches)
             total_loss += loss_val
             micro_batches.clear()
             steps += 1
+            if scheduler is not None:
+                scheduler.step()
 
     epoch_time = time.time() - t0
     num_updates = max(1, steps)

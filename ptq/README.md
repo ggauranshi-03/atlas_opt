@@ -55,27 +55,30 @@ its INT4 accuracy on one checkpoint against `ptq_results/*.csv`.
 
 ## Data
 
-- **Calibration** (GPTQ/AWQ input statistics): held-out data never seen during training —
-  FineWeb-Edu shard `sample/10BT/012_00000.parquet` for LLMs (128 sequences of length 512, 3
-  random seeds), 1024 random CIFAR-10 training images (with test-time transform) for the CNN.
-- **Evaluation**: FineWeb-Edu shard `013_00000.parquet` (in-distribution, held out from both
-  training and calibration) + WikiText-2 test split (standard out-of-distribution PPL benchmark,
-  `"\n\n"`-joined non-overlapping windows) for LLMs; the full CIFAR-10 test set (10,000 images) for
-  the CNN.
+FineWeb-Edu `sample-10BT` has 14 parquet shards. `data/loaders.py:fineweb_splits` assigns them disjoint
+roles: shards `000`–`010` train the models, `011` is training-time validation (used for hyperparameter
+selection), `012` is PTQ calibration and `013` is PTQ/final evaluation. No evaluation token is ever
+trained on, calibrated on, or used for model selection.
 
-## Settings actually run
+- **Calibration** (AWQ input statistics): 128 random windows of 512 tokens from shard `012`, drawn with
+  calibration seeds 0, 1, 2; 1024 random CIFAR-10 training images (test-time transform) for the CNN.
+- **Evaluation**: 2^20 tokens of shard `013` (in-distribution) + WikiText-2 test (standard
+  out-of-distribution PPL benchmark, `"\n\n"`-joined non-overlapping windows) for LLMs; the official
+  CIFAR-10 test set (10,000 images) for the CNN. CIFAR hyperparameters are selected on a separate
+  5k split of the training set, never on the test set.
 
-- **Method**: `awq` only (RTN/GPTQ code paths exist in `ptq/quant.py` for reference but are not
-  invoked by the campaign).
-- **Bit-width**: **INT4** only (`wbits=4`), group size 128.
-- Each LLM optimizer's checkpoint is evaluated once (AWQ is deterministic given fixed calibration
-  data drawn with `torch.manual_seed(0)`).
+## Settings run
+
+- **Method**: `awq` (RTN/GPTQ code paths exist in `ptq/quant.py` and via `run_ptq.py --methods`).
+- **Bit-width**: **INT4** (`wbits=4`), group size 128.
+- **Calibration seeds**: 0, 1, 2 per checkpoint; tables average over calibration seeds within each
+  training seed, then report mean ± std over training seeds (`tools/summarize.py`).
 
 ## Outputs
 
-- `ptq_results/<config_id>.csv` — one row per optimizer: FP baseline + INT4-AWQ accuracy/PPL,
-  quantization wall-clock time, status.
-- `ptq_results/<config_id>/<optimizer>.json` — full record (config, args, git commit, torch
+- `ptq_results/<config_id>.csv` — one row per (optimizer, training seed, method, calibration seed):
+  FP baseline + INT4-AWQ accuracy/PPL, quantization wall-clock time, status.
+- `ptq_results/<config_id>/<optimizer>_seed<seed>.json` — full record (config, args, git commit, torch
   version, quantized/total param counts, all rows) for reproducibility.
 
 ## Files
@@ -85,4 +88,5 @@ its INT4 accuracy on one checkpoint against `ptq_results/*.csv`.
 | `ptq/quant.py` | RTN / GPTQ / AWQ quantization algorithms, architecture specs |
 | `ptq/data.py` | Calibration + evaluation data loading (cached under `ptq_cache/`) |
 | `run_ptq.py` | CLI: quantize one checkpoint, evaluate FP vs INT4, write CSV/JSON |
-| `run_ptq_campaign.sh` | Train (if needed) + PTQ every optimizer in a config, resumable |
+| `tools/experiments.py` | LR/rho sweeps, selection, final multi-seed queue, GPU workers |
+| `tools/summarize.py` | Paper tables, mean ± std over training seeds |

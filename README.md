@@ -98,10 +98,10 @@ bash run_experiments.sh
 
 | Path | Contents |
 | :--- | :--- |
-| `logs/<config_id>_logs.csv` | Per-epoch metrics for a run (loss, acc, val loss/acc/perplexity, time) |
-| `logs/<config_id>_plot.png` | Loss + metric comparison plot (epoch x-axis) |
+| `logs/<config_id>_logs.csv` | Per-epoch metrics per (optimizer, seed): loss, acc, held-out val loss/acc/perplexity, time |
+| `logs/<config_id>_seed<seed>_plot.png` | Loss + metric comparison plot for one seed (epoch x-axis) |
 | `logs/all_experiments_summary.csv` | One row per (config, optimizer) final result |
-| `checkpoints/<optimizer>_epoch<N>.pt` | Model checkpoint after each epoch |
+| `checkpoints/<config_id>_<optimizer>_seed<seed>_epoch<N>.pt` | Model checkpoint after each epoch |
 | `wandb/` | Weights & Biases run logs (offline unless `wandb login`) |
 | `<runN>_*.log` (repo root) | Raw stdout/wandb console logs from manual/nohup runs |
 
