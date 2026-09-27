@@ -1,0 +1,77 @@
+# Paper-faithful oracle (Fatkhullin, Huebler & Lan 2025, Sec. 6) in matrix form: full-batch clean
+# gradient plus i.i.d. entrywise two-sided Pareto noise, scaled to the initial gradient RMS.
+name: single_matrix_additive
+
+problem:
+  depth: 1
+  d: 64                   # input dimension
+  k: 32                   # output dimension
+  hidden: 32              # width of every hidden layer (rank bottleneck of P = W_L...W_1)
+  n_train: 512
+  teacher_rank: 8         # rank of the ground-truth matrix P*
+  cond_x: 100.0           # condition number of the input covariance Sigma
+  cond_teacher: 10.0      # ratio of largest to smallest non-zero singular value of P*
+  teacher_alignment: random   # random | high_variance | low_variance (signal in small-eigenvalue directions)
+  label_noise_std: 0.0    # Gaussian observation noise baked into the data (0 = realizable, F* = 0)
+  ridge: 0.0              # ridge/2 ||W||_F^2 (depth 1 only; F* stays exact)
+  data_seed: 1729
+  init_seed: 31415
+  init_scale: 1.0         # W_l ~ N(0, init_scale^2 / fan_in), identical for all seeds (like the paper's fixed x0)
+  constraint: spectral    # spectral | entrywise | none   (projection after every step)
+  radius_factor: 3.0      # R = factor * max(||P_opt||_2^(1/L), ||W_0||_2): optimum strictly feasible
+
+noise:
+  model: additive         # label (backpropagated per-sample Pareto noise) | additive (paper, entrywise)
+  scale: 0.1              # median |noise| (label units for 'label', x init-gradient RMS for 'additive')
+  batch_size: null        # null = full batch
+  alphas: [1.1, 1.3, 1.6, 2.0, 3.0, inf]   # inf = Gaussian noise with the same median
+  allow_undefined_mean: false
+
+run:
+  steps: 1000
+  seeds: 32               # independent noise streams, simulated in parallel as a batch
+  seed_offset: 0
+  log_every: 10
+  sharpness_every: 250    # Hessian lambda_max by power iteration (0 = never)
+  sharpness_iters: 30
+  schedule: cosine        # constant | cosine | power   (power: (1+t)^-schedule_power, may be "1/alpha")
+  min_lr_fraction: 0.01
+  schedule_power: 0.5
+  divergence_factor: 1000.0
+  dtype: float64
+
+sam:
+  rhos: [0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0]
+  rho_units: nominal      # nominal (as implemented) | matched_frobenius (every method's ||eps||_F = rho)
+  frobenius_modes: [global, per-layer]
+  ortho: ns5              # ns5 (as in atlas_opt) | svd (exact polar factor) for spectral perturbations
+  ns_steps: 5
+  friendly_lambda: 0.9
+  friendly_sigma: 1.0
+
+optim:
+  muon_momentum: 0.95
+  sgd_momentum: 0.0
+  adam_betas: [0.9, 0.999]
+  adam_eps: 1.0e-8
+  clip_factor: 1.0        # Clip-SGD threshold = factor * ||grad F(W_0)||_F
+  weight_decay: 0.0
+  lr:                     # fallback when no tuned_lrs.json exists
+    sgd: 1.0
+    clip_sgd: 1.0
+    adam: 0.003
+    muon: 0.02
+    nsgdm: 0.02
+
+tuning:
+  seeds: 16
+  seed_offset: 100000     # disjoint from evaluation seeds
+  max_divergence_rate: 0.25
+  lr_grid:
+    sgd: [0.1, 0.3, 1.0, 3.0, 10.0, 30.0]
+    clip_sgd: [0.1, 0.3, 1.0, 3.0, 10.0, 30.0]
+    adam: [0.0001, 0.0003, 0.001, 0.003, 0.01, 0.03]
+    muon: [0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1]
+    nsgdm: [0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1]
+
+algorithms: all
