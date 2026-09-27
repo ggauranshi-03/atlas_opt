@@ -130,7 +130,32 @@ def reference_optimum(X, Y, depth, hidden, ridge):
     k = Y.shape[1]
     if ridge:
         if depth != 1:
-            raise ValueError("ridge > 0 is only supported for depth 1 (exact optimum known)")
+            shapes = [(hidden, d)] + [(hidden, hidden)] * (depth - 2) + [(k, hidden)] if depth > 1 else [(k, d)]
+            Ws = [torch.nn.Parameter(torch.randn(r, c, dtype=X.dtype) * 0.1) for r, c in shapes]
+            
+            optimizer = torch.optim.Adam(Ws, lr=0.01)
+            scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, 5000)
+            
+            for _ in range(5000):
+                optimizer.zero_grad()
+                P = Ws[0]
+                for w in Ws[1:]:
+                    P = w @ P
+                
+                residual = X @ P.T - Y
+                loss = residual.square().sum() / (2.0 * n * k)
+                loss = loss + 0.5 * ridge * sum(w.square().sum() for w in Ws)
+                    
+                loss.backward()
+                optimizer.step()
+                scheduler.step()
+                
+            P_opt = Ws[0].detach()
+            for w in Ws[1:]:
+                P_opt = w.detach() @ P_opt
+                
+            return P_opt, min(k, d, hidden)
+
         system = X.T @ X + n * k * ridge * torch.eye(d, dtype=X.dtype)
         return torch.linalg.solve(system, X.T @ Y).T, min(k, d)
     rank_budget = min(k, d) if depth == 1 else min(k, d, hidden)

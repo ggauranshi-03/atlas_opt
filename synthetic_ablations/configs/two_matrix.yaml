@@ -13,7 +13,8 @@ problem:
   cond_teacher: 10.0      # ratio of largest to smallest non-zero singular value of P*
   teacher_alignment: random   # random | high_variance | low_variance (signal in small-eigenvalue directions)
   label_noise_std: 0.0    # Gaussian observation noise baked into the data (0 = realizable, F* = 0)
-  ridge: 0.0              # ridge/2 ||W||_F^2 (depth 1 only; F* stays exact)
+  #  ridge: 0.0              # ridge/2 ||W||_F^2 (depth 1 only; F* stays exact)
+  ridge: 0.01             # ridge/2 ||W||_F^2
   data_seed: 1729
   init_seed: 31415
   init_scale: 1.0         # W_l ~ N(0, init_scale^2 / fan_in), identical for all seeds (like the paper's fixed x0)
@@ -23,7 +24,8 @@ problem:
 
 noise:
   model: additive         # label (backpropagated per-sample Pareto noise) | additive (paper, entrywise)
-  cond_noise: 10.0        # > 1.0 creates Kronecker-structured anisotropic noise matrices
+  #  cond_noise: 10.0        # > 1.0 creates Kronecker-structured anisotropic noise matrices
+  cond_noise: 1.0         # 1.0 creates Isotropic noise (independent Pareto values)
   scale: 1.0              # median |noise| (label units for 'label', x init-gradient RMS for 'additive')
   batch_size: 64          # null = full batch
   alphas: [1.1, 1.3, 1.6, 2.0, 3.0, inf]   # inf = Gaussian noise with the same median
