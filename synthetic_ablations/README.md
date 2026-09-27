@@ -55,8 +55,12 @@ The testbed creates a realistic, highly unbalanced "Teacher-Student" environment
 
 The student network is a deep linear network (e.g., 2 matrices multiplied together). We offer two primary objective functions, which can be toggled in your YAML config under `problem`:
 
-*   **MSE (Default):** Standard least squares regression, implemented in the main `objective.py` file. (`loss_type: mse` or leave blank).
-*   **L1 Entrywise:** Implemented in the new `objective_l1.py` file. It uses an L1 penalty on the residual: $F(W) = \frac{1}{nk} \| X P(W)^T - Y \|_{1, entry} + \frac{\mu}{2} \sum \|W_l\|_F^2$. This is integrated into the main `objective.py` factory and enabled via **`loss_type: l1`**.
+*   **MSE (Default):** Implemented in the main `objective.py` file. It uses the standard least squares regression (Frobenius norm squared): 
+    $F(W) = \frac{1}{2nk} \| X P(W)^T - Y \|_F^2 + \frac{\mu}{2} \sum \|W_l\|_F^2$. 
+    *(Use `loss_type: mse` or leave blank)*.
+*   **L1 Entrywise:** Implemented in the new `objective_l1.py` file. It uses an L1 penalty on the residual: 
+    $F(W) = \frac{1}{nk} \| X P(W)^T - Y \|_{1, entry} + \frac{\mu}{2} \sum \|W_l\|_F^2$. 
+    *(This is integrated into the main `objective.py` factory and enabled via `loss_type: l1`)*.
 
 In both cases, we constrain the weights using a **Spectral Radius Projection** after every step. Because of this, the perfect global minimum ($F^*$) is completely solvable mathematically, giving us a perfect ground-truth to score against.
 
@@ -167,7 +171,7 @@ Median final gap `F − F*` across optimizers:
 | Full-Spectral SAM-Muon | 0.5460 | 0.2884 | 0.0771 | 0.0774 | 0.0597 | 0.0640 |
 | Lazy-Spectral SAM-Muon | 0.5475 | 0.2903 | 0.0819 | 0.0811 | 0.0640 | 0.0677 |
 
-![Muon Optimizers - Gap vs Perturbation](./results/two_matrix/figures/gap_vs_perturbation_muon.png)
+![Muon Optimizers - Gap vs Perturbation](synthetic_ablations/results/two_matrix/figures/gap_vs_perturbation_muon.png)
 
 **Takeaways:**
 - **SGD Collapse:** Under the extreme anisotropic noise (`α = 1.1`), SGD collapses entirely with a massive gap of 1.23+. 
