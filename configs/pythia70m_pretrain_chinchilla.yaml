@@ -119,3 +119,30 @@ optimizers:
     rho: 0.1
     fsam_lambda: 0.9
     fsam_sigma: 1.0
+
+  sam:
+    optimizer: sam
+    lr: 0.015
+    rho: 0.1
+
+  fsam_ortho_muon_stale:
+    optimizer: fsam_ortho_muon_stale
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.1
+    rho_vector: 0.1
+    ns_steps: 5
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+
+  fsam_ortho_muon_stale_momentum:
+    optimizer: fsam_ortho_muon_stale_momentum
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.1
+    rho_vector: 0.1
+    ns_steps: 5
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0

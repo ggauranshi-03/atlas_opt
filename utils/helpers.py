@@ -15,8 +15,11 @@ from optimizers.muon_sam_frob import MuonSAMFrob
 from optimizers.muon_sam_stale import MuonSAMStale
 from optimizers.fsam_muon import FSAMMuon
 from optimizers.fsam_ortho_muon import FSAMOrthoMuon
+from optimizers.fsam_ortho_muon_stale import FSAMOrthoMuonStale
+from optimizers.fsam_ortho_muon_stale_momentum import FSAMOrthoMuonStaleMomentum
 from optimizers.fsam_ortho import FSAMOrtho
 from optimizers.fsam import FSAM
+from optimizers.sam import SAM
 from utils.models import AirbenchCNN
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -119,7 +122,8 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
     elif name in ["muon", "muon_nesterov", "muon_polyak"]:
         opt = _muon_with_aux_adam(model, lr, wd, params)
         return opt, get_wsd_schedule(opt)
-    elif name in ["muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon", "fsam_ortho_muon"]:
+    elif name in ["muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon", "fsam_ortho_muon",
+                  "fsam_ortho_muon_stale", "fsam_ortho_muon_stale_momentum"]:
         base_opt = _muon_with_aux_adam(model, lr, wd, params)
         if name == "muon_sam":
             opt = MuonSAM(base_opt, rho=params.get("rho", 0.0015),
@@ -141,7 +145,19 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
                                 ns_steps=params.get("ns_steps", 5),
                                 fsam_lambda=params.get("fsam_lambda", 0.9),
                                 fsam_sigma=params.get("fsam_sigma", 1.0))
-                                
+        elif name == "fsam_ortho_muon_stale":
+            opt = FSAMOrthoMuonStale(base_opt, rho=params.get("rho", 0.0015),
+                                     rho_vector=params.get("rho_vector", params.get("rho", 0.0015)),
+                                     ns_steps=params.get("ns_steps", 5),
+                                     fsam_lambda=params.get("fsam_lambda", 0.9),
+                                     fsam_sigma=params.get("fsam_sigma", 1.0))
+        elif name == "fsam_ortho_muon_stale_momentum":
+            opt = FSAMOrthoMuonStaleMomentum(base_opt, rho=params.get("rho", 0.0015),
+                                             rho_vector=params.get("rho_vector", params.get("rho", 0.0015)),
+                                             ns_steps=params.get("ns_steps", 5),
+                                             fsam_lambda=params.get("fsam_lambda", 0.9),
+                                             fsam_sigma=params.get("fsam_sigma", 1.0))
+
         return opt, get_wsd_schedule(opt)
     elif name == "fsam_ortho":
         opt = FSAMOrtho(
@@ -169,6 +185,16 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
             weight_decay=wd,
         )
         return opt, get_wsd_schedule(opt)
+    elif name == "sam":
+        opt = SAM(
+            trainable_params,
+            lr=lr,
+            rho=params.get("rho", 0.05),
+            momentum=params.get("momentum", 0.9),
+            nesterov=params.get("nesterov", True),
+            weight_decay=wd,
+        )
+        return opt, get_wsd_schedule(opt)
     elif name == "adam":
         opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd, eps=1e-7)
         return opt, get_wsd_schedule(opt)
@@ -186,7 +212,9 @@ def train_epoch(model, optimizer, criterion, batch_iter, task_type, grad_acc=1, 
     micro_batches = []
     t0 = time.time()
     
-    is_closure_opt = isinstance(optimizer, (AtlasOptimizer, AtlasOptimizerRaw, AtlasOptimizerRandom, MuonSAM, MuonSAMFrob, MuonSAMStale, FSAMMuon, FSAMOrthoMuon, FSAMOrtho, FSAM))
+    is_closure_opt = isinstance(optimizer, (AtlasOptimizer, AtlasOptimizerRaw, AtlasOptimizerRandom, MuonSAM,
+                                            MuonSAMFrob, MuonSAMStale, FSAMMuon, FSAMOrthoMuon, FSAMOrthoMuonStale,
+                                            FSAMOrthoMuonStaleMomentum, FSAMOrtho, FSAM, SAM))
     steps = 0
     
     while steps < steps_per_epoch:
