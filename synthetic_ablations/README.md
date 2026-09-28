@@ -171,7 +171,7 @@ Median final gap `F − F*` across optimizers:
 | Full-Spectral SAM-Muon | 0.5460 | 0.2884 | 0.0771 | 0.0774 | 0.0597 | 0.0640 |
 | Lazy-Spectral SAM-Muon | 0.5475 | 0.2903 | 0.0819 | 0.0811 | 0.0640 | 0.0677 |
 
-![Muon Optimizers - Gap vs Perturbation](synthetic_ablations/results/two_matrix/figures/gap_vs_perturbation_muon.png)
+![Muon Optimizers - Gap vs Perturbation](results/two_matrix_l1_anisotropic/figures/gap_vs_perturbation_muon.png)
 
 **Takeaways:**
 - **SGD Collapse:** Under the extreme anisotropic noise (`α = 1.1`), SGD collapses entirely with a massive gap of 1.23+. 
@@ -198,7 +198,7 @@ Median final gap `F − F*` across optimizers:
 | Full-Spectral SAM-Muon | 0.2648 | 0.1126 | 0.0473 | 0.0253 | 0.0141 | 0.0162 |
 | Lazy-Spectral SAM-Muon | 0.4138 | 0.1630 | 0.0624 | 0.0318 | 0.0167 | 0.0188 |
 
-![Muon Optimizers - Gap vs Perturbation - MSE](synthetic_ablations/results/two_matrix_mse_anisotropic/figures/gap_vs_perturbation_muon.png)
+![Muon Optimizers - Gap vs Perturbation - MSE](results/two_matrix_mse_anisotropic/figures/gap_vs_perturbation_muon.png)
 
 **Takeaways:**
 - **Consistent Story:** Changing the objective function from L1 to MSE preserves the exact same ranking dynamics.
@@ -228,7 +228,7 @@ Median final gap `F − F*` across optimizers:
 | Full-Spectral SAM-Muon | **0.6496** | **0.3117** | **0.1425** | **0.0751** | **0.0431** | **0.0479** |
 | Lazy-Spectral SAM-Muon | 0.9026 | 0.4668 | 0.2240 | 0.1128 | 0.0571 | 0.0627 |
 
-![Muon Optimizers - Gap vs Perturbation - Isotropic Ridge](synthetic_ablations/results/two_matrix_mse_isotropic_ridge/figures/gap_vs_perturbation_muon.png)
+![Muon Optimizers - Gap vs Perturbation - Isotropic Ridge](results/two_matrix_mse_isotropic_ridge/figures/gap_vs_perturbation_muon.png)
 
 **Takeaways:**
 - **Friendly vs Full Spectral:** Under the previous Anisotropic noise, "Friendly" SAM-Muon was the winner. However, because this environment uses *Isotropic* noise (meaning the noise has no directional structure), adapting to the noise geometry provides no benefit. Consequently, standard **Full-Spectral SAM-Muon** takes the crown across all $\alpha$ levels.
