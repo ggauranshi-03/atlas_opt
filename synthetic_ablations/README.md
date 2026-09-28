@@ -203,6 +203,8 @@ Median final gap `F − F*` across optimizers:
 | Stale Friendly SAM-Muon (per-layer) | 0.3946 | 0.1543 | 0.0581 | 0.0297 | 0.0162 | 0.0180 |
 | Stale Momentum-Friendly SAM-Muon (global) | 0.3993 | 0.1567 | 0.0592 | 0.0303 | 0.0163 | 0.0182 |
 | Stale Momentum-Friendly SAM-Muon (per-layer) | 0.3907 | 0.1529 | 0.0575 | 0.0296 | 0.0163 | 0.0182 |
+| Stale Friendly Spectral SAM-Muon | 0.2806 | 0.1310 | 0.0559 | 0.0301 | 0.0163 | 0.0185 |
+| Stale Momentum-Friendly Spectral SAM-Muon | 0.2631 | 0.1265 | 0.0551 | 0.0299 | 0.0163 | 0.0185 |
 
 ![Muon Optimizers - Gap vs Perturbation - MSE](results/two_matrix_mse_anisotropic/figures/gap_vs_perturbation_muon.png)
 
@@ -211,7 +213,8 @@ Median final gap `F − F*` across optimizers:
 - **SGD Fails Under Extreme Noise:** At `α = 1.1`, the gradient noise completely destroys SGD (gap 4.64), whereas Muon stabilizes at a 10x smaller gap (0.41).
 - **SAM-SGD Wins When Safe:** In the clean Gaussian control (`α = ∞`), the noise is safe enough that SAM-SGD re-takes the lead (0.0147 vs Muon's 0.0186).
 - **Spectral Scouting Dominates:** The absolute best optimizer under severe anisotropic heavy-tailed noise remains **Spectral-Friendly SAM-Muon** (0.2522), once again confirming that perturbing the weights spectrally in a friendly direction optimally navigates chaotic landscapes.
-- **Stale Friendly Variants Beat Plain Muon, Match Fresh Global-Friendly, Still Trail Fresh Spectral-Friendly:** At `α=1.1`, all four new single-pass rows (0.3907–0.4017) beat plain Muon (0.4127) at a fraction of the compute (1 oracle call/step vs 2), and the best of them (per-layer Stale Momentum-Friendly, 0.3907) is essentially tied with — marginally better than — the fresh two-pass `Global-Friendly SAM-Muon` (0.3916). None of the new rows come close to fresh `Spectral-Friendly SAM-Muon` (0.2522), though, so the spectral geometry, not the friendly-EMA correction itself, remains the larger source of that method's advantage.
+- **Stale Friendly Variants Beat Plain Muon, Match Fresh Global-Friendly, Still Trail Fresh Spectral-Friendly:** At `α=1.1`, all four new single-pass Frobenius rows (0.3907–0.4017) beat plain Muon (0.4127) at a fraction of the compute (1 oracle call/step vs 2), and the best of them (per-layer Stale Momentum-Friendly, 0.3907) is essentially tied with — marginally better than — the fresh two-pass `Global-Friendly SAM-Muon` (0.3916). None of the Frobenius stale rows come close to fresh `Spectral-Friendly SAM-Muon` (0.2522), though, so the spectral geometry, not the friendly-EMA correction itself, remains the larger source of that method's advantage.
+- **Stale Spectral Variants Close Most of the Gap to Fresh Spectral-Friendly:** Going stale *and* spectral together (`Stale [Momentum-]Friendly Spectral SAM-Muon`, 0.2631–0.2806 at `α=1.1`) closes most of the distance from plain Muon (0.4127) toward fresh `Spectral-Friendly SAM-Muon` (0.2522) — much closer than any Frobenius stale variant gets — but a real gap to the fresh two-pass version remains at every `α`, so computing the friendly correction fresh each step still has genuine value here, on top of the spectral geometry itself.
 
 ### 8.3 MSE Isotropic with Weight Decay
 
@@ -232,16 +235,19 @@ Median final gap `F − F*` across optimizers:
 | Global-Friendly SAM-Muon | 0.9875 | 0.4819 | 0.2178 | 0.1060 | 0.0517 | 0.0571 |
 | Random SAM-Muon (global) | 1.0095 | 0.4976 | 0.2281 | 0.1128 | 0.0551 | 0.0610 |
 | Random-Spectral SAM-Muon | 0.8048 | 0.3675 | 0.1746 | 0.0922 | 0.0473 | 0.0520 |
-| Full-Spectral SAM-Muon | **0.6496** | **0.3117** | **0.1425** | **0.0751** | **0.0431** | **0.0479** |
+| Full-Spectral SAM-Muon | 0.6496 | **0.3117** | **0.1425** | **0.0751** | **0.0431** | **0.0479** |
 | Lazy-Spectral SAM-Muon | 0.9026 | 0.4668 | 0.2240 | 0.1128 | 0.0571 | 0.0627 |
 | Stale Friendly SAM-Muon (global) | 1.0020 | 0.4939 | 0.2266 | 0.1118 | 0.0546 | 0.0603 |
 | Stale Friendly SAM-Muon (per-layer) | 0.9917 | 0.4856 | 0.2209 | 0.1078 | 0.0527 | 0.0582 |
 | Stale Momentum-Friendly SAM-Muon (global) | 0.9980 | 0.4917 | 0.2254 | 0.1112 | 0.0543 | 0.0600 |
 | Stale Momentum-Friendly SAM-Muon (per-layer) | 0.9845 | 0.4821 | 0.2191 | 0.1069 | 0.0524 | 0.0578 |
+| Stale Friendly Spectral SAM-Muon | 0.6743 | 0.3328 | 0.1808 | 0.0885 | 0.0508 | 0.0542 |
+| Stale Momentum-Friendly Spectral SAM-Muon | **0.6315** | 0.3224 | 0.1776 | 0.0878 | 0.0505 | 0.0541 |
 
 ![Muon Optimizers - Gap vs Perturbation - Isotropic Ridge](results/two_matrix_mse_isotropic_ridge/figures/gap_vs_perturbation_muon.png)
 
 **Takeaways:**
-- **Friendly vs Full Spectral:** Under the previous Anisotropic noise, "Friendly" SAM-Muon was the winner. However, because this environment uses *Isotropic* noise (meaning the noise has no directional structure), adapting to the noise geometry provides no benefit. Consequently, standard **Full-Spectral SAM-Muon** takes the crown across all $\alpha$ levels.
+- **Friendly vs Full Spectral:** Under the previous Anisotropic noise, "Friendly" SAM-Muon was the winner. However, because this environment uses *Isotropic* noise (meaning the noise has no directional structure), adapting to the noise geometry provides no benefit. Consequently, standard **Full-Spectral SAM-Muon** takes the crown at every `α` except `α=1.1`.
 - **Muon Dominates SGD Universally:** In this setup, even under clean Gaussian noise ($\alpha = \infty$), Muon-based optimizers strictly outperform SGD variants (0.0479 vs 0.0608).
-- **Stale Friendly Variants Cross Over Atlas, Both Still Trail Full-Spectral:** Comparing the best new row (per-layer Stale Momentum-Friendly) against `Lazy-Spectral SAM-Muon (Atlas)`, the friendly-EMA correction is a net loss under the heaviest tails (`α=1.1`: 0.9845 vs Atlas's 0.9026; `α=1.3`: 0.4821 vs 0.4668) but a net gain once the tail lightens (`α=1.6`: 0.2191 vs 0.2240; `α=2.0`: 0.1069 vs 0.1128; `α=3.0`: 0.0524 vs 0.0571; `α=∞`: 0.0578 vs 0.0627). Both still clearly trail `Full-Spectral SAM-Muon` (0.6496 at `α=1.1`) at every `α`, reinforcing that under isotropic noise it is the spectral **geometry** of the perturbation, not the friendly-EMA correction (fresh or stale), that drives the advantage.
+- **Stale Friendly Variants Cross Over Atlas, Both Still Trail Full-Spectral:** Comparing the best new Frobenius row (per-layer Stale Momentum-Friendly) against `Lazy-Spectral SAM-Muon (Atlas)`, the friendly-EMA correction is a net loss under the heaviest tails (`α=1.1`: 0.9845 vs Atlas's 0.9026; `α=1.3`: 0.4821 vs 0.4668) but a net gain once the tail lightens (`α=1.6`: 0.2191 vs 0.2240; `α=2.0`: 0.1069 vs 0.1128; `α=3.0`: 0.0524 vs 0.0571; `α=∞`: 0.0578 vs 0.0627). Both still clearly trail `Full-Spectral SAM-Muon` (0.6496 at `α=1.1`) at every `α`.
+- **The Only Column Winner That Isn't Full-Spectral:** `Stale Momentum-Friendly Spectral SAM-Muon` posts 0.6315 at `α=1.1` — better than `Full-Spectral SAM-Muon`'s 0.6496, the sole case across both tables where a stale variant beats every fresh method in its column. At every other `α` here it trails Full-Spectral (e.g. 0.3224 vs 0.3117 at `α=1.3`), so this is a genuine but narrow, heaviest-tail-only effect, not a general pattern — worth a dedicated follow-up rather than over-reading from one data point.
