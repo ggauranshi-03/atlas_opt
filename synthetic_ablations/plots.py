@@ -25,6 +25,10 @@ METRIC_LABELS = {
     "lambda_max": "Final Hessian lambda_max",
     "balancedness": "Final balancedness",
     "effective_rank": "Final effective rank of P",
+    "val_acc": "Validation Accuracy",
+    "val_loss": "Validation Loss",
+    "train_acc": "Train Accuracy",
+    "objective": "Train Loss (Objective)",
 }
 
 
@@ -167,17 +171,24 @@ def make_all(out):
     depth = int(finals["depth"].iloc[0])
     #metrics = ["gap", "excess_risk"] + (["lambda_max", "balancedness"] if depth >= 2 else ["lambda_max"])
 
-    metrics = ["gap"]  # User requested only gap plots, skips lambda_max to avoid NaN crash
+    loss_type = finals.get("loss_type", pd.Series(["mse"])).iloc[0]
+    
+    if str(loss_type).startswith("nn"):
+        metrics = ["val_acc", "val_loss", "train_acc"]
+        primary_metric = "val_loss"
+    else:
+        metrics = ["gap"]  # User requested only gap plots, skips lambda_max to avoid NaN crash
+        primary_metric = "gap"
 
-    gap_table = final_table(finals, "gap")
+    gap_table = final_table(finals, primary_metric)
     best = best_rho(gap_table)
     best.to_csv(out / "summary_best_rho.csv", index=False)
     gap_table.to_csv(out / "summary_all.csv", index=False)
     for group in GROUPS:
         for metric in metrics:
-            table = gap_table if metric == "gap" else final_table(finals, metric)
+            table = gap_table if metric == primary_metric else final_table(finals, metric)
             plot_vs_rho(table, metric, group, figures / f"{metric}_vs_rho_{group}.png")
-        plot_vs_rho(gap_table, "gap", group, figures / f"gap_vs_perturbation_{group}.png", x="perturbation")
+        plot_vs_rho(gap_table, primary_metric, group, figures / f"{primary_metric}_vs_perturbation_{group}.png", x="perturbation")
         # plot_curves(curves, best, group, figures / f"gap_vs_step_best_rho_{group}.png")
         # plot_curves(curves, best, group, figures / f"gap_vs_oracle_calls_best_rho_{group}.png", x="oracle_calls")
         # plot_robustness(best, group, figures / f"robustness_vs_alpha_{group}.png")

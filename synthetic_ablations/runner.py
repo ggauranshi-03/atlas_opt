@@ -11,7 +11,7 @@ from .objective import (balancedness, end_to_end, excess_risk, full_gradient, fu
 
 CURVE_METRICS = ("objective", "gap", "excess_risk", "dist_to_opt", "grad_norm", "perturbation_frob",
                  "perturbation_op", "update_frob", "sharpness_gap", "balancedness", "effective_rank",
-                 "lambda_max")
+                 "lambda_max", "train_acc", "val_acc", "val_loss")
 
 
 def alpha_key(alpha):
@@ -79,15 +79,42 @@ def run_variant(spec, mode, alpha, rho, lr, problem, cfg, seeds=None, seed_offse
     def record(step, eps, updates, prev):
         P = end_to_end(Ws)
         F = full_objective(Ws, problem)
+        nan_col = torch.full((S,), math.nan, dtype=dtype)
         metrics = {
             "objective": F,
             "gap": F - problem.F_star,
-            "excess_risk": excess_risk(P, problem),
-            "dist_to_opt": frob(P - problem.P_opt),
             "grad_norm": total_frob(full_gradient(Ws, problem)),
-            "balancedness": balancedness(Ws),
             "effective_rank": effective_rank(P),
         }
+        # excess_risk / dist_to_opt compare P against P_star / P_opt, and balancedness assumes the
+        # exact linear conservation law of Arora et al. (2018) -- all three are specific to a
+        # literal matrix-product model and are not defined for a nonlinear one (see Problem's
+        # docstring note on P_star/P_opt). Report them as NaN rather than computing them against a
+        # placeholder, which would silently move in the wrong direction as the model improves.
+        if problem.P_star is not None:
+            metrics["excess_risk"] = excess_risk(P, problem)
+            metrics["dist_to_opt"] = frob(P - problem.P_opt)
+            metrics["balancedness"] = balancedness(Ws)
+        else:
+            metrics["excess_risk"] = nan_col
+            metrics["dist_to_opt"] = nan_col
+            metrics["balancedness"] = nan_col
+        if problem.loss_type.startswith("nn_ce"):
+            from .objective_nn import forward_nn, objective_nn
+            with torch.no_grad():
+                logits_train = forward_nn(Ws, problem.X)
+                pred_train = logits_train.argmax(dim=-1)
+                metrics["train_acc"] = (pred_train == problem.Y.unsqueeze(0)).float().mean(dim=1)
+                
+                logits_val = forward_nn(Ws, problem.X_val)
+                pred_val = logits_val.argmax(dim=-1)
+                metrics["val_acc"] = (pred_val == problem.Y_val.unsqueeze(0)).float().mean(dim=1)
+                metrics["val_loss"] = objective_nn(Ws, problem.X_val, problem.Y_val, ridge=0.0, is_ce=True)
+        else:
+            metrics["train_acc"] = nan_col
+            metrics["val_acc"] = nan_col
+            metrics["val_loss"] = nan_col
+                
         zero = torch.zeros(S, dtype=dtype)
         if eps is None:
             metrics.update(perturbation_frob=zero, perturbation_op=zero, sharpness_gap=zero)
@@ -169,7 +196,7 @@ def summarize(log, alive, death_step, meta):
         for name in CURVE_METRICS:
             source = last_sharp if (name == "lambda_max" and last_sharp is not None) else last
             value = source[name][seed].item()
-            if not alive[seed] and name in ("objective", "gap", "excess_risk", "dist_to_opt"):
+            if not alive[seed] and name in ("objective", "gap", "excess_risk", "dist_to_opt") and not math.isnan(value):
                 value = math.inf
             row[f"final_{name}"] = value
         finals.append(row)
@@ -193,5 +220,6 @@ def describe(spec, mode, alpha, rho, lr, problem, cfg):
         "lr": lr,
         "noise_model": cfg["noise"].get("model", "label"),
         "noise_scale": float(cfg["noise"].get("scale", 1.0)),
+        "loss_type": problem.loss_type,
         "F_star": problem.F_star,
     }

@@ -11,7 +11,7 @@ import torch
 import yaml
 
 from .algorithms import SPEC_BY_NAME, SPECS, variants
-from .objective import make_problem
+from .objective import make_problem, full_objective
 from .runner import alpha_key, describe, run_variant, summarize
 
 PACKAGE_DIR = Path(__file__).resolve().parent
@@ -170,17 +170,21 @@ def resolved_config(cfg):
 
 def problem_info(cfg):
     problem = _problem(cfg)
-    s = torch.linalg.svdvals(problem.P_star)
-    return {
+    info = {
         "depth": problem.depth, "shapes": problem.shapes, "n_train": problem.n,
         "F_star": problem.F_star, "rank_budget": problem.rank_budget,
         "constraint": problem.constraint, "radius": problem.radius,
-        "teacher_singular_values": [round(v, 6) for v in s[s > 1e-12].tolist()],
         "sigma_condition_number": (lambda e: (e.max() / e.min()).item())(torch.linalg.eigvalsh(problem.sigma)),
-        "F_init": float(((problem.X @ _init_product(problem).T - problem.Y).square().sum()
-                         / (2 * problem.n * problem.k)).item()),
+        "F_init": float(full_objective([w.unsqueeze(0) for w in problem.init], problem).item()),
         "cpu_count": os.cpu_count(),
     }
+    if problem.P_star is not None:
+        # Only defined for the linear objectives (mse, l1): P_star is the single data-generating
+        # matrix there. The nonlinear objective (nn_ce) has no such single matrix -- see Problem's
+        # docstring note -- so this key is omitted rather than filled with a placeholder.
+        s = torch.linalg.svdvals(problem.P_star)
+        info["teacher_singular_values"] = [round(v, 6) for v in s[s > 1e-12].tolist()]
+    return info
 
 
 def _init_product(problem):

@@ -18,7 +18,7 @@ import math
 
 import torch
 
-from .objective import end_to_end, full_gradient, objective
+from .objective import full_gradient, model_output, objective
 
 GAUSSIAN_ABS_MEDIAN = 0.6744897501960817
 
@@ -98,10 +98,13 @@ class Oracle:
         if self.problem.loss_type == "l1":
             from .objective_l1 import objective_l1
             value = objective_l1(Ws, X, Y, self.problem.ridge)
+        elif self.problem.loss_type.startswith("nn_ce"):
+            from .objective_nn import objective_nn
+            value = objective_nn(Ws, X, Y, self.problem.ridge, is_ce=True)
         else:
             value = objective(Ws, X, Y, self.problem.ridge)
         if self.model == "label":
-            outputs = X @ end_to_end(Ws).transpose(-1, -2)
+            outputs = model_output(Ws, X, self.problem)
             rows = outputs.shape[-2]
             value = value - (sample["noise"] * outputs).sum((-2, -1)) / (rows * self.problem.k)
         else:

@@ -24,8 +24,6 @@ class Problem:
     X: torch.Tensor
     Y: torch.Tensor
     sigma: torch.Tensor
-    P_star: torch.Tensor
-    P_opt: torch.Tensor
     F_star: float
     ridge: float
     constraint: str
@@ -33,6 +31,15 @@ class Problem:
     init: list = field(default_factory=list)
     rank_budget: int = 0
     loss_type: str = "mse"
+    X_val: torch.Tensor = None
+    Y_val: torch.Tensor = None
+    # P_star (data-generating linear map) / P_opt (best reachable linear map) are only defined
+    # for objectives whose forward pass is a literal matrix product (mse, l1). They are None for
+    # nonlinear objectives (nn_ce), where no single linear map represents the model -- see
+    # objective_nn.py. Every metric that reads them (excess_risk, dist_to_opt, balancedness) must
+    # treat None as "not applicable", never substitute a placeholder.
+    P_star: torch.Tensor = None
+    P_opt: torch.Tensor = None
 
 
 def layer_shapes(depth, d, k, hidden):
@@ -75,7 +82,21 @@ def full_objective(Ws, problem):
     if problem.loss_type == "l1":
         from .objective_l1 import objective_l1
         return objective_l1(Ws, problem.X, problem.Y, problem.ridge)
+    if problem.loss_type.startswith("nn_ce"):
+        from .objective_nn import objective_nn
+        return objective_nn(Ws, problem.X, problem.Y, problem.ridge, is_ce=True)
     return objective(Ws, problem.X, problem.Y, problem.ridge)
+
+
+def model_output(Ws, X, problem):
+    """Raw model output (pre-loss) for whichever loss_type this problem uses: logits for a
+    classification objective, the predicted matrix X @ P(W)^T for a regression one (mse, l1 -- both
+    share the same linear forward pass). Used by the 'label' noise oracle so that noise is injected
+    into the model's actual output regardless of which objective is selected."""
+    if problem.loss_type.startswith("nn"):
+        from .objective_nn import forward_nn
+        return forward_nn(Ws, X)
+    return X @ end_to_end(Ws).transpose(-1, -2)
 
 
 def excess_risk(P, problem):
@@ -167,6 +188,10 @@ def reference_optimum(X, Y, depth, hidden, ridge):
 
 
 def make_problem(cfg, dtype=torch.float64):
+    if cfg.get("loss_type", "").startswith("nn"):
+        from .objective_nn import make_problem_nn
+        return make_problem_nn(cfg, dtype)
+        
     depth = int(cfg["depth"])
     d, k, hidden, n = int(cfg["d"]), int(cfg["k"]), int(cfg.get("hidden", cfg["k"])), int(cfg["n_train"])
     teacher_rank = int(cfg.get("teacher_rank", min(k, d)))

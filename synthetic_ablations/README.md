@@ -64,6 +64,10 @@ The student network is a deep linear network (e.g., 2 matrices multiplied togeth
 
 In both cases, we constrain the weights using a **Spectral Radius Projection** after every step. Because of this, the perfect global minimum ($F^*$) is completely solvable mathematically, giving us a perfect ground-truth to score against.
 
+*   **Neural-Network Cross-Entropy:** Implemented in `objective_nn.py`. Unlike the two objectives above, the student is a genuine nonlinear classifier -- a ReLU activation sits between the two matrices, and the loss is cross-entropy over $k$ classes rather than a residual norm:
+    $F(W_1, W_2) = \frac{1}{n}\sum_{i=1}^n \mathrm{CE}\!\left(W_2\, \mathrm{ReLU}(W_1 x_i),\; y_i\right) + \frac{\mu}{2}\left(\|W_1\|_F^2 + \|W_2\|_F^2\right)$,
+    where $y_i$ is the class label produced by a same-shaped teacher network. *(Enabled via `loss_type: nn_ce`, currently depth = 2 only; see 8.4 below.)* Because ReLU + cross-entropy has no closed-form global minimum, $F^*$ here is the teacher network's own achieved loss on the training data -- a genuine, directly-computed reference point, but not a provably-global one the way $F^*$ is for MSE/L1 above.
+
 ---
 
 ## 5. Noise Models (Isotropic vs. Anisotropic)
@@ -251,3 +255,150 @@ Median final gap `F − F*` across optimizers:
 - **Muon Dominates SGD Universally:** In this setup, even under clean Gaussian noise ($\alpha = \infty$), Muon-based optimizers strictly outperform SGD variants (0.0479 vs 0.0608).
 - **Stale Friendly Variants Cross Over Atlas, Both Still Trail Full-Spectral:** Comparing the best new Frobenius row (per-layer Stale Momentum-Friendly) against `Lazy-Spectral SAM-Muon (Atlas)`, the friendly-EMA correction is a net loss under the heaviest tails (`α=1.1`: 0.9845 vs Atlas's 0.9026; `α=1.3`: 0.4821 vs 0.4668) but a net gain once the tail lightens (`α=1.6`: 0.2191 vs 0.2240; `α=2.0`: 0.1069 vs 0.1128; `α=3.0`: 0.0524 vs 0.0571; `α=∞`: 0.0578 vs 0.0627). Both still clearly trail `Full-Spectral SAM-Muon` (0.6496 at `α=1.1`) at every `α`.
 - **The Only Column Winner That Isn't Full-Spectral:** `Stale Momentum-Friendly Spectral SAM-Muon` posts 0.6315 at `α=1.1` — better than `Full-Spectral SAM-Muon`'s 0.6496, the sole case across both tables where a stale variant beats every fresh method in its column. At every other `α` here it trails Full-Spectral (e.g. 0.3224 vs 0.3117 at `α=1.3`), so this is a genuine but narrow, heaviest-tail-only effect, not a general pattern — worth a dedicated follow-up rather than over-reading from one data point.
+
+### 8.4 Two-Matrix Neural-Network Classification (Spectral Variants)
+
+**What this tests.** Unlike §8.1–8.3, the student here is a genuine nonlinear classifier
+(`loss_type: nn_ce`, §4): `logits = W_2 · ReLU(W_1 x)`, trained against labels produced by a
+same-shaped teacher network, with 512 training and 512 **held-out validation** examples drawn
+from the same distribution. This covers every algorithm in `configs/nn_two_matrix_*.yaml`'s
+`algorithms:` list — the two non-SAM baselines (SGD, Muon) plus every **spectral**-geometry
+SAM-Muon variant: fresh (`full-spectral-sam-muon`), stale-orthogonalized-momentum
+(`lazy-spectral-sam-muon`, i.e. Atlas), random-direction (`random-spectral-sam-muon`),
+fresh-friendly (`spectral-friendly-sam-muon`), and both stale-friendly variants
+(`stale-friendly-spectral-sam-muon`, `stale-momentum-friendly-spectral-sam-muon`). Run twice,
+identical in every setting except the noise's directional structure: **anisotropic**
+(`configs/nn_two_matrix_anisotropic.yaml`, `cond_noise: 10.0`) and **isotropic**
+(`configs/nn_two_matrix_isotropic.yaml`, `cond_noise: 1.0`). Metrics are evaluated on the
+validation set except `train_acc`, which is exactly what it says — never used to pick anything.
+
+**How the reference values are computed.** As in §4, there is no closed-form global minimum for a
+constrained ReLU network under cross-entropy, so there is no "gap"/`F*` column here the way
+§8.1–8.3 have one (see §4's note on `F*` for this objective). The tables below report training
+accuracy, validation accuracy, and validation loss directly, at the ρ that minimizes median
+validation loss per algorithm per α (500 steps, 8 seeds, 0% divergence in every cell of both runs;
+no learning-rate tuning was run, so all Muon-outer methods share the config's flat `lr: 0.02`,
+same as §8.2/§8.3).
+
+#### 8.4a Anisotropic Noise
+
+Training accuracy (%) at best ρ:
+
+| Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
+|---|---|---|---|---|---|---|
+| SGD | **91.50** | **98.14** | **99.51** | **100.00** | **100.00** | **100.00** |
+| Muon | 57.91 | 76.27 | 92.38 | 98.73 | 99.90 | 99.80 |
+| Random-Spectral SAM-Muon | 55.76 | 70.80 | 82.81 | 89.65 | 94.92 | 94.34 |
+| Full-Spectral SAM-Muon | 51.07 | 68.36 | 77.25 | 83.50 | 85.64 | 84.86 |
+| Lazy-Spectral SAM-Muon (Atlas) | 57.52 | 72.75 | 71.19 | 74.41 | 77.44 | 78.32 |
+| Spectral-Friendly SAM-Muon | 55.08 | 61.52 | 82.03 | 88.18 | 90.82 | 90.04 |
+| Stale Friendly Spectral SAM-Muon | 56.84 | 67.38 | 75.98 | 79.69 | 83.40 | 82.52 |
+| Stale Momentum-Friendly Spectral SAM-Muon | 56.84 | 67.48 | 74.32 | 78.12 | 80.66 | 80.57 |
+
+Validation accuracy (%) at the same best-ρ checkpoints:
+
+| Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
+|---|---|---|---|---|---|---|
+| SGD | 35.64 | 38.67 | 39.75 | 39.16 | 41.70 | 41.50 |
+| Muon | 38.09 | 40.23 | 42.87 | 44.04 | 44.34 | 45.02 |
+| Random-Spectral SAM-Muon | 38.48 | 42.29 | 44.73 | 46.48 | **47.17** | 45.21 |
+| Full-Spectral SAM-Muon | 37.40 | 41.99 | 43.65 | 46.29 | 46.97 | 46.19 |
+| Lazy-Spectral SAM-Muon (Atlas) | 37.89 | 40.04 | 41.31 | 41.41 | 41.80 | 40.53 |
+| Spectral-Friendly SAM-Muon | **39.84** | 42.29 | 44.24 | **46.88** | 46.68 | **46.68** |
+| Stale Friendly Spectral SAM-Muon | 39.75 | **42.97** | **45.21** | 46.39 | 46.58 | 45.51 |
+| Stale Momentum-Friendly Spectral SAM-Muon | 39.06 | 42.38 | 45.02 | 46.29 | 45.41 | 46.19 |
+
+Validation loss (lower is better) at the same best-ρ checkpoints:
+
+| Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
+|---|---|---|---|---|---|---|
+| SGD | 523.08 | 313.17 | 55.08 | 10.71 | 5.04 | 5.25 |
+| Muon | 2.486 | 2.305 | 2.357 | 2.514 | 2.756 | 2.714 |
+| Random-Spectral SAM-Muon | 2.445 | 2.208 | 2.144 | 2.240 | 2.338 | 2.345 |
+| Full-Spectral SAM-Muon | 2.381 | 2.132 | 2.008 | **1.977** | **1.930** | **1.955** |
+| Lazy-Spectral SAM-Muon (Atlas) | 2.487 | 2.277 | 2.168 | 2.161 | 2.246 | 2.260 |
+| Spectral-Friendly SAM-Muon | **2.339** | **2.120** | **2.007** | 2.002 | 1.961 | 1.986 |
+| Stale Friendly Spectral SAM-Muon | 2.401 | 2.183 | 2.088 | 2.084 | 2.085 | 2.082 |
+| Stale Momentum-Friendly Spectral SAM-Muon | 2.387 | 2.183 | 2.090 | 2.051 | 2.080 | 2.035 |
+
+#### 8.4b Isotropic Noise
+
+Training accuracy (%) at best ρ:
+
+| Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
+|---|---|---|---|---|---|---|
+| SGD | **91.50** | **98.93** | **99.71** | **100.00** | **100.00** | **100.00** |
+| Muon | 53.91 | 71.68 | 89.16 | 97.56 | 99.61 | 99.51 |
+| Random-Spectral SAM-Muon | 52.05 | 67.09 | 79.39 | 88.67 | 93.65 | 92.48 |
+| Full-Spectral SAM-Muon | 50.00 | 66.41 | 77.54 | 83.30 | 84.77 | 85.84 |
+| Lazy-Spectral SAM-Muon (Atlas) | 53.32 | 68.75 | 69.73 | 72.46 | 76.56 | 76.86 |
+| Spectral-Friendly SAM-Muon | 53.03 | 70.02 | 81.35 | 87.11 | 89.55 | 89.65 |
+| Stale Friendly Spectral SAM-Muon | 53.81 | 66.02 | 73.63 | 79.20 | 81.15 | 81.64 |
+| Stale Momentum-Friendly Spectral SAM-Muon | 54.10 | 64.84 | 73.34 | 77.83 | 79.49 | 80.86 |
+
+Validation accuracy (%) at the same best-ρ checkpoints:
+
+| Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
+|---|---|---|---|---|---|---|
+| SGD | 34.18 | 38.38 | 38.67 | 39.26 | 41.21 | 41.99 |
+| Muon | 36.13 | 40.62 | 43.26 | 45.21 | 43.75 | 44.24 |
+| Random-Spectral SAM-Muon | 36.72 | 42.58 | 43.85 | **46.68** | **47.27** | 45.90 |
+| Full-Spectral SAM-Muon | 36.43 | 41.99 | 44.24 | 45.21 | 46.19 | 46.48 |
+| Lazy-Spectral SAM-Muon (Atlas) | 36.23 | 40.92 | 41.70 | 41.99 | 39.84 | 41.41 |
+| Spectral-Friendly SAM-Muon | 37.79 | 42.09 | 44.24 | 46.58 | 46.09 | 46.58 |
+| Stale Friendly Spectral SAM-Muon | **38.18*** | 43.26 | **44.92** | 45.70 | 46.97 | **47.36** |
+| Stale Momentum-Friendly Spectral SAM-Muon | **38.18*** | **43.85** | 44.82 | 46.09 | 45.90 | 45.80 |
+
+Validation loss (lower is better) at the same best-ρ checkpoints:
+
+| Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
+|---|---|---|---|---|---|---|
+| SGD | 587.57 | 307.99 | 57.51 | 10.53 | 4.94 | 5.45 |
+| Muon | 2.586 | 2.260 | 2.250 | 2.369 | 2.642 | 2.632 |
+| Random-Spectral SAM-Muon | 2.521 | 2.193 | 2.123 | 2.143 | 2.296 | 2.295 |
+| Full-Spectral SAM-Muon | 2.427 | 2.129 | **2.008** | 1.969 | **1.946** | **1.969** |
+| Lazy-Spectral SAM-Muon (Atlas) | 2.586 | 2.253 | 2.144 | 2.156 | 2.249 | 2.203 |
+| Spectral-Friendly SAM-Muon | **2.396** | **2.126** | 2.019 | **1.968** | 1.952 | 1.977 |
+| Stale Friendly Spectral SAM-Muon | 2.477 | 2.186 | 2.086 | 2.054 | 2.048 | 2.041 |
+| Stale Momentum-Friendly Spectral SAM-Muon | 2.453 | 2.169 | 2.079 | 2.035 | 2.039 | 2.048 |
+
+*(Bolded = best in column, computed directly from the raw CSVs, not eyeballed — do not re-derive by
+inspection alone if extending these tables. \* = exact tie for best at that column, isotropic
+validation accuracy `α=1.1`: 38.18 for both Stale Friendly and Stale Momentum-Friendly Spectral
+SAM-Muon.)*
+
+**Takeaways:**
+- **SGD trains perfectly and generalizes badly — a textbook overfitting signature.** Training
+  accuracy reaches 91.5% by `α=1.1` and a full 100% from `α=2.0` onward (both noise types), while
+  validation accuracy never exceeds 42%. That's a 56–61 point train/validation gap at every `α`
+  under anisotropic noise, and a similar gap under isotropic. This is the clearest, most robust
+  finding in this table — SGD is not failing to fit the data, it is memorizing it.
+- **Every spectral SAM-Muon variant beats plain Muon on validation loss at every `α`, in both noise
+  settings, with exactly one exception:** `Lazy-Spectral SAM-Muon (Atlas)` loses to plain Muon at
+  `α=1.1` specifically (2.487 vs 2.486 anisotropic; 2.586 vs 2.586 isotropic — a tie/marginal loss
+  in both), then wins at every other `α`. Every other spectral variant beats Muon outright across
+  the full `α` range in both settings.
+- **The best method depends on the tail, and the pattern is consistent (though not perfectly clean)
+  across both noise types.** `Spectral-Friendly SAM-Muon` (fresh, friendly correction) wins
+  validation loss at the heaviest tails; `Full-Spectral SAM-Muon` (fresh, no friendly correction)
+  takes over at the lightest. Under anisotropic noise the crossover is sharp: Spectral-Friendly wins
+  `α=1.1, 1.3, 1.6`, Full-Spectral wins `α=2.0, 3.0, ∞`. Under isotropic noise the same two methods
+  trade the same six columns, but less monotonically (Full-Spectral edges ahead already at `α=1.6`,
+  then Spectral-Friendly briefly retakes `α=2.0` before Full-Spectral wins the rest) — the
+  underlying story (friendly correction matters most under heavy tails, matters least once the tail
+  is light) holds in both, just with a noisier crossover when the noise itself carries no directional
+  structure to exploit.
+- **Validation accuracy doesn't always agree with validation loss on a winner.** Under isotropic
+  noise in particular, `Stale Friendly Spectral SAM-Muon` (a single-pass method) posts the best
+  validation accuracy at three of six columns (`α=1.1, 1.6, ∞`) while never winning validation loss
+  outright — it is evidently making fewer classification mistakes but paying more for the ones it
+  does make, a genuine accuracy/loss dissociation rather than a contradiction.
+- **Anisotropic vs. isotropic noise, holding everything else fixed:** at the heaviest tail
+  (`α=1.1`), every spectral SAM-Muon method (and Muon itself) scored a *slightly lower* (better)
+  validation loss under anisotropic noise than isotropic (e.g. Muon: 2.486 vs 2.586; best spectral
+  variant: 2.339 vs 2.396) — a mild, consistent, but not dramatic reversal of the naive expectation
+  that structured noise should be strictly harder. From `α=1.3` onward the more intuitive direction
+  mostly reasserts itself (anisotropic is typically a little harder), but the differences are small
+  relative to the gap between optimizers, so we would not lean heavily on either direction without
+  more seeds. SGD's own comparison at `α=1.1` (523 vs 588) is noisy at that scale and not treated as
+  informative here.
