@@ -211,6 +211,12 @@ Median final gap `F − F*` across optimizers:
 | Stale Momentum-Friendly SAM-Muon (per-layer) | 0.3907 | 0.1529 | 0.0575 | 0.0296 | 0.0163 | 0.0182 |
 | Stale Friendly Spectral SAM-Muon | 0.2806 | 0.1310 | 0.0559 | 0.0301 | 0.0163 | 0.0185 |
 | Stale Momentum-Friendly Spectral SAM-Muon | 0.2631 | 0.1265 | 0.0551 | 0.0299 | 0.0163 | 0.0185 |
+| Friendly SAM SGD (global) | 3.7958 | 0.5257 | 0.1157 | 0.0352 | 0.0137 | 0.0148 |
+| Friendly SAM SGD (per-layer) | 3.3016 | 0.4843 | 0.1082 | 0.0353 | 0.0131 | 0.0143 |
+| SAM Muon (global) | 0.4037 | 0.1564 | 0.0581 | 0.0294 | 0.0149 | 0.0172 |
+| SAM Muon (per-layer) | 0.3960 | 0.1525 | 0.0562 | 0.0285 | 0.0144 | 0.0167 |
+| Stale Grad SAM Muon (global) | 0.4068 | 0.1592 | 0.0601 | 0.0312 | 0.0165 | 0.0186 |
+| Stale Grad SAM Muon (per-layer) | 0.4009 | 0.1568 | 0.0589 | 0.0311 | 0.0165 | 0.0186 |
 
 ![All Optimizers - Gap vs Perturbation - MSE](results/mse_anisotropic_only_spectral/figures/gap_vs_perturbation_all.png)
 
@@ -250,7 +256,13 @@ Median final gap `F − F*` across optimizers:
 | Stale Momentum-Friendly SAM-Muon (global) | 0.9980 | 0.4917 | 0.2254 | 0.1112 | 0.0543 | 0.0600 |
 | Stale Momentum-Friendly SAM-Muon (per-layer) | 0.9845 | 0.4821 | 0.2191 | 0.1069 | 0.0524 | 0.0578 |
 | Stale Friendly Spectral SAM-Muon | 0.6743 | 0.3328 | 0.1808 | 0.0885 | 0.0508 | 0.0542 |
-| Stale Momentum-Friendly Spectral SAM-Muon | **0.6315** | 0.3224 | 0.1776 | 0.0878 | 0.0505 | 0.0541 |
+| Stale Momentum-Friendly Spectral SAM-Muon | 0.6315 | 0.3224 | 0.1776 | 0.0878 | 0.0505 | 0.0541 |
+| Friendly SAM SGD (global) | 6.7892 | 2.5216 | 0.7637 | 0.2073 | 0.0552 | 0.0627 |
+| Friendly SAM SGD (per-layer) | 6.3284 | 2.3931 | 0.7118 | 0.2047 | 0.0526 | 0.0598 |
+| SAM Muon (global) | 0.9989 | 0.4900 | 0.2228 | 0.1100 | 0.0538 | 0.0594 |
+| SAM Muon (per-layer) | 0.9846 | 0.4792 | 0.2158 | 0.1055 | 0.0516 | 0.0571 |
+| Stale Grad SAM Muon (global) | 1.0032 | 0.4934 | 0.2251 | 0.1113 | 0.0546 | 0.0601 |
+| Stale Grad SAM Muon (per-layer) | 0.9914 | 0.4841 | 0.2187 | 0.1071 | 0.0530 | 0.0584 |
 
 ![All Optimizers - Gap vs Perturbation - Isotropic Ridge](results/mse_isotropy_only_spectral/figures/gap_vs_perturbation_all.png)
 
@@ -300,6 +312,24 @@ Training accuracy (%) at best ρ:
 | Spectral-Friendly SAM-Muon | 55.08 | 61.52 | 82.03 | 88.18 | 90.82 | 90.04 |
 | Stale Friendly Spectral SAM-Muon | 56.84 | 67.38 | 75.98 | 79.69 | 83.40 | 82.52 |
 | Stale Momentum-Friendly Spectral SAM-Muon | 56.84 | 67.48 | 74.32 | 78.12 | 80.66 | 80.57 |
+| SAM SGD (global) | 90.43 | 98.34 | 99.32 | 100.00 | 100.00 | 100.00 |
+| SAM SGD (per-layer) | 91.99 | 97.85 | 98.73 | 99.80 | 100.00 | 100.00 |
+| Friendly SAM SGD (global) | 92.68 | 98.24 | 99.41 | 100.00 | 100.00 | 100.00 |
+| Friendly SAM SGD (per-layer) | 92.48 | 97.17 | 99.41 | 99.61 | 100.00 | 100.00 |
+| SAM Muon (global) | 57.62 | 76.46 | 91.89 | 97.56 | 99.32 | 99.22 |
+| SAM Muon (per-layer) | 57.81 | 76.66 | 90.23 | 95.61 | 98.05 | 98.05 |
+| Friendly SAM-Muon (global) | 58.01 | 76.56 | 92.48 | 97.75 | 99.51 | 99.51 |
+| Friendly SAM-Muon (per-layer) | 58.59 | 76.17 | 91.21 | 96.88 | 98.73 | 98.83 |
+| Random SAM Muon (global) | 57.62 | 76.17 | 92.48 | 98.44 | 99.90 | 99.90 |
+| Random SAM Muon (per-layer) | 57.71 | 76.56 | 91.80 | 98.34 | 99.80 | 99.90 |
+| Stale Grad SAM Muon (global) | 58.01 | 76.07 | 91.31 | 97.36 | 99.02 | 99.12 |
+| Stale Grad SAM Muon (per-layer) | 57.71 | 76.37 | 91.02 | 96.09 | 97.56 | 97.27 |
+| Stale Momentum SAM Muon (global) | 57.71 | 76.07 | 85.16 | 85.55 | 91.41 | 91.21 |
+| Stale Momentum SAM Muon (per-layer) | 57.62 | 73.83 | 81.54 | 91.89 | 96.09 | 94.92 |
+| Stale Friendly SAM Muon (global) | 58.01 | 76.27 | 92.48 | 98.24 | 99.61 | 99.71 |
+| Stale Friendly SAM Muon (per-layer) | 58.11 | 76.17 | 91.99 | 97.46 | 99.02 | 99.02 |
+| Stale Momentum Friendly SAM Muon (global) | 57.81 | 76.56 | 92.19 | 98.24 | 99.61 | 99.61 |
+| Stale Momentum Friendly SAM Muon (per-layer) | 58.59 | 76.37 | 91.89 | 97.17 | 98.83 | 99.12 |
 
 Validation accuracy (%) at the same best-ρ checkpoints:
 
@@ -315,6 +345,24 @@ Validation accuracy (%) at the same best-ρ checkpoints:
 | Spectral-Friendly SAM-Muon | **39.84** | 42.29 | 44.24 | **46.88** | 46.68 | **46.68** |
 | Stale Friendly Spectral SAM-Muon | 39.75 | **42.97** | **45.21** | 46.39 | 46.58 | 45.51 |
 | Stale Momentum-Friendly Spectral SAM-Muon | 39.06 | 42.38 | 45.02 | 46.29 | 45.41 | 46.19 |
+| SAM SGD (global) | 35.55 | 38.09 | 38.28 | 39.36 | 41.21 | 41.21 |
+| SAM SGD (per-layer) | 35.84 | 37.30 | 36.91 | 40.23 | 42.97 | 42.09 |
+| Friendly SAM SGD (global) | 35.25 | 38.48 | 38.28 | 40.23 | 42.09 | 41.80 |
+| Friendly SAM SGD (per-layer) | 36.82 | 39.36 | 38.67 | 40.23 | 42.97 | 42.38 |
+| SAM Muon (global) | 38.18 | 40.53 | 42.58 | 44.43 | 45.61 | 45.02 |
+| SAM Muon (per-layer) | 37.70 | 40.53 | 42.48 | 45.70 | 46.09 | 44.82 |
+| Friendly SAM-Muon (global) | 38.09 | 40.23 | 42.77 | 45.70 | 46.09 | 44.92 |
+| Friendly SAM-Muon (per-layer) | 38.28 | 40.92 | 42.58 | 45.90 | 45.80 | 44.63 |
+| Random SAM Muon (global) | 37.89 | 40.33 | 42.48 | 44.14 | 44.73 | 44.24 |
+| Random SAM Muon (per-layer) | 37.60 | 40.23 | 42.09 | 44.34 | 45.12 | 44.73 |
+| Stale Grad SAM Muon (global) | 38.09 | 40.43 | 43.07 | 45.02 | 44.92 | 44.63 |
+| Stale Grad SAM Muon (per-layer) | 37.89 | 40.04 | 43.07 | 45.70 | 46.19 | 45.80 |
+| Stale Momentum SAM Muon (global) | 38.18 | 40.23 | 43.36 | 41.70 | 46.00 | 44.53 |
+| Stale Momentum SAM Muon (per-layer) | 38.18 | 40.04 | 41.50 | 45.51 | 45.51 | 44.34 |
+| Stale Friendly SAM Muon (global) | 37.89 | 40.14 | 43.36 | 45.41 | 44.92 | 44.73 |
+| Stale Friendly SAM Muon (per-layer) | 38.18 | 40.23 | 42.68 | 45.02 | 45.70 | 45.02 |
+| Stale Momentum Friendly SAM Muon (global) | 37.99 | 40.23 | 42.87 | 45.02 | 45.61 | 45.21 |
+| Stale Momentum Friendly SAM Muon (per-layer) | 37.99 | 40.43 | 42.87 | 45.51 | 45.80 | 45.21 |
 
 Validation loss (lower is better) at the same best-ρ checkpoints:
 
@@ -330,6 +378,24 @@ Validation loss (lower is better) at the same best-ρ checkpoints:
 | Spectral-Friendly SAM-Muon | **2.339** | **2.120** | **2.007** | 2.002 | 1.961 | 1.986 |
 | Stale Friendly Spectral SAM-Muon | 2.401 | 2.183 | 2.088 | 2.084 | 2.085 | 2.082 |
 | Stale Momentum-Friendly Spectral SAM-Muon | 2.387 | 2.183 | 2.090 | 2.051 | 2.080 | 2.035 |
+| SAM SGD (global) | 486.5179 | 277.7986 | 45.2183 | 8.0167 | 4.2078 | 4.2842 |
+| SAM SGD (per-layer) | 492.1668 | 259.6335 | 39.9590 | 6.2770 | 3.5291 | 3.6780 |
+| Friendly SAM SGD (global) | 499.4327 | 256.8587 | 46.8802 | 8.3575 | 4.1923 | 4.3160 |
+| Friendly SAM SGD (per-layer) | 493.5548 | 263.4359 | 39.0721 | 6.4408 | 3.5151 | 3.6247 |
+| SAM Muon (global) | 2.4781 | 2.2704 | 2.2533 | 2.3022 | 2.4805 | 2.4282 |
+| SAM Muon (per-layer) | 2.4683 | 2.2420 | 2.2011 | 2.1998 | 2.2804 | 2.2699 |
+| Friendly SAM-Muon (global) | 2.4776 | 2.2772 | 2.2783 | 2.3342 | 2.5015 | 2.4555 |
+| Friendly SAM-Muon (per-layer) | 2.4679 | 2.2515 | 2.2141 | 2.2412 | 2.3427 | 2.3245 |
+| Random SAM Muon (global) | 2.4815 | 2.3037 | 2.3542 | 2.5023 | 2.6989 | 2.6688 |
+| Random SAM Muon (per-layer) | 2.4801 | 2.2915 | 2.3376 | 2.4903 | 2.6897 | 2.6606 |
+| Stale Grad SAM Muon (global) | 2.4853 | 2.2931 | 2.3230 | 2.3895 | 2.4778 | 2.4108 |
+| Stale Grad SAM Muon (per-layer) | 2.4852 | 2.2855 | 2.2972 | 2.2781 | 2.2831 | 2.2763 |
+| Stale Momentum SAM Muon (global) | 2.4858 | 2.3019 | 2.2676 | 2.2294 | 2.3404 | 2.3106 |
+| Stale Momentum SAM Muon (per-layer) | 2.4862 | 2.2975 | 2.2058 | 2.2466 | 2.3206 | 2.3296 |
+| Stale Friendly SAM Muon (global) | 2.4830 | 2.2945 | 2.3438 | 2.4501 | 2.6219 | 2.5830 |
+| Stale Friendly SAM Muon (per-layer) | 2.4788 | 2.2845 | 2.3262 | 2.3845 | 2.4473 | 2.4558 |
+| Stale Momentum Friendly SAM Muon (global) | 2.4813 | 2.2933 | 2.3392 | 2.4332 | 2.5616 | 2.5100 |
+| Stale Momentum Friendly SAM Muon (per-layer) | 2.4748 | 2.2806 | 2.3212 | 2.3547 | 2.4154 | 2.4113 |
 
 ![All Optimizers - Train Accuracy - Anisotropic](results/nn_two_matrix_anisotropic/figures/train_acc_vs_rho_all.png)
 ![All Optimizers - Validation Accuracy - Anisotropic](results/nn_two_matrix_anisotropic/figures/val_acc_vs_rho_all.png)
@@ -351,6 +417,24 @@ Training accuracy (%) at best ρ:
 | Spectral-Friendly SAM-Muon | 53.03 | 70.02 | 81.35 | 87.11 | 89.55 | 89.65 |
 | Stale Friendly Spectral SAM-Muon | 53.81 | 66.02 | 73.63 | 79.20 | 81.15 | 81.64 |
 | Stale Momentum-Friendly Spectral SAM-Muon | 54.10 | 64.84 | 73.34 | 77.83 | 79.49 | 80.86 |
+| SAM SGD (global) | 91.60 | 98.93 | 99.51 | 99.80 | 100.00 | 100.00 |
+| SAM SGD (per-layer) | 91.70 | 98.54 | 98.83 | 99.80 | 100.00 | 100.00 |
+| Friendly SAM SGD (global) | 92.29 | 98.24 | 99.41 | 99.80 | 100.00 | 100.00 |
+| Friendly SAM SGD (per-layer) | 92.19 | 98.05 | 99.41 | 99.61 | 100.00 | 100.00 |
+| SAM Muon (global) | 54.20 | 72.27 | 87.70 | 95.90 | 98.63 | 98.63 |
+| SAM Muon (per-layer) | 53.91 | 71.88 | 86.33 | 93.65 | 96.68 | 96.29 |
+| Friendly SAM-Muon (global) | 54.00 | 72.46 | 88.38 | 96.48 | 99.02 | 98.44 |
+| Friendly SAM-Muon (per-layer) | 54.39 | 72.46 | 87.50 | 95.12 | 97.56 | 97.95 |
+| Random SAM Muon (global) | 53.81 | 71.97 | 89.06 | 97.66 | 99.71 | 99.32 |
+| Random SAM Muon (per-layer) | 54.10 | 71.88 | 89.16 | 97.56 | 99.51 | 99.32 |
+| Stale Grad SAM Muon (global) | 53.52 | 71.48 | 88.09 | 96.68 | 98.54 | 98.24 |
+| Stale Grad SAM Muon (per-layer) | 53.71 | 71.00 | 86.62 | 94.24 | 96.09 | 96.29 |
+| Stale Momentum SAM Muon (global) | 53.81 | 71.29 | 87.79 | 84.28 | 89.84 | 88.96 |
+| Stale Momentum SAM Muon (per-layer) | 53.81 | 70.12 | 76.27 | 89.65 | 95.12 | 94.43 |
+| Stale Friendly SAM Muon (global) | 54.10 | 71.97 | 88.57 | 97.07 | 99.41 | 99.02 |
+| Stale Friendly SAM Muon (per-layer) | 54.30 | 71.88 | 87.79 | 96.29 | 98.63 | 98.54 |
+| Stale Momentum Friendly SAM Muon (global) | 54.20 | 71.88 | 88.38 | 96.97 | 99.22 | 98.93 |
+| Stale Momentum Friendly SAM Muon (per-layer) | 54.30 | 71.58 | 87.60 | 96.00 | 98.54 | 98.05 |
 
 Validation accuracy (%) at the same best-ρ checkpoints:
 
@@ -366,6 +450,24 @@ Validation accuracy (%) at the same best-ρ checkpoints:
 | Spectral-Friendly SAM-Muon | 37.79 | 42.09 | 44.24 | 46.58 | 46.09 | 46.58 |
 | Stale Friendly Spectral SAM-Muon | **38.18*** | 43.26 | **44.92** | 45.70 | 46.97 | **47.36** |
 | Stale Momentum-Friendly Spectral SAM-Muon | **38.18*** | **43.85** | 44.82 | 46.09 | 45.90 | 45.80 |
+| SAM SGD (global) | 35.55 | 36.72 | 38.48 | 38.67 | 41.60 | 41.89 |
+| SAM SGD (per-layer) | 36.33 | 38.87 | 38.87 | 39.55 | 41.50 | 43.26 |
+| Friendly SAM SGD (global) | 36.23 | 37.99 | 38.09 | 39.55 | 42.68 | 42.09 |
+| Friendly SAM SGD (per-layer) | 36.04 | 37.89 | 38.87 | 39.45 | 42.77 | 41.50 |
+| SAM Muon (global) | 36.33 | 40.82 | 44.14 | 44.92 | 45.02 | 45.31 |
+| SAM Muon (per-layer) | 35.84 | 40.82 | 44.04 | 44.63 | 45.41 | 45.02 |
+| Friendly SAM-Muon (global) | 36.13 | 40.92 | 43.07 | 44.92 | 44.92 | 44.43 |
+| Friendly SAM-Muon (per-layer) | 35.94 | 40.82 | 44.04 | 45.61 | 45.70 | 44.63 |
+| Random SAM Muon (global) | 36.13 | 40.92 | 42.87 | 44.82 | 43.95 | 43.75 |
+| Random SAM Muon (per-layer) | 35.94 | 40.62 | 43.07 | 45.12 | 44.34 | 43.75 |
+| Stale Grad SAM Muon (global) | 36.33 | 41.11 | 42.87 | 45.12 | 45.31 | 44.14 |
+| Stale Grad SAM Muon (per-layer) | 35.94 | 40.72 | 43.75 | 44.82 | 45.80 | 45.41 |
+| Stale Momentum SAM Muon (global) | 36.04 | 40.62 | 42.87 | 41.31 | 47.07 | 44.34 |
+| Stale Momentum SAM Muon (per-layer) | 35.94 | 41.21 | 40.14 | 45.31 | 45.51 | 43.95 |
+| Stale Friendly SAM Muon (global) | 36.23 | 41.21 | 43.07 | 45.12 | 45.31 | 44.34 |
+| Stale Friendly SAM Muon (per-layer) | 36.52 | 40.72 | 44.24 | 45.41 | 45.41 | 45.12 |
+| Stale Momentum Friendly SAM Muon (global) | 36.23 | 41.02 | 43.36 | 45.21 | 45.21 | 43.95 |
+| Stale Momentum Friendly SAM Muon (per-layer) | 36.33 | 40.92 | 43.55 | 45.12 | 45.61 | 45.21 |
 
 Validation loss (lower is better) at the same best-ρ checkpoints:
 
@@ -381,6 +483,24 @@ Validation loss (lower is better) at the same best-ρ checkpoints:
 | Spectral-Friendly SAM-Muon | **2.396** | **2.126** | 2.019 | **1.968** | 1.952 | 1.977 |
 | Stale Friendly Spectral SAM-Muon | 2.477 | 2.186 | 2.086 | 2.054 | 2.048 | 2.041 |
 | Stale Momentum-Friendly Spectral SAM-Muon | 2.453 | 2.169 | 2.079 | 2.035 | 2.039 | 2.048 |
+| SAM SGD (global) | 540.2154 | 290.1083 | 48.0457 | 7.8100 | 4.0739 | 4.4511 |
+| SAM SGD (per-layer) | 529.1374 | 283.3358 | 41.2436 | 6.1910 | 3.4876 | 3.6557 |
+| Friendly SAM SGD (global) | 533.7914 | 295.8130 | 48.6041 | 7.7045 | 4.0433 | 4.4644 |
+| Friendly SAM SGD (per-layer) | 524.8476 | 272.9608 | 43.1668 | 6.3404 | 3.4153 | 3.6440 |
+| SAM Muon (global) | 2.5727 | 2.2330 | 2.1715 | 2.2336 | 2.3725 | 2.3343 |
+| SAM Muon (per-layer) | 2.5651 | 2.2155 | 2.1237 | 2.1521 | 2.1846 | 2.1997 |
+| Friendly SAM-Muon (global) | 2.5748 | 2.2369 | 2.1966 | 2.2509 | 2.4365 | 2.3980 |
+| Friendly SAM-Muon (per-layer) | 2.5659 | 2.2231 | 2.1514 | 2.1708 | 2.2668 | 2.2783 |
+| Random SAM Muon (global) | 2.5793 | 2.2583 | 2.2443 | 2.3651 | 2.6181 | 2.6189 |
+| Random SAM Muon (per-layer) | 2.5754 | 2.2568 | 2.2437 | 2.3593 | 2.5781 | 2.6159 |
+| Stale Grad SAM Muon (global) | 2.5833 | 2.2493 | 2.2181 | 2.2898 | 2.3584 | 2.3318 |
+| Stale Grad SAM Muon (per-layer) | 2.5798 | 2.2431 | 2.1900 | 2.1964 | 2.2177 | 2.2273 |
+| Stale Momentum SAM Muon (global) | 2.5864 | 2.2556 | 2.2250 | 2.1867 | 2.3119 | 2.3066 |
+| Stale Momentum SAM Muon (per-layer) | 2.5863 | 2.2499 | 2.1996 | 2.1850 | 2.2542 | 2.2656 |
+| Stale Friendly SAM Muon (global) | 2.5822 | 2.2504 | 2.2312 | 2.3359 | 2.4794 | 2.5073 |
+| Stale Friendly SAM Muon (per-layer) | 2.5776 | 2.2470 | 2.2140 | 2.2975 | 2.3643 | 2.3539 |
+| Stale Momentum Friendly SAM Muon (global) | 2.5806 | 2.2473 | 2.2308 | 2.3299 | 2.4653 | 2.4711 |
+| Stale Momentum Friendly SAM Muon (per-layer) | 2.5745 | 2.2439 | 2.2039 | 2.2532 | 2.2984 | 2.3133 |
 
 ![All Optimizers - Train Accuracy - Isotropic](results/nn_two_matrix_isotropic/figures/train_acc_vs_rho_all.png)
 ![All Optimizers - Validation Accuracy - Isotropic](results/nn_two_matrix_isotropic/figures/val_acc_vs_rho_all.png)
