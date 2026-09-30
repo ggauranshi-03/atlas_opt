@@ -196,6 +196,8 @@ Median final gap `F − F*` across optimizers:
 | SGD | 4.6430 | 0.6438 | 0.1356 | 0.0364 | 0.0157 | 0.0164 |
 | SAM-SGD (global) | 3.7177 | 0.5692 | 0.1161 | 0.0349 | 0.0140 | 0.0151 |
 | SAM-SGD (per-layer) | 3.4117 | 0.5058 | 0.1080 | 0.0353 | **0.0135** | **0.0147** |
+| Spectral SAM-SGD | 1.5087 | 0.2951 | 0.0871 | 0.0298 | 0.0135 | 0.0149 |
+| Spectral-Friendly SAM-SGD | 1.5828 | 0.2948 | 0.0916 | 0.0300 | 0.0135 | 0.0147 |
 | Muon | 0.4127 | 0.1625 | 0.0620 | 0.0316 | 0.0165 | 0.0186 |
 | Spectral-Friendly SAM-Muon | **0.2522** | **0.1166** | **0.0457** | **0.0247** | 0.0143 | 0.0166 |
 | Global-Friendly SAM-Muon | 0.3916 | 0.1504 | 0.0555 | 0.0276 | 0.0140 | 0.0162 |
@@ -210,7 +212,7 @@ Median final gap `F − F*` across optimizers:
 | Stale Friendly Spectral SAM-Muon | 0.2806 | 0.1310 | 0.0559 | 0.0301 | 0.0163 | 0.0185 |
 | Stale Momentum-Friendly Spectral SAM-Muon | 0.2631 | 0.1265 | 0.0551 | 0.0299 | 0.0163 | 0.0185 |
 
-![Muon Optimizers - Gap vs Perturbation - MSE](results/two_matrix_mse_anisotropic/figures/gap_vs_perturbation_muon.png)
+![All Optimizers - Gap vs Perturbation - MSE](results/mse_anisotropic_only_spectral/figures/gap_vs_perturbation_all.png)
 
 **Takeaways:**
 - **Consistent Story:** Changing the objective function from L1 to MSE preserves the exact same ranking dynamics.
@@ -234,6 +236,8 @@ Median final gap `F − F*` across optimizers:
 | SGD | 7.4305 | 2.7200 | 0.8682 | 0.2113 | 0.0587 | 0.0668 |
 | SAM-SGD (global) | 6.7586 | 2.5141 | 0.7515 | 0.2076 | 0.0559 | 0.0634 |
 | SAM-SGD (per-layer) | 6.3292 | 2.3888 | 0.7146 | 0.2055 | 0.0536 | 0.0608 |
+| Spectral SAM-SGD | 3.8559 | 1.4820 | 0.3961 | 0.1288 | 0.0451 | 0.0512 |
+| Spectral-Friendly SAM-SGD | 4.0065 | 1.4836 | 0.3921 | 0.1396 | 0.0444 | 0.0501 |
 | Muon | 1.0164 | 0.5045 | 0.2333 | 0.1163 | 0.0570 | 0.0627 |
 | Spectral-Friendly SAM-Muon | 0.6555 | 0.3123 | 0.1488 | 0.0842 | 0.0431 | 0.0480 |
 | Global-Friendly SAM-Muon | 0.9875 | 0.4819 | 0.2178 | 0.1060 | 0.0517 | 0.0571 |
@@ -248,7 +252,7 @@ Median final gap `F − F*` across optimizers:
 | Stale Friendly Spectral SAM-Muon | 0.6743 | 0.3328 | 0.1808 | 0.0885 | 0.0508 | 0.0542 |
 | Stale Momentum-Friendly Spectral SAM-Muon | **0.6315** | 0.3224 | 0.1776 | 0.0878 | 0.0505 | 0.0541 |
 
-![Muon Optimizers - Gap vs Perturbation - Isotropic Ridge](results/two_matrix_mse_isotropic_ridge/figures/gap_vs_perturbation_muon.png)
+![All Optimizers - Gap vs Perturbation - Isotropic Ridge](results/mse_isotropy_only_spectral/figures/gap_vs_perturbation_all.png)
 
 **Takeaways:**
 - **Friendly vs Full Spectral:** Under the previous Anisotropic noise, "Friendly" SAM-Muon was the winner. However, because this environment uses *Isotropic* noise (meaning the noise has no directional structure), adapting to the noise geometry provides no benefit. Consequently, standard **Full-Spectral SAM-Muon** takes the crown at every `α` except `α=1.1`.
@@ -287,6 +291,8 @@ Training accuracy (%) at best ρ:
 | Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
 |---|---|---|---|---|---|---|
 | SGD | **91.50** | **98.14** | **99.51** | **100.00** | **100.00** | **100.00** |
+| Spectral SAM-SGD | 90.92 | 93.65 | 86.52 | 63.67 | 40.43 | 45.31 |
+| Spectral-Friendly SAM-SGD | 90.72 | 94.14 | 89.84 | 70.51 | 53.61 | 57.52 |
 | Muon | 57.91 | 76.27 | 92.38 | 98.73 | 99.90 | 99.80 |
 | Random-Spectral SAM-Muon | 55.76 | 70.80 | 82.81 | 89.65 | 94.92 | 94.34 |
 | Full-Spectral SAM-Muon | 51.07 | 68.36 | 77.25 | 83.50 | 85.64 | 84.86 |
@@ -300,6 +306,8 @@ Validation accuracy (%) at the same best-ρ checkpoints:
 | Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
 |---|---|---|---|---|---|---|
 | SGD | 35.64 | 38.67 | 39.75 | 39.16 | 41.70 | 41.50 |
+| Spectral SAM-SGD | 34.28 | 36.13 | 36.43 | 39.16 | 35.55 | 37.30 |
+| Spectral-Friendly SAM-SGD | 35.35 | 35.35 | 37.11 | 41.41 | 40.72 | 40.82 |
 | Muon | 38.09 | 40.23 | 42.87 | 44.04 | 44.34 | 45.02 |
 | Random-Spectral SAM-Muon | 38.48 | 42.29 | 44.73 | 46.48 | **47.17** | 45.21 |
 | Full-Spectral SAM-Muon | 37.40 | 41.99 | 43.65 | 46.29 | 46.97 | 46.19 |
@@ -313,6 +321,8 @@ Validation loss (lower is better) at the same best-ρ checkpoints:
 | Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
 |---|---|---|---|---|---|---|
 | SGD | 523.08 | 313.17 | 55.08 | 10.71 | 5.04 | 5.25 |
+| Spectral SAM-SGD | 422.90 | 151.57 | 9.50 | 2.39 | 2.44 | 2.36 |
+| Spectral-Friendly SAM-SGD | 425.05 | 167.84 | 11.16 | 2.44 | 2.28 | 2.27 |
 | Muon | 2.486 | 2.305 | 2.357 | 2.514 | 2.756 | 2.714 |
 | Random-Spectral SAM-Muon | 2.445 | 2.208 | 2.144 | 2.240 | 2.338 | 2.345 |
 | Full-Spectral SAM-Muon | 2.381 | 2.132 | 2.008 | **1.977** | **1.930** | **1.955** |
@@ -321,6 +331,10 @@ Validation loss (lower is better) at the same best-ρ checkpoints:
 | Stale Friendly Spectral SAM-Muon | 2.401 | 2.183 | 2.088 | 2.084 | 2.085 | 2.082 |
 | Stale Momentum-Friendly Spectral SAM-Muon | 2.387 | 2.183 | 2.090 | 2.051 | 2.080 | 2.035 |
 
+![All Optimizers - Train Accuracy - Anisotropic](results/nn_two_matrix_anisotropic/figures/train_acc_vs_rho_all.png)
+![All Optimizers - Validation Accuracy - Anisotropic](results/nn_two_matrix_anisotropic/figures/val_acc_vs_rho_all.png)
+![All Optimizers - Validation Loss - Anisotropic](results/nn_two_matrix_anisotropic/figures/val_loss_vs_rho_all.png)
+
 #### 8.4b Isotropic Noise
 
 Training accuracy (%) at best ρ:
@@ -328,6 +342,8 @@ Training accuracy (%) at best ρ:
 | Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
 |---|---|---|---|---|---|---|
 | SGD | **91.50** | **98.93** | **99.71** | **100.00** | **100.00** | **100.00** |
+| Spectral SAM-SGD | 90.62 | 95.12 | 89.06 | 70.51 | 44.92 | 48.54 |
+| Spectral-Friendly SAM-SGD | 91.02 | 95.61 | 90.72 | 74.51 | 57.42 | 63.18 |
 | Muon | 53.91 | 71.68 | 89.16 | 97.56 | 99.61 | 99.51 |
 | Random-Spectral SAM-Muon | 52.05 | 67.09 | 79.39 | 88.67 | 93.65 | 92.48 |
 | Full-Spectral SAM-Muon | 50.00 | 66.41 | 77.54 | 83.30 | 84.77 | 85.84 |
@@ -341,6 +357,8 @@ Validation accuracy (%) at the same best-ρ checkpoints:
 | Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
 |---|---|---|---|---|---|---|
 | SGD | 34.18 | 38.38 | 38.67 | 39.26 | 41.21 | 41.99 |
+| Spectral SAM-SGD | 34.77 | 35.94 | 37.79 | 41.60 | 37.50 | 38.28 |
+| Spectral-Friendly SAM-SGD | 35.45 | 36.52 | 36.62 | 42.38 | 40.92 | 42.77 |
 | Muon | 36.13 | 40.62 | 43.26 | 45.21 | 43.75 | 44.24 |
 | Random-Spectral SAM-Muon | 36.72 | 42.58 | 43.85 | **46.68** | **47.27** | 45.90 |
 | Full-Spectral SAM-Muon | 36.43 | 41.99 | 44.24 | 45.21 | 46.19 | 46.48 |
@@ -354,6 +372,8 @@ Validation loss (lower is better) at the same best-ρ checkpoints:
 | Optimizer | `α = 1.1` | `α = 1.3` | `α = 1.6` | `α = 2.0` | `α = 3.0` | `α = ∞` |
 |---|---|---|---|---|---|---|
 | SGD | 587.57 | 307.99 | 57.51 | 10.53 | 4.94 | 5.45 |
+| Spectral SAM-SGD | 456.97 | 176.92 | 12.13 | 2.36 | 2.33 | 2.28 |
+| Spectral-Friendly SAM-SGD | 451.10 | 179.83 | 14.06 | 2.40 | 2.21 | 2.20 |
 | Muon | 2.586 | 2.260 | 2.250 | 2.369 | 2.642 | 2.632 |
 | Random-Spectral SAM-Muon | 2.521 | 2.193 | 2.123 | 2.143 | 2.296 | 2.295 |
 | Full-Spectral SAM-Muon | 2.427 | 2.129 | **2.008** | 1.969 | **1.946** | **1.969** |
@@ -361,6 +381,10 @@ Validation loss (lower is better) at the same best-ρ checkpoints:
 | Spectral-Friendly SAM-Muon | **2.396** | **2.126** | 2.019 | **1.968** | 1.952 | 1.977 |
 | Stale Friendly Spectral SAM-Muon | 2.477 | 2.186 | 2.086 | 2.054 | 2.048 | 2.041 |
 | Stale Momentum-Friendly Spectral SAM-Muon | 2.453 | 2.169 | 2.079 | 2.035 | 2.039 | 2.048 |
+
+![All Optimizers - Train Accuracy - Isotropic](results/nn_two_matrix_isotropic/figures/train_acc_vs_rho_all.png)
+![All Optimizers - Validation Accuracy - Isotropic](results/nn_two_matrix_isotropic/figures/val_acc_vs_rho_all.png)
+![All Optimizers - Validation Loss - Isotropic](results/nn_two_matrix_isotropic/figures/val_loss_vs_rho_all.png)
 
 *(Bolded = best in column, computed directly from the raw CSVs, not eyeballed — do not re-derive by
 inspection alone if extending these tables. \* = exact tie for best at that column, isotropic

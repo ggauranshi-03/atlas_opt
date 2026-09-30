@@ -86,3 +86,5 @@ algorithms:
   - spectral-friendly-sam-muon
   - stale-friendly-spectral-sam-muon
   - stale-momentum-friendly-spectral-sam-muon
+  - spectral-sam-sgd
+  - spectral-friendly-sam-sgd
