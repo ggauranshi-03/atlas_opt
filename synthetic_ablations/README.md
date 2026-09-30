@@ -65,7 +65,7 @@ The student network is a deep linear network (e.g., 2 matrices multiplied togeth
 In both cases, we constrain the weights using a **Spectral Radius Projection** after every step. Because of this, the perfect global minimum ($F^*$) is completely solvable mathematically, giving us a perfect ground-truth to score against.
 
 *   **Neural-Network Cross-Entropy:** Implemented in `objective_nn.py`. Unlike the two objectives above, the student is a genuine nonlinear classifier -- a ReLU activation sits between the two matrices, and the loss is cross-entropy over $k$ classes rather than a residual norm:
-    $F(W_1, W_2) = \frac{1}{n}\sum_{i=1}^n \mathrm{CE}\!\left(W_2\, \mathrm{ReLU}(W_1 x_i),\; y_i\right) + \frac{\mu}{2}\left(\|W_1\|_F^2 + \|W_2\|_F^2\right)$,
+    $F(W_1, W_2) = \frac{1}{n} \sum_{i=1}^n \mathrm{CE}(W_2 \cdot \mathrm{ReLU}(W_1 x_i), y_i) + \frac{\mu}{2} \left( \|W_1\|_F^2 + \|W_2\|_F^2 \right)$,
     where $y_i$ is the class label produced by a same-shaped teacher network. *(Enabled via `loss_type: nn_ce`, currently depth = 2 only; see 8.4 below.)* Because ReLU + cross-entropy has no closed-form global minimum, $F^*$ here is the teacher network's own achieved loss on the training data -- a genuine, directly-computed reference point, but not a provably-global one the way $F^*$ is for MSE/L1 above.
 
 ---
