@@ -51,9 +51,10 @@ def final_table(finals, metric):
 
 
 def _colors(variants):
-    cmap = plt.get_cmap("tab10")
+    cmap10 = plt.get_cmap("tab10")
+    cmap20 = plt.get_cmap("tab20")
     ordered = sorted(variants)
-    return {v: cmap(i % 10) for i, v in enumerate(ordered)}
+    return {v: cmap10(i) if i < 10 else cmap20(i*2 - 1) for i, v in enumerate(ordered)}
 
 
 def _panels(alphas):
