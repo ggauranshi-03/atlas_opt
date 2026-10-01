@@ -84,6 +84,7 @@ algorithms:
   - muon
   - random-spectral-sam-muon
   - full-spectral-sam-muon
+  - stale-grad-spectral-sam-muon
   - lazy-spectral-sam-muon
   - spectral-friendly-sam-muon
   - stale-friendly-spectral-sam-muon

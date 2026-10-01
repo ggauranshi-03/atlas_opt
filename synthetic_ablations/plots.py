@@ -82,14 +82,38 @@ def plot_vs_rho(table, metric, group, path, x="rho"):
         for _, row in at[at["rho"].isna()].iterrows():
             if np.isfinite(row["median"]):
                 axis.axhline(row["median"], color=colors[row["variant"]], linestyle="--", linewidth=1.2,
-                             label=f"{row['label']} (no SAM)")
+                             label=row['label'])
         axis.set_xscale("log")
         axis.set_yscale("log")
         axis.set_title(_alpha_title(alpha))
-        axis.set_xlabel("rho (nominal)" if x == "rho" else "measured ||eps||_F (median)")
-        axis.set_ylabel(METRIC_LABELS.get(metric, metric))
-        axis.grid(alpha=0.3, which="both")
+        axis.set_xlabel("rho")
+        if metric == "val_acc":
+            axis.set_ylabel("val accuracy")
+        elif metric == "train_acc":
+            axis.set_ylabel("train accuracy")
+        elif metric == "val_loss":
+            axis.set_ylabel("val loss")
+        else:
+            axis.set_ylabel(METRIC_LABELS.get(metric, metric))
     handles, labels = axes[-1].get_legend_handles_labels()
+    
+    # Custom order (top to bottom)
+    order_map = {
+        'SOMA': 0,
+        'FP-SOMA': 1,
+        'SpecSAM-Muon': 2,
+        'RandSAM-Muon': 3,
+        'FSAM': 4,
+        'SAM': 5,
+        'Muon': 6,
+        'AdamW': 7
+    }
+    
+    # Sort handles and labels based on the order map. If a label isn't found, it goes to the end.
+    hl = sorted(zip(handles, labels), key=lambda x: order_map.get(x[1], 999))
+    if hl:
+        handles, labels = zip(*hl)
+    
     fig.legend(handles, labels, loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=7)
     fig.tight_layout()
     fig.savefig(path, dpi=160, bbox_inches="tight")

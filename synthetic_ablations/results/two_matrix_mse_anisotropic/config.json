@@ -139,19 +139,17 @@
     }
   },
   "algorithms": [
-    "full-spectral-sam-muon",
-    "global-friendly-sam-muon",
-    "lazy-spectral-sam-muon",
-    "muon",
-    "random-sam-muon",
-    "random-spectral-sam-muon",
-    "sam-sgd",
     "sgd",
+    "muon",
+    "random-spectral-sam-muon",
+    "full-spectral-sam-muon",
+    "stale-grad-spectral-sam-muon",
+    "lazy-spectral-sam-muon",
     "spectral-friendly-sam-muon",
-    "stale-friendly-sam-muon",
     "stale-friendly-spectral-sam-muon",
-    "stale-momentum-friendly-sam-muon",
-    "stale-momentum-friendly-spectral-sam-muon"
+    "stale-momentum-friendly-spectral-sam-muon",
+    "spectral-sam-sgd",
+    "spectral-friendly-sam-sgd"
   ],
   "tuned_lrs_used": {}
 }

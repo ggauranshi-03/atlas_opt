@@ -78,6 +78,8 @@ SPECS = [
          atlas_opt="atlas_baseline.py", mnist="lazy-spectral-sam-muon"),
     Spec("stale-grad-sam-muon", "Stale-Gradient SAM-Muon", "muon", "stale_grad", "frobenius",
          origin="atlas_opt", atlas_opt="atlas_raw_grad.py (per-layer)"),
+    Spec("stale-grad-spectral-sam-muon", "Stale-Gradient Spectral SAM-Muon", "muon", "stale_grad", "spectral",
+         origin="added"),
     Spec("stale-momentum-sam-muon", "Stale-Momentum SAM-Muon", "muon", "stale_momentum", "frobenius",
          origin="atlas_opt", atlas_opt="muon_sam_stale.py (per-layer)"),
     Spec("stale-friendly-sam-muon", "Stale Friendly SAM-Muon", "muon", "stale_friendly", "frobenius",
