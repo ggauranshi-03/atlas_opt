@@ -1,6 +1,6 @@
 # Two matrices (L = 2): P = W_2 W_1, W_1: 32x64, W_2: 32x32. Non-convex, benign landscape; the global
 # minima form a manifold of equal loss but different sharpness (balanced vs unbalanced factors).
-name: two_matrix_mse_anisotropic
+name: mse_anisotropic_only_spectral
 
 problem:
   depth: 2
@@ -91,3 +91,5 @@ algorithms:
   - stale-momentum-friendly-spectral-sam-muon
   - spectral-sam-sgd
   - spectral-friendly-sam-sgd
+  - op-soma-prens5
+  - op-soma-postns5

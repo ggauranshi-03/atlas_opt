@@ -95,8 +95,14 @@ def plot_vs_rho(table, metric, group, path, x="rho"):
             axis.set_ylabel("val loss")
         else:
             axis.set_ylabel(METRIC_LABELS.get(metric, metric))
-    handles, labels = axes[-1].get_legend_handles_labels()
-    
+    # Union legend handles across all panels, not just the last: an algorithm whose alpha
+    # coverage doesn't reach the last panel (e.g. a new variant swept over fewer alphas than
+    # the rest) would otherwise be plotted but silently dropped from the legend.
+    by_label = {}
+    for axis in axes:
+        for handle, label in zip(*axis.get_legend_handles_labels()):
+            by_label.setdefault(label, handle)
+
     # Custom order (top to bottom)
     order_map = {
         'SOMA': 0,
@@ -108,13 +114,10 @@ def plot_vs_rho(table, metric, group, path, x="rho"):
         'Muon': 6,
         'AdamW': 7
     }
-    
-    # Sort handles and labels based on the order map. If a label isn't found, it goes to the end.
-    hl = sorted(zip(handles, labels), key=lambda x: order_map.get(x[1], 999))
-    if hl:
-        handles, labels = zip(*hl)
-    
-    fig.legend(handles, labels, loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=7)
+    ordered_labels = sorted(by_label, key=lambda label: order_map.get(label, 999))
+    handles = [by_label[label] for label in ordered_labels]
+
+    fig.legend(handles, ordered_labels, loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=7)
     fig.tight_layout()
     fig.savefig(path, dpi=160, bbox_inches="tight")
     plt.close(fig)
@@ -151,8 +154,11 @@ def plot_curves(curves, best, group, path, x="step", metric="gap"):
         axis.set_xlabel("iteration" if x == "step" else "oracle (gradient) calls")
         axis.set_ylabel(f"{metric} (median, IQR band)")
         axis.grid(alpha=0.3, which="both")
-    handles, labels = axes[-1].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=7)
+    by_label = {}
+    for axis in axes:
+        for handle, label in zip(*axis.get_legend_handles_labels()):
+            by_label.setdefault(label, handle)
+    fig.legend(by_label.values(), by_label.keys(), loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=7)
     fig.tight_layout()
     fig.savefig(path, dpi=160, bbox_inches="tight")
     plt.close(fig)

@@ -89,3 +89,5 @@ algorithms:
   - stale-momentum-friendly-spectral-sam-muon
   - spectral-sam-sgd
   - spectral-friendly-sam-sgd
+  - op-soma-prens5
+  - op-soma-postns5

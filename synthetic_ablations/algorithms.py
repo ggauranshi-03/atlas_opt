@@ -22,7 +22,7 @@ from dataclasses import dataclass
 
 import torch
 
-from .linalg import bview, frob, orthogonalize, newton_schulz5, total_frob
+from .linalg import bview, frob, frobenius_reject, orthogonalize, newton_schulz5, spectral_norm, total_frob
 
 
 @dataclass(frozen=True)
@@ -91,6 +91,15 @@ SPECS = [
     Spec("stale-momentum-friendly-spectral-sam-muon", "Stale Momentum-Friendly Spectral SAM-Muon",
          "muon", "stale_momentum_friendly", "spectral", origin="mnist",
          mnist="stale-muon-momentum-spectral-sam-muon (sign-fixed)"),
+    # ---- Orthogonally Projected SOMA (one oracle call per step after a two-call bootstrap) ----
+    # PreNS5: the stale adversarial gradient is projected (Frobenius-orthogonal) away from the
+    # current Muon momentum *before* NS5 orthogonalization -- source "op_soma_pre".
+    Spec("op-soma-prens5", "OP-SOMA-PreNS5", "muon", "op_soma_pre", "spectral", origin="added"),
+    # PostNS5: reuses the existing stale_momentum_friendly direction (g~_{t-1} - sigma(1-beta)M_{t-1}),
+    # NS5-orthogonalizes it, then projects *after* NS5 against the previous Nesterov-NS5 update and
+    # rescales to the operator-norm ball -- geometry "op_soma_post".
+    Spec("op-soma-postns5", "OP-SOMA-PostNS5", "muon", "stale_momentum_friendly", "op_soma_post",
+         origin="added"),
 ]
 SPEC_BY_NAME = {spec.name: spec for spec in SPECS}
 BASE_OUTERS = ("sgd", "adam", "muon", "nsgdm", "clip_sgd")
@@ -160,7 +169,7 @@ class Engine:
         self.direction_generator = direction_generator
 
     # ------------------------------------------------------------------ perturbation
-    def _geometry(self, directions):
+    def _geometry(self, directions, state=None):
         rho, geometry = self.rho, self.spec.geometry
         if geometry == "frobenius":
             if self.mode == "global":
@@ -172,6 +181,17 @@ class Engine:
             eps = [rho * orthogonalize(d, self.ortho, self.ns_steps) for d in directions]
         elif geometry == "raw":
             eps = [rho * d for d in directions]
+        elif geometry == "op_soma_post":
+            # Z = rho * NS5(D); at bootstrap (no previous Nesterov-NS5 update yet) E = Z. Otherwise
+            # project Z away from O_prev (Frobenius-orthogonal) and rescale to the operator-norm
+            # ball of radius rho -- no second NS5 pass, per the algorithm's spec.
+            o_prev = state.last_update
+            z = [rho * orthogonalize(d, self.ortho, self.ns_steps) for d in directions]
+            if o_prev is None:
+                eps = z
+            else:
+                q = [frobenius_reject(o, zi) for o, zi in zip(o_prev, z)]
+                eps = [qi * bview(rho / (spectral_norm(qi) + 1e-12), qi) for qi in q]
         else:
             raise ValueError(f"Unknown geometry: {geometry}")
         if self.rho_units == "matched_frobenius":
@@ -214,6 +234,14 @@ class Engine:
             else:
                 ema = [(1.0 - self.beta) * v for v in state.momentum]
             return [g - self.sigma * m for g, m in zip(state.last_outer, ema)], 0
+        if source == "op_soma_pre":
+            if state.last_outer is None:
+                g = clean()
+                return [gi - self.sigma * (1.0 - self.lam) * gi for gi in g], 1
+            # Project the stale adversarial gradient away from the current momentum (Frobenius-
+            # orthogonal) before NS5; equivalent to projecting the "friendly" g~ - sigma(1-beta)M
+            # direction, since the M-parallel term is removed by the projection either way.
+            return [frobenius_reject(m, g) for m, g in zip(state.momentum, state.last_outer)], 0
         raise ValueError(f"Unknown source: {source}")
 
     # ------------------------------------------------------------------ outer update
@@ -276,11 +304,11 @@ class Engine:
             grads, calls, eps = clean(), 1, None
         else:
             directions, calls = self._directions(Ws, state, clean)
-            eps = self._geometry(directions)
+            eps = self._geometry(directions, state)
             grads = oracle.gradients([w + e for w, e in zip(Ws, eps)], sample)
             calls += 1
         updates = self._outer(Ws, grads, state, lr)
-        if self.spec.source in ("stale_grad", "stale_friendly", "stale_momentum_friendly"):
+        if self.spec.source in ("stale_grad", "stale_friendly", "stale_momentum_friendly", "op_soma_pre"):
             state.last_outer = [g.clone() for g in grads]
         if self.spec.source == "stale_friendly":
             for m, g in zip(state.friendly, grads):

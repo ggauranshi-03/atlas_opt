@@ -54,6 +54,19 @@ def spectral_norm(t):
     return torch.linalg.matrix_norm(t, ord=2)
 
 
+def frob_inner(x, y):
+    """Per-seed Frobenius inner product <x, y>_F: (S, ...) -> (S,)."""
+    return (x * y).flatten(1).sum(1)
+
+
+def frobenius_reject(a, x):
+    """P_a^perp(x) = x - <x, a>_F / ||a||_F^2 * a: x with its a-component removed, under the
+    Frobenius inner product. Returns x unchanged (up to eps) wherever a is (numerically) zero,
+    since both the inner product and ||a||_F^2 vanish together."""
+    coeff = frob_inner(x, a) / (frob(a) ** 2 + 1e-30)
+    return x - bview(coeff, x) * a
+
+
 def project_spectral_ball(w, radius):
     """Euclidean projection onto {W : ||W||_2 <= radius}: clip singular values."""
     u, s, vh = torch.linalg.svd(w, full_matrices=False)
