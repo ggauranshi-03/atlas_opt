@@ -130,3 +130,5 @@ algorithms:
 - stale-momentum-sam-muon
 - stale-friendly-sam-muon
 - stale-momentum-friendly-sam-muon
+- sam-adam
+- friendly-sam-adam

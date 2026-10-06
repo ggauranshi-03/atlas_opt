@@ -137,17 +137,8 @@
     }
   },
   "algorithms": [
-    "sgd",
-    "muon",
-    "sam-muon",
-    "sam-sgd",
-    "friendly-sam-sgd",
-    "global-friendly-sam-muon",
-    "random-sam-muon",
-    "stale-grad-sam-muon",
-    "stale-momentum-sam-muon",
-    "stale-friendly-sam-muon",
-    "stale-momentum-friendly-sam-muon"
+    "sam-adam",
+    "friendly-sam-adam"
   ],
   "tuned_lrs_used": {}
 }

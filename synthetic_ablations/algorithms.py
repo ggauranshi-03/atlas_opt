@@ -59,6 +59,9 @@ SPECS = [
          atlas_opt="fsam.py", mnist="friendly-sam-sgd"),
     Spec("spectral-friendly-sam-sgd", "Spectral Friendly SAM + SGD", "sgd", "friendly", "spectral",
          origin="atlas_opt", atlas_opt="fsam_ortho.py"),
+    # ---- SAM with an AdamW outer step (fresh, two oracle calls per step) ----
+    Spec("sam-adam", "SAM + AdamW", "adam", "grad", "frobenius", origin="added"),
+    Spec("friendly-sam-adam", "Friendly SAM + AdamW", "adam", "friendly", "frobenius", origin="added"),
     # ---- SAM with a Muon outer step, fresh (two oracle calls per step) ----
     Spec("sam-muon", "SAM-Muon", "muon", "grad", "frobenius", origin="atlas_opt",
          atlas_opt="muon_sam_frob.py (per-layer)"),
