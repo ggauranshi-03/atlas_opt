@@ -11,7 +11,7 @@
     ]
   ],
   "n_train": 512,
-  "F_star": 0.09762835108024856,
+  "F_star": 0.09948087307221265,
   "rank_budget": 32,
   "constraint": "spectral",
   "radius": 5.486888588595599,

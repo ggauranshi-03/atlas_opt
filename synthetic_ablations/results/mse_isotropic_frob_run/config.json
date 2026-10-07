@@ -17,7 +17,8 @@
     "init_scale": 1.0,
     "constraint": "spectral",
     "radius_factor": 3.0,
-    "loss_type": "mse"
+    "loss_type": "mse",
+    "ref_seed": 271828
   },
   "noise": {
     "model": "additive",

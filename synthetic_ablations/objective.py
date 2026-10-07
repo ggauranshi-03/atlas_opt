@@ -138,7 +138,7 @@ def hessian_lambda_max(Ws, problem, iters=30, generator=None):
     return estimate.detach()
 
 
-def reference_optimum(X, Y, depth, hidden, ridge):
+def reference_optimum(X, Y, depth, hidden, ridge, ref_seed=271828):
     """Exact minimizer of F over end-to-end matrices reachable by the architecture.
 
     L = 1, ridge > 0 : ridge regression, (X^T X + n k ridge I) P^T = X^T Y.
@@ -146,45 +146,63 @@ def reference_optimum(X, Y, depth, hidden, ridge):
                        min(k, d, hidden) (L >= 2).  With Yhat = Pi_X Y the projection onto
                        col(X), the optimum is the rank-r SVD truncation of Yhat (Eckart-Young),
                        F* = [ ||Y - Yhat||^2 + sum_{i > r} sigma_i(Yhat)^2 ] / (2nk).
+    L >= 2, ridge > 0: no closed form (the penalty is on the factors, not on P), so solved
+                       numerically. Returns the value actually minimized (data term + ridge/2
+                       sum_l ||W_l||_F^2, matching training's per-layer penalty) alongside
+                       P_opt, since recomputing a penalty from P_opt alone afterwards would
+                       silently substitute a different quantity (ridge/2 ||P_opt||_F^2 != the
+                       sum of the individual factor norms in general -- they coincide only at
+                       depth 1). Deterministic in the factor initialization via ref_seed, like
+                       every other random draw in this module.
+
+    Returns (P_opt, rank_budget, f_star_override); f_star_override is None except in the
+    L >= 2, ridge > 0 case, where the caller must use it instead of recomputing from P_opt.
     """
     n, d = X.shape
     k = Y.shape[1]
     if ridge:
         if depth != 1:
             shapes = [(hidden, d)] + [(hidden, hidden)] * (depth - 2) + [(k, hidden)] if depth > 1 else [(k, d)]
-            Ws = [torch.nn.Parameter(torch.randn(r, c, dtype=X.dtype) * 0.1) for r, c in shapes]
-            
+            generator = torch.Generator().manual_seed(ref_seed)
+            Ws = [torch.nn.Parameter(torch.randn(r, c, generator=generator, dtype=X.dtype) * 0.1)
+                  for r, c in shapes]
+
             optimizer = torch.optim.Adam(Ws, lr=0.01)
             scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, 5000)
-            
+
             for _ in range(5000):
                 optimizer.zero_grad()
                 P = Ws[0]
                 for w in Ws[1:]:
                     P = w @ P
-                
+
                 residual = X @ P.T - Y
                 loss = residual.square().sum() / (2.0 * n * k)
                 loss = loss + 0.5 * ridge * sum(w.square().sum() for w in Ws)
-                    
+
                 loss.backward()
                 optimizer.step()
                 scheduler.step()
-                
-            P_opt = Ws[0].detach()
-            for w in Ws[1:]:
-                P_opt = w.detach() @ P_opt
-                
-            return P_opt, min(k, d, hidden)
+
+            with torch.no_grad():
+                P = Ws[0]
+                for w in Ws[1:]:
+                    P = w @ P
+                residual = X @ P.T - Y
+                f_star = (residual.square().sum() / (2.0 * n * k)
+                          + 0.5 * ridge * sum(w.square().sum() for w in Ws)).item()
+                P_opt = P.clone()
+
+            return P_opt, min(k, d, hidden), f_star
 
         system = X.T @ X + n * k * ridge * torch.eye(d, dtype=X.dtype)
-        return torch.linalg.solve(system, X.T @ Y).T, min(k, d)
+        return torch.linalg.solve(system, X.T @ Y).T, min(k, d), None
     rank_budget = min(k, d) if depth == 1 else min(k, d, hidden)
     X_pinv = torch.linalg.pinv(X)
     fitted = X @ (X_pinv @ Y)
     u, s, vh = torch.linalg.svd(fitted, full_matrices=False)
     truncated = (u[:, :rank_budget] * s[:rank_budget]) @ vh[:rank_budget]
-    return (X_pinv @ truncated).T, rank_budget
+    return (X_pinv @ truncated).T, rank_budget, None
 
 
 def make_problem(cfg, dtype=torch.float64):
@@ -223,7 +241,8 @@ def make_problem(cfg, dtype=torch.float64):
         Y = Y + label_noise_std * torch.randn(n, k, generator=generator, dtype=dtype)
 
     ridge = float(cfg.get("ridge", 0.0))
-    P_opt, rank_budget = reference_optimum(X, Y, depth, hidden, ridge)
+    ref_seed = int(cfg.get("ref_seed", 271828))
+    P_opt, rank_budget, f_star_override = reference_optimum(X, Y, depth, hidden, ridge, ref_seed)
     shapes = layer_shapes(depth, d, k, hidden)
 
     init_generator = torch.Generator().manual_seed(int(cfg.get("init_seed", 31415)))
@@ -245,7 +264,7 @@ def make_problem(cfg, dtype=torch.float64):
                       sigma=sigma, P_star=P_star, P_opt=P_opt, F_star=0.0, ridge=ridge,
                       constraint=constraint, radius=radius, init=init, rank_budget=rank_budget,
                       loss_type=cfg.get("loss_type", "mse"))
-    problem.F_star = _objective_of_product(P_opt, problem)
+    problem.F_star = f_star_override if f_star_override is not None else _objective_of_product(P_opt, problem)
     return problem
 
 
