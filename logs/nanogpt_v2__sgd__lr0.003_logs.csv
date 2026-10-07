@@ -1,0 +1,4 @@
+epoch,optimizer,seed,train_loss,train_accuracy,val_loss,val_accuracy,val_perplexity,time_s
+1,sgd,0,3.5382,35.82,3.3639,37.85,28.90,624.1
+2,sgd,0,3.4900,36.32,3.3557,38.11,28.67,500.7
+3,sgd,0,3.4866,36.39,3.3451,38.27,28.36,509.4

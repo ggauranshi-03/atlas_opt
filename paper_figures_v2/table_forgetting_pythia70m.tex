@@ -1,0 +1,21 @@
+% AUTO-GENERATED: numbers read from data/forgetting_table_pythia70m.csv
+\begin{table*}[t]
+  \centering
+  \small
+  \caption{Pythia-70M: held-out FineWeb-Edu loss $L$ of models pretrained with each optimizer, before ($L_{\text{before}}$) and after ($L_{\text{after}}$) fine-tuning on each
+  of four datasets (lower is better; forgetting $\Delta\mathrm{PT}=L_{\text{after}}-L_{\text{before}}$). $L_{\text{after}}$ is taken at a common fine-tuning loss per dataset
+  (target $\tau$ codeparrot: 2.232, stackmathqa: 2.459, musicpile: 3.379, tulu3: 2.488); mean $\pm$ sd over 3 seeds. ``Average'' is the mean of the four $L_{\text{after}}$ values. $\Delta\%_{\text{adj}}=100\,(L_{\text{after}}-L_{\text{before}})/(L_{\text{before}}+k)$ with
+  $k=3.548$ (mean of all $L_{\text{before}}$ of this model). Bold: lowest among comparable models. $^\dagger$: $L_{\text{before}}$ clearly worse than AdamW's (perplexity $>3\%$ higher), so these rows are not comparable.}
+  \label{tab:forgetting-pythia70m}
+  \fitwidth{\pgfplotstabletypeset[col sep=comma, string type, every head row/.style={before row=\toprule, after row=\midrule},
+    every last row/.style={after row=\bottomrule},
+    columns={optimizer,before,codeparrot,stackmathqa,musicpile,tulu3,avg,smooth},
+    columns/optimizer/.style={column name=Optimizer, string type, column type=l},
+    columns/before/.style={column name={$L_{\text{before}}$}, string type, column type=c},
+    columns/codeparrot/.style={column name={$L_{\text{after}}$ codeparrot}, string type, column type=c},
+    columns/stackmathqa/.style={column name={$L_{\text{after}}$ stackmathqa}, string type, column type=c},
+    columns/musicpile/.style={column name={$L_{\text{after}}$ musicpile}, string type, column type=c},
+    columns/tulu3/.style={column name={$L_{\text{after}}$ tulu3}, string type, column type=c},
+    columns/avg/.style={column name={$L_{\text{after}}$ average}, string type, column type=c},
+    columns/smooth/.style={column name={$\Delta\%_{\text{adj}}$}, string type, column type=c}]{\figroot/data/forgetting_table_pythia70m.csv}}
+\end{table*}

@@ -1,0 +1,25 @@
+% Complete example: compile with pdfLaTeX; main.tex sits next to common/, data/, plots/.
+\documentclass[10pt,twocolumn]{article}
+\usepackage[margin=0.75in,columnsep=0.25in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\newcommand{\curvesroot}{.}
+\input{\curvesroot/common/preamble.tex}
+\title{Training Curves of Eleven Optimizers}
+\author{}\date{}
+\begin{document}
+\maketitle
+\section{Training curves}
+Figure~\ref{fig:curves} shows the full 3$\times$3 grid. Each panel is also available as a single-column plot
+(\texttt{plots/<model>\_<metric>.tex}), e.g. Figure~\ref{fig:single}.
+
+\input{\curvesroot/figure_curves.tex}
+
+\begin{figure}[t]
+  \centering
+  \input{\curvesroot/plots/nanogpt_val_ppl.tex}
+  \caption{Single plot example: validation perplexity of nanoGPT.}
+  \label{fig:single}
+\end{figure}
+\end{document}

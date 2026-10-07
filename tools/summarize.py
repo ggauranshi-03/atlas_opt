@@ -1,101 +1,122 @@
-"""Paper tables: full-precision vs INT4-AWQ (g128) test metrics, mean +- std over training seeds.
+"""Collect the v2 results (3 training seeds) into results/: training, INT4 PTQ and forgetting summaries (CSV + Markdown).
 
-Per training seed, INT4 results are first averaged over calibration seeds; the table then reports the
-mean +- sample std across training seeds. LM metric: held-out FineWeb-Edu and WikiText-2 perplexity;
-CIFAR-10 metric: official test-set accuracy.
-
-  python tools/summarize.py --config configs/tuned/nanogpt_fineweb.yaml
+  python tools/summarize.py
 """
 import os
 import csv
+import json
 import math
-import argparse
 import statistics as st
-import yaml
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+os.chdir(ROOT)
+OUT = "results"
+SEEDS = [42, 43, 44]
+NAMES = {"adam": "AdamW", "sgd": "SGD", "muon": "Muon", "sam": "SAM", "fsam": "FSAM", "muon_sam": "SpecSAM-Muon",
+         "fsam_ortho_muon": "FP-SOMA", "fsam_ortho_muon_stale_momentum": "SOMA", "randsam_muon": "RandSAM-Muon",
+         "soma_prens5": "SOMA-PreNS5", "op_soma_postns5": "OP-SOMA-PostNS5"}
+MODELS = {"nanogpt": ("nanogpt_v2", 15, True), "pythia70m": ("pythia70m_v2", 14, True), "cifar10": ("cifar10_v2", 7, False)}
+FAMILY_BASE = {"adam": "adam", "sgd": "sgd", "sam": "sgd", "fsam": "sgd", "muon": "muon", "muon_sam": "muon",
+               "fsam_ortho_muon": "muon", "fsam_ortho_muon_stale_momentum": "muon", "randsam_muon": "muon",
+               "soma_prens5": "muon", "op_soma_postns5": "muon"}
+DATASETS = ["codeparrot", "stackmathqa", "musicpile", "tulu3"]
+WEAK = 1.10  # base model counted as weaker than AdamW's if its FineWeb perplexity is >10% higher
 
 
-def mean_std(xs):
-    return (st.mean(xs), st.stdev(xs) if len(xs) > 1 else 0.0) if xs else (math.nan, math.nan)
+def read(path):
+    return list(csv.DictReader(open(path, newline=""))) if os.path.exists(path) else []
 
 
-def fmt(ms, digits=2):
-    m, s = ms
-    return "—" if math.isnan(m) else f"{m:.{digits}f} ± {s:.{digits}f}"
+def ms(xs, fmt="{:.2f}"):
+    xs = [x for x in xs if x is not None and math.isfinite(x)]
+    if not xs:
+        return "n/a", float("nan"), float("nan"), 0
+    m = st.mean(xs)
+    s = st.stdev(xs) if len(xs) > 1 else 0.0
+    return f"{fmt.format(m)} ± {fmt.format(s)}", m, s, len(xs)
+
+
+def write(name, rows):
+    if not rows:
+        return
+    fields = list(dict.fromkeys(k for r in rows for k in r))  # rows may carry different metric columns (CIFAR vs LM)
+    with open(os.path.join(OUT, name + ".csv"), "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fields, restval="")
+        w.writeheader()
+        w.writerows(rows)
+    cols = [c for c in fields if not c.startswith("_")]
+    with open(os.path.join(OUT, name + ".md"), "w") as f:
+        f.write("| " + " | ".join(cols) + " |\n|" + "---|" * len(cols) + "\n")
+        for r in rows:
+            f.write("| " + " | ".join(str(r.get(c, "")) for c in cols) + " |\n")
 
 
 def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--config", required=True)
-    ap.add_argument("--wbits", default="4")
-    ap.add_argument("--group-size", default="128")
-    ap.add_argument("--method", default="awq")
-    a = ap.parse_args()
-    os.chdir(ROOT)
-
-    cfg = yaml.safe_load(open(a.config))
-    cid = cfg["experiment"]["experiment_id"]
-    cifar = cfg["experiment"].get("task_type") == "image_classification"
-    metrics = ["test_acc"] if cifar else ["fineweb_ppl", "wikitext2_ppl"]
-
-    per = {}  # (optimizer, seed) -> {"fp": {m: v}, "q": {m: [v over calib seeds]}}
-    with open(f"ptq_results/{cid}.csv", newline="") as f:
-        for r in csv.DictReader(f):
-            if r["status"] != "ok":
-                if r["method"] == "fp":
-                    per.setdefault((r["optimizer"], r["seed"]), {"fp": {}, "q": {}})["diverged"] = True
-                continue
-            d = per.setdefault((r["optimizer"], r["seed"]), {"fp": {}, "q": {}})
-            if r["method"] == "fp":
-                d["fp"] = {m: float(r[m]) for m in metrics}
-            elif r["method"] == a.method and r["wbits"] == a.wbits and r["group_size"] == a.group_size:
-                for m in metrics:
-                    d["q"].setdefault(m, []).append(float(r[m]))
-
-    opts = {}
-    for (opt, seed), d in per.items():
-        o = opts.setdefault(opt, {"seeds": 0, "diverged": 0, "fp": {m: [] for m in metrics},
-                                  "q": {m: [] for m in metrics}, "rel": {m: [] for m in metrics}})
-        o["seeds"] += 1
-        if d.get("diverged") or not d["fp"]:
-            o["diverged"] += 1
-            continue
-        for m in metrics:
-            fp = d["fp"][m]
-            q = st.mean(d["q"][m]) if d["q"].get(m) else math.nan
-            o["fp"][m].append(fp)
-            o["q"][m].append(q)
-            # accuracy: drop in points; perplexity: relative increase in %
-            o["rel"][m].append(fp - q if cifar else 100.0 * (q / fp - 1.0))
-
-    key = metrics[0]
-    order = sorted(opts, key=lambda k: (-1 if cifar else 1) * (mean_std(opts[k]["fp"][key])[0]
-                                                               if opts[k]["fp"][key] else (-math.inf if cifar else math.inf)))
-    tag = f"INT{a.wbits}-{a.method.upper()} g{a.group_size}"
-    lines = [f"## {cid}: full precision vs {tag} (mean ± std over training seeds)", ""]
-    if cifar:
-        lines += ["| Optimizer | seeds | FP test acc (%) | INT4 test acc (%) | Drop (pts) |", "|---|---|---|---|---|"]
-        for o in order:
-            d = opts[o]
-            lines.append(f"| {o} | {d['seeds'] - d['diverged']}/{d['seeds']} | {fmt(mean_std(d['fp']['test_acc']))} | "
-                         f"{fmt(mean_std(d['q']['test_acc']))} | {fmt(mean_std(d['rel']['test_acc']))} |")
-    else:
-        lines += ["| Optimizer | seeds | FineWeb PPL FP | FineWeb PPL INT4 | Δ% | WikiText-2 PPL FP | WikiText-2 PPL INT4 | Δ% |",
-                  "|---|---|---|---|---|---|---|---|"]
-        for o in order:
-            d = opts[o]
-            lines.append(f"| {o} | {d['seeds'] - d['diverged']}/{d['seeds']} | "
-                         f"{fmt(mean_std(d['fp']['fineweb_ppl']))} | {fmt(mean_std(d['q']['fineweb_ppl']))} | {fmt(mean_std(d['rel']['fineweb_ppl']))} | "
-                         f"{fmt(mean_std(d['fp']['wikitext2_ppl']))} | {fmt(mean_std(d['q']['wikitext2_ppl']))} | {fmt(mean_std(d['rel']['wikitext2_ppl']))} |")
-    lines += ["", "seeds = training seeds with finite weights / total. Compare INT4 degradation only between "
-                  "optimizers with similar full-precision quality: under-trained models trivially degrade less."]
-    out = f"results/{cid}_summary.md"
-    os.makedirs("results", exist_ok=True)
-    with open(out, "w") as f:
-        f.write("\n".join(lines) + "\n")
-    print("\n".join(lines))
-    print(f"\nwritten to {out}")
+    os.makedirs(OUT, exist_ok=True)
+    training, ptq_rows, forget_rows = [], [], []
+    base_ppl = {}
+    for mk, (cid, ep, lm) in MODELS.items():
+        logs = read(f"logs/{cid}_logs.csv")
+        ptq = [r for r in read(f"ptq_results/{cid}.csv") if r["status"] == "ok"]
+        for o, name in NAMES.items():
+            fin = [r for r in logs if r["optimizer"] == o and r["seed"] in map(str, SEEDS) and int(r["epoch"]) == ep]
+            key = "val_loss" if lm else "val_accuracy"
+            d = dict(model=mk, optimizer=name, n_seeds=len(fin),
+                     final_train_loss=ms([float(r["train_loss"]) for r in fin], "{:.4f}")[0],
+                     final_val_loss=ms([float(r["val_loss"]) for r in fin], "{:.4f}")[0])
+            d["final_val_ppl" if lm else "final_val_acc"] = ms([float(r["val_perplexity" if lm else "val_accuracy"]) for r in fin])[0]
+            training.append(d)
+            fp = {int(r["seed"]): r for r in ptq if r["optimizer"] == o and r["method"] == "fp" and r["seed"].isdigit()}
+            aw = {}
+            for r in ptq:
+                if r["optimizer"] == o and r["method"] == "awq" and r["seed"].isdigit():
+                    aw.setdefault(int(r["seed"]), []).append(r)
+            seeds = [s for s in SEEDS if s in fp and len(aw.get(s, [])) == 3]
+            row = dict(model=mk, optimizer=name, n_seeds=len(seeds))
+            metrics = [("fineweb_ppl", "FineWeb ppl"), ("wikitext2_ppl", "WikiText-2 ppl")] if lm else [("test_acc", "test acc %")]
+            for k, label in metrics:
+                f_ = [float(fp[s][k]) for s in seeds]
+                a_ = [st.mean(float(r[k]) for r in aw[s]) for s in seeds]  # mean over the 3 calibration seeds
+                dlt = [(a - f) / f * 100 if lm else a - f for f, a in zip(f_, a_)]
+                row[f"{label} FP"] = ms(f_)[0]
+                row[f"{label} INT4-AWQ"] = ms(a_)[0]
+                row[f"{label} change ({'%' if lm else 'pts'})"] = ms(dlt, "{:+.2f}")[0]
+                if k == "fineweb_ppl":
+                    base_ppl[(mk, o)] = ms(f_)[1]
+            ptq_rows.append(row)
+    for mk in ("nanogpt", "pythia70m"):
+        per_seed = {s: read(f"forgetting_results/analysis/{mk}_s{s}_matched.csv") for s in SEEDS}
+        adam_ppl = base_ppl.get((mk, "adam"), float("nan"))
+        for o, name in NAMES.items():
+            for ref in dict.fromkeys([FAMILY_BASE[o], "adam"]):
+                if ref == o:
+                    continue
+                for ds in DATASETS:
+                    hits = [r for s in SEEDS for r in per_seed[s] if r["optimizer"] == o and r["reference"] == ref and r["dataset"] == ds]
+                    if not hits:
+                        continue
+                    red = ms([100 * float(r["reduction"]) for r in hits], "{:+.1f}")
+                    weak = base_ppl.get((mk, o), float("nan")) > WEAK * adam_ppl or base_ppl.get((mk, ref), float("nan")) > WEAK * adam_ppl
+                    forget_rows.append(dict(
+                        model=mk, optimizer=name, reference=NAMES[ref], dataset=ds, n_seeds=red[3],
+                        less_forgetting_pct=red[0],
+                        delta_pt=ms([float(r["delta_pt"]) for r in hits], "{:.4f}")[0],
+                        ref_delta_pt=ms([float(r["ref_delta_pt"]) for r in hits], "{:.4f}")[0],
+                        matched_ft_loss=ms([float(r["tau"]) for r in hits], "{:.4f}")[0],
+                        lr_at_grid_edge=f"{sum(r['lr_at_grid_edge'] == 'True' for r in hits)}/{len(hits)}",
+                        base_fineweb_ppl=f"{base_ppl.get((mk, o), float('nan')):.2f}",
+                        weaker_base_than_adamw=weak))
+    write("training_summary", training)
+    write("ptq_summary", ptq_rows)
+    write("forgetting_summary", forget_rows)
+    tuned = {m: json.load(open("results/tuning/selected_hyperparameters.json"))[m]
+             for m in MODELS} if os.path.exists("results/tuning/selected_hyperparameters.json") else {}
+    with open(os.path.join(OUT, "hyperparameters.md"), "w") as f:
+        for m, opts in tuned.items():
+            f.write(f"## {m}\n| optimizer | " + " | ".join(["lr", "rho", "momentum", "weight_decay", "adam_lr"]) + " |\n|---|---|---|---|---|---|\n")
+            for o, c in opts.items():
+                f.write(f"| {NAMES.get(o, o)} | " + " | ".join(str(c.get(k, "")) for k in ["lr", "rho", "momentum", "weight_decay", "adam_lr"]) + " |\n")
+    print("wrote", ", ".join(sorted(os.listdir(OUT))))
 
 
 if __name__ == "__main__":

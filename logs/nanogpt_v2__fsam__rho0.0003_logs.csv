@@ -1,0 +1,4 @@
+epoch,optimizer,seed,train_loss,train_accuracy,val_loss,val_accuracy,val_perplexity,time_s
+1,fsam,0,4.0999,31.67,3.5702,36.32,35.53,541.7
+2,fsam,0,3.6170,35.61,3.3685,38.26,29.04,450.0
+3,fsam,0,3.5267,36.19,3.2885,38.96,26.80,451.9

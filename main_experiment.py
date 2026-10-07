@@ -78,6 +78,14 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
             train_loader, val_loader = get_cpt_dataloaders(tokenizer, dataset_name, dataset_config, batch_size=batch_size, max_len=max_len, seed=seed)
         train_iter = infinite_batches(train_loader)
 
+        if task_type != "image_classification":
+            # Guard against starting from anything but the released weights: a random init has ppl ~ vocab size.
+            _, _, init_ppl = evaluate_model(model, nn.CrossEntropyLoss(), val_loader, task_type, max_steps=50)
+            print(f"  Initial (pretrained) validation perplexity: {init_ppl:.2f}")
+            wandb.summary["init_val_perplexity"] = init_ppl
+            if not init_ppl < 300:
+                raise RuntimeError(f"initial val perplexity {init_ppl:.1f}: the model did not start from the pretrained weights")
+
         opts_cfg = config.get("optimizers", {})
         if opt_name in ["atlas", "atlas_raw", "atlas_random", "hybrid"]:
             opt_dict = opts_cfg.get(opt_name, {})
@@ -99,12 +107,13 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
                 "lr": opt_dict.get("lr", 0.035),
                 "momentum": opt_dict.get("momentum", 0.9665),
                 "weight_decay": opt_dict.get("weight_decay", 0.0001),
-                "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
+                "adam_lr": opt_dict.get("adam_lr", 0.003 if task_type != "image_classification" else 0.001),
             }
         elif opt_name in ["muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon", "fsam_ortho_muon",
                           "fsam_ortho_muon_stale", "fsam_ortho_muon_stale_momentum",
                           "fsam_frob_muon_stale", "fsam_frob_muon_stale_momentum",
-                          "muon_sam_gfrob", "fsam_gfrob_muon_stale", "fsam_gfrob_muon_stale_momentum", "randsam_muon"]:
+                          "muon_sam_gfrob", "fsam_gfrob_muon_stale", "fsam_gfrob_muon_stale_momentum", "randsam_muon",
+                          "soma_prens5", "op_soma_postns5"]:
             opt_dict = opts_cfg.get(opt_name, {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.035),
@@ -115,7 +124,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
                 "ns_steps": opt_dict.get("ns_steps", 5),
                 "fsam_lambda": opt_dict.get("fsam_lambda", 0.9),
                 "fsam_sigma": opt_dict.get("fsam_sigma", 1.0),
-                "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
+                "adam_lr": opt_dict.get("adam_lr", 0.003 if task_type != "image_classification" else 0.001),
             }
         elif opt_name in ["fsam_ortho", "fsam", "sam", "sam_ortho"]:
             opt_dict = opts_cfg.get(opt_name, {})
@@ -181,7 +190,11 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
             })
             
             ckpt_path = f"checkpoints/{config_id}_{opt_name}_seed{seed}_epoch{epoch+1}.pt"
-            torch.save(model.state_dict(), ckpt_path)
+            torch.save({k: (v.to(torch.bfloat16) if v.is_floating_point() and task_type != "image_classification" else v)
+                        for k, v in model.state_dict().items()}, ckpt_path)
+            prev = f"checkpoints/{config_id}_{opt_name}_seed{seed}_epoch{epoch}.pt"
+            if os.path.exists(prev):
+                os.remove(prev)  # disk budget: only the newest epoch is kept
             
             config_epoch_logs.append({
                 "epoch": epoch + 1,
@@ -347,3 +360,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+    sys.stdout.flush()
+    sys.stderr.flush()
+    os._exit(0)  # HF streaming threads can keep the interpreter alive after training (observed multi-hour hangs)

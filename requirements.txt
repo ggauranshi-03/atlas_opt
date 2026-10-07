@@ -1,0 +1,9 @@
+# versions the reported results were produced with (install the PyTorch build matching your CUDA version first)
+torch==2.13.0
+transformers==4.57.6
+datasets==5.0.1
+huggingface_hub==0.36.2
+wandb==0.29.0
+PyYAML==6.0.3
+numpy==2.5.1
+matplotlib==3.11.1

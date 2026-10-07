@@ -1,3 +1,4 @@
+import contextlib
 import torch
 import torch.nn as nn
 import time
@@ -21,6 +22,7 @@ from optimizers.fsam_frob_muon_stale import FSAMFrobMuonStale
 from optimizers.fsam_frob_muon_stale_momentum import FSAMFrobMuonStaleMomentum
 from optimizers.muon_sam_gfrob import MuonSAMGFrob
 from optimizers.randsam_muon import RandSAMMuon
+from optimizers.soma_projected import SOMAPreNS5, OPSOMAPostNS5
 from optimizers.fsam_gfrob_muon_stale import FSAMGFrobMuonStale
 from optimizers.fsam_gfrob_muon_stale_momentum import FSAMGFrobMuonStaleMomentum
 from optimizers.fsam_ortho import FSAMOrtho
@@ -30,6 +32,16 @@ from optimizers.sam_ortho import SAMOrtho
 from utils.models import AirbenchCNN
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+torch.backends.cuda.matmul.allow_tf32 = True
+torch.backends.cudnn.allow_tf32 = True
+
+
+def amp_context(model):
+    """bf16 autocast, except for GPT-NeoX/Pythia: its released weights lose most of their quality under bf16
+    (Pythia-70M FineWeb-Edu perplexity 35.3 in fp32 vs 195 under bf16 autocast), so it runs in fp32 (TF32 matmuls)."""
+    if getattr(getattr(model, "config", None), "model_type", "") == "gpt_neox":
+        return contextlib.nullcontext()
+    return torch.amp.autocast("cuda", dtype=torch.bfloat16)
 
 def build_model(config_dict, device):
     exp = config_dict.get("experiment", {})
@@ -41,17 +53,14 @@ def build_model(config_dict, device):
         model = AirbenchCNN(num_classes=exp.get("num_classes", 10)).to(device)
         return model, "image_classification", None
 
-    print(f"  Loading CPT model architecture: {model_name} in bfloat16...")
+    # Continued pretraining starts from the released weights. Loading is strict: if the weights are not
+    # available the run fails (an earlier version silently fell back to a random init).
+    # fp32 master weights; forward/backward under bf16 autocast (fp32 for Pythia, see amp_context).
+    print(f"  Loading pretrained {model_name} (fp32 master weights)...")
     try:
-        model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            dtype=torch.bfloat16,
-            local_files_only=True,
-            trust_remote_code=True,
-        )
+        model = AutoModelForCausalLM.from_pretrained(model_name, dtype=torch.float32, local_files_only=True)
     except Exception:
-        cfg = AutoConfig.from_pretrained(model_name)
-        model = AutoModelForCausalLM.from_config(cfg, dtype=torch.bfloat16)
+        model = AutoModelForCausalLM.from_pretrained(model_name, dtype=torch.float32)
 
     try:
         tokenizer = AutoTokenizer.from_pretrained(model_name, local_files_only=True)
@@ -132,7 +141,8 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
     elif name in ["muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon", "fsam_ortho_muon",
                   "fsam_ortho_muon_stale", "fsam_ortho_muon_stale_momentum",
                   "fsam_frob_muon_stale", "fsam_frob_muon_stale_momentum",
-                  "muon_sam_gfrob", "fsam_gfrob_muon_stale", "fsam_gfrob_muon_stale_momentum", "randsam_muon"]:
+                  "muon_sam_gfrob", "fsam_gfrob_muon_stale", "fsam_gfrob_muon_stale_momentum", "randsam_muon",
+                  "soma_prens5", "op_soma_postns5"]:
         base_opt = _muon_with_aux_adam(model, lr, wd, params)
         if name == "muon_sam":
             opt = MuonSAM(base_opt, rho=params.get("rho", 0.0015),
@@ -176,6 +186,10 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
                                             rho_vector=params.get("rho_vector", params.get("rho", 0.0015)),
                                             fsam_lambda=params.get("fsam_lambda", 0.9),
                                             fsam_sigma=params.get("fsam_sigma", 1.0))
+        elif name == "soma_prens5":
+            opt = SOMAPreNS5(base_opt, rho=params["rho"], fsam_lambda=params["fsam_lambda"], fsam_sigma=params["fsam_sigma"])
+        elif name == "op_soma_postns5":
+            opt = OPSOMAPostNS5(base_opt, rho=params["rho"], fsam_lambda=params["fsam_lambda"], fsam_sigma=params["fsam_sigma"])
         elif name == "randsam_muon":
             opt = RandSAMMuon(base_opt, rho=params.get("rho", 0.01))
         elif name == "muon_sam_gfrob":
@@ -239,7 +253,7 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
         )
         return opt, get_wsd_schedule(opt)
     elif name == "adam":
-        opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd, eps=1e-7)
+        opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd, betas=(0.9, 0.95), eps=1e-8)
         return opt, get_wsd_schedule(opt)
     elif name == "sgd":
         opt = torch.optim.SGD(trainable_params, lr=lr, momentum=params.get("momentum", 0.9), weight_decay=wd, nesterov=params.get("nesterov", True))
@@ -258,7 +272,7 @@ def train_epoch(model, optimizer, criterion, batch_iter, task_type, grad_acc=1, 
     is_closure_opt = isinstance(optimizer, (AtlasOptimizer, AtlasOptimizerRaw, AtlasOptimizerRandom, MuonSAM,
                                             MuonSAMFrob, MuonSAMStale, FSAMMuon, FSAMOrthoMuon, FSAMOrthoMuonStale,
                                             FSAMOrthoMuonStaleMomentum, FSAMFrobMuonStale,
-                                            FSAMFrobMuonStaleMomentum, MuonSAMGFrob, RandSAMMuon, FSAMGFrobMuonStale,
+                                            FSAMFrobMuonStaleMomentum, MuonSAMGFrob, RandSAMMuon, SOMAPreNS5, OPSOMAPostNS5, FSAMGFrobMuonStale,
                                             FSAMGFrobMuonStaleMomentum, FSAMOrtho, FSAM, SAM, SAMOrtho))
     steps = 0
     
@@ -278,7 +292,7 @@ def train_epoch(model, optimizer, criterion, batch_iter, task_type, grad_acc=1, 
                     temp_correct, temp_total = 0, 0
                     
                     for mb in micro_batches:
-                        with torch.amp.autocast("cuda", dtype=torch.bfloat16):
+                        with amp_context(model):
                             if task_type == "image_classification":
                                 imgs = mb["image"].to(device)
                                 targets = mb["label"].to(device)
@@ -317,7 +331,7 @@ def train_epoch(model, optimizer, criterion, batch_iter, task_type, grad_acc=1, 
                 optimizer.zero_grad()
                 loss_val = 0.0
                 for mb in micro_batches:
-                    with torch.amp.autocast("cuda", dtype=torch.bfloat16):
+                    with amp_context(model):
                         if task_type == "image_classification":
                             imgs = mb["image"].to(device)
                             targets = mb["label"].to(device)
@@ -362,7 +376,7 @@ def evaluate_model(model, criterion, dataloader, task_type, max_steps=50):
     with torch.no_grad():
         for batch in dataloader:
             if steps >= max_steps: break
-            with torch.amp.autocast("cuda", dtype=torch.bfloat16):
+            with amp_context(model):
                 if task_type == "image_classification":
                     imgs = batch["image"].to(device)
                     targets = batch["label"].to(device)
@@ -398,7 +412,7 @@ def run_noise_analysis(model, dataloader, config_id):
     for idx, batch in enumerate(dataloader):
         if idx >= 20: break
         model.zero_grad()
-        with torch.amp.autocast("cuda", dtype=torch.bfloat16):
+        with amp_context(model):
             ids = batch["input_ids"].to(device)
             lbls = batch["labels"].to(device)
             out = model(input_ids=ids, labels=lbls)

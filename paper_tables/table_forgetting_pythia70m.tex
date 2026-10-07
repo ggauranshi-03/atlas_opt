@@ -1,0 +1,30 @@
+% Forgetting table, Pythia-70M. Values are hard-coded; needs \usepackage{booktabs} and \usepackage{graphicx}.
+\begin{table*}[t]
+  \centering
+  \caption{Forgetting of Pythia-70M models pretrained with different optimizers: held-out FineWeb-Edu loss before ($L_{\mathrm{before}}$) and after
+  ($L_{\mathrm{after}}$) fine-tuning on four datasets (lower is better). $\Delta\%_{\mathrm{adj}}$ is the smoothed relative increase of the average
+  $L_{\mathrm{after}}$. Mean $\pm$ std over 3 seeds; bold: lowest in column.}
+  \label{tab:forgetting-pythia70m}
+  \vspace{2pt}
+  \resizebox{\ifdim\width>\textwidth\textwidth\else\width\fi}{!}{%
+  \footnotesize\setlength{\tabcolsep}{4.5pt}
+  \begin{tabular}{lccccccc}
+    \toprule
+    & & \multicolumn{4}{c}{$L_{\mathrm{after}}$ by fine-tuning dataset} & & \\
+    \cmidrule(lr){3-6}
+    Optimizer & $L_{\mathrm{before}}$ & codeparrot & stackmathqa & musicpile & tulu3 & Average & $\Delta\%_{\mathrm{adj}}$ \\
+    \midrule
+    AdamW & 3.528{\scriptsize$\pm$0.001} & 3.910{\scriptsize$\pm$0.001} & 3.914{\scriptsize$\pm$0.002} & \textbf{3.686}{\scriptsize$\pm$0.000} & \textbf{3.734}{\scriptsize$\pm$0.043} & 3.811{\scriptsize$\pm$0.011} & 4.01{\scriptsize$\pm$0.14} \\
+    SGD & 3.631{\scriptsize$\pm$0.000} & \textbf{3.636}{\scriptsize$\pm$0.000} & \textbf{3.844}{\scriptsize$\pm$0.001} & 3.840{\scriptsize$\pm$0.037} & 3.813{\scriptsize$\pm$0.001} & \textbf{3.783}{\scriptsize$\pm$0.009} & \textbf{2.12}{\scriptsize$\pm$0.13} \\
+    Muon & 3.515{\scriptsize$\pm$0.000} & 4.361{\scriptsize$\pm$0.005} & 4.464{\scriptsize$\pm$0.015} & 3.732{\scriptsize$\pm$0.001} & 3.888{\scriptsize$\pm$0.056} & 4.111{\scriptsize$\pm$0.013} & 8.45{\scriptsize$\pm$0.19} \\
+    SAM & 3.633{\scriptsize$\pm$0.000} & 3.637{\scriptsize$\pm$0.000} & 3.847{\scriptsize$\pm$0.000} & 3.864{\scriptsize$\pm$0.003} & 3.814{\scriptsize$\pm$0.002} & 3.791{\scriptsize$\pm$0.001} & 2.20{\scriptsize$\pm$0.01} \\
+    FSAM & 3.633{\scriptsize$\pm$0.000} & 3.637{\scriptsize$\pm$0.000} & 3.845{\scriptsize$\pm$0.001} & 3.844{\scriptsize$\pm$0.037} & 3.813{\scriptsize$\pm$0.001} & 3.785{\scriptsize$\pm$0.009} & \textbf{2.12}{\scriptsize$\pm$0.13} \\
+    SpecSAM-Muon & 3.516{\scriptsize$\pm$0.001} & 4.360{\scriptsize$\pm$0.002} & 4.478{\scriptsize$\pm$0.026} & 3.733{\scriptsize$\pm$0.001} & 3.856{\scriptsize$\pm$0.004} & 4.107{\scriptsize$\pm$0.006} & 8.36{\scriptsize$\pm$0.09} \\
+    FP-SOMA & 3.516{\scriptsize$\pm$0.001} & 4.361{\scriptsize$\pm$0.002} & 4.480{\scriptsize$\pm$0.016} & 3.733{\scriptsize$\pm$0.001} & 3.852{\scriptsize$\pm$0.001} & 4.107{\scriptsize$\pm$0.004} & 8.36{\scriptsize$\pm$0.07} \\
+    SOMA & 3.517{\scriptsize$\pm$0.000} & 4.360{\scriptsize$\pm$0.004} & 4.481{\scriptsize$\pm$0.018} & 3.734{\scriptsize$\pm$0.001} & 3.855{\scriptsize$\pm$0.004} & 4.107{\scriptsize$\pm$0.003} & 8.36{\scriptsize$\pm$0.05} \\
+    RandSAM-Muon & 3.514{\scriptsize$\pm$0.000} & 4.358{\scriptsize$\pm$0.007} & 4.468{\scriptsize$\pm$0.027} & 3.732{\scriptsize$\pm$0.001} & 3.857{\scriptsize$\pm$0.002} & 4.104{\scriptsize$\pm$0.008} & 8.35{\scriptsize$\pm$0.12} \\
+    SOMA-PreNS5 & 3.516{\scriptsize$\pm$0.000} & 4.362{\scriptsize$\pm$0.005} & 4.489{\scriptsize$\pm$0.012} & 3.733{\scriptsize$\pm$0.000} & 3.859{\scriptsize$\pm$0.003} & 4.111{\scriptsize$\pm$0.003} & 8.42{\scriptsize$\pm$0.04} \\
+    OP-SOMA-PostNS5 & 3.515{\scriptsize$\pm$0.000} & 4.359{\scriptsize$\pm$0.007} & 4.472{\scriptsize$\pm$0.023} & 3.733{\scriptsize$\pm$0.001} & 3.858{\scriptsize$\pm$0.001} & 4.106{\scriptsize$\pm$0.007} & 8.36{\scriptsize$\pm$0.11} \\
+    \bottomrule
+  \end{tabular}}
+\end{table*}

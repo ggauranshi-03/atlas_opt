@@ -1,0 +1,112 @@
+% AUTO-GENERATED: rows = models, columns = fine-tuning datasets, lines = optimizers
+\begin{tikzpicture}
+\begin{groupplot}[ft grid axis, group style={group size=4 by 2, horizontal sep=1.15cm, vertical sep=1.5cm, xlabels at=edge bottom, xticklabels at=edge bottom}]
+\nextgroupplot[title={codeparrot}, ylabel={nanoGPT\\Fine-tuning\\val.\ accuracy (\%)}, legend to name=ftlegendvalacc, legend columns=6, legend style={font=\scriptsize, draw=none}]
+\addplot[ft-adam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/adam_codeparrot_val.csv};
+\addlegendentry{AdamW}
+\addplot[ft-sgd, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/sgd_codeparrot_val.csv};
+\addlegendentry{SGD}
+\addplot[ft-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/muon_codeparrot_val.csv};
+\addlegendentry{Muon}
+\addplot[ft-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/sam_codeparrot_val.csv};
+\addlegendentry{SAM}
+\addplot[ft-fsam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_codeparrot_val.csv};
+\addlegendentry{FSAM}
+\addplot[ft-muon-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/muon_sam_codeparrot_val.csv};
+\addlegendentry{SpecSAM-Muon}
+\addplot[ft-fsam-ortho-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_ortho_muon_codeparrot_val.csv};
+\addlegendentry{FP-SOMA}
+\addplot[ft-fsam-ortho-muon-stale-momentum, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_ortho_muon_stale_momentum_codeparrot_val.csv};
+\addlegendentry{SOMA}
+\addplot[ft-randsam-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/randsam_muon_codeparrot_val.csv};
+\addlegendentry{RandSAM-Muon}
+\addplot[ft-soma-prens5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/soma_prens5_codeparrot_val.csv};
+\addlegendentry{SOMA-PreNS5}
+\addplot[ft-op-soma-postns5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/op_soma_postns5_codeparrot_val.csv};
+\addlegendentry{OP-SOMA-PostNS5}
+\nextgroupplot[title={stackmathqa}]
+\addplot[ft-adam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/adam_stackmathqa_val.csv};
+\addplot[ft-sgd, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/sgd_stackmathqa_val.csv};
+\addplot[ft-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/muon_stackmathqa_val.csv};
+\addplot[ft-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/sam_stackmathqa_val.csv};
+\addplot[ft-fsam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_stackmathqa_val.csv};
+\addplot[ft-muon-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/muon_sam_stackmathqa_val.csv};
+\addplot[ft-fsam-ortho-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_ortho_muon_stackmathqa_val.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_ortho_muon_stale_momentum_stackmathqa_val.csv};
+\addplot[ft-randsam-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/randsam_muon_stackmathqa_val.csv};
+\addplot[ft-soma-prens5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/soma_prens5_stackmathqa_val.csv};
+\addplot[ft-op-soma-postns5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/op_soma_postns5_stackmathqa_val.csv};
+\nextgroupplot[title={musicpile}]
+\addplot[ft-adam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/adam_musicpile_val.csv};
+\addplot[ft-sgd, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/sgd_musicpile_val.csv};
+\addplot[ft-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/muon_musicpile_val.csv};
+\addplot[ft-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/sam_musicpile_val.csv};
+\addplot[ft-fsam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_musicpile_val.csv};
+\addplot[ft-muon-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/muon_sam_musicpile_val.csv};
+\addplot[ft-fsam-ortho-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_ortho_muon_musicpile_val.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_ortho_muon_stale_momentum_musicpile_val.csv};
+\addplot[ft-randsam-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/randsam_muon_musicpile_val.csv};
+\addplot[ft-soma-prens5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/soma_prens5_musicpile_val.csv};
+\addplot[ft-op-soma-postns5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/op_soma_postns5_musicpile_val.csv};
+\nextgroupplot[title={tulu3}]
+\addplot[ft-adam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/adam_tulu3_val.csv};
+\addplot[ft-sgd, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/sgd_tulu3_val.csv};
+\addplot[ft-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/muon_tulu3_val.csv};
+\addplot[ft-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/sam_tulu3_val.csv};
+\addplot[ft-fsam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_tulu3_val.csv};
+\addplot[ft-muon-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/muon_sam_tulu3_val.csv};
+\addplot[ft-fsam-ortho-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_ortho_muon_tulu3_val.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/fsam_ortho_muon_stale_momentum_tulu3_val.csv};
+\addplot[ft-randsam-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/randsam_muon_tulu3_val.csv};
+\addplot[ft-soma-prens5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/soma_prens5_tulu3_val.csv};
+\addplot[ft-op-soma-postns5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/nanogpt/op_soma_postns5_tulu3_val.csv};
+\nextgroupplot[xlabel={Fine-tuning step}, ylabel={Pythia-70M\\Fine-tuning\\val.\ accuracy (\%)}]
+\addplot[ft-adam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/adam_codeparrot_val.csv};
+\addplot[ft-sgd, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/sgd_codeparrot_val.csv};
+\addplot[ft-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/muon_codeparrot_val.csv};
+\addplot[ft-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/sam_codeparrot_val.csv};
+\addplot[ft-fsam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_codeparrot_val.csv};
+\addplot[ft-muon-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/muon_sam_codeparrot_val.csv};
+\addplot[ft-fsam-ortho-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_ortho_muon_codeparrot_val.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_ortho_muon_stale_momentum_codeparrot_val.csv};
+\addplot[ft-randsam-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/randsam_muon_codeparrot_val.csv};
+\addplot[ft-soma-prens5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/soma_prens5_codeparrot_val.csv};
+\addplot[ft-op-soma-postns5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/op_soma_postns5_codeparrot_val.csv};
+\nextgroupplot[xlabel={Fine-tuning step}]
+\addplot[ft-adam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/adam_stackmathqa_val.csv};
+\addplot[ft-sgd, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/sgd_stackmathqa_val.csv};
+\addplot[ft-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/muon_stackmathqa_val.csv};
+\addplot[ft-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/sam_stackmathqa_val.csv};
+\addplot[ft-fsam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_stackmathqa_val.csv};
+\addplot[ft-muon-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/muon_sam_stackmathqa_val.csv};
+\addplot[ft-fsam-ortho-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_ortho_muon_stackmathqa_val.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_ortho_muon_stale_momentum_stackmathqa_val.csv};
+\addplot[ft-randsam-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/randsam_muon_stackmathqa_val.csv};
+\addplot[ft-soma-prens5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/soma_prens5_stackmathqa_val.csv};
+\addplot[ft-op-soma-postns5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/op_soma_postns5_stackmathqa_val.csv};
+\nextgroupplot[xlabel={Fine-tuning step}]
+\addplot[ft-adam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/adam_musicpile_val.csv};
+\addplot[ft-sgd, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/sgd_musicpile_val.csv};
+\addplot[ft-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/muon_musicpile_val.csv};
+\addplot[ft-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/sam_musicpile_val.csv};
+\addplot[ft-fsam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_musicpile_val.csv};
+\addplot[ft-muon-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/muon_sam_musicpile_val.csv};
+\addplot[ft-fsam-ortho-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_ortho_muon_musicpile_val.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_ortho_muon_stale_momentum_musicpile_val.csv};
+\addplot[ft-randsam-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/randsam_muon_musicpile_val.csv};
+\addplot[ft-soma-prens5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/soma_prens5_musicpile_val.csv};
+\addplot[ft-op-soma-postns5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/op_soma_postns5_musicpile_val.csv};
+\nextgroupplot[xlabel={Fine-tuning step}]
+\addplot[ft-adam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/adam_tulu3_val.csv};
+\addplot[ft-sgd, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/sgd_tulu3_val.csv};
+\addplot[ft-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/muon_tulu3_val.csv};
+\addplot[ft-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/sam_tulu3_val.csv};
+\addplot[ft-fsam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_tulu3_val.csv};
+\addplot[ft-muon-sam, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/muon_sam_tulu3_val.csv};
+\addplot[ft-fsam-ortho-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_ortho_muon_tulu3_val.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/fsam_ortho_muon_stale_momentum_tulu3_val.csv};
+\addplot[ft-randsam-muon, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/randsam_muon_tulu3_val.csv};
+\addplot[ft-soma-prens5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/soma_prens5_tulu3_val.csv};
+\addplot[ft-op-soma-postns5, mark=*, mark size=0.9pt] table[col sep=comma, x=step, y=val_acc]{\ftroot/data/pythia70m/op_soma_postns5_tulu3_val.csv};
+\end{groupplot}
+\end{tikzpicture}

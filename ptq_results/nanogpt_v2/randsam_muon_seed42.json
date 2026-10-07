@@ -1,0 +1,200 @@
+{
+  "config": {
+    "experiment": {
+      "experiment_id": "nanogpt_v2",
+      "wandb_project": "V2-PTQ-NanoGPT",
+      "task_type": "causal_lm",
+      "model_name": "gpt2",
+      "model_config": {
+        "n_layer": 12,
+        "n_head": 12,
+        "n_embd": 768,
+        "vocab_size": 50257
+      },
+      "dataset_name": "HuggingFaceFW/fineweb-edu",
+      "dataset_config": "sample-10BT",
+      "max_len": 2048,
+      "total_training_steps": 1500,
+      "val_tokens": 10485760
+    },
+    "batch_size": 16,
+    "grad_acc": 32,
+    "parameter_routing": {
+      "hidden_matrices": "muon",
+      "embeddings_and_head": "adamw"
+    },
+    "optimizers": {
+      "adam": {
+        "optimizer": "adam",
+        "lr": 0.0006,
+        "weight_decay": 0.1
+      },
+      "sgd": {
+        "optimizer": "sgd",
+        "lr": 0.3,
+        "momentum": 0.9,
+        "nesterov": true,
+        "weight_decay": 0.0
+      },
+      "muon": {
+        "optimizer": "muon",
+        "lr": 0.006,
+        "momentum": 0.95,
+        "weight_decay": 0.0,
+        "adam_lr": 0.00024
+      },
+      "sam": {
+        "optimizer": "sam",
+        "lr": 0.3,
+        "momentum": 0.9,
+        "nesterov": true,
+        "weight_decay": 0.0,
+        "rho": 0.003,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0,
+        "rho_vector": 0.003
+      },
+      "fsam": {
+        "optimizer": "fsam",
+        "lr": 0.3,
+        "momentum": 0.9,
+        "nesterov": true,
+        "weight_decay": 0.0,
+        "rho": 0.000948683,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0,
+        "rho_vector": 0.000948683
+      },
+      "muon_sam": {
+        "optimizer": "muon_sam",
+        "lr": 0.006,
+        "momentum": 0.95,
+        "weight_decay": 0.0,
+        "adam_lr": 0.00024,
+        "rho": 0.01,
+        "rho_vector": 0.01,
+        "ns_steps": 5,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      },
+      "fsam_ortho_muon": {
+        "optimizer": "fsam_ortho_muon",
+        "lr": 0.006,
+        "momentum": 0.95,
+        "weight_decay": 0.0,
+        "adam_lr": 0.00024,
+        "rho": 0.01,
+        "rho_vector": 0.01,
+        "ns_steps": 5,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      },
+      "fsam_ortho_muon_stale_momentum": {
+        "optimizer": "fsam_ortho_muon_stale_momentum",
+        "lr": 0.006,
+        "momentum": 0.95,
+        "weight_decay": 0.0,
+        "adam_lr": 0.00024,
+        "rho": 0.0003,
+        "rho_vector": 0.0003,
+        "ns_steps": 5,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      },
+      "randsam_muon": {
+        "optimizer": "randsam_muon",
+        "lr": 0.006,
+        "momentum": 0.95,
+        "weight_decay": 0.0,
+        "adam_lr": 0.00024,
+        "rho": 0.01,
+        "rho_vector": 0.01,
+        "ns_steps": 5,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      }
+    }
+  },
+  "args": {
+    "config": "configs/tuned/nanogpt_v2.yaml",
+    "optimizer": "randsam_muon",
+    "checkpoint": "checkpoints/nanogpt_v2_randsam_muon_seed42_epoch15.pt",
+    "seed": 42,
+    "methods": "awq",
+    "settings": "4:128",
+    "calib_seeds": "0,1,2",
+    "nsamples": null,
+    "seqlen": 512,
+    "out_dir": "ptq_results"
+  },
+  "git_commit": "unknown",
+  "torch": "2.13.0+cu130",
+  "quantized_params": 84934656,
+  "total_params": 124439808,
+  "rows": [
+    {
+      "config_id": "nanogpt_v2",
+      "optimizer": "randsam_muon",
+      "seed": 42,
+      "checkpoint": "nanogpt_v2_randsam_muon_seed42_epoch15.pt",
+      "calib_nsamples": "",
+      "method": "fp",
+      "wbits": 16,
+      "group_size": "",
+      "calib_seed": "",
+      "quant_time_s": 0.0,
+      "status": "ok",
+      "wikitext2_ppl": 50.7304333073207,
+      "fineweb_ppl": 23.217326865963248,
+      "fineweb_acc": 40.38105048312133
+    },
+    {
+      "config_id": "nanogpt_v2",
+      "optimizer": "randsam_muon",
+      "seed": 42,
+      "checkpoint": "nanogpt_v2_randsam_muon_seed42_epoch15.pt",
+      "calib_nsamples": 128,
+      "method": "awq",
+      "wbits": 4,
+      "group_size": 128,
+      "calib_seed": 0,
+      "quant_time_s": 21.6,
+      "status": "ok",
+      "wikitext2_ppl": 52.52078536616282,
+      "fineweb_ppl": 24.018591268401792,
+      "fineweb_acc": 39.956408237524464
+    },
+    {
+      "config_id": "nanogpt_v2",
+      "optimizer": "randsam_muon",
+      "seed": 42,
+      "checkpoint": "nanogpt_v2_randsam_muon_seed42_epoch15.pt",
+      "calib_nsamples": 128,
+      "method": "awq",
+      "wbits": 4,
+      "group_size": 128,
+      "calib_seed": 1,
+      "quant_time_s": 21.54,
+      "status": "ok",
+      "wikitext2_ppl": 51.911504113305476,
+      "fineweb_ppl": 24.034076486869957,
+      "fineweb_acc": 39.95545269691781
+    },
+    {
+      "config_id": "nanogpt_v2",
+      "optimizer": "randsam_muon",
+      "seed": 42,
+      "checkpoint": "nanogpt_v2_randsam_muon_seed42_epoch15.pt",
+      "calib_nsamples": 128,
+      "method": "awq",
+      "wbits": 4,
+      "group_size": 128,
+      "calib_seed": 2,
+      "quant_time_s": 21.56,
+      "status": "ok",
+      "wikitext2_ppl": 52.165799170259895,
+      "fineweb_ppl": 24.03638458920779,
+      "fineweb_acc": 39.96969025195695
+    }
+  ]
+}

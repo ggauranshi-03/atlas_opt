@@ -1,0 +1,14 @@
+% AUTO-GENERATED: one full-width figure per model (needs common/preamble.tex in the preamble)
+\begin{figure*}[t]
+  \centering
+  \fitwidth{\input{\figroot/forgetting_nanogpt.tex}}
+  \caption{Catastrophic forgetting of nanoGPT (GPT-2 small) models pretrained with each optimizer, after fine-tuning on four datasets. Bars: rise $\Delta$PT of the held-out FineWeb-Edu loss at a common fine-tuning loss (lower is better); diamond: average over datasets; error bars: standard deviation over 3 pretraining seeds. $^\dagger$ starting model clearly weaker than AdamW's (not comparable).}
+  \label{fig:forgetting-nanogpt}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centering
+  \fitwidth{\input{\figroot/forgetting_pythia70m.tex}}
+  \caption{Catastrophic forgetting of Pythia-70M models pretrained with each optimizer, after fine-tuning on four datasets. Bars: rise $\Delta$PT of the held-out FineWeb-Edu loss at a common fine-tuning loss (lower is better); diamond: average over datasets; error bars: standard deviation over 3 pretraining seeds. $^\dagger$ starting model clearly weaker than AdamW's (not comparable).}
+  \label{fig:forgetting-pythia70m}
+\end{figure*}

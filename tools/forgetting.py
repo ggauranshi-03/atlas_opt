@@ -37,38 +37,27 @@ FT_STEPS = 64                    # 64 x 64 x 512 = 2,097,152 fine-tuning tokens
 HELDOUT_WINDOWS = 1024           # 524,288 held-out fine-tuning tokens (document-disjoint from train)
 DOC_CAP = 4 * SEQ                # tokens kept per document, so no single long file dominates a split
 WARMUP_FRAC = 0.10
-LRS = [float(f"{x:.3g}") for x in np.geomspace(1e-5, 3e-3, 12)]
+LRS = [float(f"{x:.3g}") for x in np.geomspace(1e-6, 1e-2, 17)]
 DATA_SEED = 0
-OPTIMIZERS = ["muon", "muon_sam", "muon_sam_frob", "fsam_muon", "fsam_ortho_muon", "fsam_ortho_muon_stale",
-              "fsam_frob_muon_stale", "fsam_ortho_muon_stale_momentum", "fsam_frob_muon_stale_momentum",
-              "muon_sam_gfrob", "fsam_gfrob_muon_stale", "fsam_gfrob_muon_stale_momentum", "randsam_muon",
-              "sgd", "sam", "sam_ortho", "fsam", "fsam_ortho", "adam"]
-# Each sharpness-aware method is compared with the base optimizer whose update rule it wraps, and with AdamW
-# (the paper's baseline). Muon-family: Muon descent step; SGD-family: SGD-momentum descent step.
-FAMILY_BASE = {"muon": "muon", "muon_sam": "muon", "muon_sam_frob": "muon", "fsam_muon": "muon",
-               "fsam_ortho_muon": "muon", "fsam_ortho_muon_stale": "muon", "fsam_frob_muon_stale": "muon",
-               "fsam_ortho_muon_stale_momentum": "muon", "fsam_frob_muon_stale_momentum": "muon",
-               "muon_sam_gfrob": "muon", "randsam_muon": "muon", "fsam_gfrob_muon_stale": "muon", "fsam_gfrob_muon_stale_momentum": "muon",
-               "sgd": "sgd", "sam": "sgd", "sam_ortho": "sgd", "fsam": "sgd", "fsam_ortho": "sgd", "adam": "adam"}
-# (Frobenius, spectral) versions of the same method: only the perturbation norm differs.
-NORM_PAIRS = [("sam", "sam_ortho"), ("fsam", "fsam_ortho"), ("muon_sam_frob", "muon_sam"),
-              ("fsam_muon", "fsam_ortho_muon"), ("fsam_frob_muon_stale", "fsam_ortho_muon_stale"),
-              ("fsam_frob_muon_stale_momentum", "fsam_ortho_muon_stale_momentum"),
-              # global-Frobenius versions of the per-layer Frobenius methods vs the same spectral partner
-              ("muon_sam_gfrob", "muon_sam"), ("fsam_gfrob_muon_stale", "fsam_ortho_muon_stale"),
-              ("fsam_gfrob_muon_stale_momentum", "fsam_ortho_muon_stale_momentum")]
-# (per-layer Frobenius reference, global Frobenius tested): only the scope of the Frobenius norm differs.
-SCOPE_PAIRS = [("muon_sam_frob", "muon_sam_gfrob"), ("fsam_frob_muon_stale", "fsam_gfrob_muon_stale"),
-               ("fsam_frob_muon_stale_momentum", "fsam_gfrob_muon_stale_momentum")]
+OPTIMIZERS = ["adam", "sgd", "muon", "sam", "fsam", "muon_sam", "fsam_ortho_muon", "fsam_ortho_muon_stale_momentum",
+              "randsam_muon", "soma_prens5", "op_soma_postns5"]
+# Each sharpness-aware method is compared with the base optimizer whose update rule it wraps, and with AdamW.
+FAMILY_BASE = {"adam": "adam", "sgd": "sgd", "sam": "sgd", "fsam": "sgd", "muon": "muon", "muon_sam": "muon",
+               "fsam_ortho_muon": "muon", "fsam_ortho_muon_stale_momentum": "muon", "randsam_muon": "muon",
+               "soma_prens5": "muon", "op_soma_postns5": "muon"}
+NORM_PAIRS = []
+SCOPE_PAIRS = []
 ADAMW = "adam"
 
-MODELS = {
-    "nanogpt": dict(config="configs/nanogpt_fineweb.yaml", cid="nanogpt_fineweb", epoch=15,
-                    project="Forgetting-NanoGPT", tokenizer="gpt2", pt_tokens=15 * 100 * 16 * 32 * SEQ),
-    "pythia70m": dict(config="configs/pythia70m_pretrain_chinchilla.yaml", cid="pythia70m_pretrain_chinchilla",
-                      epoch=14, project="Forgetting-Pythia70M", tokenizer="EleutherAI/pythia-70m",
-                      pt_tokens=14 * 100 * 16 * 32 * SEQ),
+SEEDS = [42, 43, 44]
+_BASE_MODELS = {
+    "nanogpt": dict(config="configs/tuned/nanogpt_v2.yaml", cid="nanogpt_v2", epoch=15,
+                    project="V2-Forgetting-NanoGPT", tokenizer="gpt2", pt_tokens=15 * 100 * 16 * 32 * SEQ),
+    "pythia70m": dict(config="configs/tuned/pythia70m_v2.yaml", cid="pythia70m_v2", epoch=14,
+                      project="V2-Forgetting-Pythia70M", tokenizer="EleutherAI/pythia-70m", pt_tokens=14 * 100 * 16 * 32 * SEQ),
 }
+# Analysis unit = (model, pretraining seed); results of the three seeds are aggregated by tools/summarize.py.
+MODELS = {f"{k}_s{sd}": dict(v, seed=sd, base=k) for k, v in _BASE_MODELS.items() for sd in SEEDS}
 
 
 def _stackmath(ex):
@@ -110,7 +99,7 @@ def protocol():
         "seq_len": SEQ, "ft_batch": FT_BATCH, "ft_steps": FT_STEPS, "ft_tokens": FT_STEPS * FT_BATCH * SEQ,
         "heldout_tokens": HELDOUT_WINDOWS * SEQ, "doc_cap_tokens": DOC_CAP, "lrs": LRS,
         "optimizer": "AdamW(betas=(0.9, 0.95), eps=1e-8, weight_decay=0)", "schedule": "linear warmup 10% -> cosine to 0",
-        "grad_clip": 1.0, "precision": "fp32 master weights, bf16 autocast; evaluation in fp32",
+        "grad_clip": 1.0, "precision": "fp32 master weights, bf16 autocast (Pythia: fp32 throughout); evaluation in fp32",
         "loss": "full-token causal LM loss on packed 512-token windows (no separators, as in pretraining)",
         "data_seed": DATA_SEED, "base_optimizers": OPTIMIZERS, "family_base": FAMILY_BASE, "norm_pairs": NORM_PAIRS, "scope_pairs": SCOPE_PAIRS, "adamw_reference": ADAMW,
         "matched_rule": "pairwise App. C.4: tau = max(min FT loss of method, min FT loss of reference); "
@@ -189,6 +178,7 @@ def lr_lambda(step):
 
 
 def finetune(model, base, train, order, lr, device):
+    from utils.helpers import amp_context
     with torch.no_grad():
         for p, b in zip(model.parameters(), base):
             p.copy_(b)
@@ -202,7 +192,7 @@ def finetune(model, base, train, order, lr, device):
         step_loss = 0.0
         for j in range(0, FT_BATCH, FT_MICRO):
             ids = train[order[step, j:j + FT_MICRO]].to(device, dtype=torch.long)
-            with torch.autocast("cuda", dtype=torch.bfloat16):
+            with amp_context(model):
                 loss = model(input_ids=ids, labels=ids, use_cache=False).loss
             (loss * (FT_MICRO / FT_BATCH)).backward()
             step_loss += loss.item() * FT_MICRO / FT_BATCH
@@ -247,7 +237,7 @@ def cmd_run(a):
     with open(os.path.join(ROOT, m["config"])) as f:
         cfg = yaml.safe_load(f)
     model, _, tok = build_model(cfg, device)
-    ckpt = os.path.join(ROOT, "checkpoints", f"{m['cid']}_{a.optimizer}_seed42_epoch{m['epoch']}.pt")
+    ckpt = os.path.join(ROOT, "checkpoints", f"{m['cid']}_{a.optimizer}_seed{m['seed']}_epoch{m['epoch']}.pt")
     model.load_state_dict(torch.load(ckpt, map_location=device, weights_only=True))
     model = model.float()
     base = [p.detach().clone() for p in model.parameters()]  # tied weights appear once
@@ -286,7 +276,7 @@ def cmd_run(a):
                    "rows": rows, "train_loss_curves": curves}, f, indent=1)
 
     import wandb  # reporting only, after results are on disk
-    run = wandb.init(project=m["project"], name=f"{a.optimizer}_{a.dataset}", group=a.dataset, job_type="lr_sweep",
+    run = wandb.init(project=m["project"], name=f"{a.optimizer}_{a.dataset}_s{m['seed']}", group=a.dataset, job_type="lr_sweep",
                      tags=[a.optimizer, a.dataset, spec["domain"]], config={**protocol(), "base_optimizer": a.optimizer,
                                                                            "dataset": a.dataset, "checkpoint": os.path.basename(ckpt)})
     wandb.define_metric("sweep/point")
@@ -312,8 +302,13 @@ def cmd_run(a):
 def cmd_launch(a):
     gpus = [g.strip() for g in a.gpus.split(",")]
     opts = a.optimizers.split(",") if a.optimizers else OPTIMIZERS
+    ckpt = lambda mk, opt: os.path.join(ROOT, "checkpoints", f"{MODELS[mk]['cid']}_{opt}_seed{MODELS[mk]['seed']}_epoch{MODELS[mk]['epoch']}.pt")
     jobs = [(mk, opt, ds) for mk in MODELS for ds in DATASETS for opt in opts
             if not os.path.exists(job_json(mk, opt, ds))]
+    missing = sorted({(mk, opt) for mk, opt, ds in jobs if not os.path.exists(ckpt(mk, opt))})
+    if missing:  # pretraining not finished (or failed): do not start sweeps that can only fail
+        print(f"skipping {len(missing)} (model, optimizer) pairs without a final checkpoint: {missing}", flush=True)
+    jobs = [j for j in jobs if (j[0], j[1]) not in missing]
     os.makedirs(os.path.join(OUT, "logs"), exist_ok=True)
     with open(os.path.join(OUT, "protocol.json"), "w") as f:
         json.dump(protocol(), f, indent=1)
@@ -394,11 +389,9 @@ def matched_pair(rows, method, ref):
                 lr_at_grid_edge=bm["lr"] in (LRS[0], LRS[-1]) or br["lr"] in (LRS[0], LRS[-1]))
 
 
-FAMILIES = {"muon_family_sam": ["muon", "muon_sam", "muon_sam_frob", "muon_sam_gfrob", "randsam_muon", "fsam_muon", "fsam_ortho_muon", "adam"],
-            "muon_family_stale": ["muon", "fsam_ortho_muon_stale", "fsam_frob_muon_stale", "fsam_gfrob_muon_stale",
-                                  "fsam_ortho_muon_stale_momentum", "fsam_frob_muon_stale_momentum",
-                                  "fsam_gfrob_muon_stale_momentum", "adam"],
-            "sgd_family": ["sgd", "sam", "sam_ortho", "fsam", "fsam_ortho", "adam"]}
+FAMILIES = {"sgd_family": ["sgd", "sam", "fsam", "adam"],
+            "muon_family": ["muon", "muon_sam", "fsam_ortho_muon", "fsam_ortho_muon_stale_momentum", "randsam_muon",
+                            "soma_prens5", "op_soma_postns5", "adam"]}
 PAIR_COLS = ["model", "dataset", "domain", "frobenius", "spectral", "tau", "frobenius_lr", "spectral_lr",
              "frobenius_base_pt_loss", "spectral_base_pt_loss", "frobenius_delta_pt", "spectral_delta_pt",
              "spectral_less_forgetting", "frobenius_delta_norm", "spectral_delta_norm", "lr_at_grid_edge", "kind"]
@@ -540,9 +533,9 @@ def cmd_analyze(a):
         if a.no_wandb:
             continue
         import wandb
-        for old in wandb.Api().runs(f"{wandb.Api().default_entity}/{m['project']}", filters={"display_name": "frontier_analysis"}):
+        for old in wandb.Api().runs(f"{wandb.Api().default_entity}/{m['project']}", filters={"display_name": f"frontier_analysis_s{m['seed']}"}):
             old.delete()  # a re-analysis supersedes the previous one
-        wandb.init(project=m["project"], name="frontier_analysis", job_type="analysis", config=protocol())
+        wandb.init(project=m["project"], name=f"frontier_analysis_s{m['seed']}", job_type="analysis", config=protocol())
         wandb.log({**{k: wandb.Image(v) for k, v in images.items()},
                    "matched_forgetting": wandb.Table(columns=SUMMARY_COLS, data=[[s[c] for c in SUMMARY_COLS] for s in summary]),
                    "norm_pairs": wandb.Table(columns=PAIR_COLS, data=[[str(r[c]) if c in ("dataset", "domain", "frobenius", "spectral", "model") else r[c] for c in PAIR_COLS] for r in pair_rows])})

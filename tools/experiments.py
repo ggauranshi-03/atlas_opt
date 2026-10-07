@@ -36,6 +36,7 @@ INHERIT = {
 INHERITED_KEYS = ["lr", "momentum", "weight_decay", "nesterov"]
 LR_MULTS = [0.25, 0.5, 1.0, 2.0]
 RHO_GRID = [3e-4, 1e-3, 3e-3, 1e-2, 3e-2, 1e-1]
+JOB_TIMEOUT_S = 8 * 3600  # longest job ~2.5 h alone; shared GPUs (other users) can make it ~2x slower
 
 
 # ----------------------------------------------------------------------------- config helpers
@@ -192,7 +193,12 @@ def _run(cmd, log_path, gpu):
         log.write(f"\n### {time.strftime('%F %T')} {' '.join(cmd)}\n")
         log.flush()
         _child = subprocess.Popen(cmd, stdout=log, stderr=subprocess.STDOUT, env=env, cwd=ROOT)
-        rc = _child.wait()
+        try:
+            rc = _child.wait(timeout=JOB_TIMEOUT_S)
+        except subprocess.TimeoutExpired:  # a hung child must not hold the GPU (the job is then retried / failed)
+            _child.kill()
+            rc = _child.wait()
+            log.write(f"\n### {time.strftime('%F %T')} TIMEOUT after {JOB_TIMEOUT_S}s, killed\n")
         _child = None
     return rc
 

@@ -1,0 +1,4 @@
+epoch,optimizer,seed,train_loss,train_accuracy,val_loss,val_accuracy,val_perplexity,time_s
+1,soma_prens5,0,3.8258,33.04,3.7364,34.10,41.95,241.3
+2,soma_prens5,0,3.7491,33.87,3.7036,34.42,40.59,173.5
+3,soma_prens5,0,3.7183,34.21,3.6640,34.86,39.02,163.1

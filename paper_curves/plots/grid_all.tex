@@ -1,0 +1,124 @@
+% AUTO-GENERATED: rows = models, columns = training loss / validation accuracy / validation perplexity
+\begin{tikzpicture}
+\begin{groupplot}[grid curve axis, group style={group size=3 by 3, horizontal sep=1.45cm, vertical sep=1.35cm}]
+\nextgroupplot[xmin=1, xmax=15, title={Training loss}, ylabel={nanoGPT}, legend to name=curveslegend, legend columns=6, legend style={font=\scriptsize, draw=none}]
+\addplot[cv-adam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/adam.csv};
+\addlegendentry{AdamW}
+\addplot[cv-sgd] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/sgd.csv};
+\addlegendentry{SGD}
+\addplot[cv-muon] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/muon.csv};
+\addlegendentry{Muon}
+\addplot[cv-sam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/sam.csv};
+\addlegendentry{SAM}
+\addplot[cv-fsam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/fsam.csv};
+\addlegendentry{FSAM}
+\addplot[cv-muon-sam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/muon_sam.csv};
+\addlegendentry{SpecSAM-Muon}
+\addplot[cv-fsam-ortho-muon] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/fsam_ortho_muon.csv};
+\addlegendentry{FP-SOMA}
+\addplot[cv-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/fsam_ortho_muon_stale_momentum.csv};
+\addlegendentry{SOMA}
+\addplot[cv-randsam-muon] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/randsam_muon.csv};
+\addlegendentry{RandSAM-Muon}
+\addplot[cv-soma-prens5] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/soma_prens5.csv};
+\addlegendentry{SOMA-PreNS5}
+\addplot[cv-op-soma-postns5] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/op_soma_postns5.csv};
+\addlegendentry{OP-SOMA-PostNS5}
+\nextgroupplot[xmin=1, xmax=15, title={Validation accuracy (\%)}]
+\addplot[cv-adam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/adam.csv};
+\addplot[cv-sgd] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/sgd.csv};
+\addplot[cv-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/muon.csv};
+\addplot[cv-sam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/sam.csv};
+\addplot[cv-fsam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/fsam.csv};
+\addplot[cv-muon-sam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/muon_sam.csv};
+\addplot[cv-fsam-ortho-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/fsam_ortho_muon.csv};
+\addplot[cv-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/fsam_ortho_muon_stale_momentum.csv};
+\addplot[cv-randsam-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/randsam_muon.csv};
+\addplot[cv-soma-prens5] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/soma_prens5.csv};
+\addplot[cv-op-soma-postns5] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/op_soma_postns5.csv};
+\nextgroupplot[xmin=1, xmax=15, title={Validation perplexity}]
+\addplot[cv-adam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/nanogpt/adam.csv};
+\addplot[cv-sgd] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/nanogpt/sgd.csv};
+\addplot[cv-muon] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/nanogpt/muon.csv};
+\addplot[cv-sam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/nanogpt/sam.csv};
+\addplot[cv-fsam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/nanogpt/fsam.csv};
+\addplot[cv-muon-sam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/nanogpt/muon_sam.csv};
+\addplot[cv-fsam-ortho-muon] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/nanogpt/fsam_ortho_muon.csv};
+\addplot[cv-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/nanogpt/fsam_ortho_muon_stale_momentum.csv};
+\addplot[cv-randsam-muon] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/nanogpt/randsam_muon.csv};
+\addplot[cv-soma-prens5] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/nanogpt/soma_prens5.csv};
+\addplot[cv-op-soma-postns5] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/nanogpt/op_soma_postns5.csv};
+\nextgroupplot[xmin=1, xmax=14, ylabel={Pythia-70M}]
+\addplot[cv-adam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/pythia70m/adam.csv};
+\addplot[cv-sgd] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/pythia70m/sgd.csv};
+\addplot[cv-muon] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/pythia70m/muon.csv};
+\addplot[cv-sam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/pythia70m/sam.csv};
+\addplot[cv-fsam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/pythia70m/fsam.csv};
+\addplot[cv-muon-sam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/pythia70m/muon_sam.csv};
+\addplot[cv-fsam-ortho-muon] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/pythia70m/fsam_ortho_muon.csv};
+\addplot[cv-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/pythia70m/fsam_ortho_muon_stale_momentum.csv};
+\addplot[cv-randsam-muon] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/pythia70m/randsam_muon.csv};
+\addplot[cv-soma-prens5] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/pythia70m/soma_prens5.csv};
+\addplot[cv-op-soma-postns5] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/pythia70m/op_soma_postns5.csv};
+\nextgroupplot[xmin=1, xmax=14]
+\addplot[cv-adam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/pythia70m/adam.csv};
+\addplot[cv-sgd] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/pythia70m/sgd.csv};
+\addplot[cv-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/pythia70m/muon.csv};
+\addplot[cv-sam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/pythia70m/sam.csv};
+\addplot[cv-fsam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/pythia70m/fsam.csv};
+\addplot[cv-muon-sam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/pythia70m/muon_sam.csv};
+\addplot[cv-fsam-ortho-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/pythia70m/fsam_ortho_muon.csv};
+\addplot[cv-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/pythia70m/fsam_ortho_muon_stale_momentum.csv};
+\addplot[cv-randsam-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/pythia70m/randsam_muon.csv};
+\addplot[cv-soma-prens5] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/pythia70m/soma_prens5.csv};
+\addplot[cv-op-soma-postns5] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/pythia70m/op_soma_postns5.csv};
+\nextgroupplot[xmin=1, xmax=14]
+\addplot[cv-adam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/pythia70m/adam.csv};
+\addplot[cv-sgd] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/pythia70m/sgd.csv};
+\addplot[cv-muon] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/pythia70m/muon.csv};
+\addplot[cv-sam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/pythia70m/sam.csv};
+\addplot[cv-fsam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/pythia70m/fsam.csv};
+\addplot[cv-muon-sam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/pythia70m/muon_sam.csv};
+\addplot[cv-fsam-ortho-muon] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/pythia70m/fsam_ortho_muon.csv};
+\addplot[cv-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/pythia70m/fsam_ortho_muon_stale_momentum.csv};
+\addplot[cv-randsam-muon] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/pythia70m/randsam_muon.csv};
+\addplot[cv-soma-prens5] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/pythia70m/soma_prens5.csv};
+\addplot[cv-op-soma-postns5] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/pythia70m/op_soma_postns5.csv};
+\nextgroupplot[xmin=1, xmax=7, ylabel={airbench CNN}, xlabel={Epoch}]
+\addplot[cv-adam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/cifar10/adam.csv};
+\addplot[cv-sgd] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/cifar10/sgd.csv};
+\addplot[cv-muon] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/cifar10/muon.csv};
+\addplot[cv-sam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/cifar10/sam.csv};
+\addplot[cv-fsam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/cifar10/fsam.csv};
+\addplot[cv-muon-sam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/cifar10/muon_sam.csv};
+\addplot[cv-fsam-ortho-muon] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/cifar10/fsam_ortho_muon.csv};
+\addplot[cv-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/cifar10/fsam_ortho_muon_stale_momentum.csv};
+\addplot[cv-randsam-muon] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/cifar10/randsam_muon.csv};
+\addplot[cv-soma-prens5] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/cifar10/soma_prens5.csv};
+\addplot[cv-op-soma-postns5] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/cifar10/op_soma_postns5.csv};
+\nextgroupplot[xmin=1, xmax=7, xlabel={Epoch}]
+\addplot[cv-adam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/cifar10/adam.csv};
+\addplot[cv-sgd] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/cifar10/sgd.csv};
+\addplot[cv-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/cifar10/muon.csv};
+\addplot[cv-sam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/cifar10/sam.csv};
+\addplot[cv-fsam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/cifar10/fsam.csv};
+\addplot[cv-muon-sam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/cifar10/muon_sam.csv};
+\addplot[cv-fsam-ortho-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/cifar10/fsam_ortho_muon.csv};
+\addplot[cv-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/cifar10/fsam_ortho_muon_stale_momentum.csv};
+\addplot[cv-randsam-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/cifar10/randsam_muon.csv};
+\addplot[cv-soma-prens5] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/cifar10/soma_prens5.csv};
+\addplot[cv-op-soma-postns5] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/cifar10/op_soma_postns5.csv};
+\nextgroupplot[xmin=1, xmax=7, xlabel={Epoch}]
+\addplot[cv-adam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/cifar10/adam.csv};
+\addplot[cv-sgd] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/cifar10/sgd.csv};
+\addplot[cv-muon] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/cifar10/muon.csv};
+\addplot[cv-sam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/cifar10/sam.csv};
+\addplot[cv-fsam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/cifar10/fsam.csv};
+\addplot[cv-muon-sam] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/cifar10/muon_sam.csv};
+\addplot[cv-fsam-ortho-muon] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/cifar10/fsam_ortho_muon.csv};
+\addplot[cv-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/cifar10/fsam_ortho_muon_stale_momentum.csv};
+\addplot[cv-randsam-muon] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/cifar10/randsam_muon.csv};
+\addplot[cv-soma-prens5] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/cifar10/soma_prens5.csv};
+\addplot[cv-op-soma-postns5] table[col sep=comma, x=epoch, y=val_ppl]{\curvesroot/data/cifar10/op_soma_postns5.csv};
+\end{groupplot}
+\end{tikzpicture}

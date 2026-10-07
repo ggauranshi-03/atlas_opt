@@ -129,7 +129,7 @@ def main():
     # One dedicated PTQ project per model, with a short human name (not the long training
     # project name): every optimizer's PTQ run for this model lands in the same project.
     PTQ_PROJECT_NAMES = {
-        "cifar10_cnn": "PTQ-CIFAR10",
+        "cifar10_v2": "V2-PTQ-CIFAR10", "nanogpt_v2": "V2-PTQ-NanoGPT", "pythia70m_v2": "V2-PTQ-Pythia70M",
         "pythia70m_pretrain_chinchilla": "PTQ-Pythia70M",
         "nanogpt_fineweb": "PTQ-NanoGPT",
     }

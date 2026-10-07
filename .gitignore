@@ -12,3 +12,20 @@ ptq_cache
 forgetting_cache
 paper_figures
 paper_figures.zip
+# --- v2 release: never commit checkpoints, caches, runtime logs / queues, v1 figures ---
+checkpoints/
+wandb/
+forgetting_cache/
+ptq_cache/
+queues/
+logs/queue/
+logs/*.log
+forgetting_results/logs/
+paper_ft_curves/logs/
+paper_figures/
+paper_figures.zip
+results_v2_soma_projected/
+configs/generated/
+*.zip
+__pycache__/
+*.lock

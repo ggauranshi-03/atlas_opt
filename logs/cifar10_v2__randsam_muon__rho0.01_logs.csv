@@ -1,0 +1,8 @@
+epoch,optimizer,seed,train_loss,train_accuracy,val_loss,val_accuracy,val_perplexity,time_s
+1,randsam_muon,0,1.3163,53.52,0.8938,69.88,0.00,24.6
+2,randsam_muon,0,0.6891,76.45,0.6409,77.84,0.00,22.8
+3,randsam_muon,0,0.5345,81.64,0.6507,78.82,0.00,21.8
+4,randsam_muon,0,0.4498,84.68,0.5399,82.04,0.00,23.6
+5,randsam_muon,0,0.3940,86.57,0.5190,82.62,0.00,23.5
+6,randsam_muon,0,0.3412,88.36,0.4496,85.12,0.00,23.2
+7,randsam_muon,0,0.2677,90.99,0.3779,87.34,0.00,23.4
