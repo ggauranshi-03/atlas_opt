@@ -1,0 +1,7 @@
+[2026-09-30 13:51:59] GPU 7: start pythia70m_pretrain_chinchilla|sam_ortho|seed42
+[2026-09-30 14:50:22] GPU 7: done pythia70m_pretrain_chinchilla|sam_ortho|seed42 
+[2026-09-30 14:50:22] GPU 7: start pythia70m_pretrain_chinchilla|fsam_ortho|seed42
+[2026-09-30 15:47:24] GPU 7: done pythia70m_pretrain_chinchilla|fsam_ortho|seed42 
+[2026-09-30 15:47:24] GPU 7: start pythia70m_pretrain_chinchilla|fsam_frob_muon_stale|seed42
+[2026-09-30 16:27:43] GPU 7: done pythia70m_pretrain_chinchilla|fsam_frob_muon_stale|seed42 
+[2026-09-30 16:27:43] GPU 7: queue empty, exiting

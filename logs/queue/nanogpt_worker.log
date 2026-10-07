@@ -1,0 +1,29 @@
+[2026-09-27 06:11:57] GPU 7: start nanogpt_fineweb|adam|seed42
+[2026-09-27 06:14:55] GPU 7: done nanogpt_fineweb|adam|seed42 
+[2026-09-27 06:14:55] GPU 7: start nanogpt_fineweb|sgd|seed42
+[2026-09-27 18:49:51] GPU 7: FAILED nanogpt_fineweb|sgd|seed42 PTQ did not produce ptq_results/nanogpt_fineweb/sgd_seed42.json (see logs/queue/nanogpt_fineweb_sgd_seed42_ptq.log)
+[2026-09-27 18:49:51] GPU 7: start nanogpt_fineweb|sgd|seed42
+[2026-09-27 18:51:46] GPU 7: done nanogpt_fineweb|sgd|seed42 
+[2026-09-27 18:51:46] GPU 7: start nanogpt_fineweb|muon|seed42
+[2026-09-27 20:03:10] GPU 7: done nanogpt_fineweb|muon|seed42 
+[2026-09-27 20:03:10] GPU 7: start nanogpt_fineweb|muon_sam|seed42
+[2026-09-27 22:01:58] GPU 7: done nanogpt_fineweb|muon_sam|seed42 
+[2026-09-27 22:01:58] GPU 7: start nanogpt_fineweb|atlas|seed42
+[2026-09-27 23:14:48] GPU 7: done nanogpt_fineweb|atlas|seed42 
+[2026-09-27 23:14:48] GPU 7: start nanogpt_fineweb|atlas_raw|seed42
+[2026-09-28 00:26:44] GPU 7: done nanogpt_fineweb|atlas_raw|seed42 
+[2026-09-28 00:26:44] GPU 7: start nanogpt_fineweb|atlas_random|seed42
+[2026-09-28 01:39:35] GPU 7: done nanogpt_fineweb|atlas_random|seed42 
+[2026-09-28 01:39:35] GPU 7: start nanogpt_fineweb|muon_sam_frob|seed42
+[2026-09-28 03:37:04] GPU 7: done nanogpt_fineweb|muon_sam_frob|seed42 
+[2026-09-28 03:37:04] GPU 7: start nanogpt_fineweb|muon_sam_stale|seed42
+[2026-09-28 04:49:07] GPU 7: done nanogpt_fineweb|muon_sam_stale|seed42 
+[2026-09-28 04:49:07] GPU 7: start nanogpt_fineweb|fsam_muon|seed42
+[2026-09-28 06:47:37] GPU 7: done nanogpt_fineweb|fsam_muon|seed42 
+[2026-09-28 06:47:37] GPU 7: start nanogpt_fineweb|fsam_ortho_muon|seed42
+[2026-09-28 08:46:31] GPU 7: done nanogpt_fineweb|fsam_ortho_muon|seed42 
+[2026-09-28 08:46:31] GPU 7: start nanogpt_fineweb|fsam_ortho|seed42
+[2026-09-28 10:44:04] GPU 7: done nanogpt_fineweb|fsam_ortho|seed42 
+[2026-09-28 10:44:04] GPU 7: start nanogpt_fineweb|fsam|seed42
+[2026-09-28 12:40:40] GPU 7: done nanogpt_fineweb|fsam|seed42 
+[2026-09-28 12:40:40] GPU 7: queue empty, exiting

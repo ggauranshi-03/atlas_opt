@@ -1,0 +1,3 @@
+[2026-09-28 19:50:02] GPU 2: start pythia70m_pretrain_chinchilla|sam|seed42
+[2026-09-28 20:48:40] GPU 2: done pythia70m_pretrain_chinchilla|sam|seed42 
+[2026-09-28 20:48:40] GPU 2: queue empty, exiting

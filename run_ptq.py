@@ -21,6 +21,7 @@ import yaml
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import wandb
 
 from utils.helpers import build_model, device
 from ptq.quant import apply_ptq, conv1d_to_linear, quantized_layers
@@ -125,6 +126,23 @@ def main():
     csv_path = os.path.join(args.out_dir, f"{config_id}.csv")
     json_path = os.path.join(args.out_dir, config_id, f"{args.optimizer}_seed{args.seed}.json")
 
+    # One dedicated PTQ project per model, with a short human name (not the long training
+    # project name): every optimizer's PTQ run for this model lands in the same project.
+    PTQ_PROJECT_NAMES = {
+        "cifar10_cnn": "PTQ-CIFAR10",
+        "pythia70m_pretrain_chinchilla": "PTQ-Pythia70M",
+        "nanogpt_fineweb": "PTQ-NanoGPT",
+    }
+    wandb_proj = PTQ_PROJECT_NAMES.get(config_id, f"PTQ-{config_id}")
+    run_name = f"{args.optimizer}_seed{args.seed}_ptq"
+    wandb_run = wandb.init(project=wandb_proj, name=run_name, job_type="ptq",
+                            group=f"{args.optimizer}_seed{args.seed}",
+                            tags=[config_id, args.optimizer, "ptq"],
+                            config={**vars(args), "config_id": config_id}, reinit=True)
+    wandb.define_metric("ptq/step")
+    wandb.define_metric("ptq/*", step_metric="ptq/step")
+    ptq_step = 0
+
     print("=" * 90)
     print(f"  PTQ BENCHMARK | config={config_id} | optimizer={args.optimizer} | training seed={args.seed}")
     print(f"  checkpoint={args.checkpoint}")
@@ -161,6 +179,8 @@ def main():
         upsert_rows(csv_path, args.optimizer, args.seed, rows)
         with open(json_path, "w") as f:
             json.dump({"config": config, "args": vars(args), "rows": rows}, f, indent=2, default=str)
+        wandb.summary["status"] = "nonfinite_checkpoint"
+        wandb.finish()
         return
 
     n_q = sum(l.weight.numel() for l in quantized_layers(model).values())
@@ -172,6 +192,9 @@ def main():
                  "quant_time_s": 0.0, "status": "ok", **fp})
     print(f"  [FP     ] " + " | ".join(f"{k}={fmt(v)}" for k, v in fp.items()), flush=True)
     upsert_rows(csv_path, args.optimizer, args.seed, rows)
+    wandb.log({"ptq/step": ptq_step, "ptq/wbits": 16, "ptq/method_awq": 0,
+               **{f"ptq/{k}": v for k, v in fp.items() if isinstance(v, (int, float))}})
+    ptq_step += 1
 
     base = copy.deepcopy(model).cpu()
     del model
@@ -200,6 +223,13 @@ def main():
                              "calib_nsamples": "" if method == "rtn" else nsamples,
                              "quant_time_s": round(qt, 2), "status": status, **res})
                 upsert_rows(csv_path, args.optimizer, args.seed, rows)
+                if status == "ok":
+                    wandb.log({"ptq/step": ptq_step, "ptq/wbits": bits, "ptq/group_size": gs,
+                               "ptq/method_awq": 1 if method == "awq" else 0,
+                               "ptq/calib_seed": -1 if seed is None else seed,
+                               "ptq/quant_time_s": qt,
+                               **{f"ptq/{k}": v for k, v in res.items() if isinstance(v, (int, float))}})
+                    ptq_step += 1
                 del m, calib
                 torch.cuda.empty_cache()
 
@@ -211,6 +241,21 @@ def main():
         json.dump({"config": config, "args": vars(args), "git_commit": commit, "torch": torch.__version__,
                    "quantized_params": n_q, "total_params": n_all, "rows": rows}, f, indent=2, default=str)
     print(f"  results -> {csv_path}, {json_path}")
+
+    wandb.log({"ptq_table": wandb.Table(columns=CSV_FIELDS, data=[[str(r.get(c, "")) for c in CSV_FIELDS] for r in rows])})
+    for k, v in fp.items():
+        if isinstance(v, (int, float)):
+            wandb.summary[f"fp_{k}"] = v
+    awq_ok = [r for r in rows if r["method"] == "awq" and r["status"] == "ok"]
+    for k in fp:
+        vals = [r[k] for r in awq_ok if isinstance(r.get(k), (int, float))]
+        if vals:
+            mean = sum(vals) / len(vals)
+            wandb.summary[f"awq_{k}_mean"] = mean
+            if isinstance(fp[k], (int, float)) and fp[k]:
+                wandb.summary[f"awq_{k}_delta_pct"] = 100.0 * (mean - fp[k]) / fp[k]
+    wandb.summary["quantized_param_frac"] = n_q / n_all
+    wandb.finish()
 
 
 if __name__ == "__main__":

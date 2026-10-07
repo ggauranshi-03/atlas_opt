@@ -1,0 +1,95 @@
+
+### 2026-09-30 15:51:39 /home/anant/miniconda3/bin/python3 -u run_ptq.py -c configs/nanogpt_fineweb.yaml -o fsam_ortho_muon --seed 42 -ckpt checkpoints/nanogpt_fineweb_fsam_ortho_muon_seed42_epoch15.pt
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run 3pc7wvy0
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260930_155146-3pc7wvy0
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam_ortho_muon_seed42_ptq
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/PTQ-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/PTQ-NanoGPT/runs/3pc7wvy0
+==========================================================================================
+  PTQ BENCHMARK | config=nanogpt_fineweb | optimizer=fsam_ortho_muon | training seed=42
+  checkpoint=checkpoints/nanogpt_fineweb_fsam_ortho_muon_seed42_epoch15.pt
+  methods=['awq'] | settings(wbits:group)=[(4, 128)] | calib seeds=[0, 1, 2]
+==========================================================================================
+  Loading CPT model architecture: gpt2 in bfloat16...
+  eval tokens: wikitext2=287,232 fineweb=1,048,576
+  quantized weights: 84,934,656 / 124,439,808 params (68.3%)
+  [FP     ] wikitext2_ppl=102.4310 | fineweb_ppl=36.2646 | fineweb_acc=35.6926
+    [awq] block 0: best scale ratios [0.8, 0.35, 0.15]
+    [awq] block 1: best scale ratios [0.4, 0.3, 0.1]
+    [awq] block 2: best scale ratios [0.35, 0.35, 0.05]
+    [awq] block 3: best scale ratios [0.3, 0.35, 0.15]
+    [awq] block 4: best scale ratios [0.3, 0.2, 0.1]
+    [awq] block 5: best scale ratios [0.4, 0.25, 0.1]
+    [awq] block 6: best scale ratios [0.35, 0.35, 0.0]
+    [awq] block 7: best scale ratios [0.4, 0.35, 0.0]
+    [awq] block 8: best scale ratios [0.45, 0.35, 0.05]
+    [awq] block 9: best scale ratios [0.4, 0.35, 0.1]
+    [awq] block 10: best scale ratios [0.5, 0.35, 0.15]
+    [awq] block 11: best scale ratios [0.35, 0.35, 0.1]
+  [W4g128 AWQ  seed=0] wikitext2_ppl=103.2250 | fineweb_ppl=36.5014 | fineweb_acc=35.6162 | quant 21.4s
+    [awq] block 0: best scale ratios [0.85, 0.4, 0.1]
+    [awq] block 1: best scale ratios [0.4, 0.3, 0.1]
+    [awq] block 2: best scale ratios [0.3, 0.35, 0.05]
+    [awq] block 3: best scale ratios [0.3, 0.35, 0.05]
+    [awq] block 4: best scale ratios [0.3, 0.35, 0.1]
+    [awq] block 5: best scale ratios [0.4, 0.25, 0.1]
+    [awq] block 6: best scale ratios [0.35, 0.3, 0.0]
+    [awq] block 7: best scale ratios [0.3, 0.25, 0.0]
+    [awq] block 8: best scale ratios [0.45, 0.3, 0.1]
+    [awq] block 9: best scale ratios [0.35, 0.35, 0.15]
+    [awq] block 10: best scale ratios [0.35, 0.35, 0.15]
+    [awq] block 11: best scale ratios [0.4, 0.35, 0.1]
+  [W4g128 AWQ  seed=1] wikitext2_ppl=102.8589 | fineweb_ppl=36.5094 | fineweb_acc=35.6011 | quant 21.3s
+    [awq] block 0: best scale ratios [0.75, 0.35, 0.15]
+    [awq] block 1: best scale ratios [0.4, 0.3, 0.1]
+    [awq] block 2: best scale ratios [0.3, 0.35, 0.05]
+    [awq] block 3: best scale ratios [0.3, 0.2, 0.1]
+    [awq] block 4: best scale ratios [0.35, 0.35, 0.1]
+    [awq] block 5: best scale ratios [0.35, 0.25, 0.1]
+    [awq] block 6: best scale ratios [0.3, 0.2, 0.0]
+    [awq] block 7: best scale ratios [0.5, 0.3, 0.0]
+    [awq] block 8: best scale ratios [0.5, 0.35, 0.05]
+    [awq] block 9: best scale ratios [0.35, 0.35, 0.1]
+    [awq] block 10: best scale ratios [0.4, 0.35, 0.2]
+    [awq] block 11: best scale ratios [0.4, 0.35, 0.1]
+  [W4g128 AWQ  seed=2] wikitext2_ppl=103.2622 | fineweb_ppl=36.5061 | fineweb_acc=35.6126 | quant 20.9s
+  results -> ptq_results/nanogpt_fineweb.csv, ptq_results/nanogpt_fineweb/fsam_ortho_muon_seed42.json
+wandb: uploading artifact run-3pc7wvy0-ptq_table; updating run metadata
+wandb: uploading artifact run-3pc7wvy0-ptq_table
+wandb: uploading artifact run-3pc7wvy0-ptq_table; uploading history steps 3-4, summary, console lines 47-48
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml; uploading media/table/ptq_table_4_1504412da7b3dff7b119.table.json
+wandb: uploading config.yaml; uploading media/table/ptq_table_4_1504412da7b3dff7b119.table.json
+wandb: 
+wandb: Run history:
+wandb:    ptq/calib_seed ▁▅█
+wandb:   ptq/fineweb_acc █▂▁▂
+wandb:   ptq/fineweb_ppl ▁███
+wandb:    ptq/group_size ▁▁▁
+wandb:    ptq/method_awq ▁███
+wandb:  ptq/quant_time_s █▇▁
+wandb:          ptq/step ▁▃▆█
+wandb:         ptq/wbits █▁▁▁
+wandb: ptq/wikitext2_ppl ▁█▅█
+wandb: 
+wandb: Run summary:
+wandb:   awq_fineweb_acc_delta_pct -0.23157
+wandb:        awq_fineweb_acc_mean 35.60994
+wandb:   awq_fineweb_ppl_delta_pct 0.66457
+wandb:        awq_fineweb_ppl_mean 36.50564
+wandb: awq_wikitext2_ppl_delta_pct 0.66811
+wandb:      awq_wikitext2_ppl_mean 103.11537
+wandb:              fp_fineweb_acc 35.69259
+wandb:              fp_fineweb_ppl 36.26464
+wandb:            fp_wikitext2_ppl 102.43102
+wandb:              ptq/calib_seed 2
+wandb:                          +9 ...
+wandb: 
+wandb: 🚀 View run fsam_ortho_muon_seed42_ptq at: https://wandb.ai/dcll-iiitd/PTQ-NanoGPT/runs/3pc7wvy0
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/PTQ-NanoGPT
+wandb: Synced 5 W&B file(s), 1 media file(s), 2 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260930_155146-3pc7wvy0/logs

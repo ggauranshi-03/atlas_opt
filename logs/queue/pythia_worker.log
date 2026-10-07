@@ -1,0 +1,31 @@
+nohup: ignoring input
+queue queues/pythia.json: +13 jobs (0 already present), total 13
+[2026-09-27 04:14:20] GPU 6: start pythia70m_pretrain_chinchilla|adam|seed42
+[2026-09-27 04:59:58] GPU 6: done pythia70m_pretrain_chinchilla|adam|seed42 
+[2026-09-27 04:59:58] GPU 6: start pythia70m_pretrain_chinchilla|sgd|seed42
+[2026-09-27 05:40:30] GPU 6: done pythia70m_pretrain_chinchilla|sgd|seed42 
+[2026-09-27 05:40:30] GPU 6: start pythia70m_pretrain_chinchilla|muon|seed42
+[2026-09-27 18:49:51] GPU 6: FAILED pythia70m_pretrain_chinchilla|muon|seed42 PTQ did not produce ptq_results/pythia70m_pretrain_chinchilla/muon_seed42.json (see logs/queue/pythia70m_pretrain_chinchilla_muon_seed42_ptq.log)
+[2026-09-27 18:49:51] GPU 6: start pythia70m_pretrain_chinchilla|muon|seed42
+[2026-09-27 18:50:32] GPU 6: done pythia70m_pretrain_chinchilla|muon|seed42 
+[2026-09-27 18:50:32] GPU 6: start pythia70m_pretrain_chinchilla|muon_sam|seed42
+[2026-09-27 19:47:28] GPU 6: done pythia70m_pretrain_chinchilla|muon_sam|seed42 
+[2026-09-27 19:47:28] GPU 6: start pythia70m_pretrain_chinchilla|atlas|seed42
+[2026-09-27 20:28:13] GPU 6: done pythia70m_pretrain_chinchilla|atlas|seed42 
+[2026-09-27 20:28:13] GPU 6: start pythia70m_pretrain_chinchilla|atlas_raw|seed42
+[2026-09-27 21:06:31] GPU 6: done pythia70m_pretrain_chinchilla|atlas_raw|seed42 
+[2026-09-27 21:06:31] GPU 6: start pythia70m_pretrain_chinchilla|atlas_random|seed42
+[2026-09-27 21:46:50] GPU 6: done pythia70m_pretrain_chinchilla|atlas_random|seed42 
+[2026-09-27 21:46:50] GPU 6: start pythia70m_pretrain_chinchilla|muon_sam_frob|seed42
+[2026-09-27 22:44:41] GPU 6: done pythia70m_pretrain_chinchilla|muon_sam_frob|seed42 
+[2026-09-27 22:44:41] GPU 6: start pythia70m_pretrain_chinchilla|muon_sam_stale|seed42
+[2026-09-27 23:24:56] GPU 6: done pythia70m_pretrain_chinchilla|muon_sam_stale|seed42 
+[2026-09-27 23:24:56] GPU 6: start pythia70m_pretrain_chinchilla|fsam_muon|seed42
+[2026-09-28 00:22:18] GPU 6: done pythia70m_pretrain_chinchilla|fsam_muon|seed42 
+[2026-09-28 00:22:18] GPU 6: start pythia70m_pretrain_chinchilla|fsam_ortho_muon|seed42
+[2026-09-28 01:20:43] GPU 6: done pythia70m_pretrain_chinchilla|fsam_ortho_muon|seed42 
+[2026-09-28 01:20:43] GPU 6: start pythia70m_pretrain_chinchilla|fsam_ortho|seed42
+[2026-09-28 02:18:37] GPU 6: done pythia70m_pretrain_chinchilla|fsam_ortho|seed42 
+[2026-09-28 02:18:37] GPU 6: start pythia70m_pretrain_chinchilla|fsam|seed42
+[2026-09-28 03:32:05] GPU 6: done pythia70m_pretrain_chinchilla|fsam|seed42 
+[2026-09-28 03:32:05] GPU 6: queue empty, exiting

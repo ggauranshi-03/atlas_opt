@@ -1,0 +1,79 @@
+
+### 2026-09-30 15:52:34 /home/anant/miniconda3/bin/python3 -u main_experiment.py -c configs/pythia70m_pretrain_chinchilla.yaml -o fsam_frob_muon_stale_momentum -e 14 --seed 42
+
+>>> Running Benchmark for Optimizers: ['fsam_frob_muon_stale_momentum'] across 1 configs <<<
+
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: FSAM_FROB_MUON_STALE_MOMENTUM | Epochs: 14
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run fzrsqf11
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260930_155240-fzrsqf11
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam_frob_muon_stale_momentum_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/PTQ-Pythia70M
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/PTQ-Pythia70M/runs/fzrsqf11
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512) | train shards: 11 | val shard: sample/10BT/011_00000.parquet
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [fsam_frob_muon_stale_momentum] for 14 epochs...
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch  1/14 | Train Loss: 7.0638 | Train Acc: 12.74% | Val Loss: 5.8314 | Val Acc: 15.86% | Time: 206.8s | LR: 1.500e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch  2/14 | Train Loss: 5.3436 | Train Acc: 19.24% | Val Loss: 5.0298 | Val Acc: 21.71% | Time: 118.4s | LR: 1.500e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch  3/14 | Train Loss: 4.7711 | Train Acc: 24.05% | Val Loss: 4.6052 | Val Acc: 25.78% | Time: 157.2s | LR: 1.500e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch  4/14 | Train Loss: 4.4249 | Train Acc: 27.65% | Val Loss: 4.3631 | Val Acc: 28.30% | Time: 160.8s | LR: 1.500e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch  5/14 | Train Loss: 4.2693 | Train Acc: 29.13% | Val Loss: 4.2366 | Val Acc: 29.38% | Time: 162.0s | LR: 1.500e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch  6/14 | Train Loss: 4.1857 | Train Acc: 29.85% | Val Loss: 4.1593 | Val Acc: 30.14% | Time: 146.9s | LR: 1.500e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch  7/14 | Train Loss: 4.1070 | Train Acc: 30.59% | Val Loss: 4.1013 | Val Acc: 30.64% | Time: 161.8s | LR: 1.500e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch  8/14 | Train Loss: 4.0367 | Train Acc: 31.22% | Val Loss: 4.0716 | Val Acc: 30.88% | Time: 162.3s | LR: 1.500e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch  9/14 | Train Loss: 4.0078 | Train Acc: 31.58% | Val Loss: 4.0320 | Val Acc: 31.22% | Time: 162.5s | LR: 1.500e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch 10/14 | Train Loss: 3.9784 | Train Acc: 31.77% | Val Loss: 4.0022 | Val Acc: 31.43% | Time: 152.3s | LR: 1.500e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch 11/14 | Train Loss: 3.9398 | Train Acc: 32.09% | Val Loss: 3.9802 | Val Acc: 31.76% | Time: 156.6s | LR: 1.500e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch 12/14 | Train Loss: 3.9223 | Train Acc: 32.24% | Val Loss: 3.9208 | Val Acc: 32.23% | Time: 160.9s | LR: 1.071e-02
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch 13/14 | Train Loss: 3.8568 | Train Acc: 32.94% | Val Loss: 3.8521 | Val Acc: 32.99% | Time: 161.1s | LR: 5.357e-03
+  [FSAM_FROB_MUON_STALE_MOMENTUM] Epoch 14/14 | Train Loss: 3.7991 | Train Acc: 33.55% | Val Loss: 3.8186 | Val Acc: 33.35% | Time: 161.2s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading history steps 13-13, summary, console lines 18-18
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:             lr ███████████▆▄▁
+wandb:         time_s █▁▄▄▄▃▄▄▄▄▄▄▄▄
+wandb: train/accuracy ▁▃▅▆▇▇▇▇▇▇████
+wandb:     train/loss █▄▃▂▂▂▂▂▁▁▁▁▁▁
+wandb:   val/accuracy ▁▃▅▆▆▇▇▇▇▇▇███
+wandb:       val/loss █▅▄▃▂▂▂▂▂▂▂▁▁▁
+wandb: val/perplexity █▄▂▂▂▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:             lr 0
+wandb:         time_s 161.16981
+wandb: train/accuracy 33.54937
+wandb:     train/loss 3.79912
+wandb:   val/accuracy 33.34858
+wandb:       val/loss 3.81864
+wandb: val/perplexity 45.54226
+wandb: 
+wandb: 🚀 View run fsam_frob_muon_stale_momentum_seed42 at: https://wandb.ai/dcll-iiitd/PTQ-Pythia70M/runs/fzrsqf11
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/PTQ-Pythia70M
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260930_155240-fzrsqf11/logs
+
+  [Single CSV Saved]: logs/pythia70m_pretrain_chinchilla_logs.csv
+  [Unified Comparison Plot Saved]: logs/pythia70m_pretrain_chinchilla_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  pythia70m_pretrain_chinchilla       | Opt: fsam_frob_muon_stale_momentum | Loss: 3.7991 | Perplexity    : 45.54 | Time: 2230.8s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

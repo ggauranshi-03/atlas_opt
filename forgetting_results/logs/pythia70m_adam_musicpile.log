@@ -1,0 +1,55 @@
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+[pythia70m|adam|musicpile] base: pt_loss=4.3522 ft_loss=5.3337
+  lr=1e-05: ft_loss=5.1841 pt_loss=4.3772 dPT=+0.0250 ||dtheta||=0.964 (10s)
+  lr=1.68e-05: ft_loss=5.1283 pt_loss=4.3817 dPT=+0.0295 ||dtheta||=1.565 (10s)
+  lr=2.82e-05: ft_loss=5.0556 pt_loss=4.3882 dPT=+0.0360 ||dtheta||=2.534 (10s)
+  lr=4.74e-05: ft_loss=4.9572 pt_loss=4.3988 dPT=+0.0466 ||dtheta||=4.160 (10s)
+  lr=7.96e-05: ft_loss=4.8624 pt_loss=4.4158 dPT=+0.0636 ||dtheta||=6.516 (10s)
+  lr=0.000134: ft_loss=4.7438 pt_loss=4.4436 dPT=+0.0915 ||dtheta||=10.541 (10s)
+  lr=0.000224: ft_loss=4.6480 pt_loss=4.4831 dPT=+0.1309 ||dtheta||=16.226 (10s)
+  lr=0.000377: ft_loss=4.5695 pt_loss=4.5312 dPT=+0.1790 ||dtheta||=24.215 (10s)
+  lr=0.000633: ft_loss=4.5157 pt_loss=4.5970 dPT=+0.2448 ||dtheta||=36.130 (9s)
+  lr=0.00106: ft_loss=4.4699 pt_loss=4.6868 dPT=+0.3347 ||dtheta||=53.655 (9s)
+  lr=0.00179: ft_loss=4.5869 pt_loss=4.9447 dPT=+0.5925 ||dtheta||=79.480 (10s)
+  lr=0.003: ft_loss=4.7784 pt_loss=5.3078 dPT=+0.9556 ||dtheta||=118.895 (9s)
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run 8uqc19dq
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260929_153609-8uqc19dq
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run adam_musicpile
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M/runs/8uqc19dq
+wandb: updating run metadata; uploading artifact run-8uqc19dq-sweep_table; uploading artifact run-8uqc19dq-train_loss_curves_table
+wandb: uploading artifact run-8uqc19dq-sweep_table; uploading artifact run-8uqc19dq-train_loss_curves_table
+wandb: uploading artifact run-8uqc19dq-sweep_table; uploading artifact run-8uqc19dq-train_loss_curves_table; uploading media/table/train_loss_curves_table_12_87dc813a9877bc2c9844.table.json; uploading wandb-summary.json; uploading config.yaml (+ 3 more)
+wandb: uploading artifact run-8uqc19dq-train_loss_curves_table; uploading wandb-summary.json; uploading config.yaml; uploading requirements.txt
+wandb: uploading artifact run-8uqc19dq-train_loss_curves_table
+wandb: uploading history steps 0-12, summary
+wandb: 
+wandb: Run history:
+wandb: sweep/delta_norm ▁▁▁▁▁▂▂▂▃▄▆█
+wandb: sweep/forgetting ▁▁▁▁▁▁▂▂▃▃▅█
+wandb:    sweep/ft_loss █▇▇▆▅▄▃▂▁▁▂▄
+wandb:   sweep/log10_lr ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:         sweep/lr ▁▁▁▁▁▁▂▂▂▃▅█
+wandb:      sweep/point ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:    sweep/pt_loss ▁▁▁▁▁▁▂▂▃▃▅█
+wandb: 
+wandb: Run summary:
+wandb:     base/ft_loss 5.33373
+wandb:  base/param_norm 1781.91173
+wandb:     base/pt_loss 4.35218
+wandb: sweep/delta_norm 118.89501
+wandb: sweep/forgetting 0.95563
+wandb:    sweep/ft_loss 4.77845
+wandb:   sweep/log10_lr -2.52288
+wandb:         sweep/lr 0.003
+wandb:      sweep/point 11
+wandb:    sweep/pt_loss 5.30781
+wandb: 
+wandb: 🚀 View run adam_musicpile at: https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M/runs/8uqc19dq
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M
+wandb: Synced 4 W&B file(s), 2 media file(s), 4 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260929_153609-8uqc19dq/logs

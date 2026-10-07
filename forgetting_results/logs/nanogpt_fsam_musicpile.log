@@ -1,0 +1,55 @@
+  Loading CPT model architecture: gpt2 in bfloat16...
+[nanogpt|fsam|musicpile] base: pt_loss=3.2794 ft_loss=3.5449
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  lr=1e-05: ft_loss=3.3988 pt_loss=3.3069 dPT=+0.0275 ||dtheta||=1.598 (28s)
+  lr=1.68e-05: ft_loss=3.3500 pt_loss=3.3086 dPT=+0.0292 ||dtheta||=2.357 (28s)
+  lr=2.82e-05: ft_loss=3.2999 pt_loss=3.3097 dPT=+0.0303 ||dtheta||=3.569 (28s)
+  lr=4.74e-05: ft_loss=3.2427 pt_loss=3.3115 dPT=+0.0321 ||dtheta||=5.470 (28s)
+  lr=7.96e-05: ft_loss=3.1889 pt_loss=3.3177 dPT=+0.0382 ||dtheta||=8.416 (28s)
+  lr=0.000134: ft_loss=3.1415 pt_loss=3.3306 dPT=+0.0512 ||dtheta||=12.937 (28s)
+  lr=0.000224: ft_loss=3.1027 pt_loss=3.3428 dPT=+0.0634 ||dtheta||=19.888 (28s)
+  lr=0.000377: ft_loss=3.0716 pt_loss=3.3553 dPT=+0.0758 ||dtheta||=31.332 (28s)
+  lr=0.000633: ft_loss=3.0633 pt_loss=3.3857 dPT=+0.1063 ||dtheta||=49.825 (28s)
+  lr=0.00106: ft_loss=3.0772 pt_loss=3.4475 dPT=+0.1681 ||dtheta||=79.729 (28s)
+  lr=0.00179: ft_loss=3.1526 pt_loss=3.5736 dPT=+0.2942 ||dtheta||=126.790 (28s)
+  lr=0.003: ft_loss=3.3086 pt_loss=3.8130 dPT=+0.5335 ||dtheta||=199.586 (28s)
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run 3e1t1waw
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260929_164531-3e1t1waw
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam_musicpile
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/3e1t1waw
+wandb: uploading artifact run-3e1t1waw-sweep_table; uploading artifact run-3e1t1waw-train_loss_curves_table; updating run metadata
+wandb: uploading artifact run-3e1t1waw-train_loss_curves_table; updating run metadata
+wandb: uploading artifact run-3e1t1waw-train_loss_curves_table
+wandb: uploading media/table/train_loss_curves_table_12_d337792b52f5b2e34ab5.table.json; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading media/table/train_loss_curves_table_12_d337792b52f5b2e34ab5.table.json
+wandb: 
+wandb: Run history:
+wandb: sweep/delta_norm ▁▁▁▁▁▁▂▂▃▄▅█
+wandb: sweep/forgetting ▁▁▁▁▁▁▁▂▂▃▅█
+wandb:    sweep/ft_loss █▇▆▅▄▃▂▁▁▁▃▆
+wandb:   sweep/log10_lr ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:         sweep/lr ▁▁▁▁▁▁▂▂▂▃▅█
+wandb:      sweep/point ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:    sweep/pt_loss ▁▁▁▁▁▁▁▂▂▃▅█
+wandb: 
+wandb: Run summary:
+wandb:     base/ft_loss 3.54492
+wandb:  base/param_norm 1505.57939
+wandb:     base/pt_loss 3.27943
+wandb: sweep/delta_norm 199.58623
+wandb: sweep/forgetting 0.53354
+wandb:    sweep/ft_loss 3.30858
+wandb:   sweep/log10_lr -2.52288
+wandb:         sweep/lr 0.003
+wandb:      sweep/point 11
+wandb:    sweep/pt_loss 3.81296
+wandb: 
+wandb: 🚀 View run fsam_musicpile at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/3e1t1waw
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: Synced 4 W&B file(s), 2 media file(s), 4 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260929_164531-3e1t1waw/logs

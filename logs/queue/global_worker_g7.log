@@ -1,0 +1,5 @@
+[2026-10-01 11:49:54] GPU 7: start nanogpt_fineweb|muon_sam_gfrob|seed42
+[2026-10-01 13:47:11] GPU 7: FAILED nanogpt_fineweb|muon_sam_gfrob|seed42 training did not produce checkpoints/nanogpt_fineweb_muon_sam_gfrob_seed42_epoch15.pt and a final-epoch log row (see logs/queue/nanogpt_fineweb_muon_sam_gfrob_seed42_train.log)
+[2026-10-01 13:47:11] GPU 7: start nanogpt_fineweb|muon_sam_gfrob|seed42
+[2026-10-01 13:47:14] GPU 7: FAILED nanogpt_fineweb|muon_sam_gfrob|seed42 training did not produce checkpoints/nanogpt_fineweb_muon_sam_gfrob_seed42_epoch15.pt and a final-epoch log row (see logs/queue/nanogpt_fineweb_muon_sam_gfrob_seed42_train.log)
+[2026-10-01 13:47:14] GPU 7: queue empty, exiting

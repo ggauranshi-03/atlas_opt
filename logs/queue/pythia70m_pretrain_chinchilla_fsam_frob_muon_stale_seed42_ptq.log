@@ -1,0 +1,78 @@
+
+### 2026-09-30 16:26:47 /home/anant/miniconda3/bin/python3 -u run_ptq.py -c configs/pythia70m_pretrain_chinchilla.yaml -o fsam_frob_muon_stale --seed 42 -ckpt checkpoints/pythia70m_pretrain_chinchilla_fsam_frob_muon_stale_seed42_epoch14.pt
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run tkt0jckb
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260930_162655-tkt0jckb
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam_frob_muon_stale_seed42_ptq
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/PTQ-Pythia70M
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/PTQ-Pythia70M/runs/tkt0jckb
+==========================================================================================
+  PTQ BENCHMARK | config=pythia70m_pretrain_chinchilla | optimizer=fsam_frob_muon_stale | training seed=42
+  checkpoint=checkpoints/pythia70m_pretrain_chinchilla_fsam_frob_muon_stale_seed42_epoch14.pt
+  methods=['awq'] | settings(wbits:group)=[(4, 128)] | calib seeds=[0, 1, 2]
+==========================================================================================
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  eval tokens: wikitext2=288,256 fineweb=1,048,576
+  quantized weights: 18,874,368 / 70,426,624 params (26.8%)
+  [FP     ] wikitext2_ppl=109.0173 | fineweb_ppl=41.2890 | fineweb_acc=34.1374
+    [awq] block 0: best scale ratios [0.4, 0.25, 0.2]
+    [awq] block 1: best scale ratios [0.2, 0.2, 0.1]
+    [awq] block 2: best scale ratios [0.2, 0.1, 0.15]
+    [awq] block 3: best scale ratios [0.1, 0.2, 0.1]
+    [awq] block 4: best scale ratios [0.2, 0.25, 0.1]
+    [awq] block 5: best scale ratios [0.45, 0.3, 0.2]
+  [W4g128 AWQ  seed=0] wikitext2_ppl=115.2098 | fineweb_ppl=43.4127 | fineweb_acc=33.6394 | quant 4.0s
+    [awq] block 0: best scale ratios [0.75, 0.25, 0.25]
+    [awq] block 1: best scale ratios [0.2, 0.2, 0.1]
+    [awq] block 2: best scale ratios [0.2, 0.1, 0.15]
+    [awq] block 3: best scale ratios [0.4, 0.2, 0.05]
+    [awq] block 4: best scale ratios [0.2, 0.15, 0.1]
+    [awq] block 5: best scale ratios [0.3, 0.3, 0.15]
+  [W4g128 AWQ  seed=1] wikitext2_ppl=115.7529 | fineweb_ppl=43.3754 | fineweb_acc=33.6082 | quant 3.6s
+    [awq] block 0: best scale ratios [0.4, 0.1, 0.25]
+    [awq] block 1: best scale ratios [0.2, 0.2, 0.15]
+    [awq] block 2: best scale ratios [0.2, 0.1, 0.15]
+    [awq] block 3: best scale ratios [0.35, 0.2, 0.05]
+    [awq] block 4: best scale ratios [0.2, 0.3, 0.1]
+    [awq] block 5: best scale ratios [0.4, 0.3, 0.15]
+  [W4g128 AWQ  seed=2] wikitext2_ppl=115.3789 | fineweb_ppl=43.3654 | fineweb_acc=33.6617 | quant 3.6s
+  results -> ptq_results/pythia70m_pretrain_chinchilla.csv, ptq_results/pythia70m_pretrain_chinchilla/fsam_frob_muon_stale_seed42.json
+wandb: uploading artifact run-tkt0jckb-ptq_table; updating run metadata
+wandb: uploading artifact run-tkt0jckb-ptq_table
+wandb: uploading wandb-summary.json; uploading config.yaml; uploading media/table/ptq_table_4_10bb2b7a943c99d70ebb.table.json; uploading output.log
+wandb: uploading wandb-summary.json; uploading media/table/ptq_table_4_10bb2b7a943c99d70ebb.table.json; uploading output.log
+wandb: uploading media/table/ptq_table_4_10bb2b7a943c99d70ebb.table.json; uploading output.log
+wandb: uploading history steps 3-4, summary, console lines 24-30
+wandb: 
+wandb: Run history:
+wandb:    ptq/calib_seed ▁▅█
+wandb:   ptq/fineweb_acc █▁▁▂
+wandb:   ptq/fineweb_ppl ▁███
+wandb:    ptq/group_size ▁▁▁
+wandb:    ptq/method_awq ▁███
+wandb:  ptq/quant_time_s █▁▁
+wandb:          ptq/step ▁▃▆█
+wandb:         ptq/wbits █▁▁▁
+wandb: ptq/wikitext2_ppl ▁▇██
+wandb: 
+wandb: Run summary:
+wandb:   awq_fineweb_acc_delta_pct -1.46738
+wandb:        awq_fineweb_acc_mean 33.63643
+wandb:   awq_fineweb_ppl_delta_pct 5.07509
+wandb:        awq_fineweb_ppl_mean 43.38447
+wandb: awq_wikitext2_ppl_delta_pct 5.89806
+wandb:      awq_wikitext2_ppl_mean 115.44721
+wandb:              fp_fineweb_acc 34.13736
+wandb:              fp_fineweb_ppl 41.28902
+wandb:            fp_wikitext2_ppl 109.0173
+wandb:              ptq/calib_seed 2
+wandb:                          +9 ...
+wandb: 
+wandb: 🚀 View run fsam_frob_muon_stale_seed42_ptq at: https://wandb.ai/dcll-iiitd/PTQ-Pythia70M/runs/tkt0jckb
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/PTQ-Pythia70M
+wandb: Synced 5 W&B file(s), 1 media file(s), 2 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260930_162655-tkt0jckb/logs

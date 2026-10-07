@@ -1,0 +1,82 @@
+
+### 2026-09-27 22:01:58 /home/anant/miniconda3/bin/python -u main_experiment.py -c configs/nanogpt_fineweb.yaml -o atlas -e 15 --seed 42
+
+>>> Running Benchmark for Optimizers: ['atlas'] across 1 configs <<<
+
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: ATLAS | Epochs: 15
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run 2z2pj3q5
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260927_220205-2z2pj3q5
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers-v2
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers-v2/runs/2z2pj3q5
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512) | train shards: 11 | val shard: sample/10BT/011_00000.parquet
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [atlas] for 15 epochs...
+Token indices sequence length is longer than the specified maximum sequence length for this model (1426 > 1024). Running this sequence through the model will result in indexing errors
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  [ATLAS       ] Epoch  1/15 | Train Loss: 19.0475 | Train Acc: 3.81% | Val Loss: 8.1264 | Val Acc: 2.58% | Time: 330.3s | LR: 1.500e-02
+  [ATLAS       ] Epoch  2/15 | Train Loss: 8.1598 | Train Acc: 5.47% | Val Loss: 6.7221 | Val Acc: 10.35% | Time: 271.6s | LR: 1.500e-02
+  [ATLAS       ] Epoch  3/15 | Train Loss: 6.8509 | Train Acc: 9.43% | Val Loss: 6.1858 | Val Acc: 12.20% | Time: 271.7s | LR: 1.500e-02
+  [ATLAS       ] Epoch  4/15 | Train Loss: 6.2885 | Train Acc: 12.57% | Val Loss: 5.8592 | Val Acc: 14.24% | Time: 271.4s | LR: 1.500e-02
+  [ATLAS       ] Epoch  5/15 | Train Loss: 5.9955 | Train Acc: 14.17% | Val Loss: 5.6456 | Val Acc: 16.12% | Time: 271.3s | LR: 1.500e-02
+  [ATLAS       ] Epoch  6/15 | Train Loss: 5.8038 | Train Acc: 15.25% | Val Loss: 5.4947 | Val Acc: 17.46% | Time: 271.1s | LR: 1.500e-02
+  [ATLAS       ] Epoch  7/15 | Train Loss: 5.6678 | Train Acc: 16.03% | Val Loss: 5.3303 | Val Acc: 18.76% | Time: 271.1s | LR: 1.500e-02
+  [ATLAS       ] Epoch  8/15 | Train Loss: 5.5328 | Train Acc: 16.59% | Val Loss: 5.2918 | Val Acc: 19.02% | Time: 271.3s | LR: 1.500e-02
+  [ATLAS       ] Epoch  9/15 | Train Loss: 5.4614 | Train Acc: 17.35% | Val Loss: 5.1485 | Val Acc: 19.76% | Time: 270.9s | LR: 1.500e-02
+  [ATLAS       ] Epoch 10/15 | Train Loss: 5.3815 | Train Acc: 17.92% | Val Loss: 5.0744 | Val Acc: 19.94% | Time: 270.7s | LR: 1.500e-02
+  [ATLAS       ] Epoch 11/15 | Train Loss: 5.3064 | Train Acc: 18.37% | Val Loss: 5.0573 | Val Acc: 20.08% | Time: 270.0s | LR: 1.500e-02
+  [ATLAS       ] Epoch 12/15 | Train Loss: 5.2412 | Train Acc: 18.44% | Val Loss: 4.9931 | Val Acc: 20.57% | Time: 270.1s | LR: 1.500e-02
+  [ATLAS       ] Epoch 13/15 | Train Loss: 5.1872 | Train Acc: 19.31% | Val Loss: 4.9845 | Val Acc: 20.59% | Time: 271.9s | LR: 1.000e-02
+  [ATLAS       ] Epoch 14/15 | Train Loss: 5.0849 | Train Acc: 20.23% | Val Loss: 4.8358 | Val Acc: 22.33% | Time: 266.9s | LR: 5.000e-03
+  [ATLAS       ] Epoch 15/15 | Train Loss: 5.0198 | Train Acc: 20.88% | Val Loss: 4.7799 | Val Acc: 23.03% | Time: 271.7s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading history steps 14-14, summary, console lines 21-21
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:             lr ████████████▆▃▁
+wandb:         time_s █▂▂▂▁▁▁▁▁▁▁▁▂▁▂
+wandb: train/accuracy ▁▂▃▅▅▆▆▆▇▇▇▇▇██
+wandb:     train/loss █▃▂▂▁▁▁▁▁▁▁▁▁▁▁
+wandb:   val/accuracy ▁▄▄▅▆▆▇▇▇▇▇▇▇██
+wandb:       val/loss █▅▄▃▃▂▂▂▂▂▂▁▁▁▁
+wandb: val/perplexity █▃▂▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:             lr 0
+wandb:         time_s 271.68482
+wandb: train/accuracy 20.87558
+wandb:     train/loss 5.01978
+wandb:   val/accuracy 23.02813
+wandb:       val/loss 4.77987
+wandb: val/perplexity 119.08889
+wandb: 
+wandb: 🚀 View run atlas_seed42 at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers-v2/runs/2z2pj3q5
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers-v2
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260927_220205-2z2pj3q5/logs
+
+  [Single CSV Saved]: logs/nanogpt_fineweb_logs.csv
+  [Unified Comparison Plot Saved]: logs/nanogpt_fineweb_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  nanogpt_fineweb                     | Opt: atlas          | Loss: 5.0198 | Perplexity    : 119.09 | Time: 4121.7s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

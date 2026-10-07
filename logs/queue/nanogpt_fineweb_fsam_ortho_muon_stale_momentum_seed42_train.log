@@ -1,0 +1,81 @@
+
+### 2026-09-28 19:50:02 /home/anant/miniconda3/bin/python -u main_experiment.py -c configs/nanogpt_fineweb.yaml -o fsam_ortho_muon_stale_momentum -e 15 --seed 42
+
+>>> Running Benchmark for Optimizers: ['fsam_ortho_muon_stale_momentum'] across 1 configs <<<
+
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: FSAM_ORTHO_MUON_STALE_MOMENTUM | Epochs: 15
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run f9c3bcx7
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260928_195013-f9c3bcx7
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam_ortho_muon_stale_momentum_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/PTQ-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/PTQ-NanoGPT/runs/f9c3bcx7
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512) | train shards: 11 | val shard: sample/10BT/011_00000.parquet
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [fsam_ortho_muon_stale_momentum] for 15 epochs...
+Token indices sequence length is longer than the specified maximum sequence length for this model (1426 > 1024). Running this sequence through the model will result in indexing errors
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch  1/15 | Train Loss: 3.6566 | Train Acc: 34.51% | Val Loss: 3.4555 | Val Acc: 37.02% | Time: 369.0s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch  2/15 | Train Loss: 3.5573 | Train Acc: 35.83% | Val Loss: 3.4502 | Val Acc: 37.17% | Time: 278.4s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch  3/15 | Train Loss: 3.5461 | Train Acc: 36.03% | Val Loss: 3.4318 | Val Acc: 37.27% | Time: 274.8s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch  4/15 | Train Loss: 3.5217 | Train Acc: 36.22% | Val Loss: 3.4280 | Val Acc: 37.49% | Time: 272.9s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch  5/15 | Train Loss: 3.5250 | Train Acc: 36.19% | Val Loss: 3.4113 | Val Acc: 37.53% | Time: 274.8s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch  6/15 | Train Loss: 3.5190 | Train Acc: 36.23% | Val Loss: 3.4033 | Val Acc: 37.63% | Time: 262.2s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch  7/15 | Train Loss: 3.5015 | Train Acc: 36.43% | Val Loss: 3.3902 | Val Acc: 37.81% | Time: 271.1s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch  8/15 | Train Loss: 3.4698 | Train Acc: 36.78% | Val Loss: 3.3977 | Val Acc: 37.65% | Time: 244.3s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch  9/15 | Train Loss: 3.4762 | Train Acc: 36.79% | Val Loss: 3.3855 | Val Acc: 37.83% | Time: 274.8s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch 10/15 | Train Loss: 3.4727 | Train Acc: 36.79% | Val Loss: 3.3795 | Val Acc: 37.79% | Time: 275.3s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch 11/15 | Train Loss: 3.4544 | Train Acc: 36.95% | Val Loss: 3.3821 | Val Acc: 37.71% | Time: 275.4s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch 12/15 | Train Loss: 3.4585 | Train Acc: 36.90% | Val Loss: 3.3717 | Val Acc: 37.92% | Time: 273.8s | LR: 1.500e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch 13/15 | Train Loss: 3.4425 | Train Acc: 37.13% | Val Loss: 3.3382 | Val Acc: 38.42% | Time: 275.4s | LR: 1.000e-02
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch 14/15 | Train Loss: 3.3957 | Train Acc: 37.67% | Val Loss: 3.2907 | Val Acc: 38.88% | Time: 275.8s | LR: 5.000e-03
+  [FSAM_ORTHO_MUON_STALE_MOMENTUM] Epoch 15/15 | Train Loss: 3.3899 | Train Acc: 37.70% | Val Loss: 3.2754 | Val Acc: 39.12% | Time: 275.4s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 14-14, summary, console lines 21-21
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:             lr ████████████▆▃▁
+wandb:         time_s █▃▃▃▃▂▃▁▃▃▃▃▃▃▃
+wandb: train/accuracy ▁▄▄▅▅▅▅▆▆▆▆▆▇██
+wandb:     train/loss █▅▅▄▅▄▄▃▃▃▃▃▂▁▁
+wandb:   val/accuracy ▁▁▂▃▃▃▄▃▄▄▃▄▆▇█
+wandb:       val/loss ██▇▇▆▆▅▆▅▅▅▅▃▂▁
+wandb: val/perplexity ██▇▇▆▆▅▆▅▅▅▅▃▂▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:             lr 0
+wandb:         time_s 275.41598
+wandb: train/accuracy 37.6953
+wandb:     train/loss 3.38993
+wandb:   val/accuracy 39.12182
+wandb:       val/loss 3.27539
+wandb: val/perplexity 26.45367
+wandb: 
+wandb: 🚀 View run fsam_ortho_muon_stale_momentum_seed42 at: https://wandb.ai/dcll-iiitd/PTQ-NanoGPT/runs/f9c3bcx7
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/PTQ-NanoGPT
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260928_195013-f9c3bcx7/logs
+
+  [Single CSV Saved]: logs/nanogpt_fineweb_logs.csv
+  [Unified Comparison Plot Saved]: logs/nanogpt_fineweb_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  nanogpt_fineweb                     | Opt: fsam_ortho_muon_stale_momentum | Loss: 3.3899 | Perplexity    : 26.45 | Time: 4173.4s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

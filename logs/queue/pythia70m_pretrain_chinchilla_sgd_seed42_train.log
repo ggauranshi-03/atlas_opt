@@ -1,0 +1,79 @@
+
+### 2026-09-27 04:59:58 /home/anant/miniconda3/bin/python -u main_experiment.py -c configs/pythia70m_pretrain_chinchilla.yaml -o sgd -e 14 --seed 42
+
+>>> Running Benchmark for Optimizers: ['sgd'] across 1 configs <<<
+
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: SGD | Epochs: 14
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run 3m4aostz
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260927_050008-3m4aostz
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sgd_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/rho0.1-Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/rho0.1-Pythia70M-Fineweb-optimizers/runs/3m4aostz
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512) | train shards: 11 | val shard: sample/10BT/011_00000.parquet
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [sgd] for 14 epochs...
+  [SGD         ] Epoch  1/14 | Train Loss: 7.8621 | Train Acc: 9.86% | Val Loss: 8.8421 | Val Acc: 6.40% | Time: 197.6s | LR: 5.000e-02
+  [SGD         ] Epoch  2/14 | Train Loss: 7.2962 | Train Acc: 8.39% | Val Loss: 7.3703 | Val Acc: 9.26% | Time: 147.3s | LR: 5.000e-02
+  [SGD         ] Epoch  3/14 | Train Loss: 7.4738 | Train Acc: 10.48% | Val Loss: 7.4817 | Val Acc: 9.78% | Time: 139.4s | LR: 5.000e-02
+  [SGD         ] Epoch  4/14 | Train Loss: 7.4430 | Train Acc: 9.85% | Val Loss: 7.4548 | Val Acc: 8.70% | Time: 147.8s | LR: 5.000e-02
+  [SGD         ] Epoch  5/14 | Train Loss: 7.3692 | Train Acc: 9.99% | Val Loss: 7.3805 | Val Acc: 9.80% | Time: 146.7s | LR: 5.000e-02
+  [SGD         ] Epoch  6/14 | Train Loss: 7.3134 | Train Acc: 10.22% | Val Loss: 7.3226 | Val Acc: 10.00% | Time: 146.9s | LR: 5.000e-02
+  [SGD         ] Epoch  7/14 | Train Loss: 7.2647 | Train Acc: 10.62% | Val Loss: 7.2979 | Val Acc: 10.65% | Time: 148.3s | LR: 5.000e-02
+  [SGD         ] Epoch  8/14 | Train Loss: 7.2277 | Train Acc: 10.66% | Val Loss: 7.2638 | Val Acc: 10.51% | Time: 128.1s | LR: 5.000e-02
+  [SGD         ] Epoch  9/14 | Train Loss: 7.2263 | Train Acc: 10.77% | Val Loss: 7.3180 | Val Acc: 10.87% | Time: 147.0s | LR: 5.000e-02
+  [SGD         ] Epoch 10/14 | Train Loss: 7.2122 | Train Acc: 10.65% | Val Loss: 7.2403 | Val Acc: 10.67% | Time: 139.8s | LR: 5.000e-02
+  [SGD         ] Epoch 11/14 | Train Loss: 7.2003 | Train Acc: 10.75% | Val Loss: 7.2299 | Val Acc: 11.01% | Time: 129.5s | LR: 5.000e-02
+  [SGD         ] Epoch 12/14 | Train Loss: 7.1770 | Train Acc: 10.93% | Val Loss: 7.1788 | Val Acc: 11.25% | Time: 123.9s | LR: 3.571e-02
+  [SGD         ] Epoch 13/14 | Train Loss: 7.1245 | Train Acc: 11.61% | Val Loss: 7.1181 | Val Acc: 11.57% | Time: 148.4s | LR: 1.786e-02
+  [SGD         ] Epoch 14/14 | Train Loss: 7.0623 | Train Acc: 12.14% | Val Loss: 7.0811 | Val Acc: 11.84% | Time: 148.4s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml; uploading output.log
+wandb: uploading wandb-summary.json; uploading output.log
+wandb: uploading history steps 13-13, summary, console lines 18-18
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:             lr ███████████▆▄▁
+wandb:         time_s █▃▂▃▃▃▃▁▃▃▂▁▃▃
+wandb: train/accuracy ▄▁▅▄▄▄▅▅▅▅▅▆▇█
+wandb:     train/loss █▃▅▄▄▃▃▂▂▂▂▂▂▁
+wandb:   val/accuracy ▁▅▅▄▅▆▆▆▇▆▇▇██
+wandb:       val/loss █▂▃▂▂▂▂▂▂▂▂▁▁▁
+wandb: val/perplexity █▁▂▂▂▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:             lr 0
+wandb:         time_s 148.40194
+wandb: train/accuracy 12.13558
+wandb:     train/loss 7.06235
+wandb:   val/accuracy 11.83855
+wandb:       val/loss 7.0811
+wandb: val/perplexity 1189.28119
+wandb: 
+wandb: 🚀 View run sgd_seed42 at: https://wandb.ai/dcll-iiitd/rho0.1-Pythia70M-Fineweb-optimizers/runs/3m4aostz
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/rho0.1-Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260927_050008-3m4aostz/logs
+
+  [Single CSV Saved]: logs/pythia70m_pretrain_chinchilla_logs.csv
+  [Unified Comparison Plot Saved]: logs/pythia70m_pretrain_chinchilla_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  pythia70m_pretrain_chinchilla       | Opt: sgd            | Loss: 7.0623 | Perplexity    : 1189.28 | Time: 2039.1s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

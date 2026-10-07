@@ -1,0 +1,85 @@
+
+### 2026-09-27 04:14:48 /home/anant/miniconda3/bin/python -u main_experiment.py -c configs/nanogpt_fineweb.yaml -o adam -e 15 --seed 42
+
+>>> Running Benchmark for Optimizers: ['adam'] across 1 configs <<<
+
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: ADAM | Epochs: 15
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run jdnbmcbr
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260927_041457-jdnbmcbr
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run adam_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/jdnbmcbr
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512) | train shards: 11 | val shard: sample/10BT/011_00000.parquet
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [adam] for 15 epochs...
+Token indices sequence length is longer than the specified maximum sequence length for this model (1426 > 1024). Running this sequence through the model will result in indexing errors
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  [ADAM        ] Epoch  1/15 | Train Loss: 3.4803 | Train Acc: 36.60% | Val Loss: 3.4146 | Val Acc: 37.48% | Time: 364.8s | LR: 1.800e-03
+  [ADAM        ] Epoch  2/15 | Train Loss: 3.4906 | Train Acc: 36.59% | Val Loss: 3.3882 | Val Acc: 37.72% | Time: 269.6s | LR: 1.800e-03
+  [ADAM        ] Epoch  3/15 | Train Loss: 3.4717 | Train Acc: 36.85% | Val Loss: 3.3943 | Val Acc: 37.66% | Time: 263.4s | LR: 1.800e-03
+  [ADAM        ] Epoch  4/15 | Train Loss: 3.4436 | Train Acc: 37.07% | Val Loss: 3.3491 | Val Acc: 38.19% | Time: 268.3s | LR: 1.800e-03
+  [ADAM        ] Epoch  5/15 | Train Loss: 3.4481 | Train Acc: 37.01% | Val Loss: 3.3399 | Val Acc: 38.31% | Time: 268.2s | LR: 1.800e-03
+  [ADAM        ] Epoch  6/15 | Train Loss: 3.4510 | Train Acc: 36.96% | Val Loss: 3.3407 | Val Acc: 38.23% | Time: 250.2s | LR: 1.800e-03
+  [ADAM        ] Epoch  7/15 | Train Loss: 3.4241 | Train Acc: 37.24% | Val Loss: 3.3177 | Val Acc: 38.46% | Time: 258.8s | LR: 1.800e-03
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: 978ea48f-1790-4a8a-80ab-7a5ed73c1adf)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/011_00000.parquet
+Retrying in 1s [Retry 1/5].
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: d32b431b-6fe9-4b3a-9915-c5323be8f12c)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/011_00000.parquet
+Retrying in 1s [Retry 1/5].
+  [ADAM        ] Epoch  8/15 | Train Loss: 3.3993 | Train Acc: 37.52% | Val Loss: 3.3269 | Val Acc: 38.48% | Time: 265.6s | LR: 1.800e-03
+  [ADAM        ] Epoch  9/15 | Train Loss: 3.4022 | Train Acc: 37.55% | Val Loss: 3.3259 | Val Acc: 38.44% | Time: 267.1s | LR: 1.800e-03
+  [ADAM        ] Epoch 10/15 | Train Loss: 3.3968 | Train Acc: 37.58% | Val Loss: 3.3097 | Val Acc: 38.56% | Time: 253.6s | LR: 1.800e-03
+  [ADAM        ] Epoch 11/15 | Train Loss: 3.3802 | Train Acc: 37.73% | Val Loss: 3.3110 | Val Acc: 38.59% | Time: 267.3s | LR: 1.800e-03
+  [ADAM        ] Epoch 12/15 | Train Loss: 3.3867 | Train Acc: 37.66% | Val Loss: 3.3072 | Val Acc: 38.65% | Time: 265.1s | LR: 1.800e-03
+  [ADAM        ] Epoch 13/15 | Train Loss: 3.3713 | Train Acc: 37.88% | Val Loss: 3.2755 | Val Acc: 38.99% | Time: 248.3s | LR: 1.200e-03
+  [ADAM        ] Epoch 14/15 | Train Loss: 3.3325 | Train Acc: 38.32% | Val Loss: 3.2446 | Val Acc: 39.33% | Time: 266.4s | LR: 6.000e-04
+  [ADAM        ] Epoch 15/15 | Train Loss: 3.3386 | Train Acc: 38.20% | Val Loss: 3.2346 | Val Acc: 39.45% | Time: 249.4s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:             lr ████████████▆▃▁
+wandb:         time_s █▂▂▂▂▁▂▂▂▁▂▂▁▂▁
+wandb: train/accuracy ▁▁▂▃▃▃▄▅▅▅▆▅▆██
+wandb:     train/loss ██▇▆▆▆▅▄▄▄▃▃▃▁▁
+wandb:   val/accuracy ▁▂▂▄▄▄▄▅▄▅▅▅▆██
+wandb:       val/loss █▇▇▅▅▅▄▅▅▄▄▄▃▁▁
+wandb: val/perplexity █▇▇▅▅▅▄▄▄▄▄▄▂▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:             lr 0
+wandb:         time_s 249.4428
+wandb: train/accuracy 38.20393
+wandb:     train/loss 3.33859
+wandb:   val/accuracy 39.45034
+wandb:       val/loss 3.23464
+wandb: val/perplexity 25.39711
+wandb: 
+wandb: 🚀 View run adam_seed42 at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers/runs/jdnbmcbr
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/rho-0.1-NanoGPT-FineWeb-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260927_041457-jdnbmcbr/logs
+
+  [Single CSV Saved]: logs/nanogpt_fineweb_logs.csv
+  [Unified Comparison Plot Saved]: logs/nanogpt_fineweb_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  nanogpt_fineweb                     | Opt: adam           | Loss: 3.3386 | Perplexity    : 25.40 | Time: 4026.1s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

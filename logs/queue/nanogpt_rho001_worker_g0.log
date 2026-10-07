@@ -1,0 +1,3 @@
+[2026-09-29 14:24:23] GPU 0: start nanogpt_fineweb|muon_sam|seed42
+[2026-09-29 16:32:55] GPU 0: done nanogpt_fineweb|muon_sam|seed42 
+[2026-09-29 16:32:55] GPU 0: queue empty, exiting

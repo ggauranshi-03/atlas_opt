@@ -1,0 +1,7 @@
+[2026-09-28 19:50:02] GPU 0: start cifar10_cnn|sam|seed42
+[2026-09-28 19:54:22] GPU 0: done cifar10_cnn|sam|seed42 
+[2026-09-28 19:54:22] GPU 0: start cifar10_cnn|fsam_ortho_muon_stale|seed42
+[2026-09-28 19:58:18] GPU 0: done cifar10_cnn|fsam_ortho_muon_stale|seed42 
+[2026-09-28 19:58:18] GPU 0: start cifar10_cnn|fsam_ortho_muon_stale_momentum|seed42
+[2026-09-28 20:02:14] GPU 0: done cifar10_cnn|fsam_ortho_muon_stale_momentum|seed42 
+[2026-09-28 20:02:14] GPU 0: queue empty, exiting

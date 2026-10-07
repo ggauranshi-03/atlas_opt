@@ -1,0 +1,99 @@
+
+### 2026-09-30 13:51:59 /home/anant/miniconda3/bin/python3 -u main_experiment.py -c configs/pythia70m_pretrain_chinchilla.yaml -o sam_ortho -e 14 --seed 42
+
+>>> Running Benchmark for Optimizers: ['sam_ortho'] across 1 configs <<<
+
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: SAM_ORTHO | Epochs: 14
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run kz1jjcg9
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260930_135212-kz1jjcg9
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sam_ortho_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/PTQ-Pythia70M
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/PTQ-Pythia70M/runs/kz1jjcg9
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: dcb0090d-7851-4e1a-87d3-8fc3563483b7)')' thrown while requesting HEAD https://huggingface.co/EleutherAI/pythia-70m/resolve/main/adapter_config.json
+Retrying in 1s [Retry 1/5].
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512) | train shards: 11 | val shard: sample/10BT/011_00000.parquet
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [sam_ortho] for 14 epochs...
+Failed to connect to remote data host. Retrying in 5sec [1/20]
+Failed to connect to remote data host. Retrying in 5sec [1/20]
+Failed to connect to remote data host. Retrying in 5sec [1/20]
+Failed to connect to remote data host. Retrying in 5sec [1/20]
+Failed to connect to remote data host. Retrying in 5sec [1/20]
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: 6a14fdd2-8a21-4202-828b-a95011941111)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/010_00000.parquet
+Retrying in 1s [Retry 1/5].
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: 75e8d4f2-6663-4e13-8522-3fb5d44bc9b4)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/004_00000.parquet
+Retrying in 1s [Retry 1/5].
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: 7a29c9dd-d3f8-4767-8777-f03668c6cd06)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/000_00000.parquet
+Retrying in 1s [Retry 1/5].
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: b71ce4c2-c064-4ae6-9c81-50dcd1194eef)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/010_00000.parquet
+Retrying in 2s [Retry 2/5].
+Failed to connect to remote data host. Retrying in 5sec [2/20]
+Failed to connect to remote data host. Retrying in 5sec [2/20]
+Failed to connect to remote data host. Retrying in 5sec [2/20]
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: f8c9aeac-aec4-4426-ab9b-dab87236a719)')' thrown while requesting GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/006_00000.parquet
+Retrying in 1s [Retry 1/5].
+  [SAM_ORTHO   ] Epoch  1/14 | Train Loss: 9.4013 | Train Acc: 4.99% | Val Loss: 8.3374 | Val Acc: 7.42% | Time: 370.9s | LR: 1.500e-02
+  [SAM_ORTHO   ] Epoch  2/14 | Train Loss: 8.1278 | Train Acc: 8.08% | Val Loss: 8.0345 | Val Acc: 8.10% | Time: 222.2s | LR: 1.500e-02
+  [SAM_ORTHO   ] Epoch  3/14 | Train Loss: 7.9452 | Train Acc: 8.51% | Val Loss: 7.9130 | Val Acc: 8.48% | Time: 229.7s | LR: 1.500e-02
+  [SAM_ORTHO   ] Epoch  4/14 | Train Loss: 7.8440 | Train Acc: 8.88% | Val Loss: 7.8399 | Val Acc: 8.69% | Time: 234.5s | LR: 1.500e-02
+  [SAM_ORTHO   ] Epoch  5/14 | Train Loss: 7.7776 | Train Acc: 9.00% | Val Loss: 7.7906 | Val Acc: 8.88% | Time: 204.0s | LR: 1.500e-02
+  [SAM_ORTHO   ] Epoch  6/14 | Train Loss: 7.7411 | Train Acc: 9.07% | Val Loss: 7.7556 | Val Acc: 9.03% | Time: 193.1s | LR: 1.500e-02
+  [SAM_ORTHO   ] Epoch  7/14 | Train Loss: 7.7062 | Train Acc: 9.26% | Val Loss: 7.7282 | Val Acc: 9.12% | Time: 181.8s | LR: 1.500e-02
+  [SAM_ORTHO   ] Epoch  8/14 | Train Loss: 7.6706 | Train Acc: 9.45% | Val Loss: 7.6971 | Val Acc: 9.30% | Time: 210.6s | LR: 1.500e-02
+  [SAM_ORTHO   ] Epoch  9/14 | Train Loss: 7.6433 | Train Acc: 9.59% | Val Loss: 7.6549 | Val Acc: 9.29% | Time: 221.8s | LR: 1.500e-02
+  [SAM_ORTHO   ] Epoch 10/14 | Train Loss: 7.5948 | Train Acc: 9.67% | Val Loss: 7.6117 | Val Acc: 9.42% | Time: 237.1s | LR: 1.500e-02
+  [SAM_ORTHO   ] Epoch 11/14 | Train Loss: 7.5534 | Train Acc: 9.75% | Val Loss: 7.5770 | Val Acc: 9.53% | Time: 214.4s | LR: 1.500e-02
+  [SAM_ORTHO   ] Epoch 12/14 | Train Loss: 7.5245 | Train Acc: 9.79% | Val Loss: 7.5564 | Val Acc: 9.73% | Time: 238.4s | LR: 1.071e-02
+  [SAM_ORTHO   ] Epoch 13/14 | Train Loss: 7.5235 | Train Acc: 9.93% | Val Loss: 7.5486 | Val Acc: 9.76% | Time: 235.8s | LR: 5.357e-03
+  [SAM_ORTHO   ] Epoch 14/14 | Train Loss: 7.5146 | Train Acc: 10.01% | Val Loss: 7.5476 | Val Acc: 9.78% | Time: 234.6s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml; uploading output.log
+wandb: uploading wandb-summary.json; uploading output.log
+wandb: uploading history steps 13-13, summary, console lines 38-38
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:             lr ███████████▆▄▁
+wandb:         time_s █▂▃▃▂▁▁▂▂▃▂▃▃▃
+wandb: train/accuracy ▁▅▆▆▇▇▇▇▇█████
+wandb:     train/loss █▃▃▂▂▂▂▂▁▁▁▁▁▁
+wandb:   val/accuracy ▁▃▄▅▅▆▆▇▇▇▇███
+wandb:       val/loss █▅▄▄▃▃▃▂▂▂▁▁▁▁
+wandb: val/perplexity █▅▄▃▃▂▂▂▂▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:             lr 0
+wandb:         time_s 234.62877
+wandb: train/accuracy 10.01038
+wandb:     train/loss 7.51459
+wandb:   val/accuracy 9.77691
+wandb:       val/loss 7.54761
+wandb: val/perplexity 1896.20474
+wandb: 
+wandb: 🚀 View run sam_ortho_seed42 at: https://wandb.ai/dcll-iiitd/PTQ-Pythia70M/runs/kz1jjcg9
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/PTQ-Pythia70M
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260930_135212-kz1jjcg9/logs
+
+  [Single CSV Saved]: logs/pythia70m_pretrain_chinchilla_logs.csv
+  [Unified Comparison Plot Saved]: logs/pythia70m_pretrain_chinchilla_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  pythia70m_pretrain_chinchilla       | Opt: sam_ortho      | Loss: 7.5146 | Perplexity    : 1896.20 | Time: 3228.9s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

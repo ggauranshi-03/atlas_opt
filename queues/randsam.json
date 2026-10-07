@@ -1,0 +1,36 @@
+[
+ {
+  "id": "nanogpt_fineweb|randsam_muon|seed42",
+  "config": "configs/nanogpt_fineweb.yaml",
+  "optimizer": "randsam_muon",
+  "seed": 42,
+  "epochs": 15,
+  "ptq": true,
+  "keep_ckpt": true,
+  "status": "done",
+  "attempts": 1,
+  "host": "gpuserver2.tih.local",
+  "pid": 2248827,
+  "gpu": 1,
+  "started": "2026-10-01 19:07:07",
+  "finished": "2026-10-01 20:26:58",
+  "message": ""
+ },
+ {
+  "id": "pythia70m_pretrain_chinchilla|randsam_muon|seed42",
+  "config": "configs/pythia70m_pretrain_chinchilla.yaml",
+  "optimizer": "randsam_muon",
+  "seed": 42,
+  "epochs": 14,
+  "ptq": true,
+  "keep_ckpt": true,
+  "status": "done",
+  "attempts": 1,
+  "host": "gpuserver2.tih.local",
+  "pid": 2248830,
+  "gpu": 0,
+  "started": "2026-10-01 19:07:07",
+  "finished": "2026-10-01 19:53:02",
+  "message": ""
+ }
+]

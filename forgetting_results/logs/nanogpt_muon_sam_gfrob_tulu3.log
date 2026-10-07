@@ -1,0 +1,96 @@
+  Loading CPT model architecture: gpt2 in bfloat16...
+Traceback (most recent call last):
+  File "/home/anant/atlas_opt/tools/forgetting.py", line 567, in <module>
+    main()
+    ~~~~^^
+  File "/home/anant/atlas_opt/tools/forgetting.py", line 563, in main
+    {"prepare": cmd_prepare, "run": cmd_run, "launch": cmd_launch, "analyze": cmd_analyze}[a.cmd](a)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/home/anant/atlas_opt/tools/forgetting.py", line 251, in cmd_run
+    model.load_state_dict(torch.load(ckpt, map_location=device, weights_only=True))
+                          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/anant/miniconda3/lib/python3.13/site-packages/torch/serialization.py", line 1561, in load
+    with _open_file_like(f, "rb") as opened_file:
+         ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/anant/miniconda3/lib/python3.13/site-packages/torch/serialization.py", line 795, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/anant/miniconda3/lib/python3.13/site-packages/torch/serialization.py", line 776, in __init__
+    super().__init__(open(name, mode))  # noqa: SIM115
+                     ~~~~^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/anant/atlas_opt/checkpoints/nanogpt_fineweb_muon_sam_gfrob_seed42_epoch15.pt'
+  Loading CPT model architecture: gpt2 in bfloat16...
+Traceback (most recent call last):
+  File "/home/anant/atlas_opt/tools/forgetting.py", line 567, in <module>
+    main()
+    ~~~~^^
+  File "/home/anant/atlas_opt/tools/forgetting.py", line 563, in main
+    {"prepare": cmd_prepare, "run": cmd_run, "launch": cmd_launch, "analyze": cmd_analyze}[a.cmd](a)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/home/anant/atlas_opt/tools/forgetting.py", line 251, in cmd_run
+    model.load_state_dict(torch.load(ckpt, map_location=device, weights_only=True))
+                          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/anant/miniconda3/lib/python3.13/site-packages/torch/serialization.py", line 1561, in load
+    with _open_file_like(f, "rb") as opened_file:
+         ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/anant/miniconda3/lib/python3.13/site-packages/torch/serialization.py", line 795, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/anant/miniconda3/lib/python3.13/site-packages/torch/serialization.py", line 776, in __init__
+    super().__init__(open(name, mode))  # noqa: SIM115
+                     ~~~~^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/anant/atlas_opt/checkpoints/nanogpt_fineweb_muon_sam_gfrob_seed42_epoch15.pt'
+  Loading CPT model architecture: gpt2 in bfloat16...
+[nanogpt|muon_sam_gfrob|tulu3] base: pt_loss=3.5550 ft_loss=3.8597
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  lr=1e-05: ft_loss=3.5630 pt_loss=3.5948 dPT=+0.0398 ||dtheta||=1.805 (28s)
+  lr=1.68e-05: ft_loss=3.4752 pt_loss=3.6037 dPT=+0.0487 ||dtheta||=2.748 (28s)
+  lr=2.82e-05: ft_loss=3.3809 pt_loss=3.6111 dPT=+0.0561 ||dtheta||=4.232 (28s)
+  lr=4.74e-05: ft_loss=3.2764 pt_loss=3.6212 dPT=+0.0662 ||dtheta||=6.553 (27s)
+  lr=7.96e-05: ft_loss=3.1508 pt_loss=3.6409 dPT=+0.0859 ||dtheta||=10.247 (28s)
+  lr=0.000134: ft_loss=3.0285 pt_loss=3.6681 dPT=+0.1132 ||dtheta||=16.012 (28s)
+  lr=0.000224: ft_loss=2.9341 pt_loss=3.6959 dPT=+0.1409 ||dtheta||=24.691 (28s)
+  lr=0.000377: ft_loss=2.8476 pt_loss=3.7330 dPT=+0.1780 ||dtheta||=38.259 (28s)
+  lr=0.000633: ft_loss=2.7975 pt_loss=3.7878 dPT=+0.2328 ||dtheta||=58.583 (28s)
+  lr=0.00106: ft_loss=2.7673 pt_loss=3.8635 dPT=+0.3085 ||dtheta||=87.584 (28s)
+  lr=0.00179: ft_loss=2.8063 pt_loss=4.0172 dPT=+0.4622 ||dtheta||=131.425 (28s)
+  lr=0.003: ft_loss=3.0455 pt_loss=4.4316 dPT=+0.8766 ||dtheta||=197.131 (28s)
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run 6qb5vc95
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20261001_195713-6qb5vc95
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon_sam_gfrob_tulu3
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/6qb5vc95
+wandb: updating run metadata; uploading artifact run-6qb5vc95-sweep_table; uploading artifact run-6qb5vc95-train_loss_curves_table
+wandb: uploading artifact run-6qb5vc95-sweep_table; uploading artifact run-6qb5vc95-train_loss_curves_table
+wandb: uploading artifact run-6qb5vc95-sweep_table; uploading artifact run-6qb5vc95-train_loss_curves_table; uploading media/table/train_loss_curves_table_12_6dc4551d1c5e193027f8.table.json; uploading wandb-summary.json; uploading config.yaml (+ 3 more)
+wandb: uploading artifact run-6qb5vc95-train_loss_curves_table; uploading media/table/train_loss_curves_table_12_6dc4551d1c5e193027f8.table.json; uploading wandb-summary.json; uploading config.yaml; uploading wandb-metadata.json (+ 2 more)
+wandb: uploading artifact run-6qb5vc95-train_loss_curves_table
+wandb: uploading history steps 0-12, summary
+wandb: 
+wandb: Run history:
+wandb: sweep/delta_norm ▁▁▁▁▁▂▂▂▃▄▆█
+wandb: sweep/forgetting ▁▁▁▁▁▂▂▂▃▃▅█
+wandb:    sweep/ft_loss █▇▆▅▄▃▂▂▁▁▁▃
+wandb:   sweep/log10_lr ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:         sweep/lr ▁▁▁▁▁▁▂▂▂▃▅█
+wandb:      sweep/point ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:    sweep/pt_loss ▁▁▁▁▁▂▂▂▃▃▅█
+wandb: 
+wandb: Run summary:
+wandb:     base/ft_loss 3.85972
+wandb:  base/param_norm 1014.48708
+wandb:     base/pt_loss 3.55499
+wandb: sweep/delta_norm 197.13054
+wandb: sweep/forgetting 0.87661
+wandb:    sweep/ft_loss 3.04554
+wandb:   sweep/log10_lr -2.52288
+wandb:         sweep/lr 0.003
+wandb:      sweep/point 11
+wandb:    sweep/pt_loss 4.4316
+wandb: 
+wandb: 🚀 View run muon_sam_gfrob_tulu3 at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/6qb5vc95
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: Synced 4 W&B file(s), 2 media file(s), 4 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20261001_195713-6qb5vc95/logs

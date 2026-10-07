@@ -1,0 +1,53 @@
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+[pythia70m|fsam_frob_muon_stale_momentum|musicpile] base: pt_loss=3.7208 ft_loss=4.7653
+  lr=1e-05: ft_loss=4.6688 pt_loss=3.7721 dPT=+0.0513 ||dtheta||=1.086 (11s)
+  lr=1.68e-05: ft_loss=4.6191 pt_loss=3.7658 dPT=+0.0450 ||dtheta||=1.739 (10s)
+  lr=2.82e-05: ft_loss=4.5617 pt_loss=3.7647 dPT=+0.0438 ||dtheta||=2.801 (10s)
+  lr=4.74e-05: ft_loss=4.4932 pt_loss=3.7661 dPT=+0.0452 ||dtheta||=4.516 (10s)
+  lr=7.96e-05: ft_loss=4.4116 pt_loss=3.7724 dPT=+0.0516 ||dtheta||=7.297 (10s)
+  lr=0.000134: ft_loss=4.3223 pt_loss=3.7834 dPT=+0.0626 ||dtheta||=11.716 (11s)
+  lr=0.000224: ft_loss=4.2325 pt_loss=3.7972 dPT=+0.0764 ||dtheta||=18.503 (11s)
+  lr=0.000377: ft_loss=4.1405 pt_loss=3.8167 dPT=+0.0959 ||dtheta||=29.268 (11s)
+  lr=0.000633: ft_loss=4.0689 pt_loss=3.8418 dPT=+0.1210 ||dtheta||=44.494 (11s)
+  lr=0.00106: ft_loss=4.0207 pt_loss=3.8859 dPT=+0.1651 ||dtheta||=66.117 (11s)
+  lr=0.00179: ft_loss=4.0187 pt_loss=3.9765 dPT=+0.2556 ||dtheta||=94.082 (10s)
+  lr=0.003: ft_loss=4.1461 pt_loss=4.2478 dPT=+0.5269 ||dtheta||=138.037 (10s)
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run rnchpz22
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260930_170128-rnchpz22
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam_frob_muon_stale_momentum_musicpile
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M/runs/rnchpz22
+wandb: updating run metadata; uploading artifact run-rnchpz22-sweep_table; uploading artifact run-rnchpz22-train_loss_curves_table
+wandb: uploading artifact run-rnchpz22-sweep_table; uploading artifact run-rnchpz22-train_loss_curves_table
+wandb: uploading artifact run-rnchpz22-sweep_table; uploading artifact run-rnchpz22-train_loss_curves_table; uploading config.yaml; uploading wandb-metadata.json; uploading requirements.txt (+ 3 more)
+wandb: uploading artifact run-rnchpz22-train_loss_curves_table
+wandb: 
+wandb: Run history:
+wandb: sweep/delta_norm ▁▁▁▁▁▂▂▂▃▄▆█
+wandb: sweep/forgetting ▁▁▁▁▁▁▁▂▂▃▄█
+wandb:    sweep/ft_loss █▇▇▆▅▄▃▂▂▁▁▂
+wandb:   sweep/log10_lr ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:         sweep/lr ▁▁▁▁▁▁▂▂▂▃▅█
+wandb:      sweep/point ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:    sweep/pt_loss ▁▁▁▁▁▁▁▂▂▃▄█
+wandb: 
+wandb: Run summary:
+wandb:     base/ft_loss 4.76531
+wandb:  base/param_norm 841.63802
+wandb:     base/pt_loss 3.72084
+wandb: sweep/delta_norm 138.03686
+wandb: sweep/forgetting 0.52691
+wandb:    sweep/ft_loss 4.14606
+wandb:   sweep/log10_lr -2.52288
+wandb:         sweep/lr 0.003
+wandb:      sweep/point 11
+wandb:    sweep/pt_loss 4.24775
+wandb: 
+wandb: 🚀 View run fsam_frob_muon_stale_momentum_musicpile at: https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M/runs/rnchpz22
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M
+wandb: Synced 4 W&B file(s), 2 media file(s), 4 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260930_170128-rnchpz22/logs

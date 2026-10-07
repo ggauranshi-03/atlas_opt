@@ -1,0 +1,53 @@
+[
+ {
+  "id": "pythia70m_pretrain_chinchilla|muon_sam|seed42",
+  "config": "configs/pythia70m_pretrain_chinchilla.yaml",
+  "optimizer": "muon_sam",
+  "seed": 42,
+  "epochs": 14,
+  "ptq": true,
+  "keep_ckpt": true,
+  "status": "done",
+  "attempts": 1,
+  "host": "gpuserver2.tih.local",
+  "pid": 1143674,
+  "gpu": 3,
+  "started": "2026-09-29 14:24:23",
+  "finished": "2026-09-29 15:24:19",
+  "message": ""
+ },
+ {
+  "id": "pythia70m_pretrain_chinchilla|fsam_muon|seed42",
+  "config": "configs/pythia70m_pretrain_chinchilla.yaml",
+  "optimizer": "fsam_muon",
+  "seed": 42,
+  "epochs": 14,
+  "ptq": true,
+  "keep_ckpt": true,
+  "status": "done",
+  "attempts": 1,
+  "host": "gpuserver2.tih.local",
+  "pid": 1143676,
+  "gpu": 6,
+  "started": "2026-09-29 14:24:23",
+  "finished": "2026-09-29 15:22:49",
+  "message": ""
+ },
+ {
+  "id": "pythia70m_pretrain_chinchilla|fsam|seed42",
+  "config": "configs/pythia70m_pretrain_chinchilla.yaml",
+  "optimizer": "fsam",
+  "seed": 42,
+  "epochs": 14,
+  "ptq": true,
+  "keep_ckpt": true,
+  "status": "done",
+  "attempts": 1,
+  "host": "gpuserver2.tih.local",
+  "pid": 1143675,
+  "gpu": 4,
+  "started": "2026-09-29 14:24:23",
+  "finished": "2026-09-29 15:23:52",
+  "message": ""
+ }
+]

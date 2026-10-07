@@ -1,0 +1,72 @@
+
+### 2026-09-27 04:35:18 /home/anant/miniconda3/bin/python -u main_experiment.py -c configs/cifar10_cnn.yaml -o atlas_random -e 7 --seed 42
+
+>>> Running Benchmark for Optimizers: ['atlas_random'] across 1 configs <<<
+
+
+######################################################################
+# Config: cifar10_cnn | Optimizer: ATLAS_RANDOM | Epochs: 7
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run m3cinn7x
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260927_043527-m3cinn7x
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_random_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers/runs/m3cinn7x
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 45,000 | Val (held-out from train): 5,000
+
+  Starting training [cifar10_cnn] with optimizer [atlas_random] for 7 epochs...
+  [ATLAS_RANDOM] Epoch  1/7 | Train Loss: 2.0301 | Train Acc: 28.65% | Val Loss: 2.0130 | Val Acc: 38.38% | Time: 24.6s | LR: 2.000e-02
+  [ATLAS_RANDOM] Epoch  2/7 | Train Loss: 1.6960 | Train Acc: 40.50% | Val Loss: 1.2999 | Val Acc: 54.34% | Time: 24.4s | LR: 2.000e-02
+  [ATLAS_RANDOM] Epoch  3/7 | Train Loss: 1.5101 | Train Acc: 47.32% | Val Loss: 1.1274 | Val Acc: 59.82% | Time: 24.7s | LR: 2.000e-02
+  [ATLAS_RANDOM] Epoch  4/7 | Train Loss: 1.3670 | Train Acc: 53.97% | Val Loss: 1.1105 | Val Acc: 64.40% | Time: 23.8s | LR: 2.000e-02
+  [ATLAS_RANDOM] Epoch  5/7 | Train Loss: 1.2893 | Train Acc: 56.86% | Val Loss: 1.1985 | Val Acc: 63.56% | Time: 24.7s | LR: 2.000e-02
+  [ATLAS_RANDOM] Epoch  6/7 | Train Loss: 1.1882 | Train Acc: 61.01% | Val Loss: 0.8653 | Val Acc: 71.72% | Time: 25.2s | LR: 1.429e-02
+  [ATLAS_RANDOM] Epoch  7/7 | Train Loss: 1.0083 | Train Acc: 65.52% | Val Loss: 0.7201 | Val Acc: 75.96% | Time: 23.5s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 6-6, summary, console lines 11-11
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▃▅▆▇█
+wandb:             lr █████▆▁
+wandb:         time_s ▆▅▆▂▆█▁
+wandb: train/accuracy ▁▃▅▆▆▇█
+wandb:     train/loss █▆▄▃▃▂▁
+wandb:   val/accuracy ▁▄▅▆▆▇█
+wandb:       val/loss █▄▃▃▄▂▁
+wandb: val/perplexity ▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 7
+wandb:             lr 0
+wandb:         time_s 23.49412
+wandb: train/accuracy 65.522
+wandb:     train/loss 1.00831
+wandb:   val/accuracy 75.96
+wandb:       val/loss 0.72006
+wandb: val/perplexity 0
+wandb: 
+wandb: 🚀 View run atlas_random_seed42 at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers/runs/m3cinn7x
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260927_043527-m3cinn7x/logs
+
+  [Single CSV Saved]: logs/cifar10_cnn_logs.csv
+  [Unified Comparison Plot Saved]: logs/cifar10_cnn_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  cifar10_cnn                         | Opt: atlas_random   | Loss: 1.0083 | Val Acc (%)   : 75.96 | Time: 170.9s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

@@ -102,7 +102,9 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
                 "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
             }
         elif opt_name in ["muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon", "fsam_ortho_muon",
-                          "fsam_ortho_muon_stale", "fsam_ortho_muon_stale_momentum"]:
+                          "fsam_ortho_muon_stale", "fsam_ortho_muon_stale_momentum",
+                          "fsam_frob_muon_stale", "fsam_frob_muon_stale_momentum",
+                          "muon_sam_gfrob", "fsam_gfrob_muon_stale", "fsam_gfrob_muon_stale_momentum", "randsam_muon"]:
             opt_dict = opts_cfg.get(opt_name, {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.035),
@@ -115,7 +117,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
                 "fsam_sigma": opt_dict.get("fsam_sigma", 1.0),
                 "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
             }
-        elif opt_name in ["fsam_ortho", "fsam", "sam"]:
+        elif opt_name in ["fsam_ortho", "fsam", "sam", "sam_ortho"]:
             opt_dict = opts_cfg.get(opt_name, {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.01),

@@ -9,3 +9,6 @@ ptq/__pycache__
 ptq_campaign/__pycache__
 logs/ptq_campaign/*
 ptq_cache
+forgetting_cache
+paper_figures
+paper_figures.zip

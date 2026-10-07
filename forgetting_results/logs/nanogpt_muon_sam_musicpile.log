@@ -1,0 +1,56 @@
+  Loading CPT model architecture: gpt2 in bfloat16...
+[nanogpt|muon_sam|musicpile] base: pt_loss=3.2031 ft_loss=3.6939
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  lr=1e-05: ft_loss=3.6085 pt_loss=3.2134 dPT=+0.0103 ||dtheta||=1.654 (28s)
+  lr=1.68e-05: ft_loss=3.5749 pt_loss=3.2209 dPT=+0.0178 ||dtheta||=2.568 (28s)
+  lr=2.82e-05: ft_loss=3.5278 pt_loss=3.2251 dPT=+0.0220 ||dtheta||=3.952 (28s)
+  lr=4.74e-05: ft_loss=3.4713 pt_loss=3.2255 dPT=+0.0224 ||dtheta||=6.091 (28s)
+  lr=7.96e-05: ft_loss=3.4040 pt_loss=3.2293 dPT=+0.0262 ||dtheta||=9.481 (28s)
+  lr=0.000134: ft_loss=3.3379 pt_loss=3.2364 dPT=+0.0333 ||dtheta||=14.795 (28s)
+  lr=0.000224: ft_loss=3.2772 pt_loss=3.2457 dPT=+0.0426 ||dtheta||=22.929 (28s)
+  lr=0.000377: ft_loss=3.2241 pt_loss=3.2606 dPT=+0.0574 ||dtheta||=35.775 (28s)
+  lr=0.000633: ft_loss=3.1846 pt_loss=3.2872 dPT=+0.0841 ||dtheta||=55.763 (28s)
+  lr=0.00106: ft_loss=3.1658 pt_loss=3.3267 dPT=+0.1236 ||dtheta||=85.643 (28s)
+  lr=0.00179: ft_loss=3.1788 pt_loss=3.3970 dPT=+0.1939 ||dtheta||=132.086 (28s)
+  lr=0.003: ft_loss=3.2394 pt_loss=3.5295 dPT=+0.3264 ||dtheta||=202.311 (28s)
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run cpnog8sg
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260929_163918-cpnog8sg
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon_sam_musicpile
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/cpnog8sg
+wandb: updating run metadata; uploading artifact run-cpnog8sg-sweep_table; uploading artifact run-cpnog8sg-train_loss_curves_table
+wandb: uploading artifact run-cpnog8sg-sweep_table; uploading artifact run-cpnog8sg-train_loss_curves_table
+wandb: uploading artifact run-cpnog8sg-train_loss_curves_table; uploading wandb-metadata.json; uploading requirements.txt; uploading media/table/sweep_table_12_242b0c1f87725ff19017.table.json; uploading media/table/train_loss_curves_table_12_45bd62f98af2b4adcea7.table.json (+ 2 more)
+wandb: uploading artifact run-cpnog8sg-train_loss_curves_table; uploading requirements.txt; uploading media/table/sweep_table_12_242b0c1f87725ff19017.table.json; uploading media/table/train_loss_curves_table_12_45bd62f98af2b4adcea7.table.json; uploading wandb-summary.json (+ 1 more)
+wandb: uploading artifact run-cpnog8sg-train_loss_curves_table; uploading media/table/train_loss_curves_table_12_45bd62f98af2b4adcea7.table.json
+wandb: uploading artifact run-cpnog8sg-train_loss_curves_table
+wandb: 
+wandb: Run history:
+wandb: sweep/delta_norm ▁▁▁▁▁▁▂▂▃▄▆█
+wandb: sweep/forgetting ▁▁▁▁▁▂▂▂▃▄▅█
+wandb:    sweep/ft_loss █▇▇▆▅▄▃▂▁▁▁▂
+wandb:   sweep/log10_lr ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:         sweep/lr ▁▁▁▁▁▁▂▂▂▃▅█
+wandb:      sweep/point ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:    sweep/pt_loss ▁▁▁▁▁▂▂▂▃▄▅█
+wandb: 
+wandb: Run summary:
+wandb:     base/ft_loss 3.69391
+wandb:  base/param_norm 1731.49449
+wandb:     base/pt_loss 3.20313
+wandb: sweep/delta_norm 202.3109
+wandb: sweep/forgetting 0.32641
+wandb:    sweep/ft_loss 3.23943
+wandb:   sweep/log10_lr -2.52288
+wandb:         sweep/lr 0.003
+wandb:      sweep/point 11
+wandb:    sweep/pt_loss 3.52954
+wandb: 
+wandb: 🚀 View run muon_sam_musicpile at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/cpnog8sg
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: Synced 4 W&B file(s), 2 media file(s), 4 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260929_163918-cpnog8sg/logs

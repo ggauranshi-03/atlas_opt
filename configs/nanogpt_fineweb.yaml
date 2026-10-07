@@ -1,6 +1,6 @@
 experiment:
   experiment_id: nanogpt_fineweb
-  wandb_project: rho-0.1-NanoGPT-FineWeb-Optimizers
+  wandb_project: PTQ-NanoGPT
   task_type: causal_lm
   model_name: gpt2
   model_config:
@@ -45,50 +45,50 @@ optimizers:
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
-    rho: 0.1
-    rho_vector: 0.1
+    rho: 0.01
+    rho_vector: 0.01
   atlas:
     optimizer: atlas
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
-    rho: 0.1
-    rho_vector: 0.1
+    rho: 0.01
+    rho_vector: 0.01
   atlas_raw:
     optimizer: atlas_raw
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
-    rho: 0.1
-    rho_vector: 0.1
+    rho: 0.01
+    rho_vector: 0.01
   atlas_random:
     optimizer: atlas_random
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
-    rho: 0.1
-    rho_vector: 0.1
+    rho: 0.01
+    rho_vector: 0.01
   muon_sam_frob:
     optimizer: muon_sam_frob
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
-    rho: 0.1
-    rho_vector: 0.1
+    rho: 0.01
+    rho_vector: 0.01
   muon_sam_stale:
     optimizer: muon_sam_stale
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
-    rho: 0.1
-    rho_vector: 0.1
+    rho: 0.01
+    rho_vector: 0.01
 
   fsam_muon:
     optimizer: fsam_muon
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
-    rho: 0.1
+    rho: 0.01
     fsam_lambda: 0.9
     fsam_sigma: 1.0
 
@@ -97,8 +97,8 @@ optimizers:
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
-    rho: 0.1
-    rho_vector: 0.1
+    rho: 0.01
+    rho_vector: 0.01
     ns_steps: 5
     fsam_lambda: 0.9
     fsam_sigma: 1.0
@@ -106,8 +106,8 @@ optimizers:
   fsam_ortho:
     optimizer: fsam_ortho
     lr: 0.015
-    rho: 0.1
-    rho_vector: 0.1
+    rho: 0.01
+    rho_vector: 0.01
     ns_steps: 5
     fsam_lambda: 0.9
     fsam_sigma: 1.0
@@ -115,22 +115,22 @@ optimizers:
   fsam:
     optimizer: fsam
     lr: 0.015
-    rho: 0.1
+    rho: 0.01
     fsam_lambda: 0.9
     fsam_sigma: 1.0
 
   sam:
     optimizer: sam
     lr: 0.015
-    rho: 0.1
+    rho: 0.01
 
   fsam_ortho_muon_stale:
     optimizer: fsam_ortho_muon_stale
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
-    rho: 0.1
-    rho_vector: 0.1
+    rho: 0.01
+    rho_vector: 0.01
     ns_steps: 5
     fsam_lambda: 0.9
     fsam_sigma: 1.0
@@ -140,8 +140,67 @@ optimizers:
     lr: 0.015
     momentum: 0.9665
     weight_decay: 0.0001
-    rho: 0.1
-    rho_vector: 0.1
+    rho: 0.01
+    rho_vector: 0.01
     ns_steps: 5
     fsam_lambda: 0.9
     fsam_sigma: 1.0
+
+  sam_ortho:
+    optimizer: sam_ortho
+    lr: 0.015
+    rho: 0.01
+    rho_vector: 0.01
+    ns_steps: 5
+
+  fsam_frob_muon_stale:
+    optimizer: fsam_frob_muon_stale
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    rho_vector: 0.01
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+
+  fsam_frob_muon_stale_momentum:
+    optimizer: fsam_frob_muon_stale_momentum
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    rho_vector: 0.01
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+
+  muon_sam_gfrob:
+    optimizer: muon_sam_gfrob
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+
+  fsam_gfrob_muon_stale:
+    optimizer: fsam_gfrob_muon_stale
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+
+  fsam_gfrob_muon_stale_momentum:
+    optimizer: fsam_gfrob_muon_stale_momentum
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+
+  randsam_muon:
+    optimizer: randsam_muon
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01

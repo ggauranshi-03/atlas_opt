@@ -1,0 +1,54 @@
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+[pythia70m|muon|musicpile] base: pt_loss=4.0079 ft_loss=4.9806
+  lr=1e-05: ft_loss=4.8782 pt_loss=4.0610 dPT=+0.0531 ||dtheta||=0.899 (11s)
+  lr=1.68e-05: ft_loss=4.8381 pt_loss=4.0590 dPT=+0.0511 ||dtheta||=1.464 (10s)
+  lr=2.82e-05: ft_loss=4.7807 pt_loss=4.0601 dPT=+0.0522 ||dtheta||=2.424 (10s)
+  lr=4.74e-05: ft_loss=4.7139 pt_loss=4.0619 dPT=+0.0540 ||dtheta||=3.967 (10s)
+  lr=7.96e-05: ft_loss=4.6406 pt_loss=4.0735 dPT=+0.0656 ||dtheta||=6.340 (10s)
+  lr=0.000134: ft_loss=4.5547 pt_loss=4.0959 dPT=+0.0880 ||dtheta||=10.074 (10s)
+  lr=0.000224: ft_loss=4.4837 pt_loss=4.1262 dPT=+0.1183 ||dtheta||=15.281 (10s)
+  lr=0.000377: ft_loss=4.4144 pt_loss=4.1743 dPT=+0.1664 ||dtheta||=22.965 (10s)
+  lr=0.000633: ft_loss=4.3677 pt_loss=4.2229 dPT=+0.2150 ||dtheta||=32.986 (10s)
+  lr=0.00106: ft_loss=4.3565 pt_loss=4.3162 dPT=+0.3083 ||dtheta||=46.414 (10s)
+  lr=0.00179: ft_loss=4.3999 pt_loss=4.4605 dPT=+0.4526 ||dtheta||=69.861 (10s)
+  lr=0.003: ft_loss=4.8478 pt_loss=5.0820 dPT=+1.0741 ||dtheta||=111.166 (10s)
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run pe7dell7
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260929_050910-pe7dell7
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon_musicpile
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M/runs/pe7dell7
+wandb: updating run metadata; uploading artifact run-pe7dell7-sweep_table; uploading artifact run-pe7dell7-train_loss_curves_table
+wandb: uploading artifact run-pe7dell7-sweep_table; uploading artifact run-pe7dell7-train_loss_curves_table
+wandb: uploading artifact run-pe7dell7-train_loss_curves_table
+wandb: uploading artifact run-pe7dell7-train_loss_curves_table; uploading wandb-summary.json; uploading config.yaml; uploading wandb-metadata.json; uploading requirements.txt (+ 1 more)
+wandb: uploading artifact run-pe7dell7-train_loss_curves_table
+wandb: 
+wandb: Run history:
+wandb: sweep/delta_norm ▁▁▁▁▁▂▂▂▃▄▅█
+wandb: sweep/forgetting ▁▁▁▁▁▁▁▂▂▃▄█
+wandb:    sweep/ft_loss █▇▇▆▅▄▃▂▁▁▂█
+wandb:   sweep/log10_lr ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:         sweep/lr ▁▁▁▁▁▁▂▂▂▃▅█
+wandb:      sweep/point ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:    sweep/pt_loss ▁▁▁▁▁▁▁▂▂▃▄█
+wandb: 
+wandb: Run summary:
+wandb:     base/ft_loss 4.98056
+wandb:  base/param_norm 1895.47602
+wandb:     base/pt_loss 4.00792
+wandb: sweep/delta_norm 111.16614
+wandb: sweep/forgetting 1.0741
+wandb:    sweep/ft_loss 4.84783
+wandb:   sweep/log10_lr -2.52288
+wandb:         sweep/lr 0.003
+wandb:      sweep/point 11
+wandb:    sweep/pt_loss 5.08202
+wandb: 
+wandb: 🚀 View run muon_musicpile at: https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M/runs/pe7dell7
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M
+wandb: Synced 4 W&B file(s), 2 media file(s), 4 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260929_050910-pe7dell7/logs

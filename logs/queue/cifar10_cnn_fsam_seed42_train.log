@@ -1,0 +1,71 @@
+
+### 2026-09-27 05:01:09 /home/anant/miniconda3/bin/python -u main_experiment.py -c configs/cifar10_cnn.yaml -o fsam -e 7 --seed 42
+
+>>> Running Benchmark for Optimizers: ['fsam'] across 1 configs <<<
+
+
+######################################################################
+# Config: cifar10_cnn | Optimizer: FSAM | Epochs: 7
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run iviyus18
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260927_050118-iviyus18
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers/runs/iviyus18
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 45,000 | Val (held-out from train): 5,000
+
+  Starting training [cifar10_cnn] with optimizer [fsam] for 7 epochs...
+  [FSAM        ] Epoch  1/7 | Train Loss: 2.1992 | Train Acc: 19.25% | Val Loss: 2.1837 | Val Acc: 18.98% | Time: 24.9s | LR: 1.500e-02
+  [FSAM        ] Epoch  2/7 | Train Loss: 2.1300 | Train Acc: 22.45% | Val Loss: 2.1322 | Val Acc: 20.18% | Time: 24.8s | LR: 1.500e-02
+  [FSAM        ] Epoch  3/7 | Train Loss: 2.0474 | Train Acc: 26.39% | Val Loss: 2.0272 | Val Acc: 25.04% | Time: 22.2s | LR: 1.500e-02
+  [FSAM        ] Epoch  4/7 | Train Loss: 1.9793 | Train Acc: 28.41% | Val Loss: 1.9625 | Val Acc: 27.48% | Time: 23.6s | LR: 1.500e-02
+  [FSAM        ] Epoch  5/7 | Train Loss: 1.9328 | Train Acc: 29.91% | Val Loss: 1.9490 | Val Acc: 28.06% | Time: 18.1s | LR: 1.500e-02
+  [FSAM        ] Epoch  6/7 | Train Loss: 1.8971 | Train Acc: 31.20% | Val Loss: 1.8699 | Val Acc: 29.94% | Time: 20.0s | LR: 1.071e-02
+  [FSAM        ] Epoch  7/7 | Train Loss: 1.8637 | Train Acc: 32.38% | Val Loss: 1.8485 | Val Acc: 31.42% | Time: 24.6s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 6-6, summary, console lines 11-11
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▃▅▆▇█
+wandb:             lr █████▆▁
+wandb:         time_s ██▅▇▁▃█
+wandb: train/accuracy ▁▃▅▆▇▇█
+wandb:     train/loss █▇▅▃▂▂▁
+wandb:   val/accuracy ▁▂▄▆▆▇█
+wandb:       val/loss █▇▅▃▃▁▁
+wandb: val/perplexity ▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 7
+wandb:             lr 0
+wandb:         time_s 24.5758
+wandb: train/accuracy 32.382
+wandb:     train/loss 1.86368
+wandb:   val/accuracy 31.42
+wandb:       val/loss 1.84851
+wandb: val/perplexity 0
+wandb: 
+wandb: 🚀 View run fsam_seed42 at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers/runs/iviyus18
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260927_050118-iviyus18/logs
+
+  [Single CSV Saved]: logs/cifar10_cnn_logs.csv
+  [Unified Comparison Plot Saved]: logs/cifar10_cnn_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  cifar10_cnn                         | Opt: fsam           | Loss: 1.8637 | Val Acc (%)   : 31.42 | Time: 158.2s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

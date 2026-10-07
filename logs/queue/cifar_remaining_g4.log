@@ -1,0 +1,3 @@
+[2026-10-04 22:25:18] GPU 4: start cifar10_cnn|fsam_ortho_muon|seed42
+[2026-10-04 22:26:12] GPU 4: done cifar10_cnn|fsam_ortho_muon|seed42 
+[2026-10-04 22:26:12] GPU 4: queue empty, exiting

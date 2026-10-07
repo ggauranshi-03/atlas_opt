@@ -1,0 +1,242 @@
+[2026-09-29 14:38:19] phase 1: sgd/adam sweeps on GPU 7
+15 sweeps on GPUs ['7']
+[14:38:20] GPU 7: start ('nanogpt', 'adam', 'codeparrot') (attempt 1)
+[14:44:40] GPU 7: done ('nanogpt', 'adam', 'codeparrot') (380s)
+[14:44:40] GPU 7: start ('nanogpt', 'sgd', 'stackmathqa') (attempt 1)
+[14:50:50] GPU 7: done ('nanogpt', 'sgd', 'stackmathqa') (370s)
+[14:50:50] GPU 7: start ('nanogpt', 'adam', 'stackmathqa') (attempt 1)
+[14:57:00] GPU 7: done ('nanogpt', 'adam', 'stackmathqa') (370s)
+[14:57:00] GPU 7: start ('nanogpt', 'sgd', 'musicpile') (attempt 1)
+[15:03:00] GPU 7: done ('nanogpt', 'sgd', 'musicpile') (360s)
+[15:03:00] GPU 7: start ('nanogpt', 'adam', 'musicpile') (attempt 1)
+[15:09:10] GPU 7: done ('nanogpt', 'adam', 'musicpile') (370s)
+[15:09:10] GPU 7: start ('nanogpt', 'sgd', 'tulu3') (attempt 1)
+[15:15:40] GPU 7: done ('nanogpt', 'sgd', 'tulu3') (390s)
+[15:15:40] GPU 7: start ('nanogpt', 'adam', 'tulu3') (attempt 1)
+[15:21:50] GPU 7: done ('nanogpt', 'adam', 'tulu3') (370s)
+[15:21:50] GPU 7: start ('pythia70m', 'sgd', 'codeparrot') (attempt 1)
+[15:24:20] GPU 7: done ('pythia70m', 'sgd', 'codeparrot') (150s)
+[15:24:20] GPU 7: start ('pythia70m', 'adam', 'codeparrot') (attempt 1)
+[15:26:40] GPU 7: done ('pythia70m', 'adam', 'codeparrot') (140s)
+[15:26:40] GPU 7: start ('pythia70m', 'sgd', 'stackmathqa') (attempt 1)
+[15:29:10] GPU 7: done ('pythia70m', 'sgd', 'stackmathqa') (150s)
+[15:29:10] GPU 7: start ('pythia70m', 'adam', 'stackmathqa') (attempt 1)
+[15:31:40] GPU 7: done ('pythia70m', 'adam', 'stackmathqa') (150s)
+[15:31:40] GPU 7: start ('pythia70m', 'sgd', 'musicpile') (attempt 1)
+[15:34:00] GPU 7: done ('pythia70m', 'sgd', 'musicpile') (140s)
+[15:34:00] GPU 7: start ('pythia70m', 'adam', 'musicpile') (attempt 1)
+[15:36:20] GPU 7: done ('pythia70m', 'adam', 'musicpile') (140s)
+[15:36:20] GPU 7: start ('pythia70m', 'sgd', 'tulu3') (attempt 1)
+[15:38:50] GPU 7: done ('pythia70m', 'sgd', 'tulu3') (150s)
+[15:38:50] GPU 7: start ('pythia70m', 'adam', 'tulu3') (attempt 1)
+[15:41:20] GPU 7: done ('pythia70m', 'adam', 'tulu3') (150s)
+all sweeps finished
+[2026-09-29 15:41:20] phase 2: waiting for the rho=0.01 retrained checkpoints
+[2026-09-29 16:33:22] all retrained checkpoints present
+[2026-09-29 16:33:22] phase 3: remaining sweeps on all GPUs
+24 sweeps on GPUs ['0', '1', '2', '3', '4', '6', '7']
+[16:33:23] GPU 0: start ('nanogpt', 'muon_sam', 'codeparrot') (attempt 1)
+[16:33:23] GPU 1: start ('nanogpt', 'fsam_muon', 'codeparrot') (attempt 1)
+[16:33:23] GPU 2: start ('nanogpt', 'fsam', 'codeparrot') (attempt 1)
+[16:33:23] GPU 3: start ('nanogpt', 'muon_sam', 'stackmathqa') (attempt 1)
+[16:33:23] GPU 4: start ('nanogpt', 'fsam_muon', 'stackmathqa') (attempt 1)
+[16:33:23] GPU 6: start ('nanogpt', 'fsam', 'stackmathqa') (attempt 1)
+[16:33:23] GPU 7: start ('nanogpt', 'muon_sam', 'musicpile') (attempt 1)
+[16:39:33] GPU 0: done ('nanogpt', 'muon_sam', 'codeparrot') (370s)
+[16:39:33] GPU 1: done ('nanogpt', 'fsam_muon', 'codeparrot') (370s)
+[16:39:33] GPU 2: done ('nanogpt', 'fsam', 'codeparrot') (370s)
+[16:39:33] GPU 3: done ('nanogpt', 'muon_sam', 'stackmathqa') (370s)
+[16:39:33] GPU 4: done ('nanogpt', 'fsam_muon', 'stackmathqa') (370s)
+[16:39:33] GPU 6: done ('nanogpt', 'fsam', 'stackmathqa') (370s)
+[16:39:33] GPU 7: done ('nanogpt', 'muon_sam', 'musicpile') (370s)
+[16:39:33] GPU 0: start ('nanogpt', 'fsam_muon', 'musicpile') (attempt 1)
+[16:39:33] GPU 1: start ('nanogpt', 'fsam', 'musicpile') (attempt 1)
+[16:39:33] GPU 2: start ('nanogpt', 'muon_sam', 'tulu3') (attempt 1)
+[16:39:33] GPU 3: start ('nanogpt', 'fsam_muon', 'tulu3') (attempt 1)
+[16:39:33] GPU 4: start ('nanogpt', 'fsam', 'tulu3') (attempt 1)
+[16:39:33] GPU 6: start ('pythia70m', 'muon_sam', 'codeparrot') (attempt 1)
+[16:39:33] GPU 7: start ('pythia70m', 'fsam_muon', 'codeparrot') (attempt 1)
+[16:42:03] GPU 6: done ('pythia70m', 'muon_sam', 'codeparrot') (150s)
+[16:42:03] GPU 7: done ('pythia70m', 'fsam_muon', 'codeparrot') (150s)
+[16:42:03] GPU 6: start ('pythia70m', 'fsam', 'codeparrot') (attempt 1)
+[16:42:03] GPU 7: start ('pythia70m', 'muon_sam', 'stackmathqa') (attempt 1)
+[16:44:33] GPU 6: done ('pythia70m', 'fsam', 'codeparrot') (150s)
+[16:44:33] GPU 7: done ('pythia70m', 'muon_sam', 'stackmathqa') (150s)
+[16:44:33] GPU 6: start ('pythia70m', 'fsam_muon', 'stackmathqa') (attempt 1)
+[16:44:33] GPU 7: start ('pythia70m', 'fsam', 'stackmathqa') (attempt 1)
+[16:45:43] GPU 0: done ('nanogpt', 'fsam_muon', 'musicpile') (370s)
+[16:45:43] GPU 2: done ('nanogpt', 'muon_sam', 'tulu3') (370s)
+[16:45:43] GPU 4: done ('nanogpt', 'fsam', 'tulu3') (370s)
+[16:45:43] GPU 0: start ('pythia70m', 'muon_sam', 'musicpile') (attempt 1)
+[16:45:43] GPU 2: start ('pythia70m', 'fsam_muon', 'musicpile') (attempt 1)
+[16:45:43] GPU 4: start ('pythia70m', 'fsam', 'musicpile') (attempt 1)
+[16:45:53] GPU 1: done ('nanogpt', 'fsam', 'musicpile') (380s)
+[16:45:53] GPU 3: done ('nanogpt', 'fsam_muon', 'tulu3') (380s)
+[16:45:53] GPU 1: start ('pythia70m', 'muon_sam', 'tulu3') (attempt 1)
+[16:45:53] GPU 3: start ('pythia70m', 'fsam_muon', 'tulu3') (attempt 1)
+[16:47:03] GPU 7: done ('pythia70m', 'fsam', 'stackmathqa') (150s)
+[16:47:03] GPU 7: start ('pythia70m', 'fsam', 'tulu3') (attempt 1)
+[16:47:13] GPU 6: done ('pythia70m', 'fsam_muon', 'stackmathqa') (160s)
+[16:48:23] GPU 0: done ('pythia70m', 'muon_sam', 'musicpile') (160s)
+[16:48:23] GPU 2: done ('pythia70m', 'fsam_muon', 'musicpile') (160s)
+[16:48:23] GPU 4: done ('pythia70m', 'fsam', 'musicpile') (160s)
+[16:48:33] GPU 1: done ('pythia70m', 'muon_sam', 'tulu3') (160s)
+[16:48:33] GPU 3: done ('pythia70m', 'fsam_muon', 'tulu3') (160s)
+[16:49:33] GPU 7: done ('pythia70m', 'fsam', 'tulu3') (150s)
+all sweeps finished
+[2026-09-29 16:49:33] phase 4: analysis
+wandb: [wandb.Api()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run z7lb8fi5
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260929_164943-z7lb8fi5
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run frontier_analysis
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/z7lb8fi5
+wandb: updating run metadata; uploading artifact run-z7lb8fi5-matched_forgetting; uploading summary
+wandb: uploading artifact run-z7lb8fi5-matched_forgetting
+wandb: uploading artifact run-z7lb8fi5-matched_forgetting; uploading media/images/muon_family_0_470af65014deecfa3533.png; uploading media/images/reduction_vs_adamw_0_a3fa1a1124947b8dbfe6.png; uploading media/table/matched_forgetting_0_0f6d94967782e346dacd.table.json; uploading wandb-summary.json (+ 5 more)
+wandb: uploading media/images/muon_family_0_470af65014deecfa3533.png; uploading media/images/reduction_vs_adamw_0_a3fa1a1124947b8dbfe6.png; uploading media/table/matched_forgetting_0_0f6d94967782e346dacd.table.json; uploading wandb-summary.json; uploading config.yaml (+ 4 more)
+wandb: uploading media/images/muon_family_0_470af65014deecfa3533.png; uploading media/images/sgd_family_0_9997652c3b365addcafc.png
+wandb: uploading history steps 0-0, summary
+wandb: 🚀 View run frontier_analysis at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/z7lb8fi5
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: Synced 4 W&B file(s), 5 media file(s), 2 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260929_164943-z7lb8fi5/logs
+
+=== nanogpt: % less forgetting at matched fine-tuning loss (pairwise tau) ===
+  codeparrot   muon                             vs adam    -70.8%  dPT=+0.1878 (ref +0.1099)  ||dtheta||=96.24 (ref 23.09)  lr=0.00106
+  codeparrot   muon_sam                         vs muon     +9.2%  dPT=+0.1705 (ref +0.1878)  ||dtheta||=96.87 (ref 96.24)  lr=0.00106
+  codeparrot   muon_sam                         vs adam   -159.7%  dPT=+0.2854 (ref +0.1099)  ||dtheta||=148.05 (ref 23.09)  lr=0.00179
+  codeparrot   fsam_muon                        vs muon     +1.5%  dPT=+0.1849 (ref +0.1878)  ||dtheta||=97.89 (ref 96.24)  lr=0.00106
+  codeparrot   fsam_muon                        vs adam    -68.2%  dPT=+0.1849 (ref +0.1099)  ||dtheta||=97.89 (ref 23.09)  lr=0.00106
+  codeparrot   fsam_ortho_muon_stale            vs muon    -45.0%  dPT=+0.2723 (ref +0.1878)  ||dtheta||=151.46 (ref 96.24)  lr=0.00179
+  codeparrot   fsam_ortho_muon_stale            vs adam   -147.7%  dPT=+0.2723 (ref +0.1099)  ||dtheta||=151.46 (ref 23.09)  lr=0.00179
+  codeparrot   fsam_ortho_muon_stale_momentum   vs muon    +14.7%  dPT=+0.1601 (ref +0.1878)  ||dtheta||=97.12 (ref 96.24)  lr=0.00106
+  codeparrot   fsam_ortho_muon_stale_momentum   vs adam   -150.8%  dPT=+0.2757 (ref +0.1099)  ||dtheta||=151.22 (ref 23.09)  lr=0.00179
+  codeparrot   sgd                              vs adam  -22895.0%  dPT=+1.3362 (ref +0.0058)  ||dtheta||=99.93 (ref 2.01)  lr=0.00179  [grid edge]
+  codeparrot   sam                              vs sgd     +98.4%  dPT=+0.0209 (ref +1.3362)  ||dtheta||=1.80 (ref 99.93)  lr=1e-05  [grid edge]
+  codeparrot   sam                              vs adam    +69.2%  dPT=+0.1098 (ref +0.3570)  ||dtheta||=12.96 (ref 87.36)  lr=0.000134
+  codeparrot   fsam                             vs sgd     +98.4%  dPT=+0.0210 (ref +1.3362)  ||dtheta||=1.80 (ref 99.93)  lr=1e-05  [grid edge]
+  codeparrot   fsam                             vs adam    +69.9%  dPT=+0.1074 (ref +0.3570)  ||dtheta||=12.54 (ref 87.36)  lr=0.000134
+  stackmathqa  muon                             vs adam    -26.7%  dPT=+0.3160 (ref +0.2494)  ||dtheta||=152.51 (ref 57.59)  lr=0.00179
+  stackmathqa  muon_sam                         vs muon     +6.5%  dPT=+0.2955 (ref +0.3160)  ||dtheta||=150.00 (ref 152.51)  lr=0.00179
+  stackmathqa  muon_sam                         vs adam    -18.5%  dPT=+0.2955 (ref +0.2494)  ||dtheta||=150.00 (ref 57.59)  lr=0.00179
+  stackmathqa  fsam_muon                        vs muon     -1.6%  dPT=+0.3212 (ref +0.3160)  ||dtheta||=152.59 (ref 152.51)  lr=0.00179
+  stackmathqa  fsam_muon                        vs adam    -28.8%  dPT=+0.3212 (ref +0.2494)  ||dtheta||=152.59 (ref 57.59)  lr=0.00179
+  stackmathqa  fsam_ortho_muon_stale            vs muon     +9.4%  dPT=+0.2862 (ref +0.3160)  ||dtheta||=153.51 (ref 152.51)  lr=0.00179
+  stackmathqa  fsam_ortho_muon_stale            vs adam    -14.7%  dPT=+0.2862 (ref +0.2494)  ||dtheta||=153.51 (ref 57.59)  lr=0.00179
+  stackmathqa  fsam_ortho_muon_stale_momentum   vs muon    +13.3%  dPT=+0.2740 (ref +0.3160)  ||dtheta||=154.07 (ref 152.51)  lr=0.00179
+  stackmathqa  fsam_ortho_muon_stale_momentum   vs adam     -9.9%  dPT=+0.2740 (ref +0.2494)  ||dtheta||=154.07 (ref 57.59)  lr=0.00179
+  stackmathqa  sgd                              vs adam  -10162.2%  dPT=+0.8301 (ref +0.0081)  ||dtheta||=163.34 (ref 2.10)  lr=0.00179  [grid edge]
+  stackmathqa  sam                              vs sgd     +94.5%  dPT=+0.0458 (ref +0.8301)  ||dtheta||=1.77 (ref 163.34)  lr=1e-05  [grid edge]
+  stackmathqa  sam                              vs adam    +30.7%  dPT=+0.3101 (ref +0.4471)  ||dtheta||=54.29 (ref 143.81)  lr=0.000633
+  stackmathqa  fsam                             vs sgd     +94.4%  dPT=+0.0461 (ref +0.8301)  ||dtheta||=1.77 (ref 163.34)  lr=1e-05  [grid edge]
+  stackmathqa  fsam                             vs adam    +31.0%  dPT=+0.3086 (ref +0.4471)  ||dtheta||=54.38 (ref 143.81)  lr=0.000633
+  musicpile    muon                             vs adam    -45.7%  dPT=+0.1253 (ref +0.0860)  ||dtheta||=85.42 (ref 33.51)  lr=0.00106
+  musicpile    muon_sam                         vs muon     +1.4%  dPT=+0.1236 (ref +0.1253)  ||dtheta||=85.64 (ref 85.42)  lr=0.00106
+  musicpile    muon_sam                         vs adam    -43.7%  dPT=+0.1236 (ref +0.0860)  ||dtheta||=85.64 (ref 33.51)  lr=0.00106
+  musicpile    fsam_muon                        vs muon     -0.7%  dPT=+0.1262 (ref +0.1253)  ||dtheta||=85.23 (ref 85.42)  lr=0.00106
+  musicpile    fsam_muon                        vs adam    -46.8%  dPT=+0.1262 (ref +0.0860)  ||dtheta||=85.23 (ref 33.51)  lr=0.00106
+  musicpile    fsam_ortho_muon_stale            vs muon     +1.1%  dPT=+0.1238 (ref +0.1253)  ||dtheta||=85.99 (ref 85.42)  lr=0.00106
+  musicpile    fsam_ortho_muon_stale            vs adam    -44.0%  dPT=+0.1238 (ref +0.0860)  ||dtheta||=85.99 (ref 33.51)  lr=0.00106
+  musicpile    fsam_ortho_muon_stale_momentum   vs muon     +2.3%  dPT=+0.1224 (ref +0.1253)  ||dtheta||=86.31 (ref 85.42)  lr=0.00106
+  musicpile    fsam_ortho_muon_stale_momentum   vs adam    -42.3%  dPT=+0.1224 (ref +0.0860)  ||dtheta||=86.31 (ref 33.51)  lr=0.00106
+  musicpile    sgd                              vs adam  -3232.7%  dPT=+0.2930 (ref +0.0088)  ||dtheta||=250.89 (ref 1.58)  lr=0.003  [grid edge]
+  musicpile    sam                              vs sgd     +90.6%  dPT=+0.0275 (ref +0.2930)  ||dtheta||=1.60 (ref 250.89)  lr=1e-05  [grid edge]
+  musicpile    sam                              vs adam    +51.2%  dPT=+0.0761 (ref +0.1559)  ||dtheta||=31.29 (ref 81.59)  lr=0.000377
+  musicpile    fsam                             vs sgd     +90.6%  dPT=+0.0275 (ref +0.2930)  ||dtheta||=1.60 (ref 250.89)  lr=1e-05  [grid edge]
+  musicpile    fsam                             vs adam    +51.3%  dPT=+0.0758 (ref +0.1559)  ||dtheta||=31.33 (ref 81.59)  lr=0.000377
+  tulu3        muon                             vs adam    -34.4%  dPT=+0.1894 (ref +0.1409)  ||dtheta||=87.53 (ref 33.49)  lr=0.00106
+  tulu3        muon_sam                         vs muon     +3.6%  dPT=+0.1826 (ref +0.1894)  ||dtheta||=87.77 (ref 87.53)  lr=0.00106
+  tulu3        muon_sam                         vs adam    -29.6%  dPT=+0.1826 (ref +0.1409)  ||dtheta||=87.77 (ref 33.49)  lr=0.00106
+  tulu3        fsam_muon                        vs muon     +1.8%  dPT=+0.1860 (ref +0.1894)  ||dtheta||=87.75 (ref 87.53)  lr=0.00106
+  tulu3        fsam_muon                        vs adam    -32.1%  dPT=+0.1860 (ref +0.1409)  ||dtheta||=87.75 (ref 33.49)  lr=0.00106
+  tulu3        fsam_ortho_muon_stale            vs muon    -38.2%  dPT=+0.2617 (ref +0.1894)  ||dtheta||=136.10 (ref 87.53)  lr=0.00179
+  tulu3        fsam_ortho_muon_stale            vs adam    -85.8%  dPT=+0.2617 (ref +0.1409)  ||dtheta||=136.10 (ref 33.49)  lr=0.00179
+  tulu3        fsam_ortho_muon_stale_momentum   vs muon    -36.4%  dPT=+0.2583 (ref +0.1894)  ||dtheta||=137.09 (ref 87.53)  lr=0.00179
+  tulu3        fsam_ortho_muon_stale_momentum   vs adam    -83.4%  dPT=+0.2583 (ref +0.1409)  ||dtheta||=137.09 (ref 33.49)  lr=0.00179
+  tulu3        sgd                              vs adam  -2186.6%  dPT=+0.3773 (ref +0.0165)  ||dtheta||=131.85 (ref 1.91)  lr=0.00179  [grid edge]
+  tulu3        sam                              vs sgd     +87.4%  dPT=+0.0474 (ref +0.3773)  ||dtheta||=1.68 (ref 131.85)  lr=1e-05  [grid edge]
+  tulu3        sam                              vs adam    +45.3%  dPT=+0.1240 (ref +0.2266)  ||dtheta||=19.89 (ref 82.28)  lr=0.000224
+  tulu3        fsam                             vs sgd     +87.5%  dPT=+0.0472 (ref +0.3773)  ||dtheta||=1.68 (ref 131.85)  lr=1e-05  [grid edge]
+  tulu3        fsam                             vs adam    +45.5%  dPT=+0.1234 (ref +0.2266)  ||dtheta||=19.89 (ref 82.28)  lr=0.000224
+
+=== pythia70m: % less forgetting at matched fine-tuning loss (pairwise tau) ===
+  codeparrot   muon                             vs adam    -37.0%  dPT=+1.1099 (ref +0.8101)  ||dtheta||=41.39 (ref 37.88)  lr=0.00106
+  codeparrot   muon_sam                         vs muon    +41.3%  dPT=+0.6518 (ref +1.1099)  ||dtheta||=24.50 (ref 41.39)  lr=0.000377
+  codeparrot   muon_sam                         vs adam    +39.0%  dPT=+0.6518 (ref +1.0677)  ||dtheta||=24.50 (ref 53.38)  lr=0.000377wandb: setting up run c34lmqzx
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260929_164958-c34lmqzx
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run frontier_analysis
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M/runs/c34lmqzx
+wandb: updating run metadata; uploading artifact run-c34lmqzx-matched_forgetting; uploading summary
+wandb: uploading artifact run-c34lmqzx-matched_forgetting; uploading summary
+wandb: uploading artifact run-c34lmqzx-matched_forgetting
+wandb: uploading media/table/matched_forgetting_0_60a1990103e5b4f06ba5.table.json; uploading wandb-summary.json; uploading wandb-metadata.json; uploading media/images/sgd_family_0_c9f25d78542d0f4c3615.png; uploading media/images/reduction_vs_base_0_4c8b4f96805881b94bc1.png (+ 4 more)
+wandb: uploading wandb-summary.json; uploading wandb-metadata.json; uploading media/images/sgd_family_0_c9f25d78542d0f4c3615.png; uploading media/images/reduction_vs_base_0_4c8b4f96805881b94bc1.png; uploading config.yaml (+ 3 more)
+wandb: uploading media/images/sgd_family_0_c9f25d78542d0f4c3615.png; uploading media/images/reduction_vs_base_0_4c8b4f96805881b94bc1.png; uploading media/images/muon_family_0_0519780f2390bd03621e.png; uploading media/images/reduction_vs_adamw_0_646c405427047a9d8a53.png
+wandb: uploading media/images/sgd_family_0_c9f25d78542d0f4c3615.png; uploading media/images/muon_family_0_0519780f2390bd03621e.png
+wandb: uploading media/images/muon_family_0_0519780f2390bd03621e.png
+wandb: 🚀 View run frontier_analysis at: https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M/runs/c34lmqzx
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-Pythia70M
+wandb: Synced 4 W&B file(s), 5 media file(s), 2 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260929_164958-c34lmqzx/logs
+
+  codeparrot   fsam_muon                        vs muon    +46.0%  dPT=+0.5998 (ref +1.1099)  ||dtheta||=25.14 (ref 41.39)  lr=0.000377
+  codeparrot   fsam_muon                        vs adam    +34.2%  dPT=+0.7022 (ref +1.0677)  ||dtheta||=34.36 (ref 53.38)  lr=0.000633
+  codeparrot   fsam_ortho_muon_stale            vs muon    +19.6%  dPT=+0.8921 (ref +1.1099)  ||dtheta||=45.75 (ref 41.39)  lr=0.00106
+  codeparrot   fsam_ortho_muon_stale            vs adam     -3.1%  dPT=+1.1006 (ref +1.0677)  ||dtheta||=65.74 (ref 53.38)  lr=0.00179
+  codeparrot   fsam_ortho_muon_stale_momentum   vs muon     -6.5%  dPT=+0.9737 (ref +0.9145)  ||dtheta||=46.76 (ref 31.39)  lr=0.00106
+  codeparrot   fsam_ortho_muon_stale_momentum   vs adam    -50.7%  dPT=+0.9737 (ref +0.6462)  ||dtheta||=46.76 (ref 26.87)  lr=0.00106
+  codeparrot   sgd                              vs adam  -2882.6%  dPT=+1.2321 (ref +0.0413)  ||dtheta||=224.59 (ref 1.14)  lr=0.003  [grid edge]
+  codeparrot   sam                              vs sgd     +56.5%  dPT=+0.5354 (ref +1.2321)  ||dtheta||=0.90 (ref 224.59)  lr=1e-05  [grid edge]
+  codeparrot   sam                              vs adam    +49.9%  dPT=+0.5354 (ref +1.0677)  ||dtheta||=0.90 (ref 53.38)  lr=1e-05  [grid edge]
+  codeparrot   fsam                             vs sgd     +56.4%  dPT=+0.5375 (ref +1.2321)  ||dtheta||=0.90 (ref 224.59)  lr=1e-05  [grid edge]
+  codeparrot   fsam                             vs adam    +49.7%  dPT=+0.5375 (ref +1.0677)  ||dtheta||=0.90 (ref 53.38)  lr=1e-05  [grid edge]
+  stackmathqa  muon                             vs adam    -10.8%  dPT=+0.9904 (ref +0.8940)  ||dtheta||=39.95 (ref 54.09)  lr=0.00106
+  stackmathqa  muon_sam                         vs muon    +32.6%  dPT=+0.6670 (ref +0.9904)  ||dtheta||=22.75 (ref 39.95)  lr=0.000377
+  stackmathqa  muon_sam                         vs adam    +25.4%  dPT=+0.6670 (ref +0.8940)  ||dtheta||=22.75 (ref 54.09)  lr=0.000377
+  stackmathqa  fsam_muon                        vs muon    +36.2%  dPT=+0.6315 (ref +0.9904)  ||dtheta||=23.40 (ref 39.95)  lr=0.000377
+  stackmathqa  fsam_muon                        vs adam    +20.9%  dPT=+0.7073 (ref +0.8940)  ||dtheta||=29.98 (ref 54.09)  lr=0.000633
+  stackmathqa  fsam_ortho_muon_stale            vs muon     -6.0%  dPT=+1.0498 (ref +0.9904)  ||dtheta||=59.12 (ref 39.95)  lr=0.00179
+  stackmathqa  fsam_ortho_muon_stale            vs adam    -17.4%  dPT=+1.0498 (ref +0.8940)  ||dtheta||=59.12 (ref 54.09)  lr=0.00179
+  stackmathqa  fsam_ortho_muon_stale_momentum   vs muon    -30.5%  dPT=+1.0994 (ref +0.8423)  ||dtheta||=60.54 (ref 30.72)  lr=0.00179
+  stackmathqa  fsam_ortho_muon_stale_momentum   vs adam    -73.1%  dPT=+1.0994 (ref +0.6352)  ||dtheta||=60.54 (ref 27.00)  lr=0.00179
+  stackmathqa  sgd                              vs adam  -1798.7%  dPT=+0.9843 (ref +0.0518)  ||dtheta||=241.35 (ref 1.23)  lr=0.003  [grid edge]
+  stackmathqa  sam                              vs sgd     +27.9%  dPT=+0.7101 (ref +0.9843)  ||dtheta||=0.98 (ref 241.35)  lr=1e-05  [grid edge]
+  stackmathqa  sam                              vs adam    +20.6%  dPT=+0.7101 (ref +0.8940)  ||dtheta||=0.98 (ref 54.09)  lr=1e-05  [grid edge]
+  stackmathqa  fsam                             vs sgd     +28.4%  dPT=+0.7044 (ref +0.9843)  ||dtheta||=0.97 (ref 241.35)  lr=1e-05  [grid edge]
+  stackmathqa  fsam                             vs adam    +21.2%  dPT=+0.7044 (ref +0.8940)  ||dtheta||=0.97 (ref 54.09)  lr=1e-05  [grid edge]
+  musicpile    muon                             vs adam    +50.3%  dPT=+0.1664 (ref +0.3347)  ||dtheta||=22.96 (ref 53.65)  lr=0.000377
+  musicpile    muon_sam                         vs muon    +66.0%  dPT=+0.1048 (ref +0.3083)  ||dtheta||=16.14 (ref 46.41)  lr=0.000224
+  musicpile    muon_sam                         vs adam    +83.3%  dPT=+0.0560 (ref +0.3347)  ||dtheta||=6.60 (ref 53.65)  lr=7.96e-05
+  musicpile    fsam_muon                        vs muon    +65.6%  dPT=+0.1059 (ref +0.3083)  ||dtheta||=15.96 (ref 46.41)  lr=0.000224
+  musicpile    fsam_muon                        vs adam    +76.3%  dPT=+0.0793 (ref +0.3347)  ||dtheta||=10.36 (ref 53.65)  lr=0.000134
+  musicpile    fsam_ortho_muon_stale            vs muon    +16.3%  dPT=+0.2581 (ref +0.3083)  ||dtheta||=50.67 (ref 46.41)  lr=0.00106
+  musicpile    fsam_ortho_muon_stale            vs adam    +57.4%  dPT=+0.1426 (ref +0.3347)  ||dtheta||=24.48 (ref 53.65)  lr=0.000377
+  musicpile    fsam_ortho_muon_stale_momentum   vs muon    -65.0%  dPT=+0.2745 (ref +0.1664)  ||dtheta||=50.66 (ref 22.96)  lr=0.00106
+  musicpile    fsam_ortho_muon_stale_momentum   vs adam    +18.0%  dPT=+0.2745 (ref +0.3347)  ||dtheta||=50.66 (ref 53.65)  lr=0.00106
+  musicpile    sgd                              vs adam   -779.6%  dPT=+0.2200 (ref +0.0250)  ||dtheta||=183.25 (ref 0.96)  lr=0.003  [grid edge]
+  musicpile    sam                              vs sgd     -88.6%  dPT=+0.4149 (ref +0.2200)  ||dtheta||=0.89 (ref 183.25)  lr=1e-05  [grid edge]
+  musicpile    sam                              vs adam    -24.0%  dPT=+0.4149 (ref +0.3347)  ||dtheta||=0.89 (ref 53.65)  lr=1e-05  [grid edge]
+  musicpile    fsam                             vs sgd     -85.1%  dPT=+0.4072 (ref +0.2200)  ||dtheta||=0.87 (ref 183.25)  lr=1e-05  [grid edge]
+  musicpile    fsam                             vs adam    -21.7%  dPT=+0.4072 (ref +0.3347)  ||dtheta||=0.87 (ref 53.65)  lr=1e-05  [grid edge]
+  tulu3        muon                             vs adam    +29.7%  dPT=+0.3446 (ref +0.4902)  ||dtheta||=33.29 (ref 54.46)  lr=0.000633
+  tulu3        muon_sam                         vs muon    +54.0%  dPT=+0.1952 (ref +0.4241)  ||dtheta||=16.66 (ref 45.76)  lr=0.000224
+  tulu3        muon_sam                         vs adam    +60.2%  dPT=+0.1952 (ref +0.4902)  ||dtheta||=16.66 (ref 54.46)  lr=0.000224
+  tulu3        fsam_muon                        vs muon    +43.7%  dPT=+0.2386 (ref +0.4241)  ||dtheta||=24.65 (ref 45.76)  lr=0.000377
+  tulu3        fsam_muon                        vs adam    +58.4%  dPT=+0.2041 (ref +0.4902)  ||dtheta||=16.55 (ref 54.46)  lr=0.000224
+  tulu3        fsam_ortho_muon_stale            vs muon    +12.4%  dPT=+0.3715 (ref +0.4241)  ||dtheta||=51.30 (ref 45.76)  lr=0.00106
+  tulu3        fsam_ortho_muon_stale            vs adam    +37.9%  dPT=+0.3045 (ref +0.4902)  ||dtheta||=36.98 (ref 54.46)  lr=0.000633
+  tulu3        fsam_ortho_muon_stale_momentum   vs muon    -91.7%  dPT=+0.5277 (ref +0.2753)  ||dtheta||=72.91 (ref 23.67)  lr=0.00179
+  tulu3        fsam_ortho_muon_stale_momentum   vs adam    -47.8%  dPT=+0.5277 (ref +0.3571)  ||dtheta||=72.91 (ref 37.25)  lr=0.00179
+  tulu3        sgd                              vs adam  -1360.9%  dPT=+0.4028 (ref +0.0276)  ||dtheta||=219.40 (ref 1.05)  lr=0.003  [grid edge]
+  tulu3        sam                              vs sgd     -64.6%  dPT=+0.6632 (ref +0.4028)  ||dtheta||=0.90 (ref 219.40)  lr=1e-05  [grid edge]
+  tulu3        sam                              vs adam    -35.3%  dPT=+0.6632 (ref +0.4902)  ||dtheta||=0.90 (ref 54.46)  lr=1e-05  [grid edge]
+  tulu3        fsam                             vs sgd     -66.1%  dPT=+0.6690 (ref +0.4028)  ||dtheta||=0.89 (ref 219.40)  lr=1e-05  [grid edge]
+  tulu3        fsam                             vs adam    -36.5%  dPT=+0.6690 (ref +0.4902)  ||dtheta||=0.89 (ref 54.46)  lr=1e-05  [grid edge]
+[2026-09-29 16:50:08] pipeline finished

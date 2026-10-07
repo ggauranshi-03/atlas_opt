@@ -1,0 +1,158 @@
+
+### 2026-09-27 21:46:50 /home/anant/miniconda3/bin/python -u main_experiment.py -c configs/pythia70m_pretrain_chinchilla.yaml -o muon_sam_frob -e 14 --seed 42
+
+>>> Running Benchmark for Optimizers: ['muon_sam_frob'] across 1 configs <<<
+
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: MUON_SAM_FROB | Epochs: 14
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run id54a7ax
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260927_214658-id54a7ax
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon_sam_frob_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/rho0.1-Pythia70M-Fineweb-optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/rho0.1-Pythia70M-Fineweb-optimizers/runs/id54a7ax
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512) | train shards: 11 | val shard: sample/10BT/011_00000.parquet
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [muon_sam_frob] for 14 epochs...
+  [MUON_SAM_FROB] Epoch  1/14 | Train Loss: 16.7642 | Train Acc: 7.66% | Val Loss: 15.1426 | Val Acc: 4.95% | Time: 290.9s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  2/14 | Train Loss: 9.1912 | Train Acc: 9.03% | Val Loss: 6.6344 | Val Acc: 12.85% | Time: 230.6s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  3/14 | Train Loss: 6.1140 | Train Acc: 14.78% | Val Loss: 5.8183 | Val Acc: 16.09% | Time: 234.3s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  4/14 | Train Loss: 5.5982 | Train Acc: 17.37% | Val Loss: 5.5639 | Val Acc: 17.07% | Time: 231.4s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  5/14 | Train Loss: 5.3420 | Train Acc: 19.42% | Val Loss: 5.2879 | Val Acc: 20.03% | Time: 232.3s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  6/14 | Train Loss: 5.2121 | Train Acc: 20.55% | Val Loss: 5.1806 | Val Acc: 21.27% | Time: 230.7s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  7/14 | Train Loss: 5.1580 | Train Acc: 21.60% | Val Loss: 5.1092 | Val Acc: 22.16% | Time: 233.5s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  8/14 | Train Loss: 5.1034 | Train Acc: 22.13% | Val Loss: 5.1983 | Val Acc: 21.49% | Time: 231.6s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  9/14 | Train Loss: 5.0482 | Train Acc: 22.69% | Val Loss: 5.0218 | Val Acc: 22.76% | Time: 231.6s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch 10/14 | Train Loss: 4.9416 | Train Acc: 23.60% | Val Loss: 4.9288 | Val Acc: 23.65% | Time: 229.3s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch 11/14 | Train Loss: 4.8223 | Train Acc: 24.60% | Val Loss: 4.9122 | Val Acc: 23.84% | Time: 231.0s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch 12/14 | Train Loss: 4.7471 | Train Acc: 25.23% | Val Loss: 4.6645 | Val Acc: 25.77% | Time: 236.1s | LR: 1.071e-02
+  [MUON_SAM_FROB] Epoch 13/14 | Train Loss: 4.5855 | Train Acc: 26.45% | Val Loss: 4.5538 | Val Acc: 26.49% | Time: 232.8s | LR: 5.357e-03
+  [MUON_SAM_FROB] Epoch 14/14 | Train Loss: 4.4620 | Train Acc: 27.23% | Val Loss: 4.4743 | Val Acc: 27.03% | Time: 232.4s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml; uploading output.log
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-summary.json
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:             lr ███████████▆▄▁
+wandb:         time_s █▁▂▁▁▁▁▁▁▁▁▂▁▁
+wandb: train/accuracy ▁▁▄▄▅▆▆▆▆▇▇▇██
+wandb:     train/loss █▄▂▂▂▁▁▁▁▁▁▁▁▁
+wandb:   val/accuracy ▁▄▅▅▆▆▆▆▇▇▇███
+wandb:       val/loss █▂▂▂▂▁▁▁▁▁▁▁▁▁
+wandb: val/perplexity █▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:             lr 0
+wandb:         time_s 232.40526
+wandb: train/accuracy 27.2341
+wandb:     train/loss 4.46203
+wandb:   val/accuracy 27.0296
+wandb:       val/loss 4.47431
+wandb: val/perplexity 87.7337
+wandb: 
+wandb: 🚀 View run muon_sam_frob_seed42 at: https://wandb.ai/dcll-iiitd/rho0.1-Pythia70M-Fineweb-optimizers/runs/id54a7ax
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/rho0.1-Pythia70M-Fineweb-optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260927_214658-id54a7ax/logs
+
+  [Single CSV Saved]: logs/pythia70m_pretrain_chinchilla_logs.csv
+  [Unified Comparison Plot Saved]: logs/pythia70m_pretrain_chinchilla_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  pythia70m_pretrain_chinchilla       | Opt: muon_sam_frob  | Loss: 4.4620 | Perplexity    : 87.73 | Time: 3308.5s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+
+
+### 2026-09-30 15:07:49 /home/anant/miniconda3/bin/python3 -u main_experiment.py -c configs/pythia70m_pretrain_chinchilla.yaml -o muon_sam_frob -e 14 --seed 42
+
+>>> Running Benchmark for Optimizers: ['muon_sam_frob'] across 1 configs <<<
+
+
+######################################################################
+# Config: pythia70m_pretrain_chinchilla | Optimizer: MUON_SAM_FROB | Epochs: 14
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run 92n15e9l
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260930_150756-92n15e9l
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon_sam_frob_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/PTQ-Pythia70M
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/PTQ-Pythia70M/runs/92n15e9l
+  Loading CPT model architecture: EleutherAI/pythia-70m in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512) | train shards: 11 | val shard: sample/10BT/011_00000.parquet
+  Streaming DataLoaders ready.
+
+  Starting training [pythia70m_pretrain_chinchilla] with optimizer [muon_sam_frob] for 14 epochs...
+  [MUON_SAM_FROB] Epoch  1/14 | Train Loss: 6.9974 | Train Acc: 13.08% | Val Loss: 5.7835 | Val Acc: 16.20% | Time: 272.9s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  2/14 | Train Loss: 5.2920 | Train Acc: 19.71% | Val Loss: 4.9886 | Val Acc: 22.08% | Time: 220.7s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  3/14 | Train Loss: 4.7223 | Train Acc: 24.59% | Val Loss: 4.5565 | Val Acc: 26.44% | Time: 209.7s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  4/14 | Train Loss: 4.3916 | Train Acc: 28.02% | Val Loss: 4.3342 | Val Acc: 28.62% | Time: 224.1s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  5/14 | Train Loss: 4.2506 | Train Acc: 29.31% | Val Loss: 4.2183 | Val Acc: 29.58% | Time: 233.1s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  6/14 | Train Loss: 4.1722 | Train Acc: 29.96% | Val Loss: 4.1464 | Val Acc: 30.27% | Time: 232.8s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  7/14 | Train Loss: 4.0963 | Train Acc: 30.67% | Val Loss: 4.0891 | Val Acc: 30.67% | Time: 233.3s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  8/14 | Train Loss: 4.0279 | Train Acc: 31.28% | Val Loss: 4.0585 | Val Acc: 30.98% | Time: 228.5s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch  9/14 | Train Loss: 4.0003 | Train Acc: 31.63% | Val Loss: 4.0252 | Val Acc: 31.25% | Time: 237.1s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch 10/14 | Train Loss: 3.9712 | Train Acc: 31.83% | Val Loss: 3.9955 | Val Acc: 31.49% | Time: 207.6s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch 11/14 | Train Loss: 3.9328 | Train Acc: 32.15% | Val Loss: 3.9707 | Val Acc: 31.71% | Time: 221.9s | LR: 1.500e-02
+  [MUON_SAM_FROB] Epoch 12/14 | Train Loss: 3.9146 | Train Acc: 32.31% | Val Loss: 3.9107 | Val Acc: 32.36% | Time: 224.6s | LR: 1.071e-02
+  [MUON_SAM_FROB] Epoch 13/14 | Train Loss: 3.8470 | Train Acc: 33.04% | Val Loss: 3.8440 | Val Acc: 33.00% | Time: 231.8s | LR: 5.357e-03
+  [MUON_SAM_FROB] Epoch 14/14 | Train Loss: 3.7876 | Train Acc: 33.66% | Val Loss: 3.8098 | Val Acc: 33.40% | Time: 236.5s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading history steps 13-13, summary, console lines 18-18
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▂▃▃▄▄▅▅▆▆▇▇█
+wandb:             lr ███████████▆▄▁
+wandb:         time_s █▂▁▃▄▄▄▃▄▁▃▃▄▄
+wandb: train/accuracy ▁▃▅▆▇▇▇▇▇▇▇███
+wandb:     train/loss █▄▃▂▂▂▂▂▁▁▁▁▁▁
+wandb:   val/accuracy ▁▃▅▆▆▇▇▇▇▇▇███
+wandb:       val/loss █▅▄▃▂▂▂▂▂▂▂▁▁▁
+wandb: val/perplexity █▄▂▂▂▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 14
+wandb:             lr 0
+wandb:         time_s 236.54621
+wandb: train/accuracy 33.66227
+wandb:     train/loss 3.78765
+wandb:   val/accuracy 33.39848
+wandb:       val/loss 3.80978
+wandb: val/perplexity 45.14039
+wandb: 
+wandb: 🚀 View run muon_sam_frob_seed42 at: https://wandb.ai/dcll-iiitd/PTQ-Pythia70M/runs/92n15e9l
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/PTQ-Pythia70M
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260930_150756-92n15e9l/logs
+
+  [Single CSV Saved]: logs/pythia70m_pretrain_chinchilla_logs.csv
+  [Unified Comparison Plot Saved]: logs/pythia70m_pretrain_chinchilla_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  pythia70m_pretrain_chinchilla       | Opt: muon_sam_frob  | Loss: 3.7876 | Perplexity    : 45.14 | Time: 3214.8s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

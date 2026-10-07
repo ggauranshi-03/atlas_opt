@@ -1,0 +1,56 @@
+  Loading CPT model architecture: gpt2 in bfloat16...
+[nanogpt|fsam_ortho|stackmathqa] base: pt_loss=7.2313 ft_loss=8.5327
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  lr=1e-05: ft_loss=7.3678 pt_loss=7.4012 dPT=+0.1699 ||dtheta||=2.143 (28s)
+  lr=1.68e-05: ft_loss=7.0199 pt_loss=7.4535 dPT=+0.2222 ||dtheta||=3.377 (28s)
+  lr=2.82e-05: ft_loss=6.6244 pt_loss=7.4750 dPT=+0.2437 ||dtheta||=5.396 (28s)
+  lr=4.74e-05: ft_loss=6.1630 pt_loss=7.4894 dPT=+0.2581 ||dtheta||=8.773 (28s)
+  lr=7.96e-05: ft_loss=5.6086 pt_loss=7.5306 dPT=+0.2993 ||dtheta||=14.410 (28s)
+  lr=0.000134: ft_loss=5.0920 pt_loss=7.6266 dPT=+0.3953 ||dtheta||=23.406 (27s)
+  lr=0.000224: ft_loss=4.7797 pt_loss=7.7170 dPT=+0.4857 ||dtheta||=36.152 (28s)
+  lr=0.000377: ft_loss=4.6406 pt_loss=7.7543 dPT=+0.5230 ||dtheta||=51.962 (28s)
+  lr=0.000633: ft_loss=4.8550 pt_loss=7.9793 dPT=+0.7480 ||dtheta||=66.663 (28s)
+  lr=0.00106: ft_loss=5.4017 pt_loss=8.5683 dPT=+1.3370 ||dtheta||=91.266 (28s)
+  lr=0.00179: ft_loss=5.6009 pt_loss=8.4703 dPT=+1.2390 ||dtheta||=133.135 (28s)
+  lr=0.003: ft_loss=5.8689 pt_loss=8.8584 dPT=+1.6271 ||dtheta||=196.237 (28s)
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run lyq7oiu1
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260930_164445-lyq7oiu1
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fsam_ortho_stackmathqa
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/lyq7oiu1
+wandb: updating run metadata; uploading artifact run-lyq7oiu1-sweep_table; uploading artifact run-lyq7oiu1-train_loss_curves_table
+wandb: uploading artifact run-lyq7oiu1-sweep_table; uploading artifact run-lyq7oiu1-train_loss_curves_table
+wandb: uploading artifact run-lyq7oiu1-sweep_table; uploading artifact run-lyq7oiu1-train_loss_curves_table; uploading wandb-metadata.json; uploading requirements.txt; uploading media/table/sweep_table_12_e8252fd4717e8f0da7b4.table.json (+ 2 more)
+wandb: uploading artifact run-lyq7oiu1-sweep_table; uploading artifact run-lyq7oiu1-train_loss_curves_table; uploading requirements.txt; uploading media/table/sweep_table_12_e8252fd4717e8f0da7b4.table.json; uploading media/table/train_loss_curves_table_12_3ee2dd4dde16a27b97c8.table.json (+ 1 more)
+wandb: uploading artifact run-lyq7oiu1-sweep_table; uploading artifact run-lyq7oiu1-train_loss_curves_table
+wandb: uploading history steps 0-12, summary
+wandb: 
+wandb: Run history:
+wandb: sweep/delta_norm ▁▁▁▁▁▂▂▃▃▄▆█
+wandb: sweep/forgetting ▁▁▁▁▂▂▃▃▄▇▆█
+wandb:    sweep/ft_loss █▇▆▅▃▂▁▁▂▃▃▄
+wandb:   sweep/log10_lr ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:         sweep/lr ▁▁▁▁▁▁▂▂▂▃▅█
+wandb:      sweep/point ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:    sweep/pt_loss ▁▁▁▁▂▂▃▃▄▇▆█
+wandb: 
+wandb: Run summary:
+wandb:     base/ft_loss 8.53267
+wandb:  base/param_norm 235.38008
+wandb:     base/pt_loss 7.2313
+wandb: sweep/delta_norm 196.2366
+wandb: sweep/forgetting 1.62711
+wandb:    sweep/ft_loss 5.86889
+wandb:   sweep/log10_lr -2.52288
+wandb:         sweep/lr 0.003
+wandb:      sweep/point 11
+wandb:    sweep/pt_loss 8.85841
+wandb: 
+wandb: 🚀 View run fsam_ortho_stackmathqa at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/lyq7oiu1
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: Synced 4 W&B file(s), 2 media file(s), 4 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260930_164445-lyq7oiu1/logs

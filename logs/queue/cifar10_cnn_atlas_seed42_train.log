@@ -1,0 +1,71 @@
+
+### 2026-09-27 04:28:35 /home/anant/miniconda3/bin/python -u main_experiment.py -c configs/cifar10_cnn.yaml -o atlas -e 7 --seed 42
+
+>>> Running Benchmark for Optimizers: ['atlas'] across 1 configs <<<
+
+
+######################################################################
+# Config: cifar10_cnn | Optimizer: ATLAS | Epochs: 7
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run uhuiq0fg
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260927_042844-uhuiq0fg
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run atlas_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers/runs/uhuiq0fg
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 45,000 | Val (held-out from train): 5,000
+
+  Starting training [cifar10_cnn] with optimizer [atlas] for 7 epochs...
+  [ATLAS       ] Epoch  1/7 | Train Loss: 11.4184 | Train Acc: 6.50% | Val Loss: 27.9748 | Val Acc: 11.34% | Time: 20.8s | LR: 2.000e-02
+  [ATLAS       ] Epoch  2/7 | Train Loss: 12.4772 | Train Acc: 8.12% | Val Loss: 29.4341 | Val Acc: 9.88% | Time: 17.1s | LR: 2.000e-02
+  [ATLAS       ] Epoch  3/7 | Train Loss: 10.7574 | Train Acc: 10.69% | Val Loss: 7.7986 | Val Acc: 17.26% | Time: 14.7s | LR: 2.000e-02
+  [ATLAS       ] Epoch  4/7 | Train Loss: 8.6313 | Train Acc: 14.52% | Val Loss: 5.1940 | Val Acc: 16.86% | Time: 12.9s | LR: 2.000e-02
+  [ATLAS       ] Epoch  5/7 | Train Loss: 7.9183 | Train Acc: 12.56% | Val Loss: 2.9192 | Val Acc: 14.08% | Time: 15.7s | LR: 2.000e-02
+  [ATLAS       ] Epoch  6/7 | Train Loss: 5.0551 | Train Acc: 12.33% | Val Loss: 2.7993 | Val Acc: 15.58% | Time: 19.5s | LR: 1.429e-02
+  [ATLAS       ] Epoch  7/7 | Train Loss: 5.2874 | Train Acc: 14.84% | Val Loss: 2.5441 | Val Acc: 13.74% | Time: 20.3s | LR: 0.000e+00
+wandb: updating run metadata; uploading history steps 6-6, summary, console lines 11-11
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▃▅▆▇█
+wandb:             lr █████▆▁
+wandb:         time_s █▅▃▁▃▇█
+wandb: train/accuracy ▁▂▅█▆▆█
+wandb:     train/loss ▇█▆▄▄▁▁
+wandb:   val/accuracy ▂▁██▅▆▅
+wandb:       val/loss ██▂▂▁▁▁
+wandb: val/perplexity ▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 7
+wandb:             lr 0
+wandb:         time_s 20.28754
+wandb: train/accuracy 14.838
+wandb:     train/loss 5.28739
+wandb:   val/accuracy 13.74
+wandb:       val/loss 2.54412
+wandb: val/perplexity 0
+wandb: 
+wandb: 🚀 View run atlas_seed42 at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers/runs/uhuiq0fg
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260927_042844-uhuiq0fg/logs
+
+  [Single CSV Saved]: logs/cifar10_cnn_logs.csv
+  [Unified Comparison Plot Saved]: logs/cifar10_cnn_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  cifar10_cnn                         | Opt: atlas          | Loss: 5.2874 | Val Acc (%)   : 13.74 | Time: 121.1s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

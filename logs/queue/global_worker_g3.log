@@ -1,0 +1,3 @@
+[2026-10-01 11:49:54] GPU 3: start pythia70m_pretrain_chinchilla|fsam_gfrob_muon_stale|seed42
+[2026-10-01 12:33:24] GPU 3: done pythia70m_pretrain_chinchilla|fsam_gfrob_muon_stale|seed42 
+[2026-10-01 12:33:24] GPU 3: queue empty, exiting

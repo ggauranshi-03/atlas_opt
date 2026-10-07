@@ -1,0 +1,72 @@
+
+### 2026-09-27 04:43:21 /home/anant/miniconda3/bin/python -u main_experiment.py -c configs/cifar10_cnn.yaml -o muon_sam_stale -e 7 --seed 42
+
+>>> Running Benchmark for Optimizers: ['muon_sam_stale'] across 1 configs <<<
+
+
+######################################################################
+# Config: cifar10_cnn | Optimizer: MUON_SAM_STALE | Epochs: 7
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run xxp5uklh
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260927_044330-xxp5uklh
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run muon_sam_stale_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers/runs/xxp5uklh
+  Instantiating Airbench CNN (num_classes=10)...
+  Loading CIFAR-10 vision dataset...
+  CIFAR-10 Train: 45,000 | Val (held-out from train): 5,000
+
+  Starting training [cifar10_cnn] with optimizer [muon_sam_stale] for 7 epochs...
+  [MUON_SAM_STALE] Epoch  1/7 | Train Loss: 8.1241 | Train Acc: 12.34% | Val Loss: 8.9125 | Val Acc: 17.68% | Time: 24.5s | LR: 2.000e-02
+  [MUON_SAM_STALE] Epoch  2/7 | Train Loss: 5.4427 | Train Acc: 15.77% | Val Loss: 4.0942 | Val Acc: 25.16% | Time: 24.1s | LR: 2.000e-02
+  [MUON_SAM_STALE] Epoch  3/7 | Train Loss: 4.3145 | Train Acc: 17.66% | Val Loss: 2.4848 | Val Acc: 29.44% | Time: 24.5s | LR: 2.000e-02
+  [MUON_SAM_STALE] Epoch  4/7 | Train Loss: 3.2765 | Train Acc: 21.37% | Val Loss: 2.3288 | Val Acc: 21.80% | Time: 24.2s | LR: 2.000e-02
+  [MUON_SAM_STALE] Epoch  5/7 | Train Loss: 3.1832 | Train Acc: 20.09% | Val Loss: 2.0898 | Val Acc: 27.12% | Time: 24.9s | LR: 2.000e-02
+  [MUON_SAM_STALE] Epoch  6/7 | Train Loss: 2.5324 | Train Acc: 22.87% | Val Loss: 1.9121 | Val Acc: 30.12% | Time: 23.7s | LR: 1.429e-02
+  [MUON_SAM_STALE] Epoch  7/7 | Train Loss: 2.5458 | Train Acc: 21.60% | Val Loss: 1.9457 | Val Acc: 31.96% | Time: 24.3s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading config.yaml
+wandb: uploading history steps 6-6, summary, console lines 11-11
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▂▃▅▆▇█
+wandb:             lr █████▆▁
+wandb:         time_s ▆▃▅▄█▁▅
+wandb: train/accuracy ▁▃▅▇▆█▇
+wandb:     train/loss █▅▃▂▂▁▁
+wandb:   val/accuracy ▁▅▇▃▆▇█
+wandb:       val/loss █▃▂▁▁▁▁
+wandb: val/perplexity ▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 7
+wandb:             lr 0
+wandb:         time_s 24.32884
+wandb: train/accuracy 21.598
+wandb:     train/loss 2.54579
+wandb:   val/accuracy 31.96
+wandb:       val/loss 1.94575
+wandb: val/perplexity 0
+wandb: 
+wandb: 🚀 View run muon_sam_stale_seed42 at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers/runs/xxp5uklh
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/CIFAR10-CNN-Optimizers
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260927_044330-xxp5uklh/logs
+
+  [Single CSV Saved]: logs/cifar10_cnn_logs.csv
+  [Unified Comparison Plot Saved]: logs/cifar10_cnn_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  cifar10_cnn                         | Opt: muon_sam_stale | Loss: 2.5458 | Val Acc (%)   : 31.96 | Time: 170.2s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

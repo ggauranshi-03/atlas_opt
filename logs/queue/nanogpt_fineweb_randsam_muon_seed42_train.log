@@ -1,0 +1,82 @@
+
+### 2026-10-01 19:07:07 /home/anant/miniconda3/bin/python3 -u main_experiment.py -c configs/nanogpt_fineweb.yaml -o randsam_muon -e 15 --seed 42
+
+>>> Running Benchmark for Optimizers: ['randsam_muon'] across 1 configs <<<
+
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: RANDSAM_MUON | Epochs: 15
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run 7xwzrm4r
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20261001_190716-7xwzrm4r
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run randsam_muon_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/PTQ-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/PTQ-NanoGPT/runs/7xwzrm4r
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512) | train shards: 11 | val shard: sample/10BT/011_00000.parquet
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [randsam_muon] for 15 epochs...
+Token indices sequence length is longer than the specified maximum sequence length for this model (1426 > 1024). Running this sequence through the model will result in indexing errors
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  [RANDSAM_MUON] Epoch  1/15 | Train Loss: 6.9326 | Train Acc: 12.60% | Val Loss: 5.7654 | Val Acc: 16.47% | Time: 375.2s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch  2/15 | Train Loss: 5.4085 | Train Acc: 18.95% | Val Loss: 5.0432 | Val Acc: 21.80% | Time: 274.4s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch  3/15 | Train Loss: 4.9089 | Train Acc: 22.91% | Val Loss: 4.6640 | Val Acc: 25.03% | Time: 272.2s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch  4/15 | Train Loss: 4.5690 | Train Acc: 26.03% | Val Loss: 4.3634 | Val Acc: 28.29% | Time: 256.7s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch  5/15 | Train Loss: 4.3570 | Train Acc: 28.14% | Val Loss: 4.1984 | Val Acc: 29.86% | Time: 270.3s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch  6/15 | Train Loss: 4.2347 | Train Acc: 29.30% | Val Loss: 4.0958 | Val Acc: 30.88% | Time: 268.7s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch  7/15 | Train Loss: 4.1314 | Train Acc: 30.30% | Val Loss: 4.0113 | Val Acc: 31.63% | Time: 268.3s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch  8/15 | Train Loss: 4.0341 | Train Acc: 31.23% | Val Loss: 3.9649 | Val Acc: 32.03% | Time: 268.5s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch  9/15 | Train Loss: 3.9950 | Train Acc: 31.70% | Val Loss: 3.9192 | Val Acc: 32.60% | Time: 308.2s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch 10/15 | Train Loss: 3.9567 | Train Acc: 31.99% | Val Loss: 3.8722 | Val Acc: 32.96% | Time: 511.0s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch 11/15 | Train Loss: 3.9024 | Train Acc: 32.49% | Val Loss: 3.8397 | Val Acc: 33.35% | Time: 269.3s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch 12/15 | Train Loss: 3.8772 | Train Acc: 32.72% | Val Loss: 3.8024 | Val Acc: 33.64% | Time: 269.8s | LR: 1.500e-02
+  [RANDSAM_MUON] Epoch 13/15 | Train Loss: 3.8376 | Train Acc: 33.17% | Val Loss: 3.7417 | Val Acc: 34.23% | Time: 266.3s | LR: 1.000e-02
+  [RANDSAM_MUON] Epoch 14/15 | Train Loss: 3.7682 | Train Acc: 33.85% | Val Loss: 3.6769 | Val Acc: 34.87% | Time: 268.6s | LR: 5.000e-03
+  [RANDSAM_MUON] Epoch 15/15 | Train Loss: 3.7433 | Train Acc: 34.07% | Val Loss: 3.6491 | Val Acc: 35.21% | Time: 269.0s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 14-14, summary, console lines 21-21
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:             lr ████████████▆▃▁
+wandb:         time_s ▄▁▁▁▁▁▁▁▂█▁▁▁▁▁
+wandb: train/accuracy ▁▃▄▅▆▆▇▇▇▇▇████
+wandb:     train/loss █▅▄▃▂▂▂▂▂▁▁▁▁▁▁
+wandb:   val/accuracy ▁▃▄▅▆▆▇▇▇▇▇▇███
+wandb:       val/loss █▆▄▃▃▂▂▂▂▂▂▂▁▁▁
+wandb: val/perplexity █▄▃▂▂▂▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:             lr 0
+wandb:         time_s 268.95192
+wandb: train/accuracy 34.06738
+wandb:     train/loss 3.74332
+wandb:   val/accuracy 35.20548
+wandb:       val/loss 3.64907
+wandb: val/perplexity 38.43902
+wandb: 
+wandb: 🚀 View run randsam_muon_seed42 at: https://wandb.ai/dcll-iiitd/PTQ-NanoGPT/runs/7xwzrm4r
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/PTQ-NanoGPT
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20261001_190716-7xwzrm4r/logs
+
+  [Single CSV Saved]: logs/nanogpt_fineweb_logs.csv
+  [Unified Comparison Plot Saved]: logs/nanogpt_fineweb_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  nanogpt_fineweb                     | Opt: randsam_muon   | Loss: 3.7433 | Perplexity    : 38.44 | Time: 4416.6s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

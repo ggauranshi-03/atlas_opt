@@ -1,0 +1,55 @@
+  Loading CPT model architecture: gpt2 in bfloat16...
+[nanogpt|sam_ortho|codeparrot] base: pt_loss=7.2814 ft_loss=8.8583
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  lr=1e-05: ft_loss=6.0268 pt_loss=7.3976 dPT=+0.1162 ||dtheta||=1.917 (28s)
+  lr=1.68e-05: ft_loss=5.8549 pt_loss=7.4599 dPT=+0.1785 ||dtheta||=3.038 (28s)
+  lr=2.82e-05: ft_loss=5.6313 pt_loss=7.5568 dPT=+0.2755 ||dtheta||=4.872 (28s)
+  lr=4.74e-05: ft_loss=5.3381 pt_loss=7.7043 dPT=+0.4229 ||dtheta||=8.065 (28s)
+  lr=7.96e-05: ft_loss=5.0328 pt_loss=7.8223 dPT=+0.5409 ||dtheta||=13.169 (28s)
+  lr=0.000134: ft_loss=4.8034 pt_loss=8.2142 dPT=+0.9328 ||dtheta||=21.027 (28s)
+  lr=0.000224: ft_loss=4.6886 pt_loss=8.6539 dPT=+1.3725 ||dtheta||=32.708 (27s)
+  lr=0.000377: ft_loss=4.9861 pt_loss=9.4717 dPT=+2.1903 ||dtheta||=44.875 (28s)
+  lr=0.000633: ft_loss=4.8232 pt_loss=9.2528 dPT=+1.9714 ||dtheta||=66.159 (28s)
+  lr=0.00106: ft_loss=4.8205 pt_loss=9.4616 dPT=+2.1802 ||dtheta||=89.302 (28s)
+  lr=0.00179: ft_loss=4.8659 pt_loss=9.6396 dPT=+2.3582 ||dtheta||=120.850 (28s)
+  lr=0.003: ft_loss=4.9135 pt_loss=9.6179 dPT=+2.3365 ||dtheta||=175.922 (28s)
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run bp1toon7
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260930_163838-bp1toon7
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sam_ortho_codeparrot
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/bp1toon7
+wandb: updating run metadata; uploading artifact run-bp1toon7-sweep_table; uploading artifact run-bp1toon7-train_loss_curves_table
+wandb: uploading artifact run-bp1toon7-train_loss_curves_table
+wandb: uploading artifact run-bp1toon7-train_loss_curves_table; uploading wandb-summary.json; uploading config.yaml; uploading wandb-metadata.json; uploading requirements.txt (+ 2 more)
+wandb: uploading artifact run-bp1toon7-train_loss_curves_table
+wandb: uploading history steps 0-12, summary
+wandb: 
+wandb: Run history:
+wandb: sweep/delta_norm ▁▁▁▁▁▂▂▃▄▅▆█
+wandb: sweep/forgetting ▁▁▁▂▂▄▅▇▇▇██
+wandb:    sweep/ft_loss █▇▆▄▃▂▁▃▂▂▂▂
+wandb:   sweep/log10_lr ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:         sweep/lr ▁▁▁▁▁▁▂▂▂▃▅█
+wandb:      sweep/point ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:    sweep/pt_loss ▁▁▁▂▂▄▅▇▇▇██
+wandb: 
+wandb: Run summary:
+wandb:     base/ft_loss 8.85831
+wandb:  base/param_norm 235.37702
+wandb:     base/pt_loss 7.28139
+wandb: sweep/delta_norm 175.92175
+wandb: sweep/forgetting 2.33652
+wandb:    sweep/ft_loss 4.91352
+wandb:   sweep/log10_lr -2.52288
+wandb:         sweep/lr 0.003
+wandb:      sweep/point 11
+wandb:    sweep/pt_loss 9.61791
+wandb: 
+wandb: 🚀 View run sam_ortho_codeparrot at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/bp1toon7
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: Synced 4 W&B file(s), 2 media file(s), 4 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260930_163838-bp1toon7/logs

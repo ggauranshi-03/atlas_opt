@@ -1,0 +1,68 @@
+  Loading CPT model architecture: gpt2 in bfloat16...
+[nanogpt|adam|codeparrot] base: pt_loss=3.1699 ft_loss=2.5654
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  lr=1e-05: ft_loss=2.2484 pt_loss=3.1757 dPT=+0.0058 ||dtheta||=2.012 (28s)
+  lr=1.68e-05: ft_loss=2.1407 pt_loss=3.1788 dPT=+0.0090 ||dtheta||=2.992 (28s)
+  lr=2.82e-05: ft_loss=2.0429 pt_loss=3.1838 dPT=+0.0140 ||dtheta||=4.447 (28s)
+  lr=4.74e-05: ft_loss=1.9657 pt_loss=3.1916 dPT=+0.0217 ||dtheta||=6.608 (27s)
+  lr=7.96e-05: ft_loss=1.8909 pt_loss=3.2063 dPT=+0.0365 ||dtheta||=9.963 (27s)
+  lr=0.000134: ft_loss=1.8333 pt_loss=3.2313 dPT=+0.0615 ||dtheta||=14.998 (27s)
+  lr=0.000224: ft_loss=1.7864 pt_loss=3.2798 dPT=+0.1100 ||dtheta||=23.089 (27s)
+  lr=0.000377: ft_loss=1.7481 pt_loss=3.3513 dPT=+0.1814 ||dtheta||=35.545 (27s)
+  lr=0.000633: ft_loss=1.7280 pt_loss=3.4375 dPT=+0.2677 ||dtheta||=55.646 (27s)
+  lr=0.00106: ft_loss=1.7072 pt_loss=3.5270 dPT=+0.3572 ||dtheta||=87.291 (28s)
+  lr=0.00179: ft_loss=1.7293 pt_loss=3.6521 dPT=+0.4822 ||dtheta||=140.464 (28s)
+  Loading CPT model architecture: gpt2 in bfloat16...
+[nanogpt|adam|codeparrot] base: pt_loss=3.1699 ft_loss=2.5654
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  lr=1e-05: ft_loss=2.2485 pt_loss=3.1757 dPT=+0.0058 ||dtheta||=2.012 (28s)
+  lr=1.68e-05: ft_loss=2.1407 pt_loss=3.1788 dPT=+0.0090 ||dtheta||=2.992 (28s)
+  lr=2.82e-05: ft_loss=2.0430 pt_loss=3.1838 dPT=+0.0140 ||dtheta||=4.447 (28s)
+  lr=4.74e-05: ft_loss=1.9657 pt_loss=3.1916 dPT=+0.0217 ||dtheta||=6.608 (28s)
+  lr=7.96e-05: ft_loss=1.8908 pt_loss=3.2063 dPT=+0.0364 ||dtheta||=9.963 (28s)
+  lr=0.000134: ft_loss=1.8333 pt_loss=3.2313 dPT=+0.0615 ||dtheta||=14.998 (28s)
+  lr=0.000224: ft_loss=1.7864 pt_loss=3.2798 dPT=+0.1099 ||dtheta||=23.089 (28s)
+  lr=0.000377: ft_loss=1.7478 pt_loss=3.3516 dPT=+0.1817 ||dtheta||=35.555 (28s)
+  lr=0.000633: ft_loss=1.7279 pt_loss=3.4375 dPT=+0.2677 ||dtheta||=55.642 (28s)
+  lr=0.00106: ft_loss=1.7074 pt_loss=3.5269 dPT=+0.3570 ||dtheta||=87.359 (28s)
+  lr=0.00179: ft_loss=1.7321 pt_loss=3.6547 dPT=+0.4848 ||dtheta||=140.430 (28s)
+  lr=0.003: ft_loss=1.8061 pt_loss=4.0184 dPT=+0.8485 ||dtheta||=222.224 (39s)
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run esi2w6ty
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260929_144424-esi2w6ty
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run adam_codeparrot
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/esi2w6ty
+wandb: updating run metadata; uploading artifact run-esi2w6ty-sweep_table; uploading artifact run-esi2w6ty-train_loss_curves_table
+wandb: uploading artifact run-esi2w6ty-sweep_table; uploading artifact run-esi2w6ty-train_loss_curves_table
+wandb: uploading artifact run-esi2w6ty-sweep_table; uploading artifact run-esi2w6ty-train_loss_curves_table; uploading config.yaml; uploading wandb-metadata.json; uploading requirements.txt (+ 3 more)
+wandb: uploading history steps 0-12, summary
+wandb: 
+wandb: Run history:
+wandb: sweep/delta_norm ▁▁▁▁▁▁▂▂▃▄▅█
+wandb: sweep/forgetting ▁▁▁▁▁▁▂▂▃▄▅█
+wandb:    sweep/ft_loss █▇▅▄▃▃▂▂▁▁▁▂
+wandb:   sweep/log10_lr ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:         sweep/lr ▁▁▁▁▁▁▂▂▂▃▅█
+wandb:      sweep/point ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:    sweep/pt_loss ▁▁▁▁▁▁▂▂▃▄▅█
+wandb: 
+wandb: Run summary:
+wandb:     base/ft_loss 2.56538
+wandb:  base/param_norm 1564.77799
+wandb:     base/pt_loss 3.16986
+wandb: sweep/delta_norm 222.22376
+wandb: sweep/forgetting 0.84854
+wandb:    sweep/ft_loss 1.80612
+wandb:   sweep/log10_lr -2.52288
+wandb:         sweep/lr 0.003
+wandb:      sweep/point 11
+wandb:    sweep/pt_loss 4.0184
+wandb: 
+wandb: 🚀 View run adam_codeparrot at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/esi2w6ty
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: Synced 4 W&B file(s), 2 media file(s), 4 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260929_144424-esi2w6ty/logs

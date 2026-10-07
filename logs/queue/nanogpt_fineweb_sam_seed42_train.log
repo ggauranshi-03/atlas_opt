@@ -1,0 +1,82 @@
+
+### 2026-09-28 19:50:02 /home/anant/miniconda3/bin/python -u main_experiment.py -c configs/nanogpt_fineweb.yaml -o sam -e 15 --seed 42
+
+>>> Running Benchmark for Optimizers: ['sam'] across 1 configs <<<
+
+
+######################################################################
+# Config: nanogpt_fineweb | Optimizer: SAM | Epochs: 15
+######################################################################
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run eg22cumz
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260928_195012-eg22cumz
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sam_seed42
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/PTQ-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/PTQ-NanoGPT/runs/eg22cumz
+  Loading CPT model architecture: gpt2 in bfloat16...
+  Streaming CPT corpus: HuggingFaceFW/fineweb-edu (sample-10BT) (max_len=512) | train shards: 11 | val shard: sample/10BT/011_00000.parquet
+  Streaming DataLoaders ready.
+
+  Starting training [nanogpt_fineweb] with optimizer [sam] for 15 epochs...
+Token indices sequence length is longer than the specified maximum sequence length for this model (1426 > 1024). Running this sequence through the model will result in indexing errors
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  [SAM         ] Epoch  1/15 | Train Loss: 3.6204 | Train Acc: 34.74% | Val Loss: 3.4210 | Val Acc: 37.07% | Time: 543.8s | LR: 1.500e-02
+  [SAM         ] Epoch  2/15 | Train Loss: 3.5496 | Train Acc: 35.74% | Val Loss: 3.3929 | Val Acc: 37.60% | Time: 452.5s | LR: 1.500e-02
+  [SAM         ] Epoch  3/15 | Train Loss: 3.5274 | Train Acc: 36.08% | Val Loss: 3.3627 | Val Acc: 38.11% | Time: 447.0s | LR: 1.500e-02
+  [SAM         ] Epoch  4/15 | Train Loss: 3.5046 | Train Acc: 36.31% | Val Loss: 3.3555 | Val Acc: 38.10% | Time: 449.6s | LR: 1.500e-02
+  [SAM         ] Epoch  5/15 | Train Loss: 3.5167 | Train Acc: 36.18% | Val Loss: 3.3684 | Val Acc: 37.75% | Time: 445.8s | LR: 1.500e-02
+  [SAM         ] Epoch  6/15 | Train Loss: 3.5092 | Train Acc: 36.25% | Val Loss: 3.3518 | Val Acc: 38.12% | Time: 450.3s | LR: 1.500e-02
+  [SAM         ] Epoch  7/15 | Train Loss: 3.4991 | Train Acc: 36.37% | Val Loss: 3.3576 | Val Acc: 38.11% | Time: 444.7s | LR: 1.500e-02
+  [SAM         ] Epoch  8/15 | Train Loss: 3.4756 | Train Acc: 36.64% | Val Loss: 3.3474 | Val Acc: 38.23% | Time: 450.8s | LR: 1.500e-02
+  [SAM         ] Epoch  9/15 | Train Loss: 3.4792 | Train Acc: 36.68% | Val Loss: 3.3522 | Val Acc: 38.21% | Time: 450.9s | LR: 1.500e-02
+  [SAM         ] Epoch 10/15 | Train Loss: 3.4754 | Train Acc: 36.68% | Val Loss: 3.3393 | Val Acc: 38.38% | Time: 450.5s | LR: 1.500e-02
+  [SAM         ] Epoch 11/15 | Train Loss: 3.4650 | Train Acc: 36.77% | Val Loss: 3.3373 | Val Acc: 38.44% | Time: 449.6s | LR: 1.500e-02
+  [SAM         ] Epoch 12/15 | Train Loss: 3.4734 | Train Acc: 36.68% | Val Loss: 3.3492 | Val Acc: 38.29% | Time: 450.9s | LR: 1.500e-02
+  [SAM         ] Epoch 13/15 | Train Loss: 3.4679 | Train Acc: 36.81% | Val Loss: 3.3443 | Val Acc: 38.26% | Time: 450.2s | LR: 1.000e-02
+  [SAM         ] Epoch 14/15 | Train Loss: 3.4592 | Train Acc: 36.96% | Val Loss: 3.3347 | Val Acc: 38.46% | Time: 449.9s | LR: 5.000e-03
+  [SAM         ] Epoch 15/15 | Train Loss: 3.4808 | Train Acc: 36.68% | Val Loss: 3.3341 | Val Acc: 38.43% | Time: 450.3s | LR: 0.000e+00
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 14-14, summary, console lines 21-21
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▃▃▃▄▅▅▅▆▇▇▇█
+wandb:             lr ████████████▆▃▁
+wandb:         time_s █▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: train/accuracy ▁▄▅▆▆▆▆▇▇▇▇▇██▇
+wandb:     train/loss █▅▄▃▃▃▃▂▂▂▁▂▁▁▂
+wandb:   val/accuracy ▁▄▆▆▄▆▆▇▇██▇▇██
+wandb:       val/loss █▆▃▃▄▂▃▂▂▁▁▂▂▁▁
+wandb: val/perplexity █▆▃▃▄▂▃▂▂▁▁▂▂▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 15
+wandb:             lr 0
+wandb:         time_s 450.26592
+wandb: train/accuracy 36.68139
+wandb:     train/loss 3.4808
+wandb:   val/accuracy 38.43053
+wandb:       val/loss 3.33406
+wandb: val/perplexity 28.05198
+wandb: 
+wandb: 🚀 View run sam_seed42 at: https://wandb.ai/dcll-iiitd/PTQ-NanoGPT/runs/eg22cumz
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/PTQ-NanoGPT
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260928_195012-eg22cumz/logs
+
+  [Single CSV Saved]: logs/nanogpt_fineweb_logs.csv
+  [Unified Comparison Plot Saved]: logs/nanogpt_fineweb_seed42_plot.png
+
+================================================================================
+                      ALL BENCHMARKS COMPLETED SUCCESSFULLY
+================================================================================
+  nanogpt_fineweb                     | Opt: sam            | Loss: 3.4808 | Perplexity    : 28.05 | Time: 6836.8s
+
+Detailed master summary saved to logs/all_experiments_summary.csv
+================================================================================
+

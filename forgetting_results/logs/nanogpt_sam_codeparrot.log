@@ -1,0 +1,55 @@
+  Loading CPT model architecture: gpt2 in bfloat16...
+[nanogpt|sam|codeparrot] base: pt_loss=3.2796 ft_loss=2.3104
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+  lr=1e-05: ft_loss=1.9234 pt_loss=3.3005 dPT=+0.0209 ||dtheta||=1.796 (28s)
+  lr=1.68e-05: ft_loss=1.8593 pt_loss=3.3072 dPT=+0.0276 ||dtheta||=2.576 (28s)
+  lr=2.82e-05: ft_loss=1.8111 pt_loss=3.3145 dPT=+0.0350 ||dtheta||=3.767 (28s)
+  lr=4.74e-05: ft_loss=1.7698 pt_loss=3.3239 dPT=+0.0444 ||dtheta||=5.571 (28s)
+  lr=7.96e-05: ft_loss=1.7293 pt_loss=3.3448 dPT=+0.0652 ||dtheta||=8.300 (28s)
+  lr=0.000134: ft_loss=1.6848 pt_loss=3.3894 dPT=+0.1098 ||dtheta||=12.964 (28s)
+  lr=0.000224: ft_loss=1.6638 pt_loss=3.4534 dPT=+0.1738 ||dtheta||=19.681 (27s)
+  lr=0.000377: ft_loss=1.6384 pt_loss=3.5185 dPT=+0.2389 ||dtheta||=31.291 (28s)
+  lr=0.000633: ft_loss=1.6494 pt_loss=3.6056 dPT=+0.3260 ||dtheta||=49.800 (28s)
+  lr=0.00106: ft_loss=1.6496 pt_loss=3.6615 dPT=+0.3819 ||dtheta||=81.369 (28s)
+  lr=0.00179: ft_loss=1.6999 pt_loss=3.9427 dPT=+0.6632 ||dtheta||=133.003 (28s)
+  lr=0.003: ft_loss=1.9634 pt_loss=4.6439 dPT=+1.3643 ||dtheta||=214.941 (28s)
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/anant/.netrc.
+wandb: Currently logged in as: anant-jain (dcll-iiitd) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run vrp0pazo
+wandb: Tracking run with wandb version 0.29.0
+wandb: Run data is saved locally in /home/anant/atlas_opt/wandb/run-20260929_045745-vrp0pazo
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sam_codeparrot
+wandb: ⭐️ View project at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: 🚀 View run at https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/vrp0pazo
+wandb: updating run metadata; uploading artifact run-vrp0pazo-sweep_table; uploading artifact run-vrp0pazo-train_loss_curves_table
+wandb: uploading artifact run-vrp0pazo-sweep_table; uploading artifact run-vrp0pazo-train_loss_curves_table
+wandb: uploading artifact run-vrp0pazo-sweep_table; uploading artifact run-vrp0pazo-train_loss_curves_table; uploading media/table/sweep_table_12_13075162e05417e03504.table.json; uploading media/table/train_loss_curves_table_12_e7ed9a315b4f3e0fa42e.table.json; uploading wandb-summary.json (+ 3 more)
+wandb: uploading artifact run-vrp0pazo-train_loss_curves_table
+wandb: uploading history steps 0-12, summary
+wandb: 
+wandb: Run history:
+wandb: sweep/delta_norm ▁▁▁▁▁▁▂▂▃▄▅█
+wandb: sweep/forgetting ▁▁▁▁▁▁▂▂▃▃▄█
+wandb:    sweep/ft_loss ▇▆▅▄▃▂▂▁▁▁▂█
+wandb:   sweep/log10_lr ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:         sweep/lr ▁▁▁▁▁▁▂▂▂▃▅█
+wandb:      sweep/point ▁▂▂▃▄▄▅▅▆▇▇█
+wandb:    sweep/pt_loss ▁▁▁▁▁▁▂▂▃▃▄█
+wandb: 
+wandb: Run summary:
+wandb:     base/ft_loss 2.3104
+wandb:  base/param_norm 1505.57938
+wandb:     base/pt_loss 3.27957
+wandb: sweep/delta_norm 214.94147
+wandb: sweep/forgetting 1.3643
+wandb:    sweep/ft_loss 1.9634
+wandb:   sweep/log10_lr -2.52288
+wandb:         sweep/lr 0.003
+wandb:      sweep/point 11
+wandb:    sweep/pt_loss 4.64387
+wandb: 
+wandb: 🚀 View run sam_codeparrot at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT/runs/vrp0pazo
+wandb: ⭐️ View project at: https://wandb.ai/dcll-iiitd/Forgetting-NanoGPT
+wandb: Synced 4 W&B file(s), 2 media file(s), 4 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260929_045745-vrp0pazo/logs

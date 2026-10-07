@@ -1,0 +1,27 @@
+% Complete example document: compile main.tex with pdfLaTeX (Overleaf default). Put this file in the same folder as common/ and data/.
+\documentclass[10pt,twocolumn]{article}
+\usepackage[margin=0.75in,columnsep=0.25in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+
+\newcommand{\figroot}{.}               % folder that contains common/ and data/ (here: the folder of main.tex)
+\input{\figroot/common/preamble.tex}   % pgfplots, pgfplotstable, booktabs, xcolor + plot styles
+
+\title{Catastrophic Forgetting of Models Pretrained with Different Optimizers}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Forgetting summary}
+Table~\ref{tab:forgetting} compares the eleven optimizers by the held-out FineWeb-Edu loss before and after fine-tuning
+on a new dataset (lower is better; the rise is the forgetting). Figures~\ref{fig:forgetting-nanogpt} and~\ref{fig:forgetting-pythia70m} show the
+same quantity for each fine-tuning dataset separately.
+
+\input{\figroot/table_forgetting.tex}
+
+\input{\figroot/figure_forgetting.tex}   % two full-width figures, one per model
+
+\end{document}
