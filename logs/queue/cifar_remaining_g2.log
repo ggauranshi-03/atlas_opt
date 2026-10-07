@@ -1,3 +1,0 @@
-[2026-10-04 22:25:18] GPU 2: start cifar10_cnn|sgd|seed42
-[2026-10-04 22:26:07] GPU 2: done cifar10_cnn|sgd|seed42 
-[2026-10-04 22:26:07] GPU 2: queue empty, exiting

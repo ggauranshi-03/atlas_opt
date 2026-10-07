@@ -1,5 +1,0 @@
-[2026-09-30 13:51:59] GPU 6: start nanogpt_fineweb|fsam_frob_muon_stale_momentum|seed42
-[2026-09-30 15:07:49] GPU 6: done nanogpt_fineweb|fsam_frob_muon_stale_momentum|seed42 
-[2026-09-30 15:07:49] GPU 6: start pythia70m_pretrain_chinchilla|muon_sam_frob|seed42
-[2026-09-30 16:04:22] GPU 6: done pythia70m_pretrain_chinchilla|muon_sam_frob|seed42 
-[2026-09-30 16:04:22] GPU 6: queue empty, exiting

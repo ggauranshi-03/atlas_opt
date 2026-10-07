@@ -1,3 +1,0 @@
-nohup: ignoring input
-queue queues/cifar.json: +0 jobs (13 already present), total 13
-[2026-09-27 06:59:28] GPU 4: queue empty, exiting

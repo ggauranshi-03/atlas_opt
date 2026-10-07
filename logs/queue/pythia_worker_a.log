@@ -1,3 +1,0 @@
-[2026-09-28 19:50:02] GPU 1: start pythia70m_pretrain_chinchilla|fsam_ortho_muon_stale_momentum|seed42
-[2026-09-28 20:32:00] GPU 1: done pythia70m_pretrain_chinchilla|fsam_ortho_muon_stale_momentum|seed42 
-[2026-09-28 20:32:00] GPU 1: queue empty, exiting
