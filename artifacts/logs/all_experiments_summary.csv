@@ -1,0 +1,58 @@
+Config ID,Optimizer,Seed,Final Loss,Final Metric,Metric Type,Total Time (s),LR,Rho
+nanogpt_v2__soma_prens5__rho0.1,soma_prens5,0,4.4945,45.97,Perplexity,950.5,0.006,0.1
+nanogpt_v2__soma_prens5__rho0.003,soma_prens5,0,3.3797,26.21,Perplexity,938.7,0.006,0.003
+nanogpt_v2__soma_prens5__rho0.03,soma_prens5,0,3.5172,27.65,Perplexity,958.2,0.006,0.03
+nanogpt_v2__soma_prens5__rho0.3,soma_prens5,0,6.0382,95.76,Perplexity,957.5,0.006,0.3
+nanogpt_v2__soma_prens5__rho0.01,soma_prens5,0,3.4012,26.37,Perplexity,1425.9,0.006,0.01
+pythia70m_v2__soma_prens5__rho0.003,soma_prens5,0,3.7183,39.02,Perplexity,577.9,0.0006,0.003
+nanogpt_v2__op_soma_postns5__rho0.003,op_soma_postns5,0,3.3780,26.22,Perplexity,1718.6,0.006,0.003
+nanogpt_v2__op_soma_postns5__rho0.01,op_soma_postns5,0,3.3888,26.29,Perplexity,1744.8,0.006,0.01
+pythia70m_v2__soma_prens5__rho0.03,soma_prens5,0,5.8235,88.37,Perplexity,554.5,0.0006,0.03
+pythia70m_v2__soma_prens5__rho0.01,soma_prens5,0,4.0848,44.00,Perplexity,784.6,0.0006,0.01
+pythia70m_v2__soma_prens5__rho0.1,soma_prens5,0,7.7362,167.02,Perplexity,568.4,0.0006,0.1
+pythia70m_v2__soma_prens5__rho0.3,soma_prens5,0,12.6243,1061.30,Perplexity,572.4,0.0006,0.3
+nanogpt_v2__op_soma_postns5__rho0.1,op_soma_postns5,0,3.9673,34.23,Perplexity,1674.3,0.006,0.1
+nanogpt_v2__op_soma_postns5__rho0.03,op_soma_postns5,0,3.4478,26.77,Perplexity,1718.9,0.006,0.03
+nanogpt_v2__op_soma_postns5__rho0.3,op_soma_postns5,0,6.1936,120.20,Perplexity,1723.3,0.006,0.3
+cifar10_v2__soma_prens5__rho0.003,soma_prens5,0,0.2688,87.36,Val Acc (%),156.6,0.03,0.003
+cifar10_v2__soma_prens5__rho0.01,soma_prens5,0,0.2709,87.34,Val Acc (%),170.3,0.03,0.01
+pythia70m_v2__op_soma_postns5__rho0.003,op_soma_postns5,0,3.6809,38.57,Perplexity,721.9,0.0006,0.003
+cifar10_v2__soma_prens5__rho0.03,soma_prens5,0,0.2890,87.16,Val Acc (%),159.0,0.03,0.03
+cifar10_v2__soma_prens5__rho0.1,soma_prens5,0,0.4136,85.76,Val Acc (%),172.8,0.03,0.1
+cifar10_v2__soma_prens5__rho0.3,soma_prens5,0,1.0165,70.86,Val Acc (%),154.8,0.03,0.3
+pythia70m_v2__op_soma_postns5__rho0.03,op_soma_postns5,0,5.7269,85.04,Perplexity,786.5,0.0006,0.03
+pythia70m_v2__op_soma_postns5__rho0.1,op_soma_postns5,0,8.4525,131.94,Perplexity,787.6,0.0006,0.1
+nanogpt_v2,adam,43,3.3145,24.58,Perplexity,4908.7,0.0006,-
+cifar10_v2__op_soma_postns5__rho0.03,op_soma_postns5,0,0.2786,87.56,Val Acc (%),178.9,0.03,0.03
+cifar10_v2__op_soma_postns5__rho0.1,op_soma_postns5,0,0.3506,86.90,Val Acc (%),190.0,0.03,0.1
+pythia70m_v2__op_soma_postns5__rho0.01,op_soma_postns5,0,3.8690,40.98,Perplexity,1133.2,0.0006,0.01
+cifar10_v2__op_soma_postns5__rho0.003,op_soma_postns5,0,0.2692,87.86,Val Acc (%),204.9,0.03,0.003
+cifar10_v2__op_soma_postns5__rho0.01,op_soma_postns5,0,0.2691,87.38,Val Acc (%),188.0,0.03,0.01
+cifar10_v2__op_soma_postns5__rho0.3,op_soma_postns5,0,0.8176,77.02,Val Acc (%),188.5,0.03,0.3
+pythia70m_v2__op_soma_postns5__rho0.3,op_soma_postns5,0,13.7735,345.97,Perplexity,786.1,0.0006,0.3
+cifar10_v2__soma_prens5__rho0.000948683,soma_prens5,0,0.2672,87.30,Val Acc (%),193.5,0.03,0.000948683
+cifar10_v2__op_soma_postns5__rho0.000948683,op_soma_postns5,0,0.2675,87.34,Val Acc (%),204.9,0.03,0.000948683
+pythia70m_v2__soma_prens5__rho0.000948683,soma_prens5,0,3.6549,38.29,Perplexity,751.5,0.0006,0.000948683
+pythia70m_v2__op_soma_postns5__rho0.000948683,op_soma_postns5,0,3.6497,38.28,Perplexity,1072.4,0.0006,0.000948683
+nanogpt_v2__soma_prens5__rho0.000948683,soma_prens5,0,3.3772,26.24,Perplexity,1210.9,0.006,0.000948683
+nanogpt_v2__op_soma_postns5__rho0.000948683,op_soma_postns5,0,3.3770,26.24,Perplexity,1714.5,0.006,0.000948683
+pythia70m_v2__soma_prens5__rho0.0003,soma_prens5,0,3.6461,38.24,Perplexity,512.6,0.0006,0.0003
+pythia70m_v2__op_soma_postns5__rho0.0003,op_soma_postns5,0,3.6451,38.24,Perplexity,781.1,0.0006,0.0003
+pythia70m_v2,soma_prens5,42,3.5554,35.68,Perplexity,2334.4,0.0006,0.0003
+nanogpt_v2,soma_prens5,42,3.3241,24.82,Perplexity,4219.0,0.006,0.003
+nanogpt_v2,soma_prens5,44,3.3180,24.84,Perplexity,4225.5,0.006,0.003
+nanogpt_v2,soma_prens5,43,3.3264,24.81,Perplexity,4249.9,0.006,0.003
+pythia70m_v2,op_soma_postns5,42,3.5550,35.68,Perplexity,3348.8,0.0006,0.0003
+pythia70m_v2,soma_prens5,43,3.5582,35.72,Perplexity,2347.0,0.0006,0.0003
+pythia70m_v2,soma_prens5,44,3.5611,35.74,Perplexity,2343.8,0.0006,0.0003
+cifar10_v2,soma_prens5,42,0.2632,87.16,Val Acc (%),157.1,0.03,0.003
+cifar10_v2,op_soma_postns5,42,0.2648,87.16,Val Acc (%),172.4,0.03,0.003
+cifar10_v2,soma_prens5,43,0.2666,87.26,Val Acc (%),169.2,0.03,0.003
+cifar10_v2,op_soma_postns5,43,0.2643,87.18,Val Acc (%),194.0,0.03,0.003
+cifar10_v2,soma_prens5,44,0.2686,87.00,Val Acc (%),152.9,0.03,0.003
+cifar10_v2,op_soma_postns5,44,0.2683,87.08,Val Acc (%),176.5,0.03,0.003
+pythia70m_v2,op_soma_postns5,43,3.5570,35.69,Perplexity,3348.4,0.0006,0.0003
+nanogpt_v2,op_soma_postns5,44,3.3178,24.83,Perplexity,8286.3,0.006,0.003
+nanogpt_v2,op_soma_postns5,42,3.3239,24.82,Perplexity,8283.3,0.006,0.003
+nanogpt_v2,op_soma_postns5,43,3.3264,24.81,Perplexity,8317.7,0.006,0.003
+pythia70m_v2,op_soma_postns5,44,3.5604,35.72,Perplexity,3315.5,0.0006,0.0003

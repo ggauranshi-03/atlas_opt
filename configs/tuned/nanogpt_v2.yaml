@@ -1,0 +1,121 @@
+experiment:
+  experiment_id: nanogpt_v2
+  wandb_project: V2-PTQ-NanoGPT
+  task_type: causal_lm
+  model_name: gpt2
+  model_config:
+    n_layer: 12
+    n_head: 12
+    n_embd: 768
+    vocab_size: 50257
+  dataset_name: HuggingFaceFW/fineweb-edu
+  dataset_config: sample-10BT
+  max_len: 2048
+  total_training_steps: 1500
+  val_tokens: 10485760
+batch_size: 16
+grad_acc: 32
+parameter_routing:
+  hidden_matrices: muon
+  embeddings_and_head: adamw
+optimizers:
+  adam:
+    optimizer: adam
+    lr: 0.0006
+    weight_decay: 0.1
+  sgd:
+    optimizer: sgd
+    lr: 0.3
+    momentum: 0.9
+    nesterov: true
+    weight_decay: 0.0
+  muon:
+    optimizer: muon
+    lr: 0.006
+    momentum: 0.95
+    weight_decay: 0.0
+    adam_lr: 0.00024
+  sam:
+    optimizer: sam
+    lr: 0.3
+    momentum: 0.9
+    nesterov: true
+    weight_decay: 0.0
+    rho: 0.003
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+    rho_vector: 0.003
+  fsam:
+    optimizer: fsam
+    lr: 0.3
+    momentum: 0.9
+    nesterov: true
+    weight_decay: 0.0
+    rho: 0.000948683
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+    rho_vector: 0.000948683
+  muon_sam:
+    optimizer: muon_sam
+    lr: 0.006
+    momentum: 0.95
+    weight_decay: 0.0
+    adam_lr: 0.00024
+    rho: 0.01
+    rho_vector: 0.01
+    ns_steps: 5
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+  fsam_ortho_muon:
+    optimizer: fsam_ortho_muon
+    lr: 0.006
+    momentum: 0.95
+    weight_decay: 0.0
+    adam_lr: 0.00024
+    rho: 0.01
+    rho_vector: 0.01
+    ns_steps: 5
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+  fsam_ortho_muon_stale_momentum:
+    optimizer: fsam_ortho_muon_stale_momentum
+    lr: 0.006
+    momentum: 0.95
+    weight_decay: 0.0
+    adam_lr: 0.00024
+    rho: 0.0003
+    rho_vector: 0.0003
+    ns_steps: 5
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+  randsam_muon:
+    optimizer: randsam_muon
+    lr: 0.006
+    momentum: 0.95
+    weight_decay: 0.0
+    adam_lr: 0.00024
+    rho: 0.01
+    rho_vector: 0.01
+    ns_steps: 5
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+  soma_prens5:
+    optimizer: soma_prens5
+    lr: 0.006
+    momentum: 0.95
+    weight_decay: 0.0
+    adam_lr: 0.00024
+    rho: 0.003
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+    rho_vector: 0.003
+  op_soma_postns5:
+    optimizer: op_soma_postns5
+    lr: 0.006
+    momentum: 0.95
+    weight_decay: 0.0
+    adam_lr: 0.00024
+    rho: 0.003
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+    rho_vector: 0.003

@@ -1,0 +1,190 @@
+{
+  "config": {
+    "experiment": {
+      "experiment_id": "cifar10_v2",
+      "wandb_project": "V2-PTQ-CIFAR10",
+      "task_type": "image_classification",
+      "dataset_name": "cifar10",
+      "model_name": "airbench_cnn",
+      "num_classes": 10,
+      "image_size": 32,
+      "total_training_steps": 720,
+      "seeds": 50
+    },
+    "batch_size": 500,
+    "grad_acc": 1,
+    "parameter_routing": {
+      "conv_weights": "muon",
+      "normalization_and_biases": "sgd"
+    },
+    "optimizers": {
+      "adam": {
+        "optimizer": "adam",
+        "lr": 0.0316228,
+        "weight_decay": 0.0005
+      },
+      "sgd": {
+        "optimizer": "sgd",
+        "lr": 0.3,
+        "momentum": 0.9,
+        "nesterov": true,
+        "weight_decay": 0.0005
+      },
+      "muon": {
+        "optimizer": "muon",
+        "lr": 0.03,
+        "momentum": 0.95,
+        "weight_decay": 0.0,
+        "adam_lr": 0.0012
+      },
+      "sam": {
+        "optimizer": "sam",
+        "lr": 0.3,
+        "momentum": 0.9,
+        "nesterov": true,
+        "weight_decay": 0.0005,
+        "rho": 0.003,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0,
+        "rho_vector": 0.003
+      },
+      "fsam": {
+        "optimizer": "fsam",
+        "lr": 0.3,
+        "momentum": 0.9,
+        "nesterov": true,
+        "weight_decay": 0.0005,
+        "rho": 0.000948683,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0,
+        "rho_vector": 0.000948683
+      },
+      "muon_sam": {
+        "optimizer": "muon_sam",
+        "lr": 0.03,
+        "momentum": 0.95,
+        "weight_decay": 0.0,
+        "adam_lr": 0.0012,
+        "rho": 0.01,
+        "rho_vector": 0.01,
+        "ns_steps": 5,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      },
+      "fsam_ortho_muon": {
+        "optimizer": "fsam_ortho_muon",
+        "lr": 0.03,
+        "momentum": 0.95,
+        "weight_decay": 0.0,
+        "adam_lr": 0.0012,
+        "rho": 0.01,
+        "rho_vector": 0.01,
+        "ns_steps": 5,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      },
+      "fsam_ortho_muon_stale_momentum": {
+        "optimizer": "fsam_ortho_muon_stale_momentum",
+        "lr": 0.03,
+        "momentum": 0.95,
+        "weight_decay": 0.0,
+        "adam_lr": 0.0012,
+        "rho": 0.003,
+        "rho_vector": 0.003,
+        "ns_steps": 5,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      },
+      "randsam_muon": {
+        "optimizer": "randsam_muon",
+        "lr": 0.03,
+        "momentum": 0.95,
+        "weight_decay": 0.0,
+        "adam_lr": 0.0012,
+        "rho": 0.1,
+        "rho_vector": 0.1,
+        "ns_steps": 5,
+        "fsam_lambda": 0.9,
+        "fsam_sigma": 1.0
+      }
+    }
+  },
+  "args": {
+    "config": "configs/tuned/cifar10_v2.yaml",
+    "optimizer": "randsam_muon",
+    "checkpoint": "checkpoints/cifar10_v2_randsam_muon_seed43_epoch7.pt",
+    "seed": 43,
+    "methods": "awq",
+    "settings": "4:128",
+    "calib_seeds": "0,1,2",
+    "nsamples": null,
+    "seqlen": 512,
+    "out_dir": "ptq_results"
+  },
+  "git_commit": "unknown",
+  "torch": "2.13.0+cu130",
+  "quantized_params": 1548288,
+  "total_params": 1557066,
+  "rows": [
+    {
+      "config_id": "cifar10_v2",
+      "optimizer": "randsam_muon",
+      "seed": 43,
+      "checkpoint": "cifar10_v2_randsam_muon_seed43_epoch7.pt",
+      "calib_nsamples": "",
+      "method": "fp",
+      "wbits": 16,
+      "group_size": "",
+      "calib_seed": "",
+      "quant_time_s": 0.0,
+      "status": "ok",
+      "test_acc": 86.38,
+      "test_loss": 0.3920739700317383
+    },
+    {
+      "config_id": "cifar10_v2",
+      "optimizer": "randsam_muon",
+      "seed": 43,
+      "checkpoint": "cifar10_v2_randsam_muon_seed43_epoch7.pt",
+      "calib_nsamples": 1024,
+      "method": "awq",
+      "wbits": 4,
+      "group_size": 128,
+      "calib_seed": 0,
+      "quant_time_s": 0.85,
+      "status": "ok",
+      "test_acc": 85.95,
+      "test_loss": 0.4020718688964844
+    },
+    {
+      "config_id": "cifar10_v2",
+      "optimizer": "randsam_muon",
+      "seed": 43,
+      "checkpoint": "cifar10_v2_randsam_muon_seed43_epoch7.pt",
+      "calib_nsamples": 1024,
+      "method": "awq",
+      "wbits": 4,
+      "group_size": 128,
+      "calib_seed": 1,
+      "quant_time_s": 0.55,
+      "status": "ok",
+      "test_acc": 85.94,
+      "test_loss": 0.40124508514404295
+    },
+    {
+      "config_id": "cifar10_v2",
+      "optimizer": "randsam_muon",
+      "seed": 43,
+      "checkpoint": "cifar10_v2_randsam_muon_seed43_epoch7.pt",
+      "calib_nsamples": 1024,
+      "method": "awq",
+      "wbits": 4,
+      "group_size": 128,
+      "calib_seed": 2,
+      "quant_time_s": 0.56,
+      "status": "ok",
+      "test_acc": 85.62,
+      "test_loss": 0.4125026824951172
+    }
+  ]
+}

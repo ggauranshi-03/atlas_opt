@@ -1,0 +1,4 @@
+epoch,optimizer,seed,train_loss,train_accuracy,val_loss,val_accuracy,val_perplexity,time_s
+1,sam,0,7.6212,9.73,4.6390,23.98,103.44,552.4
+2,sam,0,4.1216,29.87,3.6746,35.26,39.43,458.8
+3,sam,0,3.6685,34.87,3.3827,38.06,29.45,441.0

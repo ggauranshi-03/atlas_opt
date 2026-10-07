@@ -8,12 +8,12 @@ class FSAM(torch.optim.Optimizer):
     m_t tracks the batch-invariant ("friendly") component of the gradient via an EMA.
     The adversarial perturbation direction d_t = g_t - sigma * m_t keeps only the
     batch-variant ("unfriendly") component, so the climb targets sharpness caused by
-    stochasticity rather than the mean gradient itself. The outer update is plain
-    gradient descent on g'_t = grad L(w_t + eps_t) (no momentum in the descent step).
+    stochasticity rather than the mean gradient itself. The outer update is an SGD (momentum)
+    step on g'_t = grad L(w_t + eps_t), i.e. the same base optimizer as the SGD baseline.
     """
-    def __init__(self, params, lr=0.01, rho=0.05, lam=0.9, sigma=1.0):
+    def __init__(self, params, lr=0.01, rho=0.05, lam=0.9, sigma=1.0, momentum=0.9, nesterov=True, weight_decay=0.0):
         assert rho >= 0.0, f"Invalid rho, should be non-negative: {rho}"
-        defaults = dict(lr=lr, rho=rho, lam=lam, sigma=sigma)
+        defaults = dict(lr=lr, rho=rho, lam=lam, sigma=sigma, momentum=momentum, nesterov=nesterov, weight_decay=weight_decay)
         super().__init__(params, defaults)
 
     @torch.no_grad()
@@ -54,15 +54,24 @@ class FSAM(torch.optim.Optimizer):
 
     @torch.no_grad()
     def _descend(self):
+        # Base step = torch.optim.SGD semantics (coupled weight decay, dampening 0), matching the SGD baseline.
         for group in self.param_groups:
-            lr = group["lr"]
+            lr, mu, wd, nesterov = group["lr"], group["momentum"], group["weight_decay"], group["nesterov"]
             for p in group["params"]:
                 if p.grad is None:
                     continue
                 state = self.state[p]
                 if "old_p" in state:
                     p.data.copy_(state["old_p"])
-                p.add_(p.grad, alpha=-lr)
+                g = p.grad.add(p, alpha=wd) if wd != 0 else p.grad
+                if mu != 0:
+                    if "momentum_buffer" not in state:
+                        state["momentum_buffer"] = g.clone()
+                    else:
+                        state["momentum_buffer"].mul_(mu).add_(g)
+                    buf = state["momentum_buffer"]
+                    g = g.add(buf, alpha=mu) if nesterov else buf
+                p.add_(g, alpha=-lr)
 
     @torch.no_grad()
     def step(self, closure=None):

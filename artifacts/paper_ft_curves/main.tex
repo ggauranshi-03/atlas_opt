@@ -1,0 +1,13 @@
+% Complete example: compile with pdfLaTeX; main.tex sits next to common/, data/, plots/.
+\documentclass[10pt,twocolumn]{article}
+\usepackage[margin=0.75in,columnsep=0.25in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\newcommand{\ftroot}{.}
+\input{\ftroot/common/preamble.tex}
+\title{Fine-tuning curves}\author{}\date{}
+\begin{document}
+\maketitle
+\input{\ftroot/figure_ft_train_loss.tex}
+\input{\ftroot/figure_ft_val_acc.tex}
+\end{document}

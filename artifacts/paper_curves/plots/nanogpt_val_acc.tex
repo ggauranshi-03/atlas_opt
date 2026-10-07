@@ -1,0 +1,28 @@
+% AUTO-GENERATED
+\begin{tikzpicture}
+\begin{axis}[curve axis, title={nanoGPT (GPT-2 small)}, ylabel={Validation accuracy (\%)}, xmin=1, xmax=15,
+  legend pos=south east]
+\addplot[cv-adam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/adam.csv};
+\addlegendentry{AdamW}
+\addplot[cv-sgd] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/sgd.csv};
+\addlegendentry{SGD}
+\addplot[cv-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/muon.csv};
+\addlegendentry{Muon}
+\addplot[cv-sam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/sam.csv};
+\addlegendentry{SAM}
+\addplot[cv-fsam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/fsam.csv};
+\addlegendentry{FSAM}
+\addplot[cv-muon-sam] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/muon_sam.csv};
+\addlegendentry{SpecSAM-Muon}
+\addplot[cv-fsam-ortho-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/fsam_ortho_muon.csv};
+\addlegendentry{FP-SOMA}
+\addplot[cv-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/fsam_ortho_muon_stale_momentum.csv};
+\addlegendentry{SOMA}
+\addplot[cv-randsam-muon] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/randsam_muon.csv};
+\addlegendentry{RandSAM-Muon}
+\addplot[cv-soma-prens5] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/soma_prens5.csv};
+\addlegendentry{SOMA-PreNS5}
+\addplot[cv-op-soma-postns5] table[col sep=comma, x=epoch, y=val_acc]{\curvesroot/data/nanogpt/op_soma_postns5.csv};
+\addlegendentry{OP-SOMA-PostNS5}
+\end{axis}
+\end{tikzpicture}

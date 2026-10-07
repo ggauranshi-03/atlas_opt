@@ -1,14 +1,15 @@
 """Calibration and evaluation data for PTQ.
 
-Language models (trained on the head of FineWeb-Edu sample-10BT shard 000):
-  * calibration: random windows from shard 012 (never seen in training), GPTQ/AWQ standard of
-    128 sequences; sequence length = training context (512).
+Language models (trained on FineWeb-Edu shards disjoint from the ones below, see
+data/loaders.py:fineweb_splits):
+  * calibration: random windows from the "calib" shard, GPTQ/AWQ standard of 128 sequences;
+    sequence length = training context (512).
   * eval: WikiText-2 test (standard GPTQ/AWQ protocol: "\\n\\n"-joined, non-overlapping windows)
-    and a held-out FineWeb-Edu set of 2^20 tokens from shard 013 (in-distribution).
+    and a held-out FineWeb-Edu set of 2^20 tokens from the "eval" shard (in-distribution).
   Documents are concatenated without separators, exactly like data/loaders.py:CPTStreamDataset.
 CIFAR-10:
   * calibration: random training images with the test-time transform (1024 images, as in
-    AdaRound/BRECQ); eval: the full 10k test set.
+    AdaRound/BRECQ); eval: the full 10k official test set.
 """
 import os
 import re
@@ -17,8 +18,7 @@ from datasets import load_dataset
 
 CACHE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "ptq_cache")
 FINEWEB = "HuggingFaceFW/fineweb-edu"
-CALIB_SHARD = "sample/10BT/012_00000.parquet"
-EVAL_SHARD = "sample/10BT/013_00000.parquet"
+DATASET_CONFIG = "sample-10BT"
 CALIB_POOL_TOKENS = 4 * 2 ** 20
 FINEWEB_EVAL_TOKENS = 2 ** 20
 
@@ -51,9 +51,19 @@ def _stream_tokens(tokenizer, shard, n_tokens):
     return torch.tensor(buf[:n_tokens], dtype=torch.long)
 
 
+def _shard(role):
+    from data.loaders import fineweb_splits
+    return fineweb_splits(DATASET_CONFIG)[role]
+
+
+def _stem(shard):
+    return os.path.basename(shard).split(".")[0]
+
+
 def fineweb_calib_pool(tokenizer):
-    return _cached(f"{_tok_key(tokenizer)}_fineweb012_pool{CALIB_POOL_TOKENS}.pt",
-                   lambda: _stream_tokens(tokenizer, CALIB_SHARD, CALIB_POOL_TOKENS))
+    shard = _shard("calib")
+    return _cached(f"{_tok_key(tokenizer)}_fineweb{_stem(shard)}_pool{CALIB_POOL_TOKENS}.pt",
+                   lambda: _stream_tokens(tokenizer, shard, CALIB_POOL_TOKENS))
 
 
 def lm_calibration(tokenizer, nsamples, seqlen, seed):
@@ -64,8 +74,10 @@ def lm_calibration(tokenizer, nsamples, seqlen, seed):
 
 
 def lm_eval_sets(tokenizer, seqlen):
+    eval_shard = _shard("eval")
+
     def fineweb():
-        return _stream_tokens(tokenizer, EVAL_SHARD, FINEWEB_EVAL_TOKENS)
+        return _stream_tokens(tokenizer, eval_shard, FINEWEB_EVAL_TOKENS)
 
     def wikitext():
         test = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")
@@ -74,20 +86,19 @@ def lm_eval_sets(tokenizer, seqlen):
     key = _tok_key(tokenizer)
     sets = {
         "wikitext2": _cached(f"{key}_wikitext2_test.pt", wikitext),
-        "fineweb": _cached(f"{key}_fineweb013_eval{FINEWEB_EVAL_TOKENS}.pt", fineweb),
+        "fineweb": _cached(f"{key}_fineweb{_stem(eval_shard)}_eval{FINEWEB_EVAL_TOKENS}.pt", fineweb),
     }
     return {k: v[: (v.numel() // seqlen) * seqlen].view(-1, seqlen) for k, v in sets.items()}
 
 
 def cifar_eval_loader(batch_size):
-    from data.loaders import get_cifar10_dataloaders
-    _, val_loader = get_cifar10_dataloaders(batch_size=batch_size)
-    return val_loader
+    from data.loaders import get_cifar10_test_loader
+    return get_cifar10_test_loader(batch_size=batch_size)
 
 
-def cifar_calibration(val_loader, nsamples, seed):
-    from data.loaders import CIFAR10ArrowDataset
-    train = CIFAR10ArrowDataset(load_dataset("cifar10")["train"], transform=val_loader.dataset.transform)
+def cifar_calibration(nsamples, seed):
+    from data.loaders import CIFAR10ArrowDataset, CIFAR_TRANSFORM_TEST
+    train = CIFAR10ArrowDataset(load_dataset("cifar10")["train"], transform=CIFAR_TRANSFORM_TEST)
     g = torch.Generator().manual_seed(seed)
     idx = torch.randperm(len(train), generator=g)[:nsamples].tolist()
     return torch.stack([train[i]["image"] for i in idx])

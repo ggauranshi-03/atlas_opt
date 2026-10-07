@@ -9,3 +9,29 @@ ptq/__pycache__
 ptq_campaign/__pycache__
 logs/ptq_campaign/*
 ptq_cache
+forgetting_cache
+paper_figures
+paper_figures.zip
+# --- v2 release: never commit checkpoints, caches, runtime logs / queues, v1 figures ---
+checkpoints/
+wandb/
+forgetting_cache/
+ptq_cache/
+queues/
+logs/queue/
+logs/*.log
+forgetting_results/logs/
+paper_ft_curves/logs/
+paper_figures/
+paper_figures.zip
+results_v2_soma_projected/
+configs/generated/
+*.zip
+__pycache__/
+*.lock
+
+# --- artifacts/: results stay committed, but never the large / runtime parts ---
+artifacts/logs/queue/
+artifacts/logs/*.log
+artifacts/forgetting_results/logs/
+artifacts/paper_ft_curves/logs/

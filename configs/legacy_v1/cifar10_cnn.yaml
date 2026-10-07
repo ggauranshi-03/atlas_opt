@@ -1,0 +1,114 @@
+experiment:
+  experiment_id: cifar10_cnn
+  wandb_project: PTQ-CIFAR10
+  task_type: image_classification
+  dataset_name: cifar10
+  model_name: airbench_cnn
+  num_classes: 10
+  image_size: 32
+  total_training_steps: 720
+  seeds: 50
+batch_size: 500
+grad_acc: 1
+parameter_routing:
+  conv_weights: muon
+  normalization_and_biases: sgd
+optimizers:
+  adam:
+    optimizer: adam
+    lr: 0.001
+    weight_decay: 0.001
+  sgd:
+    optimizer: sgd
+    lr: 0.1
+    momentum: 0.9
+    nesterov: true
+    weight_decay: 0.001
+  muon:
+    optimizer: muon
+    lr: 0.02
+    momentum: 0.9665
+    momentum_type: nesterov
+    weight_decay: 0.0001
+    solver: quintic_theoretical
+    steps_q: 7
+  muon_sam:
+    optimizer: muon_sam
+    lr: 0.02
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    rho_vector: 0.01
+  atlas:
+    optimizer: atlas
+    lr: 0.02
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    rho_vector: 0.01
+  atlas_raw:
+    optimizer: atlas_raw
+    lr: 0.02
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    rho_vector: 0.01
+  atlas_random:
+    optimizer: atlas_random
+    lr: 0.02
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    rho_vector: 0.01
+  muon_sam_frob:
+    optimizer: muon_sam_frob
+    lr: 0.02
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    rho_vector: 0.01
+  muon_sam_stale:
+    optimizer: muon_sam_stale
+    lr: 0.02
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    rho_vector: 0.01
+  fsam_muon:
+    optimizer: fsam_muon
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+  fsam_ortho_muon:
+    optimizer: fsam_ortho_muon
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01
+    rho_vector: 0.01
+    ns_steps: 5
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+  fsam_ortho:
+    optimizer: fsam_ortho
+    lr: 0.015
+    rho: 0.01
+    rho_vector: 0.01
+    ns_steps: 5
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+  fsam:
+    optimizer: fsam
+    lr: 0.015
+    rho: 0.01
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0
+  randsam_muon:
+    optimizer: randsam_muon
+    lr: 0.015
+    momentum: 0.9665
+    weight_decay: 0.0001
+    rho: 0.01

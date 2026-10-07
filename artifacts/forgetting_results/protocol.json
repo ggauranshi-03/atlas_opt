@@ -1,0 +1,96 @@
+{
+ "seq_len": 512,
+ "ft_batch": 64,
+ "ft_steps": 64,
+ "ft_tokens": 2097152,
+ "heldout_tokens": 524288,
+ "doc_cap_tokens": 2048,
+ "lrs": [
+  1e-06,
+  1.78e-06,
+  3.16e-06,
+  5.62e-06,
+  1e-05,
+  1.78e-05,
+  3.16e-05,
+  5.62e-05,
+  0.0001,
+  0.000178,
+  0.000316,
+  0.000562,
+  0.001,
+  0.00178,
+  0.00316,
+  0.00562,
+  0.01
+ ],
+ "optimizer": "AdamW(betas=(0.9, 0.95), eps=1e-8, weight_decay=0)",
+ "schedule": "linear warmup 10% -> cosine to 0",
+ "grad_clip": 1.0,
+ "precision": "fp32 master weights, bf16 autocast (Pythia: fp32 throughout); evaluation in fp32",
+ "loss": "full-token causal LM loss on packed 512-token windows (no separators, as in pretraining)",
+ "data_seed": 0,
+ "base_optimizers": [
+  "adam",
+  "sgd",
+  "muon",
+  "sam",
+  "fsam",
+  "muon_sam",
+  "fsam_ortho_muon",
+  "fsam_ortho_muon_stale_momentum",
+  "randsam_muon",
+  "soma_prens5",
+  "op_soma_postns5"
+ ],
+ "family_base": {
+  "adam": "adam",
+  "sgd": "sgd",
+  "sam": "sgd",
+  "fsam": "sgd",
+  "muon": "muon",
+  "muon_sam": "muon",
+  "fsam_ortho_muon": "muon",
+  "fsam_ortho_muon_stale_momentum": "muon",
+  "randsam_muon": "muon",
+  "soma_prens5": "muon",
+  "op_soma_postns5": "muon"
+ },
+ "norm_pairs": [],
+ "scope_pairs": [],
+ "adamw_reference": "adam",
+ "matched_rule": "pairwise App. C.4: tau = max(min FT loss of method, min FT loss of reference); each reports the least forgetting among its runs with FT loss <= tau",
+ "forgetting_eval": "FineWeb-Edu sample-10BT held-out 'eval' shard (013), 1,048,576 tokens (ptq/data.py)",
+ "pretraining_tokens": {
+  "nanogpt_s42": 393216000,
+  "nanogpt_s43": 393216000,
+  "nanogpt_s44": 393216000,
+  "pythia70m_s42": 367001600,
+  "pythia70m_s43": 367001600,
+  "pythia70m_s44": 367001600
+ },
+ "base_init": "continued pretraining of released gpt2 / EleutherAI/pythia-70m weights",
+ "datasets": {
+  "codeparrot": {
+   "path": "codeparrot/codeparrot-clean",
+   "domain": "far",
+   "note": "Python GitHub code; stands in for StarCoder-Python (gated)"
+  },
+  "stackmathqa": {
+   "path": "math-ai/StackMathQA",
+   "name": "stackmathqa1600k",
+   "domain": "math",
+   "note": "Math StackExchange Q&A"
+  },
+  "musicpile": {
+   "path": "m-a-p/MusicPile",
+   "domain": "far",
+   "note": "Music knowledge, ABC notation and music dialogue"
+  },
+  "tulu3": {
+   "path": "allenai/tulu-3-sft-mixture",
+   "domain": "near",
+   "note": "Instruction following (chat rendered as plain text)"
+  }
+ }
+}

@@ -1,0 +1,8 @@
+epoch,optimizer,seed,train_loss,train_accuracy,val_loss,val_accuracy,val_perplexity,time_s
+1,fsam_ortho_muon,0,1.3808,51.04,0.8501,70.36,0.00,25.6
+2,fsam_ortho_muon,0,0.7176,75.56,0.6422,77.70,0.00,24.5
+3,fsam_ortho_muon,0,0.5433,81.48,0.5992,79.30,0.00,24.2
+4,fsam_ortho_muon,0,0.4510,84.69,0.4827,83.48,0.00,22.8
+5,fsam_ortho_muon,0,0.3898,86.83,0.4564,84.06,0.00,22.8
+6,fsam_ortho_muon,0,0.3396,88.62,0.4231,85.70,0.00,24.8
+7,fsam_ortho_muon,0,0.2731,91.02,0.3686,87.68,0.00,24.8

@@ -1,0 +1,112 @@
+% AUTO-GENERATED: rows = models, columns = fine-tuning datasets, lines = optimizers
+\begin{tikzpicture}
+\begin{groupplot}[ft grid axis, group style={group size=4 by 2, horizontal sep=1.15cm, vertical sep=1.5cm, xlabels at=edge bottom, xticklabels at=edge bottom}]
+\nextgroupplot[title={codeparrot}, ylabel={nanoGPT\\Fine-tuning\\train loss}, legend to name=ftlegendtrainloss, legend columns=6, legend style={font=\scriptsize, draw=none}]
+\addplot[ft-adam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/adam_codeparrot_train.csv};
+\addlegendentry{AdamW}
+\addplot[ft-sgd] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/sgd_codeparrot_train.csv};
+\addlegendentry{SGD}
+\addplot[ft-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/muon_codeparrot_train.csv};
+\addlegendentry{Muon}
+\addplot[ft-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/sam_codeparrot_train.csv};
+\addlegendentry{SAM}
+\addplot[ft-fsam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_codeparrot_train.csv};
+\addlegendentry{FSAM}
+\addplot[ft-muon-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/muon_sam_codeparrot_train.csv};
+\addlegendentry{SpecSAM-Muon}
+\addplot[ft-fsam-ortho-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_ortho_muon_codeparrot_train.csv};
+\addlegendentry{FP-SOMA}
+\addplot[ft-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_ortho_muon_stale_momentum_codeparrot_train.csv};
+\addlegendentry{SOMA}
+\addplot[ft-randsam-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/randsam_muon_codeparrot_train.csv};
+\addlegendentry{RandSAM-Muon}
+\addplot[ft-soma-prens5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/soma_prens5_codeparrot_train.csv};
+\addlegendentry{SOMA-PreNS5}
+\addplot[ft-op-soma-postns5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/op_soma_postns5_codeparrot_train.csv};
+\addlegendentry{OP-SOMA-PostNS5}
+\nextgroupplot[title={stackmathqa}]
+\addplot[ft-adam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/adam_stackmathqa_train.csv};
+\addplot[ft-sgd] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/sgd_stackmathqa_train.csv};
+\addplot[ft-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/muon_stackmathqa_train.csv};
+\addplot[ft-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/sam_stackmathqa_train.csv};
+\addplot[ft-fsam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_stackmathqa_train.csv};
+\addplot[ft-muon-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/muon_sam_stackmathqa_train.csv};
+\addplot[ft-fsam-ortho-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_ortho_muon_stackmathqa_train.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_ortho_muon_stale_momentum_stackmathqa_train.csv};
+\addplot[ft-randsam-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/randsam_muon_stackmathqa_train.csv};
+\addplot[ft-soma-prens5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/soma_prens5_stackmathqa_train.csv};
+\addplot[ft-op-soma-postns5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/op_soma_postns5_stackmathqa_train.csv};
+\nextgroupplot[title={musicpile}]
+\addplot[ft-adam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/adam_musicpile_train.csv};
+\addplot[ft-sgd] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/sgd_musicpile_train.csv};
+\addplot[ft-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/muon_musicpile_train.csv};
+\addplot[ft-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/sam_musicpile_train.csv};
+\addplot[ft-fsam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_musicpile_train.csv};
+\addplot[ft-muon-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/muon_sam_musicpile_train.csv};
+\addplot[ft-fsam-ortho-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_ortho_muon_musicpile_train.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_ortho_muon_stale_momentum_musicpile_train.csv};
+\addplot[ft-randsam-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/randsam_muon_musicpile_train.csv};
+\addplot[ft-soma-prens5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/soma_prens5_musicpile_train.csv};
+\addplot[ft-op-soma-postns5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/op_soma_postns5_musicpile_train.csv};
+\nextgroupplot[title={tulu3}]
+\addplot[ft-adam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/adam_tulu3_train.csv};
+\addplot[ft-sgd] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/sgd_tulu3_train.csv};
+\addplot[ft-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/muon_tulu3_train.csv};
+\addplot[ft-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/sam_tulu3_train.csv};
+\addplot[ft-fsam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_tulu3_train.csv};
+\addplot[ft-muon-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/muon_sam_tulu3_train.csv};
+\addplot[ft-fsam-ortho-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_ortho_muon_tulu3_train.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/fsam_ortho_muon_stale_momentum_tulu3_train.csv};
+\addplot[ft-randsam-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/randsam_muon_tulu3_train.csv};
+\addplot[ft-soma-prens5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/soma_prens5_tulu3_train.csv};
+\addplot[ft-op-soma-postns5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/nanogpt/op_soma_postns5_tulu3_train.csv};
+\nextgroupplot[xlabel={Fine-tuning step}, ylabel={Pythia-70M\\Fine-tuning\\train loss}]
+\addplot[ft-adam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/adam_codeparrot_train.csv};
+\addplot[ft-sgd] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/sgd_codeparrot_train.csv};
+\addplot[ft-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/muon_codeparrot_train.csv};
+\addplot[ft-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/sam_codeparrot_train.csv};
+\addplot[ft-fsam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_codeparrot_train.csv};
+\addplot[ft-muon-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/muon_sam_codeparrot_train.csv};
+\addplot[ft-fsam-ortho-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_ortho_muon_codeparrot_train.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_ortho_muon_stale_momentum_codeparrot_train.csv};
+\addplot[ft-randsam-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/randsam_muon_codeparrot_train.csv};
+\addplot[ft-soma-prens5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/soma_prens5_codeparrot_train.csv};
+\addplot[ft-op-soma-postns5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/op_soma_postns5_codeparrot_train.csv};
+\nextgroupplot[xlabel={Fine-tuning step}]
+\addplot[ft-adam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/adam_stackmathqa_train.csv};
+\addplot[ft-sgd] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/sgd_stackmathqa_train.csv};
+\addplot[ft-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/muon_stackmathqa_train.csv};
+\addplot[ft-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/sam_stackmathqa_train.csv};
+\addplot[ft-fsam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_stackmathqa_train.csv};
+\addplot[ft-muon-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/muon_sam_stackmathqa_train.csv};
+\addplot[ft-fsam-ortho-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_ortho_muon_stackmathqa_train.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_ortho_muon_stale_momentum_stackmathqa_train.csv};
+\addplot[ft-randsam-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/randsam_muon_stackmathqa_train.csv};
+\addplot[ft-soma-prens5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/soma_prens5_stackmathqa_train.csv};
+\addplot[ft-op-soma-postns5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/op_soma_postns5_stackmathqa_train.csv};
+\nextgroupplot[xlabel={Fine-tuning step}]
+\addplot[ft-adam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/adam_musicpile_train.csv};
+\addplot[ft-sgd] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/sgd_musicpile_train.csv};
+\addplot[ft-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/muon_musicpile_train.csv};
+\addplot[ft-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/sam_musicpile_train.csv};
+\addplot[ft-fsam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_musicpile_train.csv};
+\addplot[ft-muon-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/muon_sam_musicpile_train.csv};
+\addplot[ft-fsam-ortho-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_ortho_muon_musicpile_train.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_ortho_muon_stale_momentum_musicpile_train.csv};
+\addplot[ft-randsam-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/randsam_muon_musicpile_train.csv};
+\addplot[ft-soma-prens5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/soma_prens5_musicpile_train.csv};
+\addplot[ft-op-soma-postns5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/op_soma_postns5_musicpile_train.csv};
+\nextgroupplot[xlabel={Fine-tuning step}]
+\addplot[ft-adam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/adam_tulu3_train.csv};
+\addplot[ft-sgd] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/sgd_tulu3_train.csv};
+\addplot[ft-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/muon_tulu3_train.csv};
+\addplot[ft-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/sam_tulu3_train.csv};
+\addplot[ft-fsam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_tulu3_train.csv};
+\addplot[ft-muon-sam] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/muon_sam_tulu3_train.csv};
+\addplot[ft-fsam-ortho-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_ortho_muon_tulu3_train.csv};
+\addplot[ft-fsam-ortho-muon-stale-momentum] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/fsam_ortho_muon_stale_momentum_tulu3_train.csv};
+\addplot[ft-randsam-muon] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/randsam_muon_tulu3_train.csv};
+\addplot[ft-soma-prens5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/soma_prens5_tulu3_train.csv};
+\addplot[ft-op-soma-postns5] table[col sep=comma, x=step, y=train_loss]{\ftroot/data/pythia70m/op_soma_postns5_tulu3_train.csv};
+\end{groupplot}
+\end{tikzpicture}

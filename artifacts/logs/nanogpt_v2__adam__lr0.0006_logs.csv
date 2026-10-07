@@ -1,0 +1,4 @@
+epoch,optimizer,seed,train_loss,train_accuracy,val_loss,val_accuracy,val_perplexity,time_s
+1,adam,0,3.4314,37.28,3.3015,38.75,27.15,625.3
+2,adam,0,3.3836,37.79,3.2901,38.85,26.85,506.7
+3,adam,0,3.3724,37.93,3.2585,39.22,26.01,508.5
