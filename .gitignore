@@ -29,3 +29,9 @@ configs/generated/
 *.zip
 __pycache__/
 *.lock
+
+# --- artifacts/: results stay committed, but never the large / runtime parts ---
+artifacts/logs/queue/
+artifacts/logs/*.log
+artifacts/forgetting_results/logs/
+artifacts/paper_ft_curves/logs/
