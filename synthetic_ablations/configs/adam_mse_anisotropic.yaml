@@ -1,0 +1,124 @@
+algorithms:
+- adam
+name: adam_mse_anisotropic
+noise:
+  allow_undefined_mean: false
+  alphas:
+  - 1.1
+  - 1.3
+  - 1.6
+  - 2.0
+  - 3.0
+  - inf
+  batch_size: 64
+  cond_noise: 10.0
+  model: additive
+  scale: 1.0
+optim:
+  adam_betas:
+  - 0.9
+  - 0.999
+  adam_eps: 1.0e-08
+  clip_factor: 1.0
+  lr:
+    adam: 0.003
+    clip_sgd: 1.0
+    muon: 0.02
+    nsgdm: 0.02
+    sgd: 1.0
+  muon_momentum: 0.95
+  sgd_momentum: 0.0
+  weight_decay: 0.0
+problem:
+  cond_teacher: 10.0
+  cond_x: 100.0
+  constraint: spectral
+  d: 64
+  data_seed: 1729
+  depth: 2
+  hidden: 32
+  init_scale: 1.0
+  init_seed: 31415
+  k: 32
+  label_noise_std: 0.0
+  loss_type: mse
+  n_train: 512
+  radius_factor: 3.0
+  ridge: 0.0
+  teacher_alignment: random
+  teacher_rank: 8
+run:
+  divergence_factor: 1000.0
+  dtype: float64
+  log_every: 10
+  min_lr_fraction: 0.01
+  schedule: cosine
+  schedule_power: 0.5
+  seed_offset: 0
+  seeds: 8
+  sharpness_every: 0
+  sharpness_iters: 30
+  steps: 500
+sam:
+  friendly_lambda: 0.9
+  friendly_sigma: 1.0
+  frobenius_modes:
+  - global
+  - per-layer
+  ns_steps: 5
+  ortho: ns5
+  rho_units: nominal
+  rhos:
+  - 0.01
+  - 0.02
+  - 0.05
+  - 0.1
+  - 0.2
+  - 0.5
+  - 1.0
+tuning:
+  lr_grid:
+    adam:
+    - 0.0001
+    - 0.0003
+    - 0.001
+    - 0.003
+    - 0.01
+    - 0.03
+    clip_sgd:
+    - 0.01
+    - 0.03
+    - 0.1
+    - 0.3
+    - 1.0
+    - 3.0
+    - 10.0
+    - 30.0
+    muon:
+    - 0.001
+    - 0.002
+    - 0.005
+    - 0.01
+    - 0.02
+    - 0.05
+    - 0.1
+    nsgdm:
+    - 0.001
+    - 0.002
+    - 0.005
+    - 0.01
+    - 0.02
+    - 0.05
+    - 0.1
+    sgd:
+    - 0.01
+    - 0.03
+    - 0.1
+    - 0.3
+    - 1.0
+    - 3.0
+    - 10.0
+    - 30.0
+  max_divergence_rate: 0.25
+  seed_offset: 100000
+  seeds: 16

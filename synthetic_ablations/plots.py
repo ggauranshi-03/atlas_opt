@@ -1,0 +1,236 @@
+"""Figures and summary tables from a results directory.
+
+    python -m synthetic_ablations.plots results/single_matrix
+"""
+import argparse
+import json
+import math
+from pathlib import Path
+
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+GROUPS = {
+    "muon": lambda t: (t["outer"].isin(["muon", "nsgdm"])),
+    "sgd": lambda t: (t["outer"].isin(["sgd", "clip_sgd"])),
+    "all": lambda t: t["outer"].notna(),
+}
+METRIC_LABELS = {
+    "gap": "Final objective gap  F(W_T) - F*",
+    "excess_risk": "Final population excess risk",
+    "lambda_max": "Final Hessian lambda_max",
+    "balancedness": "Final balancedness",
+    "effective_rank": "Final effective rank of P",
+    "val_acc": "Validation Accuracy",
+    "val_loss": "Validation Loss",
+    "train_acc": "Train Accuracy",
+    "objective": "Train Loss (Objective)",
+}
+
+
+def _alpha_title(alpha):
+    return "alpha = inf (Gaussian)" if math.isinf(alpha) else f"alpha = {alpha:g}"
+
+
+def final_table(finals, metric):
+    column = f"final_{metric}"
+    keys = ["variant", "label", "algorithm", "outer", "origin", "alpha", "rho"]
+    grouped = finals.groupby(keys, dropna=False)
+    # Diverged seeds carry +inf for gap-type metrics, so the median is conservative (no survivor bias).
+    table = grouped[column].agg(median=lambda s: np.nanmedian(s), q25=lambda s: np.nanquantile(s, 0.25),
+                                q75=lambda s: np.nanquantile(s, 0.75)).reset_index()
+    table["mean_finite"] = grouped[column].apply(lambda s: s[np.isfinite(s)].mean()).values
+    table["divergence_rate"] = grouped["diverged"].mean().values
+    table["perturbation"] = grouped["final_perturbation_frob"].median().values
+    table["oracle_calls"] = grouped["oracle_calls"].max().values
+    return table
+
+
+def _colors(variants):
+    cmap10 = plt.get_cmap("tab10")
+    cmap20 = plt.get_cmap("tab20")
+    ordered = sorted(variants)
+    return {v: cmap10(i) if i < 10 else cmap20(i*2 - 1) for i, v in enumerate(ordered)}
+
+
+def _panels(alphas):
+    fig, axes = plt.subplots(1, len(alphas), figsize=(4.6 * len(alphas), 4.2), squeeze=False)
+    return fig, axes[0]
+
+
+def plot_vs_rho(table, metric, group, path, x="rho"):
+    subset = table[GROUPS[group](table)]
+    if subset.empty:
+        return
+    alphas = sorted(subset["alpha"].unique())
+    colors = _colors(subset["variant"].unique())
+    fig, axes = _panels(alphas)
+    for axis, alpha in zip(axes, alphas):
+        at = subset[subset["alpha"] == alpha]
+        sam = at[at["rho"].notna()]
+        for variant, rows in sam.groupby("variant"):
+            rows = rows.sort_values(x)
+            finite = np.isfinite(rows["median"])
+            axis.plot(rows[x][finite], rows["median"][finite], marker="o", markersize=3,
+                      color=colors[variant], label=rows["label"].iloc[0])
+            axis.fill_between(rows[x][finite], rows["q25"][finite], rows["q75"][finite],
+                              color=colors[variant], alpha=0.12, linewidth=0)
+        for _, row in at[at["rho"].isna()].iterrows():
+            if np.isfinite(row["median"]):
+                axis.axhline(row["median"], color=colors[row["variant"]], linestyle="--", linewidth=1.2,
+                             label=row['label'])
+        axis.set_xscale("log")
+        axis.set_yscale("log")
+        axis.set_title(_alpha_title(alpha))
+        axis.set_xlabel("rho")
+        if metric == "val_acc":
+            axis.set_ylabel("val accuracy")
+        elif metric == "train_acc":
+            axis.set_ylabel("train accuracy")
+        elif metric == "val_loss":
+            axis.set_ylabel("val loss")
+        else:
+            axis.set_ylabel(METRIC_LABELS.get(metric, metric))
+    # Union legend handles across all panels, not just the last: an algorithm whose alpha
+    # coverage doesn't reach the last panel (e.g. a new variant swept over fewer alphas than
+    # the rest) would otherwise be plotted but silently dropped from the legend.
+    by_label = {}
+    for axis in axes:
+        for handle, label in zip(*axis.get_legend_handles_labels()):
+            by_label.setdefault(label, handle)
+
+    # Custom order (top to bottom)
+    order_map = {
+        'SOMA': 0,
+        'FP-SOMA': 1,
+        'SpecSAM-Muon': 2,
+        'RandSAM-Muon': 3,
+        'FSAM': 4,
+        'SAM': 5,
+        'Muon': 6,
+        'AdamW': 7
+    }
+    ordered_labels = sorted(by_label, key=lambda label: order_map.get(label, 999))
+    handles = [by_label[label] for label in ordered_labels]
+
+    fig.legend(handles, ordered_labels, loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=7)
+    fig.tight_layout()
+    fig.savefig(path, dpi=160, bbox_inches="tight")
+    plt.close(fig)
+
+
+def best_rho(table):
+    sam = table[table["rho"].notna()]
+    best = sam.loc[sam.groupby(["variant", "alpha"])["median"].idxmin().dropna()]
+    return pd.concat([best, table[table["rho"].isna()]], ignore_index=True)
+
+
+def plot_curves(curves, best, group, path, x="step", metric="gap"):
+    best = best[GROUPS[group](best)]
+    if best.empty:
+        return
+    alphas = sorted(best["alpha"].unique())
+    colors = _colors(best["variant"].unique())
+    fig, axes = _panels(alphas)
+    for axis, alpha in zip(axes, alphas):
+        for _, row in best[best["alpha"] == alpha].iterrows():
+            mask = (curves["variant"] == row["variant"]) & (curves["alpha"] == alpha)
+            mask &= curves["rho"].isna() if pd.isna(row["rho"]) else np.isclose(curves["rho"], row["rho"])
+            rows = curves[mask].sort_values("step")
+            if rows.empty:
+                continue
+            rho = "" if pd.isna(row["rho"]) else f" (rho={row['rho']:g})"
+            linestyle = "--" if pd.isna(row["rho"]) else "-"
+            axis.plot(rows[x], rows[f"{metric}_median"], color=colors[row["variant"]], linestyle=linestyle,
+                      label=row["label"] + rho)
+            axis.fill_between(rows[x], rows[f"{metric}_q25"], rows[f"{metric}_q75"],
+                              color=colors[row["variant"]], alpha=0.1, linewidth=0)
+        axis.set_yscale("log")
+        axis.set_title(_alpha_title(alpha))
+        axis.set_xlabel("iteration" if x == "step" else "oracle (gradient) calls")
+        axis.set_ylabel(f"{metric} (median, IQR band)")
+        axis.grid(alpha=0.3, which="both")
+    by_label = {}
+    for axis in axes:
+        for handle, label in zip(*axis.get_legend_handles_labels()):
+            by_label.setdefault(label, handle)
+    fig.legend(by_label.values(), by_label.keys(), loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=7)
+    fig.tight_layout()
+    fig.savefig(path, dpi=160, bbox_inches="tight")
+    plt.close(fig)
+
+
+def plot_robustness(best, group, path, metric="gap"):
+    best = best[GROUPS[group](best)]
+    if best.empty:
+        return
+    colors = _colors(best["variant"].unique())
+    alphas = sorted(best["alpha"].unique())
+    positions = {a: i for i, a in enumerate(alphas)}
+    fig, axis = plt.subplots(figsize=(7.5, 4.8))
+    for variant, rows in best.groupby("variant"):
+        rows = rows.sort_values("alpha")
+        xs = [positions[a] for a in rows["alpha"]]
+        axis.plot(xs, rows["median"], marker="o", color=colors[variant],
+                  linestyle="--" if rows["rho"].isna().all() else "-", label=rows["label"].iloc[0])
+    axis.set_xticks(range(len(alphas)))
+    axis.set_xticklabels(["inf" if math.isinf(a) else f"{a:g}" for a in alphas])
+    axis.set_xlabel("tail index alpha (smaller = heavier tail)")
+    axis.set_ylabel(f"{METRIC_LABELS.get(metric, metric)} at best rho")
+    axis.set_yscale("log")
+    axis.grid(alpha=0.3, which="both")
+    axis.legend(fontsize=7, loc="center left", bbox_to_anchor=(1.0, 0.5))
+    fig.tight_layout()
+    fig.savefig(path, dpi=160, bbox_inches="tight")
+    plt.close(fig)
+
+
+def make_all(out):
+    out = Path(out)
+    finals_path, curves_path = out / "finals.csv", out / "curves.csv"
+    if not finals_path.exists():
+        print(f"No finals.csv in {out}")
+        return
+    finals = pd.read_csv(finals_path)
+    curves = pd.read_csv(curves_path)
+    figures = out / "figures"
+    figures.mkdir(exist_ok=True)
+    depth = int(finals["depth"].iloc[0])
+    #metrics = ["gap", "excess_risk"] + (["lambda_max", "balancedness"] if depth >= 2 else ["lambda_max"])
+
+    loss_type = finals.get("loss_type", pd.Series(["mse"])).iloc[0]
+    
+    if str(loss_type).startswith("nn"):
+        metrics = ["val_acc", "val_loss", "train_acc"]
+        primary_metric = "val_loss"
+    else:
+        metrics = ["gap"]  # User requested only gap plots, skips lambda_max to avoid NaN crash
+        primary_metric = "gap"
+
+    gap_table = final_table(finals, primary_metric)
+    best = best_rho(gap_table)
+    best.to_csv(out / "summary_best_rho.csv", index=False)
+    gap_table.to_csv(out / "summary_all.csv", index=False)
+    for group in GROUPS:
+        for metric in metrics:
+            table = gap_table if metric == primary_metric else final_table(finals, metric)
+            plot_vs_rho(table, metric, group, figures / f"{metric}_vs_rho_{group}.png")
+        plot_vs_rho(gap_table, primary_metric, group, figures / f"{primary_metric}_vs_perturbation_{group}.png", x="perturbation")
+        # plot_curves(curves, best, group, figures / f"gap_vs_step_best_rho_{group}.png")
+        # plot_curves(curves, best, group, figures / f"gap_vs_oracle_calls_best_rho_{group}.png", x="oracle_calls")
+        # plot_robustness(best, group, figures / f"robustness_vs_alpha_{group}.png")
+    print(f"Figures written to {figures}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("results_dir")
+    make_all(parser.parse_args().results_dir)
+
+
+if __name__ == "__main__":
+    main()

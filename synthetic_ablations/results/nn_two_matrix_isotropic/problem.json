@@ -1,0 +1,21 @@
+{
+  "depth": 2,
+  "shapes": [
+    [
+      32,
+      64
+    ],
+    [
+      32,
+      32
+    ]
+  ],
+  "n_train": 512,
+  "F_star": 2.2504740078131276,
+  "rank_budget": 0,
+  "constraint": "spectral",
+  "radius": 54.86888588595599,
+  "sigma_condition_number": 99.99999999999993,
+  "F_init": 3.8037716109855877,
+  "cpu_count": 16
+}
