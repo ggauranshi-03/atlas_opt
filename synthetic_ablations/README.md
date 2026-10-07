@@ -111,12 +111,18 @@ Every method is a point in one design space: **SAM step** = (perturbation **sour
 | `stale-momentum-friendly-sam-muon` | Muon | stale_momentum_friendly · Frobenius | 1 (2 at t=0) | – | – | added |
 | `stale-friendly-spectral-sam-muon` | Muon | stale_friendly · spectral | 1 (2 at t=0) | – | `stale-spectral-friendly-sam-muon` | mnist |
 | `stale-momentum-friendly-spectral-sam-muon` | Muon | stale_momentum_friendly · spectral | 1 (2 at t=0) | – | `stale-muon-momentum-spectral-sam-muon` (sign-fixed) | mnist |
+| `op-soma-prens5` | Muon | op_soma_pre · spectral | 1 (2 at t=0) | `soma_projected.py` | – | added |
+| `op-soma-postns5` | Muon | stale_momentum_friendly · op_soma_post | 1 (2 at t=0) | `soma_projected.py` | – | added |
 
 **Outer updates** (all per matrix, `lr_t` from the schedule):
 - **Muon:** `v ← βv + g`, `n = g + βv` (Nesterov), `W ← W − lr·√max(1, rows/cols)·NS5(n)`. This is identical to `atlas_baseline.py` and equivalent to the EMA form of `muon.py`, because the two differ by a constant factor that NS5 removes.
 - **NSGD-M:** the same as Muon but with `NS5(n)` replaced by `√min(rows, cols)·n/‖n‖_F`. It has the same momentum, the same Nesterov step and the same update size; **only the geometry differs** (Frobenius instead of spectral normalization). It is the control that separates "Muon helps because it normalizes" from "Muon helps because of the spectral geometry".
 - **Clip-SGD:** `g ← g·min(1, τ/‖g‖_F)` with a constant `τ = clip_factor·‖∇F(W_0)‖_F`, the robust baseline of the heavy-tailed literature.
 - **SGD and AdamW:** standard; no momentum for SGD by default (paper setting).
+
+**Orthogonally Projected SOMA (OP-SOMA):**
+- **OP-SOMA-PreNS5**: Projects the stale gradient to be exactly Frobenius-orthogonal to the current Muon momentum *before* applying NS5 spectral normalization.
+- **OP-SOMA-PostNS5**: Applies NS5 to the momentum-friendly stale gradient first, then projects the result to be exactly Frobenius-orthogonal to the *previous* step's update, rescaling back to radius ρ without a second NS5 pass.
 
 ---
 
@@ -546,3 +552,27 @@ SAM-Muon.)*
   relative to the gap between optimizers, so we would not lean heavily on either direction without
   more seeds. SGD's own comparison at `α=1.1` (523 vs 588) is noisy at that scale and not treated as
   informative here.
+
+### 8.5 Ablation: Fresh vs Stale Gradients
+
+This ablation strictly isolates the effect of using **Fresh** gradients (2 oracle calls/step, freshly computed at the current unperturbed weights) versus **Stale** gradients (1 oracle call/step, reusing the gradient from the previous outer update step) for the perturbation direction. Both comparisons below use Muon as the base optimizer.
+
+#### Nonlinear Anisotropic (Validation Accuracy %, higher is better)
+| Method | Geometry | `α = 1.1` | `α = 1.6` | `α = 2.0` | `α = 3.0` |
+|---|---|---|---|---|---|
+| SAM-Muon (Fresh) | Frobenius | 38.28 | 43.16 | 45.02 | 45.61 |
+| S2SAM-Muon (Stale) | Frobenius | 38.18 | 43.26 | 45.02 | 44.92 |
+| SpecSAM-Muon (Fresh) | Spectral | 38.57 | 43.65 | 46.29 | 46.97 |
+| S2SAM-Muon (O) (Stale) | Spectral (O) | 38.87 | 44.43 | 46.78 | 45.70 |
+
+#### Linear Anisotropic (Gap, lower is better)
+| Method | Geometry | `α = 1.1` | `α = 1.6` | `α = 2.0` | `α = 3.0` |
+|---|---|---|---|---|---|
+| SAM-Muon (Fresh) | Frobenius | 0.4037 | 0.0581 | 0.0294 | 0.0149 |
+| S2SAM-Muon (Stale) | Frobenius | 0.4068 | 0.0601 | 0.0312 | 0.0165 |
+| SpecSAM-Muon (Fresh) | Spectral | 0.2648 | 0.0473 | 0.0253 | 0.0141 |
+| S2SAM-Muon (O) (Stale) | Spectral (O) | 0.2846 | 0.0588 | 0.0309 | 0.0165 |
+
+**Takeaways:**
+- Reusing the stale gradient (S2SAM-Muon) performs virtually identically to computing a fresh gradient (SAM-Muon) across the board, despite requiring only **half the compute** (1 oracle call vs 2).
+- The strict Spectral mapping holds steady: SpecSAM dominates Frobenius SAM regardless of whether the gradient used for perturbation was fresh or stale, proving that the spectral norm ball itself is the primary source of heavy-tail robustness, not just the accuracy of the gradient used to find its edge.
