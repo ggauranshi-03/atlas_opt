@@ -137,7 +137,6 @@
     }
   },
   "algorithms": [
-    "sgd",
     "msam"
   ],
   "tuned_lrs_used": {}

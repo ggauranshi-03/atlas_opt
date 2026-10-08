@@ -107,8 +107,10 @@ SPECS = [
     # own momentum buffer v_t IS the (normalized) perturbation direction -- one oracle call per
     # step, same mu shared by the perturbation and the outer update. Requires optim.sgd_momentum
     # set to mu > 0 in the run's config (left at the shared default of 0.0 otherwise, which would
-    # silently degenerate this into plain SAM+SGD).
-    Spec("msam", "Momentum-SAM (MSAM)", "sgd", "stale_momentum", "frobenius", origin="added"),
+    # silently degenerate this into plain SAM+SGD). Uses "momentum_lookahead" (w~ = w - rho*v/||v||,
+    # per the paper), NOT "stale_momentum" (w~ = w + rho*v/||v||, a different, ascent-style
+    # algorithm used elsewhere in this file) -- see that source's docstring note.
+    Spec("msam", "Momentum-SAM (MSAM)", "sgd", "momentum_lookahead", "frobenius", origin="added"),
 ]
 SPEC_BY_NAME = {spec.name: spec for spec in SPECS}
 BASE_OUTERS = ("sgd", "adam", "muon", "nsgdm", "clip_sgd")
@@ -234,6 +236,14 @@ class Engine:
             if t > 0:
                 return [v.clone() for v in state.momentum], 0
             return clean(), 1
+        if source == "momentum_lookahead":
+            # Momentum-SAM (Becker et al. 2024): perturbs by SUBTRACTING the momentum
+            # direction (w~ = w - rho*v/||v||, a descent-direction lookahead/extrapolation),
+            # the opposite sign from "stale_momentum" above (which ADDS it, an ascent-style
+            # direction used by other, separately-tested algorithms). Do not merge these.
+            if t > 0:
+                return [-v for v in state.momentum], 0
+            return [-g for g in clean()], 1
         if source in ("stale_friendly", "stale_momentum_friendly"):
             if state.last_outer is None:
                 g = clean()
