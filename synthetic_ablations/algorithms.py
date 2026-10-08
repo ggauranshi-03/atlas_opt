@@ -103,6 +103,12 @@ SPECS = [
     # rescales to the operator-norm ball -- geometry "op_soma_post".
     Spec("op-soma-postns5", "OP-SOMA-PostNS5", "muon", "stale_momentum_friendly", "op_soma_post",
          origin="added"),
+    # ---- Momentum-SAM (Becker et al. 2024, arXiv:2401.12033): SGD-momentum outer step whose
+    # own momentum buffer v_t IS the (normalized) perturbation direction -- one oracle call per
+    # step, same mu shared by the perturbation and the outer update. Requires optim.sgd_momentum
+    # set to mu > 0 in the run's config (left at the shared default of 0.0 otherwise, which would
+    # silently degenerate this into plain SAM+SGD).
+    Spec("msam", "Momentum-SAM (MSAM)", "sgd", "stale_momentum", "frobenius", origin="added"),
 ]
 SPEC_BY_NAME = {spec.name: spec for spec in SPECS}
 BASE_OUTERS = ("sgd", "adam", "muon", "nsgdm", "clip_sgd")
