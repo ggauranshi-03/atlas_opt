@@ -111,6 +111,10 @@ SPECS = [
     # per the paper), NOT "stale_momentum" (w~ = w + rho*v/||v||, a different, ascent-style
     # algorithm used elsewhere in this file) -- see that source's docstring note.
     Spec("msam", "Momentum-SAM (MSAM)", "sgd", "momentum_lookahead", "frobenius", origin="added"),
+    # Same perturbation (own momentum buffer, lookahead sign) but with Muon as the outer step
+    # instead of plain SGD -- "MSOMA". state.momentum is the one buffer every outer updates the
+    # same way (v = beta*v + g), so this is a pure outer-optimizer swap, no new source needed.
+    Spec("msoma", "MSOMA (Momentum-SAM + Muon)", "muon", "momentum_lookahead", "frobenius", origin="added"),
 ]
 SPEC_BY_NAME = {spec.name: spec for spec in SPECS}
 BASE_OUTERS = ("sgd", "adam", "muon", "nsgdm", "clip_sgd")

@@ -123,3 +123,4 @@ tuning:
 algorithms:
 - sgd
 - msam
+- msoma

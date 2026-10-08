@@ -139,7 +139,7 @@
     }
   },
   "algorithms": [
-    "msam"
+    "msoma"
   ],
   "tuned_lrs_used": {}
 }
