@@ -29,6 +29,7 @@ from optimizers.fsam_ortho import FSAMOrtho
 from optimizers.fsam import FSAM
 from optimizers.sam import SAM
 from optimizers.sam_ortho import SAMOrtho
+from optimizers.msam import MSAM
 from utils.models import AirbenchCNN
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -252,6 +253,15 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
             weight_decay=wd,
         )
         return opt, get_wsd_schedule(opt)
+    elif name == "msam":
+        opt = MSAM(
+            trainable_params,
+            lr=lr,
+            rho=params.get("rho", 0.05),
+            momentum=params.get("momentum", 0.9),
+            weight_decay=wd,
+        )
+        return opt, get_wsd_schedule(opt)
     elif name == "adam":
         opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd, betas=(0.9, 0.95), eps=1e-8)
         return opt, get_wsd_schedule(opt)
@@ -273,7 +283,7 @@ def train_epoch(model, optimizer, criterion, batch_iter, task_type, grad_acc=1, 
                                             MuonSAMFrob, MuonSAMStale, FSAMMuon, FSAMOrthoMuon, FSAMOrthoMuonStale,
                                             FSAMOrthoMuonStaleMomentum, FSAMFrobMuonStale,
                                             FSAMFrobMuonStaleMomentum, MuonSAMGFrob, RandSAMMuon, SOMAPreNS5, OPSOMAPostNS5, FSAMGFrobMuonStale,
-                                            FSAMGFrobMuonStaleMomentum, FSAMOrtho, FSAM, SAM, SAMOrtho))
+                                            FSAMGFrobMuonStaleMomentum, FSAMOrtho, FSAM, SAM, SAMOrtho, MSAM))
     steps = 0
     
     while steps < steps_per_epoch:
