@@ -409,8 +409,7 @@ Validation loss at the same checkpoints:
 
 ### 8.3 Perturbation Alignment: cos(θ) Between the SAM Perturbation and the Gradient / Momentum
 
-**What this measures and why.** A SAM-type step perturbs the weights by some direction `ε_t`
-(§6's "source"), then takes a gradient at the perturbed point. For stale/friendly/lookahead
+**What this measures and why.** A SAM-type step perturbs the weights by some direction `ε_t`, then takes a gradient at the perturbed point. For stale/friendly/lookahead
 sources, `ε_t` is built from old or momentum-derived information rather than a fresh gradient —
 this measures how *aligned* that perturbation direction actually is with (a) the clean gradient
 `g_t` and (b) the optimizer's own momentum buffer `v_t`, at the exact instant the perturbation is
