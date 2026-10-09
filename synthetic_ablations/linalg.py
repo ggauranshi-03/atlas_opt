@@ -67,6 +67,18 @@ def frobenius_reject(a, x):
     return x - bview(coeff, x) * a
 
 
+def total_cosine(a_list, b_list, eps=1e-12):
+    """Per-seed cosine similarity between two multi-layer directions, treating all layers as
+    one concatenated vector (matching the "global" Frobenius convention): sum_l <a_l,b_l>_F
+    over the product of the two combined norms. NaN wherever either side is (numerically) zero
+    (undefined direction), not 0 -- a zero vector has no angle, so it must not silently read as
+    "orthogonal"."""
+    inner = torch.stack([frob_inner(a, b) for a, b in zip(a_list, b_list)]).sum(0)
+    denom = total_frob(a_list) * total_frob(b_list)
+    cos = inner / denom.clamp(min=eps)
+    return torch.where(denom > eps, cos, torch.full_like(cos, float("nan")))
+
+
 def project_spectral_ball(w, radius):
     """Euclidean projection onto {W : ||W||_2 <= radius}: clip singular values."""
     u, s, vh = torch.linalg.svd(w, full_matrices=False)

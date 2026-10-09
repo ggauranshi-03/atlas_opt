@@ -22,7 +22,7 @@ from dataclasses import dataclass
 
 import torch
 
-from .linalg import bview, frob, frobenius_reject, orthogonalize, newton_schulz5, spectral_norm, total_frob
+from .linalg import bview, frob, frobenius_reject, orthogonalize, newton_schulz5, spectral_norm, total_cosine, total_frob
 
 
 @dataclass(frozen=True)
@@ -153,6 +153,8 @@ class OptimizerState:
         self.friendly = [z.clone() for z in zeros]
         self.last_update = None
         self.last_outer = None
+        self.cos_pert_grad = None
+        self.cos_pert_momentum = None
         self.t = 0
 
     def reset_seeds(self, mask):
@@ -320,14 +322,29 @@ class Engine:
             w.mul_(1.0 - lr * self.weight_decay)
 
     # ------------------------------------------------------------------ one step
-    def step(self, Ws, state, oracle, sample, lr):
+    def step(self, Ws, state, oracle, sample, lr, measure_alignment=False):
         """Advance Ws in place. Returns (perturbation, updates, oracle_calls)."""
         clean = lambda: oracle.gradients(Ws, sample)
+        state.cos_pert_grad = None
+        state.cos_pert_momentum = None
         if not self.spec.is_sam:
             grads, calls, eps = clean(), 1, None
         else:
             directions, calls = self._directions(Ws, state, clean)
             eps = self._geometry(directions, state)
+            if measure_alignment:
+                # g_t / v_t as they were at the moment eps was actually applied -- BEFORE
+                # _outer() below mutates Ws and state.momentum. Reuses the already-computed
+                # clean gradient when the source already is one; costs one extra oracle call
+                # (diagnostic only, never fed back into the trajectory) otherwise.
+                if self.spec.source == "grad":
+                    g_t = directions
+                else:
+                    g_t = clean()
+                    calls += 1
+                v_t = [v.clone() for v in state.momentum]
+                state.cos_pert_grad = total_cosine(eps, g_t)
+                state.cos_pert_momentum = total_cosine(eps, v_t)
             grads = oracle.gradients([w + e for w, e in zip(Ws, eps)], sample)
             calls += 1
         updates = self._outer(Ws, grads, state, lr)

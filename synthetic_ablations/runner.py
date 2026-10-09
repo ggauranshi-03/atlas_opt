@@ -11,7 +11,7 @@ from .objective import (balancedness, end_to_end, excess_risk, full_gradient, fu
 
 CURVE_METRICS = ("objective", "gap", "excess_risk", "dist_to_opt", "grad_norm", "perturbation_frob",
                  "perturbation_op", "update_frob", "sharpness_gap", "balancedness", "effective_rank",
-                 "lambda_max", "train_acc", "val_acc", "val_loss")
+                 "lambda_max", "train_acc", "val_acc", "val_loss", "cos_pert_grad", "cos_pert_momentum")
 
 
 def alpha_key(alpha):
@@ -56,6 +56,7 @@ def run_variant(spec, mode, alpha, rho, lr, problem, cfg, seeds=None, seed_offse
     log_every = int(run.get("log_every", 10))
     sharp_every = int(run.get("sharpness_every", 0))
     divergence_factor = float(run.get("divergence_factor", 1e3))
+    measure_alignment = bool(run.get("measure_alignment", False))
     dtype = problem.X.dtype
     base = _seed_base(run, alpha)
 
@@ -124,6 +125,13 @@ def run_variant(spec, mode, alpha, rho, lr, problem, cfg, seeds=None, seed_offse
             perturbed = [p + e for p, e in zip(prev, eps)]
             metrics["sharpness_gap"] = full_objective(perturbed, problem) - full_objective(prev, problem)
         metrics["update_frob"] = zero if updates is None else total_frob(updates)
+        # cos(perturbation, clean gradient) / cos(perturbation, momentum) at the moment the
+        # perturbation was actually applied (see Engine.step) -- NaN for non-SAM baselines, and
+        # whenever measure_alignment is off (the default: this costs one extra oracle call per
+        # logged step for "stale"-sourced algorithms, so it's opt-in, never silently inflating
+        # the cost of an ordinary sweep).
+        metrics["cos_pert_grad"] = state.cos_pert_grad if state.cos_pert_grad is not None else nan_col
+        metrics["cos_pert_momentum"] = state.cos_pert_momentum if state.cos_pert_momentum is not None else nan_col
         wants_sharpness = sharp_every and (step % sharp_every == 0 or step == T)
         metrics["lambda_max"] = (hessian_lambda_max(Ws, problem, int(run.get("sharpness_iters", 30)),
                                                      probe_generator)
@@ -141,7 +149,8 @@ def run_variant(spec, mode, alpha, rho, lr, problem, cfg, seeds=None, seed_offse
     for step in range(T):
         sample = oracle.draw()
         prev = [w.clone() for w in Ws]
-        eps, updates, calls = engine.step(Ws, state, oracle, sample, lr * lr_factor(step, T, run, alpha))
+        eps, updates, calls = engine.step(Ws, state, oracle, sample, lr * lr_factor(step, T, run, alpha),
+                                          measure_alignment=measure_alignment)
         oracle_calls += calls
 
         finite = torch.stack([torch.isfinite(w).flatten(1).all(1) for w in Ws]).all(0)
