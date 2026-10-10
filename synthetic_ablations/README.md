@@ -426,13 +426,33 @@ norm. This is safe to enable without perturbing training: `Oracle.gradients` is 
 function of `(weights, pre-drawn sample)`, so the extra call never changes the trajectory, only logs
 an extra number. §8.2's alignment sweeps turn this on for all 13 curated algorithms.
 
-Per algorithm/α/ρ, the CSVs below report the across-seed median/IQR of the per-seed final-step
-cosine (8 seeds), plus `theta_degrees = arccos(median cos θ)` for a more intuitive angle reading.
+Per algorithm/α/ρ, the CSVs below report the across-seed central tendency and IQR of the per-seed
+final-step cosine (8 seeds; for an algorithm with both `frobenius_modes`, only the `global` mode is
+used, never pooled with `per-layer` — pooling the two would silently double the effective seed
+count), plus `theta_degrees = arccos(center cos θ)` for a more intuitive angle reading.
 
 - `results/heavytailed_figures_preview/cos_pert_grad_by_rho.csv` /
   `cos_pert_grad_by_rho_isotropic.csv` — perturbation vs. gradient.
 - `results/heavytailed_figures_preview/cos_pert_momentum_by_rho.csv` /
   `cos_pert_momentum_by_rho_isotropic.csv` — perturbation vs. momentum.
+
+**Central-tendency statistic.** The default (and every plot embedded below) uses the **median**,
+matching every other table in this README. `synthetic_ablations/cos_theta_stats.py` (the generator
+for every cos-θ CSV/plot in this section) takes `--stat {median,mean,mode}`; `mean` is the ordinary
+average, and `mode` is the **half-sample mode** (Bickel & Frühwirth 2006) — with only 8 seeds, a
+density/KDE mode would be bandwidth-dependent and arbitrary, whereas the half-sample mode is
+deterministic and needs no tuning parameter (recursively keep whichever half of the sorted sample
+is most tightly clustered until 1–2 points remain). Running
+
+```
+python synthetic_ablations/cos_theta_stats.py <finals.csv> results/heavytailed_figures_preview \
+  --stat mean --noise-label anisotropic   # or: --stat mode / --noise-label isotropic
+```
+
+writes the same six file types again under an explicit `_mean`/`_mode` suffix (e.g.
+`cos_pert_grad_by_rho_mean.csv`, `vector_angle_grad_mode_isotropic.png`) rather than overwriting the
+median files — all three statistics are published side by side in
+`results/heavytailed_figures_preview/`, not just median.
 
 ![cos(perturbation, gradient) vs rho - Anisotropic](results/heavytailed_figures_preview/cos_pert_grad_vs_rho.png)
 ![cos(perturbation, gradient) vs rho - Isotropic](results/heavytailed_figures_preview/cos_pert_grad_vs_rho_isotropic.png)
@@ -469,11 +489,19 @@ per algorithm at `θ=arccos(median cos θ)`, and a shaded wedge spanning the IQR
   *next* instantaneous gradient (also corrupted, independently); as the tail lightens, individual
   gradients stabilize and the correlation climbs.
 - **Does noise *structure* (isotropic vs. anisotropic), not just its tail-heaviness, affect cos(θ)?
-  Only slightly, and consistently less than tail-heaviness does.** Holding ρ=0.2 fixed and comparing
-  the two noise settings directly, the largest discrepancy across all 13 algorithms and both cosines
-  is `SpecSAM-Muon`'s `cos(ε, g)` at `α=1.6` (0.595 anisotropic vs. 0.673 isotropic, a 0.077 gap);
-  most algorithms differ by under 0.03. That is 5–10× smaller than the α-driven swing for the same
-  algorithms (e.g. `SpecSAM-Muon` spans 0.34→0.78 across α). **Conclusion: tail-heaviness (α), not
-  the directional structure of the noise, is what mainly governs how aligned a SAM-type perturbation
-  ends up with the clean gradient or momentum direction** — the same conclusion §8.2 reaches
-  independently from validation accuracy.
+  Mostly only slightly — with two honest exceptions.** Holding ρ=0.2 fixed and comparing the two
+  noise settings directly, 9 of the 13 algorithms differ by under 0.03 (`SAM`, `SAM+AdamW`: ≈0;
+  `RandSAM-Muon`, `MSAM`, `MSOMA`, `SOMA`, `OP-SOMA-PreNS5`, `OP-SOMA-PostNS5`, `Lazy-SOMA`: 0.01–0.03),
+  far smaller than the α-driven swings for the same algorithms (often 0.4–0.5, e.g. `SpecSAM-Muon`
+  spans 0.34→0.78 across α with only a 0.08 max iso/aniso gap at any fixed α). **`FSAM` and
+  `FSAM+AdamW` are the exception:** their `cos(ε, g)` differs by 0.10–0.11 between noise types at
+  `α=1.1` specifically (`FSAM+AdamW`: 0.835 anisotropic vs. 0.949 isotropic) — comparable in size to
+  their *own* α-driven range (0.13), not 5–10× smaller. Both are the two curated algorithms with no
+  Muon involvement at all (SGD/AdamW outer, Frobenius geometry, fresh friendly gradient, no
+  staleness) and both are also the pair that catastrophically overfits at `α=1.1` under anisotropic
+  noise (§8.2a) — a regime change that plausibly makes their gradient direction behave differently
+  enough that it's no longer safe to call the noise-structure effect "negligible" for this pair
+  specifically. **Conclusion: tail-heaviness (α) is still the dominant driver of cos(θ) for most of
+  the curated set, and noise structure's effect is small-to-negligible there — but this is not
+  universal, and `FSAM`/`FSAM+AdamW` are a genuine, data-grounded counterexample**, not noise to be
+  averaged away.
