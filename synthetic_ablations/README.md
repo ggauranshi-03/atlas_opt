@@ -409,6 +409,10 @@ Validation loss at the same checkpoints:
 
 ### 8.3 Perturbation Alignment: cos(θ) Between the SAM Perturbation and the Gradient / Momentum
 
+> 📌 **Direct Table Links:**
+> - [Jump to: cos(ε, gradient after perturbing) table](#table-cos-pert-grad)
+> - [Jump to: cos(ε, momentum after this step's outer update) table](#table-cos-pert-momentum)
+
 **What this measures and why.** A SAM-type step perturbs the weights by some direction `ε_t`, then
 takes a gradient `g̃_t = ∇F(w_t + ε_t)` at the perturbed point — the gradient actually used for
 that step's outer update. This measures how aligned `ε_t` is with (a) that **post-perturbation**
@@ -522,8 +526,12 @@ behavior at the ρ each algorithm is deployed at). Where mean and mode disagree 
 exactly the kind of outlier this whole codebase studies — so median/mode agreeing with each other
 more than either agrees with mean is itself informative, not a discrepancy to explain away.
 
+**Quick Table Navigation:** [Jump to Gradient Alignment Table](#table-cos-pert-grad) · [Jump to Momentum Alignment Table](#table-cos-pert-momentum)
 
-**cos(ε, gradient after perturbing)** — each cell is `cos θ (θ°)`:
+<a id="table-cos-pert-grad"></a>
+<a id="cos-pert-grad"></a>
+##### Table: cos(ε, gradient after perturbing)
+*(each cell is `cos θ (θ°)`)*
 
 | Optimizer | What it stands for | Median α=1.1 | Median α=1.6 | Median α=2 | Median α=3 | Mean α=1.1 | Mean α=1.6 | Mean α=2 | Mean α=3 | Mode α=1.1 | Mode α=1.6 | Mode α=2 | Mode α=3 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -559,7 +567,10 @@ more than either agrees with mean is itself informative, not a discrepancy to ex
 | **MSAM** | It's built purely from momentum, with no gradient information in it, so there's no reason it should match the new gradient. |
 | **MSOMA** | Same as `MSAM` — swapping in a Muon outer doesn't change what the perturbation is built from. |
 
-**cos(ε, momentum after this step's outer update)** — each cell is `cos θ (θ°)`:
+<a id="table-cos-pert-momentum"></a>
+<a id="cos-pert-momentum"></a>
+##### Table: cos(ε, momentum after this step's outer update)
+*(each cell is `cos θ (θ°)`)*
 
 | Optimizer | What it stands for | Median α=1.1 | Median α=1.6 | Median α=2 | Median α=3 | Mean α=1.1 | Mean α=1.6 | Mean α=2 | Mean α=3 | Mode α=1.1 | Mode α=1.6 | Mode α=2 | Mode α=3 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
