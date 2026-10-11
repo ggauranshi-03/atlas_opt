@@ -85,7 +85,7 @@ You can inject the noise directly onto the gradients by setting **`model: additi
 
 ## 6. Optimizers Considered
 
-Every method is a point in one design space: **SAM step** = (perturbation **source**) × (perturbation **geometry**) × (**outer** optimizer). The table below covers exactly the 13 curated algorithms used everywhere in §8 and named as in `results/heavytailed_figures_preview/` — every other variant tried during development (plain spectral-geometry SGD-SAM, global-Frobenius Muon-SAM, stale-grad-only, etc.) is still implemented in `algorithms.py` but is not part of this curated comparison.
+Every method is a point in one design space: **SAM step** = (perturbation **source**) × (perturbation **geometry**) × (**outer** optimizer). The table below covers exactly the 13 curated algorithms used everywhere in 8 and named as in `results/heavytailed_figures_preview/` — every other variant tried during development (plain spectral-geometry SGD-SAM, global-Frobenius Muon-SAM, stale-grad-only, etc.) is still implemented in `algorithms.py` but is not part of this curated comparison.
 
 | Name | What it stands for | Outer | Perturbation (source · geometry) | Oracle calls/step | `atlas_opt/optimizers` |
 |---|---|---|---|---|---|
@@ -155,12 +155,12 @@ Every method is a point in one design space: **SAM step** = (perturbation **sour
 
 ## 8. Experimental Results & Analysis
 
-This section reports the curated 13-algorithm set (§6) across every combination of **problem
+This section reports the curated 13-algorithm set (6) across every combination of **problem
 type** (linear two-matrix MSE regression vs. the nonlinear two-matrix `nn_ce` classifier) and
 **noise structure** (anisotropic vs. isotropic), followed by the cos(θ) perturbation-alignment
 study. All four problem/noise combinations share the same two-matrix shape (`W_1`: 32x64, `W_2`:
 32x32), 500 steps, 8 seeds, and the same ρ grid (`{0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0}`); anisotropic
-runs use `cond_noise: 10.0`, isotropic runs use `cond_noise: 1.0` with `ridge: 0.01` (§5's note on
+runs use `cond_noise: 10.0`, isotropic runs use `cond_noise: 1.0` with `ridge: 0.01` (5's note on
 why isotropic needs a ridge term for a well-posed optimum). Per algorithm/α, the reported ρ is the
 one minimizing the primary metric (median gap for linear, median validation loss for nonlinear)
 **among ρ with ≤10% seed divergence** — plain `argmin` over all ρ can otherwise pick a ρ where only
@@ -168,7 +168,7 @@ a handful of surviving seeds happen to post an unusually low value.
 
 **Hyperparameters.** Every curated algorithm uses `optim.sgd_momentum: 0` and `lr.sgd: 1.0` /
 `lr.muon: 0.02` / `lr.adam: 0.003`, **except** `MSAM`/`MSOMA`, which require `optim.sgd_momentum: 0.9`
-and `lr.sgd: 0.1` (their perturbation *is* the momentum buffer — see §6's vocabulary note) and are
+and `lr.sgd: 0.1` (their perturbation *is* the momentum buffer — see 6's vocabulary note) and are
 therefore swept from a separate config file into the same output directory (run strictly after the
 main 11-algorithm sweep finishes, never concurrently — concurrent writes to the same `finals.csv`
 silently drop rows). `sam.friendly_lambda: 0.9`, `sam.friendly_sigma: 1.0`, `sam.ortho: ns5` (NS5
@@ -206,20 +206,20 @@ Median final gap `F − F*` at best stable ρ (0% divergence everywhere; `F* ≈
 - **The SGD-outer family's heaviest-tail blow-up is not specific to classification.** `FSAM`/`SAM`/`MSAM`
   post gaps of 3.48–5.69 at `α=1.1` — 15–20× every Muon-outer method's gap (0.25–0.41) — on a
   realizable linear regression with no overfitting possible (`F*≈0`). This independently confirms
-  §8.2's finding: it is the **outer optimizer**, not the perturbation source or the task, that drives
+  8.2's finding: it is the **outer optimizer**, not the perturbation source or the task, that drives
   the heaviest-tail collapse.
 - **AdamW-outer again lands strictly between the two extremes:** `SAM+AdamW`/`FSAM+AdamW` post
   0.554–0.556 at `α=1.1` — far below the SGD-outer family's 3.5–5.7, but still 2× worse than the
   Muon-outer cluster's 0.25–0.41.
 - **`FP-SOMA` wins 3 of 4 columns outright** (`α=1.1, 1.6, 2.0`), with `SOMA`/`SpecSAM-Muon` within a
   few percent of it at every `α` — the friendly/stale/spectral family is consistently competitive,
-  mirroring §8.2's nonlinear ranking.
+  mirroring 8.2's nonlinear ranking.
 
 ![Optimality gap vs rho - Anisotropic](results/heavytailed_figures_preview/gap_vs_rho.png)
 
 #### 8.1b Isotropic Noise
 
-Median final gap `F − F*` at best stable ρ (0% divergence everywhere; `ridge: 0.01`, §5):
+Median final gap `F − F*` at best stable ρ (0% divergence everywhere; `ridge: 0.01`, 5):
 
 | Optimizer | `alpha=1.1` | `alpha=1.6` | `alpha=2` | `alpha=3` |
 |---|---|---|---|---|
@@ -240,25 +240,25 @@ Median final gap `F − F*` at best stable ρ (0% divergence everywhere; `ridge:
 **Takeaways:**
 - **The heaviest-tail story is noise-structure-dependent, and this is the one place the two noise
   types genuinely disagree on a winner.** Under isotropic noise at `α=1.1`, `SAM+AdamW`/`FSAM+AdamW`
-  **win outright** (0.380, beating every Muon-outer method's 0.63–1.0), the opposite of §8.1a's
+  **win outright** (0.380, beating every Muon-outer method's 0.63–1.0), the opposite of 8.1a's
   anisotropic result where the Muon-outer cluster wins and AdamW-outer sits in between. From `α=1.6`
   onward `SpecSAM-Muon` retakes the lead in both noise settings, so the AdamW-outer advantage is
   specific to the heaviest-tail, isotropic-noise corner of this grid — a genuine, data-grounded
-  exception to §8.1a/§8.2's "Muon-outer wins the heaviest tail" pattern, not a contradiction to be
+  exception to 8.1a/8.2's "Muon-outer wins the heaviest tail" pattern, not a contradiction to be
   explained away.
 - **The SGD-outer blow-up is, if anything, worse here than under anisotropic noise:** `FSAM`/`SAM`/
   `MSAM` reach gaps of 6.5–9.0 at `α=1.1` (vs. 3.5–5.7 anisotropic), while every Muon-outer method
   stays in the same 0.6–1.0 range as its anisotropic counterpart. The outer-optimizer effect from
-  §8.1a/§8.2 holds regardless of noise structure; its *magnitude* under the heaviest tail does not.
+  8.1a/8.2 holds regardless of noise structure; its *magnitude* under the heaviest tail does not.
 
 ![Optimality gap vs rho - Isotropic](results/heavytailed_figures_preview/gap_vs_rho_isotropic.png)
 
 ### 8.2 Nonlinear (NN Two-Matrix Classification) Heavy-Tailed Comparison
 
-**What this tests.** The nonlinear counterpart of §8.1: `logits = W_2 · ReLU(W_1 x)` trained
+**What this tests.** The nonlinear counterpart of 8.1: `logits = W_2 · ReLU(W_1 x)` trained
 against a same-shaped teacher with cross-entropy (`loss_type: nn_ce`), 512 training + 512 held-out
 validation examples, run with `run.measure_alignment: true` so the same sweep also produces the
-§8.3 cos-θ data below. Configs: `configs/nn_anisotropic_alignment.yaml` / `nn_isotropic_alignment.yaml`
+8.3 cos-θ data below. Configs: `configs/nn_anisotropic_alignment.yaml` / `nn_isotropic_alignment.yaml`
 (11 algorithms) plus their `_msam` companions (`MSAM`, `MSOMA`), same output directory, run strictly
 sequentially. **0% divergence in every one of the 4,480 (anisotropic) + 4,480 (isotropic) final rows.**
 
@@ -388,7 +388,7 @@ Validation loss at the same checkpoints:
   is confidently, catastrophically wrong on held-out data. Every other algorithm in the table,
   including the Muon-outer twin of the same perturbation (`MSOMA` vs `MSAM`), lands at a val loss
   around 2.4–2.6 at the same `α`. **It is the outer optimizer, not the perturbation source, that
-  determines robustness here** — `MSAM`→`MSOMA` is a pure outer-optimizer swap (§6) and it alone
+  determines robustness here** — `MSAM`→`MSOMA` is a pure outer-optimizer swap (6) and it alone
   closes a 500+ point val-loss gap.
 - **AdamW-outer SAM variants avoid that collapse without Muon's spectral geometry.** `SAM+AdamW` /
   `FSAM+AdamW` post val loss 2.27–2.93 at `α=1.1` — far below the SGD-outer family's 486–574, even
@@ -404,26 +404,36 @@ Validation loss at the same checkpoints:
   every `α`, a small but consistent cost for the cheaper or information-free perturbation.
 - **Noise structure (isotropic vs. anisotropic) moves validation accuracy by at most ~2 points for
   every algorithm at every `α`** — far smaller than the 5–10 point swings driven by `α` itself. This
-  mirrors the cos-θ finding in §8.3 below: tail-heaviness, not the noise's directional structure, is
+  mirrors the cos-θ finding in 8.3 below: tail-heaviness, not the noise's directional structure, is
   what mainly governs behavior in this testbed.
 
 ### 8.3 Perturbation Alignment: cos(θ) Between the SAM Perturbation and the Gradient / Momentum
 
-**What this measures and why.** A SAM-type step perturbs the weights by some direction `ε_t`, then takes a gradient at the perturbed point. For stale/friendly/lookahead
-sources, `ε_t` is built from old or momentum-derived information rather than a fresh gradient —
-this measures how *aligned* that perturbation direction actually is with (a) the clean gradient
-`g_t` and (b) the optimizer's own momentum buffer `v_t`, at the exact instant the perturbation is
-applied. `cos(θ) = 1` means the perturbation points exactly along that reference vector (`θ=0°`);
-`cos(θ) = -1` means exactly opposite (`θ=180°`); `cos(θ) ≈ 0` means uncorrelated (`θ≈90°`).
+**What this measures and why.** A SAM-type step perturbs the weights by some direction `ε_t`, then
+takes a gradient `g̃_t = ∇F(w_t + ε_t)` at the perturbed point — the gradient actually used for
+that step's outer update. This measures how aligned `ε_t` is with (a) that **post-perturbation**
+gradient `g̃_t` and (b) the optimizer's **post-update** momentum buffer (i.e. once the outer step
+has refreshed it using `g̃_t`). `cos(θ) = 1` means `ε_t` points exactly along that reference vector
+(`θ=0°`); `cos(θ) = -1` means exactly opposite (`θ=180°`); `cos(θ) ≈ 0` means uncorrelated (`θ≈90°`).
 
-**Implementation.** An opt-in `run.measure_alignment` flag (default off, costs one extra oracle
-call per logged step for non-`grad` sources) threads through `Engine.step()`: it captures `g_t` and
-`v_t` at the moment `ε_t` is computed — before the outer optimizer's own update mutates the
-momentum buffer — and records `total_cosine(ε_t, g_t)` / `total_cosine(ε_t, v_t)` (a multi-layer
-cosine over the concatenated Frobenius inner product, `linalg.py`), NaN when either vector has zero
-norm. This is safe to enable without perturbing training: `Oracle.gradients` is a pure, deterministic
-function of `(weights, pre-drawn sample)`, so the extra call never changes the trajectory, only logs
-an extra number. §8.2's alignment sweeps turn this on for all 13 curated algorithms.
+Deliberately **not** measured: `ε_t` against the *pre*-perturbation gradient/momentum that may have
+built it. For every grad- or friendly-sourced algorithm with Frobenius geometry (a pure rescaling),
+`ε_t` is parallel to that source vector by construction, so comparing against it would read a
+trivial ≈1 and say nothing about the SAM mechanism; same story for `MSAM`/`MSOMA`'s momentum
+lookahead (≈-1 trivially). Comparing against the *post*-perturbation quantities instead asks a real
+question for every one of the 13 algorithms: **does the ascent step rotate the gradient/momentum
+direction, and by how much?** — a sharpness/curvature probe along `ε_t`, not a restatement of how
+`ε_t` was built.
+
+**Implementation.** An opt-in `run.measure_alignment` flag (default off) threads through
+`Engine.step()`: `total_cosine(ε_t, g̃_t)` (a multi-layer cosine over the concatenated Frobenius
+inner product, `linalg.py`) is recorded right after `g̃_t` is computed, and
+`total_cosine(ε_t, state.momentum)` right after the outer step updates that buffer using `g̃_t` —
+NaN wherever either vector has zero norm (e.g. `cos_pert_momentum` for `SAM+AdamW`/`FSAM+AdamW`,
+whose AdamW outer never touches `state.momentum` at all, or for `SAM`/`FSAM`'s zero-momentum SGD).
+This costs **no extra oracle call**: both `g̃_t` and the updated momentum are already computed for
+the main algorithm regardless of this flag, just not previously compared against `ε_t`. 8.2's
+alignment sweeps turn this on for all 13 curated algorithms.
 
 Per algorithm/α/ρ, the CSVs below report the across-seed central tendency and IQR of the per-seed
 final-step cosine (8 seeds; for an algorithm with both `frobenius_modes`, only the `global` mode is
@@ -453,54 +463,178 @@ writes the same six file types again under an explicit `_mean`/`_mode` suffix (e
 median files — all three statistics are published side by side in
 `results/heavytailed_figures_preview/`, not just median.
 
+<!-- cos(perturbation, X) vs rho line plots: commented out (hard to read as literal angles,
+e.g. a flat line at `cos θ=0.3` doesn't intuitively read as "72°"); the vector-angle polar diagrams
+below are the kept replacement. CSVs (`cos_pert_grad_by_rho*.csv` / `cos_pert_momentum_by_rho*.csv`)
+still contain this same data if the line-plot view is ever wanted again.
 ![cos(perturbation, gradient) vs rho - Anisotropic](results/heavytailed_figures_preview/cos_pert_grad_vs_rho.png)
 ![cos(perturbation, gradient) vs rho - Isotropic](results/heavytailed_figures_preview/cos_pert_grad_vs_rho_isotropic.png)
 ![cos(perturbation, momentum) vs rho - Anisotropic](results/heavytailed_figures_preview/cos_pert_momentum_vs_rho.png)
 ![cos(perturbation, momentum) vs rho - Isotropic](results/heavytailed_figures_preview/cos_pert_momentum_vs_rho_isotropic.png)
+-->
 
-The line plots above are hard to read as literal angles (a flat line at `cos θ=0.3` doesn't
-intuitively read as "72°"), so the same data is also rendered as a polar compass diagram at a fixed
-ρ=0.2: a bold black reference arrow at 0° (the gradient or momentum direction), one colored arrow
-per algorithm at `θ=arccos(median cos θ)`, and a shaded wedge spanning the IQR.
+The same cos(θ) data is rendered as a polar compass diagram at a fixed ρ=0.2: a bold black
+reference arrow at 0° (the gradient or momentum direction), one colored arrow per algorithm at
+`θ=arccos(median cos θ)`, and a shaded wedge spanning the IQR.
 
 ![Vector angle vs gradient - Anisotropic](results/heavytailed_figures_preview/vector_angle_grad.png)
 ![Vector angle vs gradient - Isotropic](results/heavytailed_figures_preview/vector_angle_grad_isotropic.png)
 ![Vector angle vs momentum - Anisotropic](results/heavytailed_figures_preview/vector_angle_momentum.png)
 ![Vector angle vs momentum - Isotropic](results/heavytailed_figures_preview/vector_angle_momentum_isotropic.png)
 
+#### Mean and Mode Variants
+
+The same six file types above, regenerated with `--stat mean` and `--stat mode` ("Central-tendency
+statistic" above) rather than the default median — not overwritten, published side by side.
+
+<!-- cos(perturbation, X) vs rho line plots (mean): commented out, see note above.
+![cos(perturbation, gradient) vs rho - Anisotropic (mean)](results/heavytailed_figures_preview/cos_pert_grad_vs_rho_mean.png)
+![cos(perturbation, gradient) vs rho - Isotropic (mean)](results/heavytailed_figures_preview/cos_pert_grad_vs_rho_mean_isotropic.png)
+![cos(perturbation, momentum) vs rho - Anisotropic (mean)](results/heavytailed_figures_preview/cos_pert_momentum_vs_rho_mean.png)
+![cos(perturbation, momentum) vs rho - Isotropic (mean)](results/heavytailed_figures_preview/cos_pert_momentum_vs_rho_mean_isotropic.png)
+-->
+![Vector angle vs gradient - Anisotropic (mean)](results/heavytailed_figures_preview/vector_angle_grad_mean.png)
+![Vector angle vs gradient - Isotropic (mean)](results/heavytailed_figures_preview/vector_angle_grad_mean_isotropic.png)
+![Vector angle vs momentum - Anisotropic (mean)](results/heavytailed_figures_preview/vector_angle_momentum_mean.png)
+![Vector angle vs momentum - Isotropic (mean)](results/heavytailed_figures_preview/vector_angle_momentum_mean_isotropic.png)
+
+<!-- cos(perturbation, X) vs rho line plots (mode): commented out, see note above.
+![cos(perturbation, gradient) vs rho - Anisotropic (mode)](results/heavytailed_figures_preview/cos_pert_grad_vs_rho_mode.png)
+![cos(perturbation, gradient) vs rho - Isotropic (mode)](results/heavytailed_figures_preview/cos_pert_grad_vs_rho_mode_isotropic.png)
+![cos(perturbation, momentum) vs rho - Anisotropic (mode)](results/heavytailed_figures_preview/cos_pert_momentum_vs_rho_mode.png)
+![cos(perturbation, momentum) vs rho - Isotropic (mode)](results/heavytailed_figures_preview/cos_pert_momentum_vs_rho_mode_isotropic.png)
+-->
+![Vector angle vs gradient - Anisotropic (mode)](results/heavytailed_figures_preview/vector_angle_grad_mode.png)
+![Vector angle vs gradient - Isotropic (mode)](results/heavytailed_figures_preview/vector_angle_grad_mode_isotropic.png)
+![Vector angle vs momentum - Anisotropic (mode)](results/heavytailed_figures_preview/vector_angle_momentum_mode.png)
+![Vector angle vs momentum - Isotropic (mode)](results/heavytailed_figures_preview/vector_angle_momentum_mode_isotropic.png)
+
+#### Summary: cos(θ) by Statistic, Across All α, at Each Algorithm's Own Best Stable ρ (Anisotropic)
+
+The vector-angle diagrams and the single-ρ=0.2 discussion above hold ρ fixed across algorithms for
+a clean apples-to-apples comparison at equal perturbation radius. The table below instead evaluates
+each algorithm at **its own best stable ρ per α** — the same ρ actually used for 8.2's headline
+val-acc/loss numbers — so these cos(θ) values describe the perturbation each algorithm is actually
+run with, not an arbitrary shared radius. Numbers therefore differ somewhat from the ρ=0.2 snapshot
+above; both views are valid, they just answer different questions (sensitivity to a common ρ, vs.
+behavior at the ρ each algorithm is deployed at). Where mean and mode disagree noticeably (e.g.
+`FSAM`, `FSAM+AdamW`), mean is the one being pulled around by a small number of outlier seeds —
+exactly the kind of outlier this whole codebase studies — so median/mode agreeing with each other
+more than either agrees with mean is itself informative, not a discrepancy to explain away.
+
+
+**cos(ε, gradient after perturbing)** — each cell is `cos θ (θ°)`:
+
+| Optimizer | What it stands for | Median α=1.1 | Median α=1.6 | Median α=2 | Median α=3 | Mean α=1.1 | Mean α=1.6 | Mean α=2 | Mean α=3 | Mode α=1.1 | Mode α=1.6 | Mode α=2 | Mode α=3 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **SOMA** | Stale Momentum-friendly, Spectral SAM-Muon | 0.0081 (89.54°) | 0.0714 (85.90°) | 0.1190 (83.16°) | 0.1722 (80.08°) | 0.0048 (89.73°) | 0.0794 (85.44°) | 0.1202 (83.10°) | 0.1695 (80.24°) | 0.0147 (89.16°) | 0.0601 (86.55°) | 0.1316 (82.44°) | 0.2118 (77.77°) |
+| **FP-SOMA** | Fresh-Probe friendly, spectral SAM-Muon | 0.3110 (71.88°) | 0.5937 (53.58°) | 0.6780 (47.31°) | 0.6782 (47.30°) | 0.3386 (70.21°) | 0.5139 (59.08°) | 0.6650 (48.32°) | 0.6843 (46.82°) | 0.2893 (73.18°) | 0.6281 (51.09°) | 0.6780 (47.31°) | 0.6782 (47.30°) |
+| **SpecSAM-Muon** | Plain spectral SAM-Muon (fresh grad) | 0.3431 (69.94°) | 0.6309 (50.89°) | 0.7089 (44.86°) | 0.6933 (46.11°) | 0.3853 (67.34°) | 0.5432 (57.09°) | 0.6946 (46.01°) | 0.6929 (46.14°) | 0.2598 (74.94°) | 0.6677 (48.11°) | 0.7371 (42.51°) | 0.7019 (45.42°) |
+| **RandSAM-Muon** | Random-direction SAM-Muon | -0.0108 (90.62°) | 0.0002 (89.99°) | -0.0042 (90.24°) | 0.0006 (89.97°) | -0.0062 (90.35°) | 0.0028 (89.84°) | -0.0042 (90.24°) | 0.0019 (89.89°) | -0.0124 (90.71°) | -0.0055 (90.31°) | -0.0061 (90.35°) | -0.0109 (90.63°) |
+| **FSAM** | Friendly SAM, SGD outer | 0.8950 (26.49°) | 0.9518 (17.86°) | 0.9708 (13.89°) | 0.9755 (12.72°) | 0.7607 (40.47°) | 0.9493 (18.32°) | 0.9638 (15.47°) | 0.9760 (12.57°) | 0.9788 (11.83°) | 0.9958 (5.25°) | 0.9708 (13.89°) | 0.9748 (12.90°) |
+| **SAM** | Plain SAM, SGD outer | 0.9994 (2.02°) | 1.0000 (0.57°) | 0.9997 (1.40°) | 0.9994 (2.04°) | 0.9918 (7.35°) | 0.9996 (1.53°) | 0.9985 (3.17°) | 0.9992 (2.26°) | 1.0000 (0.12°) | 1.0000 (0.07°) | 0.9997 (1.40°) | 0.9994 (2.04°) |
+| **OP-SOMA PreNS5** | Orthogonally-Projected SOMA (pre-NS5) | 0.0195 (88.88°) | 0.0906 (84.80°) | 0.1295 (82.56°) | 0.1653 (80.49°) | 0.0106 (89.39°) | 0.0743 (85.74°) | 0.1186 (83.19°) | 0.1709 (80.16°) | 0.0228 (88.69°) | 0.1011 (84.20°) | 0.1317 (82.43°) | 0.1366 (82.15°) |
+| **OP-SOMA PostNS5** | Orthogonally-Projected SOMA (post-NS5) | 0.0052 (89.70°) | 0.0591 (86.61°) | 0.0937 (84.62°) | 0.1543 (81.12°) | 0.0036 (89.79°) | 0.0640 (86.33°) | 0.0885 (84.92°) | 0.1446 (81.69°) | 0.0052 (89.70°) | 0.0282 (88.38°) | 0.0937 (84.62°) | 0.1549 (81.09°) |
+| **SAM+AdamW** | Plain SAM, AdamW outer | 1.0000 (0.34°) | 1.0000 (0.13°) | 0.9971 (4.35°) | 0.9893 (8.40°) | 0.9999 (0.79°) | 1.0000 (0.16°) | 0.9967 (4.65°) | 0.9876 (9.04°) | 1.0000 (0.08°) | 1.0000 (0.01°) | 0.9985 (3.15°) | 0.9931 (6.75°) |
+| **FSAM+AdamW** | Friendly SAM, AdamW outer | 0.8351 (33.38°) | 0.9500 (18.20°) | 0.9649 (15.23°) | 0.9435 (19.35°) | 0.7173 (44.17°) | 0.9514 (17.94°) | 0.9598 (16.29°) | 0.9416 (19.68°) | 0.9791 (11.74°) | 0.9957 (5.34°) | 0.9639 (15.45°) | 0.9491 (18.37°) |
+| **Lazy-SOMA** | Lazy spectral SAM-Muon (reuses last update) | 0.0061 (89.65°) | 0.1432 (81.77°) | 0.1994 (78.50°) | 0.2670 (74.51°) | 0.0018 (89.89°) | 0.1263 (82.74°) | 0.2017 (78.37°) | 0.2702 (74.33°) | 0.0072 (89.59°) | 0.1820 (79.51°) | 0.1975 (78.61°) | 0.2670 (74.51°) |
+| **MSAM** | Momentum-SAM (Becker et al. 2024), SGD outer | -0.0200 (91.15°) | -0.0095 (90.54°) | 0.0077 (89.56°) | -0.0028 (90.16°) | -0.0271 (91.55°) | -0.0156 (90.89°) | 0.0048 (89.72°) | 0.0004 (89.97°) | -0.0152 (90.87°) | -0.0133 (90.76°) | 0.0077 (89.56°) | 0.0062 (89.64°) |
+| **MSOMA** | Momentum-SAM, Muon outer | -0.0148 (90.85°) | -0.0108 (90.62°) | -0.0014 (90.08°) | -0.0201 (91.15°) | -0.0132 (90.76°) | -0.0158 (90.90°) | -0.0027 (90.16°) | -0.0111 (90.63°) | -0.0148 (90.85°) | -0.0108 (90.62°) | -0.0175 (91.01°) | -0.0234 (91.34°) |
+
+**Why (cos(ε, gradient after perturbing)):**
+
+| Optimizer | Why |
+|---|---|
+| **SOMA** | Its perturbation is deliberately reshaped so it no longer points like a gradient — so it has little in common with the new gradient either. |
+| **FP-SOMA** | Same reshaping as SOMA; using today's gradient instead of an old one only partly recovers the correlation. |
+| **SpecSAM-Muon** | Even a fresh gradient gets reshaped by this geometry, so it stops looking like a plain gradient — the reshaping is the cause, not staleness. |
+| **RandSAM-Muon** | It's pure random noise — it was never going to match any gradient, before or after. |
+| **FSAM** | It's the gradient with a momentum-like piece subtracted out, so it still mostly points like a gradient; noisier gradients at heavy tails rotate it further off. |
+| **SAM** | It *is* the gradient, just rescaled, and one small step barely changes the gradient's direction — so the two line up almost exactly. |
+| **OP-SOMA PreNS5** | Built on purpose to cancel out the gradient-like part of its direction, so it ends up unrelated to the gradient by design. |
+| **OP-SOMA PostNS5** | Same cancellation idea as PreNS5, just applied in a different order. |
+| **SAM+AdamW** | Same as `SAM` — AdamW only changes how big the step is, not which way it points. |
+| **FSAM+AdamW** | Same as `FSAM` — AdamW doesn't change the direction logic, only the step size. |
+| **Lazy-SOMA** | It just reuses an old, already-reshaped update, so it inherits the same "doesn't look like a gradient" property. |
+| **MSAM** | It's built purely from momentum, with no gradient information in it, so there's no reason it should match the new gradient. |
+| **MSOMA** | Same as `MSAM` — swapping in a Muon outer doesn't change what the perturbation is built from. |
+
+**cos(ε, momentum after this step's outer update)** — each cell is `cos θ (θ°)`:
+
+| Optimizer | What it stands for | Median α=1.1 | Median α=1.6 | Median α=2 | Median α=3 | Mean α=1.1 | Mean α=1.6 | Mean α=2 | Mean α=3 | Mode α=1.1 | Mode α=1.6 | Mode α=2 | Mode α=3 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **SOMA** | Stale Momentum-friendly, Spectral SAM-Muon | -0.2995 (107.43°) | -0.0257 (91.47°) | 0.0390 (87.77°) | 0.0925 (84.69°) | -0.2671 (105.49°) | -0.0320 (91.83°) | 0.0502 (87.12°) | 0.1001 (84.26°) | -0.3154 (108.38°) | 0.0170 (89.03°) | 0.0232 (88.67°) | 0.0648 (86.28°) |
+| **FP-SOMA** | Fresh-Probe friendly, spectral SAM-Muon | -0.2237 (102.93°) | -0.1055 (96.06°) | -0.0001 (90.01°) | 0.0865 (85.04°) | -0.2431 (104.07°) | -0.0917 (95.26°) | -0.0053 (90.30°) | 0.0829 (85.24°) | -0.1540 (98.86°) | -0.0907 (95.20°) | 0.0307 (88.24°) | 0.0896 (84.86°) |
+| **SpecSAM-Muon** | Plain spectral SAM-Muon (fresh grad) | 0.0564 (86.77°) | 0.1544 (81.12°) | 0.2135 (77.67°) | 0.2334 (76.50°) | 0.0589 (86.63°) | 0.1619 (80.68°) | 0.2011 (78.40°) | 0.2305 (76.67°) | 0.0837 (85.20°) | 0.1487 (81.45°) | 0.2135 (77.67°) | 0.2350 (76.41°) |
+| **RandSAM-Muon** | Random-direction SAM-Muon | 0.0084 (89.52°) | -0.0039 (90.23°) | -0.0127 (90.73°) | -0.0017 (90.10°) | 0.0028 (89.84°) | -0.0012 (90.07°) | -0.0103 (90.59°) | -0.0066 (90.38°) | 0.0084 (89.52°) | -0.0074 (90.42°) | -0.0127 (90.73°) | 0.0025 (89.86°) |
+| **FSAM** | Friendly SAM, SGD outer | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| **SAM** | Plain SAM, SGD outer | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| **OP-SOMA PreNS5** | Orthogonally-Projected SOMA (pre-NS5) | -0.0824 (94.73°) | -0.0618 (93.54°) | -0.0325 (91.86°) | -0.0037 (90.21°) | -0.0777 (94.46°) | -0.0606 (93.47°) | -0.0131 (90.75°) | 0.0054 (89.69°) | -0.1224 (97.03°) | -0.0691 (93.96°) | -0.0421 (92.41°) | -0.0050 (90.28°) |
+| **OP-SOMA PostNS5** | Orthogonally-Projected SOMA (post-NS5) | -0.2220 (102.83°) | -0.1367 (97.86°) | -0.1003 (95.76°) | -0.0514 (92.95°) | -0.1865 (100.75°) | -0.1200 (96.89°) | -0.1045 (96.00°) | -0.0535 (93.07°) | -0.2220 (102.83°) | -0.1403 (98.07°) | -0.0802 (94.60°) | -0.0514 (92.95°) |
+| **SAM+AdamW** | Plain SAM, AdamW outer | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| **FSAM+AdamW** | Friendly SAM, AdamW outer | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| **Lazy-SOMA** | Lazy spectral SAM-Muon (reuses last update) | 0.3596 (68.93°) | 0.5348 (57.67°) | 0.4557 (62.89°) | 0.4719 (61.84°) | 0.3812 (67.59°) | 0.5234 (58.44°) | 0.4600 (62.62°) | 0.4874 (60.83°) | 0.3153 (71.62°) | 0.5442 (57.03°) | 0.4536 (63.02°) | 0.4388 (63.97°) |
+| **MSAM** | Momentum-SAM (Becker et al. 2024), SGD outer | -0.9692 (165.73°) | -0.9428 (160.52°) | -0.9109 (155.62°) | -0.8937 (153.34°) | -0.9178 (156.61°) | -0.8463 (147.81°) | -0.9128 (155.89°) | -0.8915 (153.07°) | -0.9985 (176.88°) | -0.9537 (162.51°) | -0.9109 (155.62°) | -0.8933 (153.30°) |
+| **MSOMA** | Momentum-SAM, Muon outer | -0.9942 (173.85°) | -0.9763 (167.50°) | -0.9610 (163.95°) | -0.9505 (161.90°) | -0.9596 (163.65°) | -0.8986 (153.97°) | -0.9597 (163.69°) | -0.9482 (161.49°) | -0.9995 (178.27°) | -0.9866 (170.60°) | -0.9626 (164.27°) | -0.9515 (162.09°) |
+
+**Why (cos(ε, momentum after this step's outer update)):**
+
+| Optimizer | Why |
+|---|---|
+| **SOMA** | It's built to subtract out a momentum-like piece, so it ends up pointing mildly *against* the momentum that results. |
+| **FP-SOMA** | Same subtraction idea as SOMA, just using a fresh probe instead of an old one. |
+| **SpecSAM-Muon** | It isn't built from momentum at all, so only a weak, mostly-incidental relationship with momentum remains. |
+| **RandSAM-Muon** | Pure randomness — no relationship with momentum either. |
+| **FSAM** | This setup keeps no momentum at all, so there's nothing to compare ε against. |
+| **SAM** | Same as `FSAM` — no momentum buffer exists here either. |
+| **OP-SOMA PreNS5** | Built on purpose to be perpendicular to momentum — that's the whole design goal. |
+| **OP-SOMA PostNS5** | Same subtraction idea as SOMA, so the same mild push-against-momentum shows up here too. |
+| **SAM+AdamW** | AdamW tracks its own separate statistics instead of this momentum buffer, so there's nothing to compare. |
+| **FSAM+AdamW** | Same as `SAM+AdamW` — AdamW keeps its own buffers, not this one. |
+| **Lazy-SOMA** | It reuses the previous momentum-based update directly (no subtraction), so it naturally keeps pointing the way momentum is already heading. |
+| **MSAM** | It's literally built as "the opposite of old momentum," and momentum doesn't change direction quickly — so it stays close to opposite the new momentum too. |
+| **MSOMA** | Same idea as `MSAM` — a different outer optimizer doesn't change this relationship. |
+
 **Takeaways:**
-- **Two built-in sanity checks pass, which validates the measurement itself.** `SAM`/`SAM+AdamW`
-  perturb with the fresh gradient itself, so `cos(ε, g) = 1.000` (0°) at every α/ρ in both noise
-  settings, exactly as it must by construction. `RandSAM-Muon` perturbs with an independent Gaussian
-  direction, so `cos(ε, g) ≈ 0` (±0.01, i.e. ≈90°) everywhere — a random direction really is
-  uncorrelated with the gradient, as it should be.
-- **`MSAM`/`MSOMA` perturb almost exactly opposite their own momentum (`cos(ε, v) ≈ -1.000`, i.e.
-  `θ≈180°`), confirming the lookahead sign is implemented correctly** (`ε = -ρ·v/‖v‖`, §6). This
-  is also an independent confirmation of the sign-bug fix made earlier in this project (the first
-  synthetic implementation of MSAM mistakenly reused the ascent-style `stale_momentum` source, which
-  this exact measurement would have shown as `cos(ε, v) ≈ +1` instead — it would have caught the bug
-  immediately had it existed when the fix was made).
-- **The stale/friendly/spectral family's alignment with the gradient grows substantially as the tail
-  lightens.** `SOMA`'s `cos(ε, g)` rises from ≈0.24–0.31 at `α=1.1` to ≈0.75–0.83 at `α=3.0`
-  (both noise types); `SpecSAM-Muon` and `FP-SOMA` show the same pattern, rising from ≈0.27–0.34 to
-  ≈0.78–0.83. Reading: under the heaviest tails, even a single clean gradient sample is so corrupted
-  by rare extreme values that a stale or bias-corrected direction has little in common with the
-  *next* instantaneous gradient (also corrupted, independently); as the tail lightens, individual
-  gradients stabilize and the correlation climbs.
-- **Does noise *structure* (isotropic vs. anisotropic), not just its tail-heaviness, affect cos(θ)?
-  Mostly only slightly — with two honest exceptions.** Holding ρ=0.2 fixed and comparing the two
-  noise settings directly, 9 of the 13 algorithms differ by under 0.03 (`SAM`, `SAM+AdamW`: ≈0;
-  `RandSAM-Muon`, `MSAM`, `MSOMA`, `SOMA`, `OP-SOMA-PreNS5`, `OP-SOMA-PostNS5`, `Lazy-SOMA`: 0.01–0.03),
-  far smaller than the α-driven swings for the same algorithms (often 0.4–0.5, e.g. `SpecSAM-Muon`
-  spans 0.34→0.78 across α with only a 0.08 max iso/aniso gap at any fixed α). **`FSAM` and
-  `FSAM+AdamW` are the exception:** their `cos(ε, g)` differs by 0.10–0.11 between noise types at
-  `α=1.1` specifically (`FSAM+AdamW`: 0.835 anisotropic vs. 0.949 isotropic) — comparable in size to
-  their *own* α-driven range (0.13), not 5–10× smaller. Both are the two curated algorithms with no
-  Muon involvement at all (SGD/AdamW outer, Frobenius geometry, fresh friendly gradient, no
-  staleness) and both are also the pair that catastrophically overfits at `α=1.1` under anisotropic
-  noise (§8.2a) — a regime change that plausibly makes their gradient direction behave differently
-  enough that it's no longer safe to call the noise-structure effect "negligible" for this pair
-  specifically. **Conclusion: tail-heaviness (α) is still the dominant driver of cos(θ) for most of
-  the curated set, and noise structure's effect is small-to-negligible there — but this is not
-  universal, and `FSAM`/`FSAM+AdamW` are a genuine, data-grounded counterexample**, not noise to be
-  averaged away.
+- **`RandSAM-Muon` is the cleanest sanity check, and it still passes without being tautological.**
+  Its perturbation is an independent Gaussian direction, so the gradient computed at that randomly
+  perturbed point has no reason to correlate with it either — and indeed `cos(ε, g̃) ≈ 0` (±0.01,
+  `θ≈90°`) at every α/ρ/noise setting. Unlike the pre-perturbation comparison this section used to
+  report, this is no longer guaranteed by construction; it's an empirical confirmation that the
+  measurement behaves as it should.
+- **`SAM`/`SAM+AdamW` induce very little gradient rotation over one ascent step at this
+  (late-training, annealed-lr) snapshot: `cos(ε, g̃) = 0.998–1.000` across every α.** This is a real
+  finding, not the trivial identity the pre-perturbation comparison gave — it says the loss surface
+  is locally close to flat along the ascent direction by the end of training in this testbed, for
+  plain gradient-sourced SAM specifically. `FSAM`/`FSAM+AdamW` (the *friendly*, bias-corrected
+  variant of the same SGD/AdamW-outer family) rotate the gradient much more at the heaviest tail
+  (`cos(ε, g̃) = 0.828` / `0.835` at `α=1.1`, rising to `0.976` / `0.966` at `α=3.0`) — subtracting a
+  momentum-like term from the probe direction measurably changes how much curvature the ascent step
+  exposes, especially under heavy tails.
+- **`MSAM`/`MSOMA` stay strongly (not perfectly) anti-aligned with their own post-update momentum,
+  and the anti-alignment *weakens* as the tail lightens:** `MSAM`'s `cos(ε, v)` goes from `-0.975` at
+  `α=1.1` to `-0.895` at `α=3.0`; `MSOMA` from `-0.994` to `-0.949`. The lookahead perturbation
+  (built from *last* step's momentum) tracks the *updated* momentum less perfectly once gradients
+  stop being dominated by rare extreme values — a real, continuous relationship the old
+  by-construction `≈-1.000` could never have shown.
+- **Two algorithms flip sign across α for `cos(ε, v)`: `SOMA` (`-0.300` at `α=1.1` → `+0.111` at
+  `α=3.0`) and `FP-SOMA` (`-0.224` → `+0.087`).** Their stale/fresh-friendly perturbation opposes the
+  resulting momentum under the heaviest tail but mildly reinforces it once the tail lightens — a
+  qualitative regime change, not just a magnitude change. `Lazy-SOMA` is the one clear outlier in
+  the other direction, staying *positively* aligned with post-update momentum throughout
+  (`+0.36` to `+0.74` depending on α and ρ) — its raw, unprocessed previous-update perturbation
+  tracks the momentum trajectory far more than any other algorithm's.
+- **`SpecSAM-Muon` and `FP-SOMA` still show the largest α-driven swing in `cos(ε, g̃)`** (≈0.34→0.76
+  and ≈0.31→0.75 respectively, anisotropic), the same qualitative pattern as before this section's
+  metric correction: under the heaviest tails, the gradient at the perturbed point has little in
+  common with the direction that built ε; as the tail lightens, that rotation shrinks.
+- **Does noise *structure* (isotropic vs. anisotropic), not just tail-heaviness, affect cos(θ)? Still
+  mostly no, with the same two exceptions as before the correction.** Holding ρ=0.2 fixed, most
+  algorithms differ by under 0.03 between noise settings — far smaller than their own α-driven
+  swings. `FSAM` and `FSAM+AdamW` remain the exception: `cos(ε, g̃)` differs by 0.11–0.12 between
+  noise types at `α=1.1` specifically (`FSAM`: 0.828 anisotropic vs. 0.949 isotropic), comparable to
+  their own α-driven range (0.13–0.15), not 5–10× smaller. `SpecSAM-Muon`/`FP-SOMA` sit in between
+  (≈0.04–0.08 at every α, smaller than FSAM's gap but not negligible either). **Conclusion unchanged
+  by the metric correction: tail-heaviness (α) remains the dominant driver of cos(θ) for most of the
+  curated set, with `FSAM`/`FSAM+AdamW` a consistent, genuine counterexample** — reassuring, since it
+  means this specific qualitative finding was not an artifact of the bug being fixed here.

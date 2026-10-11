@@ -332,22 +332,29 @@ class Engine:
         else:
             directions, calls = self._directions(Ws, state, clean)
             eps = self._geometry(directions, state)
-            if measure_alignment:
-                # g_t / v_t as they were at the moment eps was actually applied -- BEFORE
-                # _outer() below mutates Ws and state.momentum. Reuses the already-computed
-                # clean gradient when the source already is one; costs one extra oracle call
-                # (diagnostic only, never fed back into the trajectory) otherwise.
-                if self.spec.source == "grad":
-                    g_t = directions
-                else:
-                    g_t = clean()
-                    calls += 1
-                v_t = [v.clone() for v in state.momentum]
-                state.cos_pert_grad = total_cosine(eps, g_t)
-                state.cos_pert_momentum = total_cosine(eps, v_t)
             grads = oracle.gradients([w + e for w, e in zip(Ws, eps)], sample)
             calls += 1
+            if measure_alignment:
+                # cos(perturbation, gradient computed AFTER perturbing) -- `grads` is the
+                # gradient actually used for this step's outer update, not the one that built
+                # eps. The latter is (near-)parallel to eps by construction for every grad- or
+                # friendly-sourced algorithm (frobenius geometry is a pure rescaling), making
+                # that comparison trivially ~1 and uninformative about the SAM mechanism itself.
+                # Comparing against the post-perturbation gradient instead measures how much the
+                # ascent step rotates the gradient direction (a sharpness/curvature probe along
+                # eps) and is well-defined and non-trivial for every source. No extra oracle
+                # call: `grads` is already computed for the main algorithm regardless of this flag.
+                state.cos_pert_grad = total_cosine(eps, grads)
         updates = self._outer(Ws, grads, state, lr)
+        if self.spec.is_sam and measure_alignment:
+            # cos(perturbation, momentum AFTER this step's outer update), i.e. once
+            # state.momentum has been refreshed using `grads` above -- mirrors cos_pert_grad's
+            # before/after correction (compares eps against the momentum state this step
+            # actually produces, not the stale pre-step buffer eps may itself have been built
+            # from, which is trivially ~-1 for MSAM/MSOMA otherwise). NaN wherever this outer
+            # never touches state.momentum (adam, or sgd/muon with zero momentum) -- no
+            # momentum trajectory exists there to compare against.
+            state.cos_pert_momentum = total_cosine(eps, state.momentum)
         if self.spec.source in ("stale_grad", "stale_friendly", "stale_momentum_friendly", "op_soma_pre"):
             state.last_outer = [g.clone() for g in grads]
         if self.spec.source == "stale_friendly":

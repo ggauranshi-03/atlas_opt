@@ -125,11 +125,14 @@ def run_variant(spec, mode, alpha, rho, lr, problem, cfg, seeds=None, seed_offse
             perturbed = [p + e for p, e in zip(prev, eps)]
             metrics["sharpness_gap"] = full_objective(perturbed, problem) - full_objective(prev, problem)
         metrics["update_frob"] = zero if updates is None else total_frob(updates)
-        # cos(perturbation, clean gradient) / cos(perturbation, momentum) at the moment the
-        # perturbation was actually applied (see Engine.step) -- NaN for non-SAM baselines, and
-        # whenever measure_alignment is off (the default: this costs one extra oracle call per
-        # logged step for "stale"-sourced algorithms, so it's opt-in, never silently inflating
-        # the cost of an ordinary sweep).
+        # cos(perturbation, gradient computed AFTER perturbing) / cos(perturbation, momentum
+        # AFTER this step's outer update) -- see Engine.step's measure_alignment block for why
+        # "after", not "before" (the before-perturbation comparison is trivially ~1 / ~-1 for
+        # grad- and momentum-lookahead-sourced algorithms, since eps is built directly from that
+        # quantity). NaN for non-SAM baselines, whenever measure_alignment is off (opt-in, but
+        # free when on: both vectors are already computed for the main algorithm regardless), and
+        # for cos_pert_momentum specifically wherever this outer never touches state.momentum
+        # (adam, or sgd/muon with zero momentum).
         metrics["cos_pert_grad"] = state.cos_pert_grad if state.cos_pert_grad is not None else nan_col
         metrics["cos_pert_momentum"] = state.cos_pert_momentum if state.cos_pert_momentum is not None else nan_col
         wants_sharpness = sharp_every and (step % sharp_every == 0 or step == T)

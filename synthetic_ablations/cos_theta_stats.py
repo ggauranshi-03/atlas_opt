@@ -1,4 +1,10 @@
-"""cos(perturbation, grad/momentum) deliverable, parameterized by central-tendency statistic.
+"""cos(perturbation, post-perturbation grad/momentum) deliverable, by central-tendency statistic.
+
+`final_cos_pert_grad` / `final_cos_pert_momentum` in finals.csv compare the perturbation eps
+against the gradient computed AFTER perturbing (the one actually used for the outer update) and
+the momentum AFTER this step's outer update, respectively -- not the pre-perturbation quantities
+that may have built eps itself, which would be (near-)trivial by construction for grad-/momentum-
+lookahead-sourced algorithms (see Engine.step's measure_alignment block in algorithms.py).
 
 Supports --stat {median,mean,mode}, reading a measure_alignment finals.csv and writing:
   cos_pert_grad_by_rho{_STAT}{_isotropic}.csv / cos_pert_momentum_by_rho{_STAT}{_isotropic}.csv
@@ -201,10 +207,13 @@ def main():
     grad_table.to_csv(f"{args.out_dir}/cos_pert_grad_by_rho{suffix}{iso_suffix}.csv", index=False)
     mom_table.to_csv(f"{args.out_dir}/cos_pert_momentum_by_rho{suffix}{iso_suffix}.csv", index=False)
 
-    plot_line(grad_table, stat, f"cos(perturbation, gradient) vs rho -- {noise_title} noise ({stat})",
-              "cos(theta)", f"{args.out_dir}/cos_pert_grad_vs_rho{suffix}{iso_suffix}.png")
-    plot_line(mom_table, stat, f"cos(perturbation, momentum) vs rho -- {noise_title} noise ({stat})",
-              "cos(theta)", f"{args.out_dir}/cos_pert_momentum_vs_rho{suffix}{iso_suffix}.png")
+    # Line plots (cos vs rho) retired in favor of the vector-angle polar diagrams below --
+    # a flat line at cos theta=0.3 doesn't intuitively read as 72 degrees. Uncomment to
+    # regenerate them; the CSVs above still contain the same data either way.
+    # plot_line(grad_table, stat, f"cos(perturbation, gradient) vs rho -- {noise_title} noise ({stat})",
+    #           "cos(theta)", f"{args.out_dir}/cos_pert_grad_vs_rho{suffix}{iso_suffix}.png")
+    # plot_line(mom_table, stat, f"cos(perturbation, momentum) vs rho -- {noise_title} noise ({stat})",
+    #           "cos(theta)", f"{args.out_dir}/cos_pert_momentum_vs_rho{suffix}{iso_suffix}.png")
 
     plot_vector_angle(grad_table, stat, f"Perturbation vs gradient angle -- {noise_title} noise",
                        f"{args.out_dir}/vector_angle_grad{suffix}{iso_suffix}.png")
