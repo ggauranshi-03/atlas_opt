@@ -1,6 +1,6 @@
 % AUTO-GENERATED: rows = models, columns = training loss / validation accuracy / validation perplexity
 \begin{tikzpicture}
-\begin{groupplot}[grid curve axis, group style={group size=3 by 3, horizontal sep=1.45cm, vertical sep=1.35cm}]
+\begin{groupplot}[grid curve axis, group style={group size=3 by 3, horizontal sep=1.1cm, vertical sep=0.85cm}]
 \nextgroupplot[xmin=1, xmax=15, title={Training loss}, ylabel={nanoGPT}, legend to name=curveslegend, legend columns=6, legend style={font=\scriptsize, draw=none}]
 \addplot[cv-adam] table[col sep=comma, x=epoch, y=train_loss]{\curvesroot/data/nanogpt/adam.csv};
 \addlegendentry{AdamW}

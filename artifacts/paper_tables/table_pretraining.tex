@@ -1,0 +1,30 @@
+% Pretraining results (last epoch). Values are hard-coded; needs \usepackage{booktabs} and \usepackage{graphicx}.
+\begin{table*}[t]
+  \centering
+  \caption{Pretraining results of the eleven optimizers after the last epoch (nanoGPT 15, Pythia-70M 14, CIFAR-10 CNN 7 epochs): training loss, validation
+  accuracy (\%) and validation perplexity (for the CNN, the exponential of the validation cross-entropy). The training loss of SOMA, RandSAM-Muon, SOMA-PreNS5 and
+  OP-SOMA-PostNS5 is measured at the perturbed weights. Mean $\pm$ std over 3 seeds; bold: best validation value in column.}
+  \label{tab:pretraining}
+  \vspace{2pt}
+  \resizebox{\ifdim\width>\textwidth\textwidth\else\width\fi}{!}{%
+  \footnotesize\setlength{\tabcolsep}{4pt}
+  \begin{tabular}{lccccccccc}
+    \toprule
+    & \multicolumn{3}{c}{nanoGPT (GPT-2 small)} & \multicolumn{3}{c}{Pythia-70M} & \multicolumn{3}{c}{CIFAR-10 CNN} \\
+    \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+    Optimizer & Train loss & Val acc (\%) & Val ppl & Train loss & Val acc (\%) & Val ppl & Train loss & Val acc (\%) & Val ppl \\
+    \midrule
+    AdamW & 3.311{\scriptsize$\pm$0.004} & \textbf{39.84}{\scriptsize$\pm$0.03} & \textbf{24.60}{\scriptsize$\pm$0.02} & 3.574{\scriptsize$\pm$0.003} & 35.67{\scriptsize$\pm$0.01} & 36.20{\scriptsize$\pm$0.02} & 0.316{\scriptsize$\pm$0.002} & \textbf{87.87}{\scriptsize$\pm$0.53} & \textbf{1.442}{\scriptsize$\pm$0.013} \\
+    SGD & 3.361{\scriptsize$\pm$0.004} & 39.38{\scriptsize$\pm$0.00} & 25.76{\scriptsize$\pm$0.01} & 3.664{\scriptsize$\pm$0.002} & 34.59{\scriptsize$\pm$0.01} & 40.03{\scriptsize$\pm$0.01} & 0.461{\scriptsize$\pm$0.003} & 84.66{\scriptsize$\pm$0.40} & 1.575{\scriptsize$\pm$0.003} \\
+    Muon & 3.323{\scriptsize$\pm$0.005} & 39.71{\scriptsize$\pm$0.01} & 24.86{\scriptsize$\pm$0.03} & 3.557{\scriptsize$\pm$0.003} & 35.76{\scriptsize$\pm$0.01} & \textbf{35.69}{\scriptsize$\pm$0.02} & 0.266{\scriptsize$\pm$0.002} & 87.27{\scriptsize$\pm$0.08} & 1.462{\scriptsize$\pm$0.009} \\
+    SAM & 3.361{\scriptsize$\pm$0.004} & 39.38{\scriptsize$\pm$0.02} & 25.76{\scriptsize$\pm$0.02} & 3.666{\scriptsize$\pm$0.002} & 34.58{\scriptsize$\pm$0.01} & 40.08{\scriptsize$\pm$0.01} & 0.462{\scriptsize$\pm$0.002} & 84.72{\scriptsize$\pm$0.41} & 1.576{\scriptsize$\pm$0.004} \\
+    FSAM & 3.360{\scriptsize$\pm$0.004} & 39.39{\scriptsize$\pm$0.01} & 25.75{\scriptsize$\pm$0.02} & 3.666{\scriptsize$\pm$0.002} & 34.58{\scriptsize$\pm$0.01} & 40.09{\scriptsize$\pm$0.01} & 0.459{\scriptsize$\pm$0.002} & 84.73{\scriptsize$\pm$0.29} & 1.567{\scriptsize$\pm$0.001} \\
+    SpecSAM-Muon & 3.314{\scriptsize$\pm$0.004} & 39.80{\scriptsize$\pm$0.03} & 24.76{\scriptsize$\pm$0.03} & 3.558{\scriptsize$\pm$0.003} & 35.76{\scriptsize$\pm$0.00} & 35.72{\scriptsize$\pm$0.03} & 0.271{\scriptsize$\pm$0.003} & 87.63{\scriptsize$\pm$0.34} & 1.447{\scriptsize$\pm$0.007} \\
+    FP-SOMA & 3.314{\scriptsize$\pm$0.004} & 39.81{\scriptsize$\pm$0.04} & 24.74{\scriptsize$\pm$0.03} & 3.558{\scriptsize$\pm$0.002} & 35.75{\scriptsize$\pm$0.02} & 35.72{\scriptsize$\pm$0.01} & 0.270{\scriptsize$\pm$0.001} & 87.37{\scriptsize$\pm$0.44} & 1.449{\scriptsize$\pm$0.007} \\
+    SOMA & 3.321{\scriptsize$\pm$0.004} & 39.73{\scriptsize$\pm$0.02} & 24.79{\scriptsize$\pm$0.01} & 3.560{\scriptsize$\pm$0.003} & 35.74{\scriptsize$\pm$0.02} & 35.74{\scriptsize$\pm$0.02} & 0.269{\scriptsize$\pm$0.002} & 87.51{\scriptsize$\pm$0.27} & 1.462{\scriptsize$\pm$0.005} \\
+    RandSAM-Muon & 3.323{\scriptsize$\pm$0.005} & 39.69{\scriptsize$\pm$0.02} & 24.86{\scriptsize$\pm$0.01} & 3.557{\scriptsize$\pm$0.003} & \textbf{35.77}{\scriptsize$\pm$0.01} & 35.70{\scriptsize$\pm$0.02} & 0.266{\scriptsize$\pm$0.004} & 87.22{\scriptsize$\pm$0.07} & 1.471{\scriptsize$\pm$0.001} \\
+    SOMA-PreNS5 & 3.323{\scriptsize$\pm$0.004} & 39.72{\scriptsize$\pm$0.02} & 24.82{\scriptsize$\pm$0.02} & 3.558{\scriptsize$\pm$0.003} & 35.76{\scriptsize$\pm$0.01} & 35.71{\scriptsize$\pm$0.03} & 0.266{\scriptsize$\pm$0.003} & 87.14{\scriptsize$\pm$0.13} & 1.464{\scriptsize$\pm$0.001} \\
+    OP-SOMA-PostNS5 & 3.323{\scriptsize$\pm$0.004} & 39.72{\scriptsize$\pm$0.02} & 24.82{\scriptsize$\pm$0.01} & 3.557{\scriptsize$\pm$0.003} & \textbf{35.77}{\scriptsize$\pm$0.01} & 35.70{\scriptsize$\pm$0.02} & 0.266{\scriptsize$\pm$0.002} & 87.14{\scriptsize$\pm$0.05} & 1.467{\scriptsize$\pm$0.003} \\
+    \bottomrule
+  \end{tabular}}
+\end{table*}

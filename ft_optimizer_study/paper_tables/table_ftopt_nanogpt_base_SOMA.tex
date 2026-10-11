@@ -1,0 +1,31 @@
+% Forgetting with a fixed base model and different fine-tuning optimizers. Values are hard-coded; needs \usepackage{booktabs} and \usepackage{graphicx}.
+\begin{table*}[t]
+  \centering
+  \caption{Forgetting when fine-tuning one SOMA-pretrained nanoGPT (GPT-2 small) model with different optimizers: held-out FineWeb-Edu loss before fine-tuning
+  ($L_{\mathrm{before}}$, the same for every row) and after fine-tuning on four datasets with the optimizer named in the row ($L_{\mathrm{after}}$); lower is better.
+  $L_{\mathrm{after}}$ is read at the same fine-tuning loss for all optimizers (codeparrot 1.832, stackmathqa 2.535, musicpile 3.268, tulu3 2.403). $\Delta\%_{\mathrm{adj}}=100\,(L_{\mathrm{after}}-L_{\mathrm{before}})/(L_{\mathrm{before}}+k)$ for the average
+  $L_{\mathrm{after}}$, with $k=3.144$ the mean of all $L_{\mathrm{before}}$. Mean $\pm$ std over 3 base-model seeds; bold: lowest in column.}
+  \label{tab:ftopt-soma-nanogpt}
+  \vspace{2pt}
+  \resizebox{\ifdim\width>\textwidth\textwidth\else\width\fi}{!}{%
+  \footnotesize\setlength{\tabcolsep}{5pt}
+  \begin{tabular}{lccccccc}
+    \toprule
+    & & \multicolumn{4}{c}{$L_{\mathrm{after}}$ by fine-tuning dataset} & & \\
+    \cmidrule(lr){3-6}
+    Fine-tuning optimizer & $L_{\mathrm{before}}$ & codeparrot & stackmathqa & musicpile & tulu3 & Average & $\Delta\%_{\mathrm{adj}}$ \\
+    \midrule
+    AdamW & 3.144{\scriptsize$\pm$0.001} & \textbf{3.198}{\scriptsize$\pm$0.001} & 3.233{\scriptsize$\pm$0.003} & 3.189{\scriptsize$\pm$0.001} & \textbf{3.221}{\scriptsize$\pm$0.001} & \textbf{3.210}{\scriptsize$\pm$0.001} & \textbf{1.06}{\scriptsize$\pm$0.01} \\
+    SGD & 3.144{\scriptsize$\pm$0.001} & 3.306{\scriptsize$\pm$0.030} & 3.311{\scriptsize$\pm$0.017} & 3.216{\scriptsize$\pm$0.001} & 3.261{\scriptsize$\pm$0.006} & 3.274{\scriptsize$\pm$0.005} & 2.07{\scriptsize$\pm$0.08} \\
+    Muon & 3.144{\scriptsize$\pm$0.001} & 3.239{\scriptsize$\pm$0.001} & \textbf{3.203}{\scriptsize$\pm$0.003} & \textbf{3.183}{\scriptsize$\pm$0.001} & 3.237{\scriptsize$\pm$0.022} & 3.216{\scriptsize$\pm$0.005} & 1.14{\scriptsize$\pm$0.08} \\
+    SAM & 3.144{\scriptsize$\pm$0.001} & 3.320{\scriptsize$\pm$0.006} & 3.318{\scriptsize$\pm$0.004} & 3.219{\scriptsize$\pm$0.001} & 3.262{\scriptsize$\pm$0.006} & 3.280{\scriptsize$\pm$0.002} & 2.16{\scriptsize$\pm$0.04} \\
+    FSAM & 3.144{\scriptsize$\pm$0.001} & 3.313{\scriptsize$\pm$0.021} & 3.312{\scriptsize$\pm$0.019} & 3.219{\scriptsize$\pm$0.002} & 3.262{\scriptsize$\pm$0.006} & 3.276{\scriptsize$\pm$0.001} & 2.11{\scriptsize$\pm$0.03} \\
+    SpecSAM-Muon & 3.144{\scriptsize$\pm$0.001} & 3.247{\scriptsize$\pm$0.002} & 3.285{\scriptsize$\pm$0.003} & 3.206{\scriptsize$\pm$0.001} & 3.245{\scriptsize$\pm$0.000} & 3.246{\scriptsize$\pm$0.001} & 1.62{\scriptsize$\pm$0.01} \\
+    FP-SOMA & 3.144{\scriptsize$\pm$0.001} & 3.245{\scriptsize$\pm$0.001} & 3.286{\scriptsize$\pm$0.003} & 3.186{\scriptsize$\pm$0.017} & 3.240{\scriptsize$\pm$0.001} & 3.239{\scriptsize$\pm$0.005} & 1.52{\scriptsize$\pm$0.07} \\
+    SOMA & 3.144{\scriptsize$\pm$0.001} & 3.237{\scriptsize$\pm$0.001} & 3.230{\scriptsize$\pm$0.048} & 3.184{\scriptsize$\pm$0.001} & 3.238{\scriptsize$\pm$0.022} & 3.222{\scriptsize$\pm$0.016} & 1.25{\scriptsize$\pm$0.25} \\
+    RandSAM-Muon & 3.144{\scriptsize$\pm$0.001} & 3.239{\scriptsize$\pm$0.001} & \textbf{3.203}{\scriptsize$\pm$0.003} & \textbf{3.183}{\scriptsize$\pm$0.001} & 3.237{\scriptsize$\pm$0.022} & 3.216{\scriptsize$\pm$0.005} & 1.14{\scriptsize$\pm$0.08} \\
+    SOMA-PreNS5 & 3.144{\scriptsize$\pm$0.001} & 3.242{\scriptsize$\pm$0.001} & 3.256{\scriptsize$\pm$0.049} & \textbf{3.183}{\scriptsize$\pm$0.001} & 3.238{\scriptsize$\pm$0.022} & 3.230{\scriptsize$\pm$0.011} & 1.37{\scriptsize$\pm$0.17} \\
+    OP-SOMA-PostNS5 & 3.144{\scriptsize$\pm$0.001} & 3.243{\scriptsize$\pm$0.002} & 3.230{\scriptsize$\pm$0.048} & \textbf{3.183}{\scriptsize$\pm$0.001} & 3.238{\scriptsize$\pm$0.022} & 3.223{\scriptsize$\pm$0.016} & 1.27{\scriptsize$\pm$0.25} \\
+    \bottomrule
+  \end{tabular}}
+\end{table*}

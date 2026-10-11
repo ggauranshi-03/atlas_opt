@@ -66,7 +66,7 @@ def main():
   curve axis/.style={width=\columnwidth, height=0.72\columnwidth, grid=major, grid style={gray!25}, xlabel={Epoch},
     tick label style={font=\scriptsize}, label style={font=\footnotesize}, title style={font=\footnotesize},
     legend style={font=\tiny, draw=none, fill=white, fill opacity=0.8, text opacity=1}, scaled y ticks=false},
-  grid curve axis/.style={width=0.31\textwidth, height=0.25\textwidth, grid=major, grid style={gray!25},
+  grid curve axis/.style={width=0.27\textwidth, height=0.165\textwidth, grid=major, grid style={gray!25},
     tick label style={font=\tiny}, label style={font=\scriptsize}, title style={font=\scriptsize, yshift=-2pt}, scaled y ticks=false},
 }
 """)
@@ -82,7 +82,7 @@ def main():
             open(f"plots/{m}_{mk}.tex", "w").write("\n".join(t))
     # ---- 3x3 grid (rows = models, columns = metrics), one shared legend ----
     g = ["% AUTO-GENERATED: rows = models, columns = training loss / validation accuracy / validation perplexity", r"\begin{tikzpicture}",
-         r"\begin{groupplot}[grid curve axis, group style={group size=3 by 3, horizontal sep=1.45cm, vertical sep=1.35cm}]"]
+         r"\begin{groupplot}[grid curve axis, group style={group size=3 by 3, horizontal sep=1.1cm, vertical sep=0.85cm}]"]
     for r, (m, (title, cid)) in enumerate(MODELS.items()):
         for c, (mk, (ylabel, col)) in enumerate(METRICS.items()):
             opts = ["xmin=1", "xmax=%d" % ranges[m]]

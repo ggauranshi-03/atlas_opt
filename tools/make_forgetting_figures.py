@@ -160,20 +160,30 @@ def main():
     macro = {"nanogpt": r"\forgetTabNanoGPT", "pythia70m": r"\forgetTabPythia"}
     for m, long in MODELS.items():
         f = f"\\figroot/data/forgetting_{m}.csv"
+        # Self-contained: colours and all axis options are set here, nothing depends on common/preamble.tex except pgfplots + pgfplotstable being loaded.
+        # Bars are plain \addplot (not \addplot+ and no plot-level `ybar`): the axis-level `ybar` and `bar width` apply, and no cycle-list marks are drawn.
         t = [r"% AUTO-GENERATED: grouped bars = forgetting per fine-tuning dataset, diamond = average over datasets; error bars = sd over 3 seeds",
-             r"% the table is loaded explicitly (comma separated) so that the optimizer names can be used as x tick labels",
-             r"\pgfplotstableread[col sep=comma]{%s}%s" % (f, macro[m]),
-             r"\begin{tikzpicture}", r"\begin{axis}[dpt bars,", f"  xticklabels from table={{{macro[m]}}}{{label}}, title={{{long}}}]"]
+             r"% needs \usepackage{pgfplots,pgfplotstable}; the table is loaded here (comma separated) so that optimizer names can be used as x tick labels"]
+        t += [r"\definecolor{fg-%s}{HTML}{%s}" % (d, COLORS[d]) for d in DS]
+        t += [r"\pgfplotstableread[col sep=comma]{%s}%s" % (f, macro[m]),
+              r"\begin{tikzpicture}", r"\begin{axis}[",
+              r"  ybar, width=0.9\textwidth, height=0.30\textwidth, bar width=2.6pt, ymin=0, enlarge x limits=0.045,",
+              r"  ymajorgrids, grid style={gray!25}, xtick=data, xticklabels from table={%s}{label}," % macro[m],
+              r"  x tick label style={rotate=35, anchor=east, font=\scriptsize}, tick label style={font=\scriptsize}, label style={font=\footnotesize},",
+              r"  title={%s}, title style={font=\footnotesize, yshift=0.55cm}, xlabel={Pretraining optimizer}," % long,
+              r"  ylabel={Forgetting $\Delta$PT (FineWeb loss rise)}, scaled y ticks=false,",
+              r"  legend style={font=\scriptsize, at={(0.5,1.02)}, anchor=south, legend columns=5, draw=none},",
+              r"  error bars/y dir=both, error bars/y explicit, error bars/error bar style={line width=0.4pt}]"]
         for d, sh in zip(DS, shifts):
-            t += [r"\addplot+[ybar, bar shift=%s, fill=c-%s, draw=none, error bars/.cd, y dir=both, y explicit] table[col sep=comma, x=idx, y=%s, y error=%s_sd]{%s};" % (sh, d, d, d, f),
+            t += [r"\addplot[bar width=2.6pt, bar shift=%s, fill=fg-%s, draw=none, mark=none] table[col sep=comma, x=idx, y=%s, y error=%s_sd]{%s};" % (sh, d, d, d, f),
                   r"\addlegendentry{%s}" % d]
-        t += [r"\addplot+[only marks, bar shift=0pt, mark=diamond*, mark size=2.6pt, color=black, fill=black, error bars/.cd, y dir=both, y explicit] "
+        t += [r"\addplot[only marks, bar shift=0pt, mark=diamond*, mark size=2.6pt, color=black, fill=black] "
               r"table[col sep=comma, x=idx, y=avg, y error=avg_sd]{%s};" % f, r"\addlegendentry{average}",
               r"\end{axis}", r"\end{tikzpicture}", ""]
         open(f"{OUT}/forgetting_{m}.tex", "w").write("\n".join(t))
     open(f"{OUT}/figure_forgetting.tex", "w").write("\n".join(
         [r"% AUTO-GENERATED: one full-width figure per model (needs common/preamble.tex in the preamble)"] +
-        [("\\begin{figure*}[t]\n  \\centering\n  \\fitwidth{\\input{\\figroot/forgetting_%s.tex}}\n"
+        [("\\begin{figure*}[t]\n  \\centering\n  \\resizebox{\\ifdim\\width>\\textwidth\\textwidth\\else\\width\\fi}{!}{\\input{\\figroot/forgetting_%s.tex}}\n"
           "  \\caption{Catastrophic forgetting of %s models pretrained with each optimizer, after fine-tuning on four datasets. Bars: rise "
           "$\\Delta$PT of the held-out FineWeb-Edu loss at a common fine-tuning loss (lower is better); diamond: average over datasets; "
           "error bars: standard deviation over 3 pretraining seeds. $^\\dagger$ starting model clearly weaker than AdamW's (not comparable).}\n"

@@ -1,0 +1,31 @@
+% INT4 post-training quantization on FineWeb-Edu. Values are hard-coded; needs \usepackage{booktabs} and \usepackage{graphicx}.
+\begin{table*}[t]
+  \centering
+  \caption{INT4 post-training quantization of models pretrained with different optimizers. Held-out FineWeb-Edu perplexity (lower is better) of the
+  full-precision model (FP) and of the 4-bit AWQ model (INT4), and the relative change $\Delta\%$ from FP to INT4. AWQ uses 4-bit weights with group size 128 for the
+  linear layers of the transformer blocks; embeddings and output head stay in full precision. Mean $\pm$ std over 3 pretraining seeds (each INT4 value is the
+  mean of 3 calibration seeds); bold: lowest in column.}
+  \label{tab:ptq-fineweb}
+  \vspace{2pt}
+  \resizebox{\ifdim\width>\textwidth\textwidth\else\width\fi}{!}{%
+  \footnotesize\setlength{\tabcolsep}{5pt}
+  \begin{tabular}{lcccccc}
+    \toprule
+    & \multicolumn{3}{c}{nanoGPT (GPT-2 small)} & \multicolumn{3}{c}{Pythia-70M} \\
+    \cmidrule(lr){2-4}\cmidrule(lr){5-7}
+    Optimizer & FP & INT4 & $\Delta\%$ & FP & INT4 & $\Delta\%$ \\
+    \midrule
+    AdamW & \textbf{23.15}{\scriptsize$\pm$0.01} & \textbf{23.89}{\scriptsize$\pm$0.01} & +3.21{\scriptsize$\pm$0.02} & 34.04{\scriptsize$\pm$0.02} & 37.87{\scriptsize$\pm$0.05} & \textbf{+11.25}{\scriptsize$\pm$0.22} \\
+    SGD & 24.18{\scriptsize$\pm$0.01} & 25.27{\scriptsize$\pm$0.01} & +4.51{\scriptsize$\pm$0.05} & 37.77{\scriptsize$\pm$0.01} & 43.33{\scriptsize$\pm$0.04} & +14.71{\scriptsize$\pm$0.15} \\
+    Muon & 23.20{\scriptsize$\pm$0.01} & 24.00{\scriptsize$\pm$0.04} & +3.44{\scriptsize$\pm$0.13} & 33.60{\scriptsize$\pm$0.00} & 37.57{\scriptsize$\pm$0.10} & +11.80{\scriptsize$\pm$0.30} \\
+    SAM & 24.18{\scriptsize$\pm$0.01} & 25.24{\scriptsize$\pm$0.02} & +4.40{\scriptsize$\pm$0.04} & 37.82{\scriptsize$\pm$0.01} & 43.37{\scriptsize$\pm$0.04} & +14.66{\scriptsize$\pm$0.08} \\
+    FSAM & 24.17{\scriptsize$\pm$0.00} & 25.25{\scriptsize$\pm$0.01} & +4.46{\scriptsize$\pm$0.06} & 37.82{\scriptsize$\pm$0.02} & 43.29{\scriptsize$\pm$0.06} & +14.46{\scriptsize$\pm$0.14} \\
+    SpecSAM-Muon & 23.26{\scriptsize$\pm$0.01} & 23.95{\scriptsize$\pm$0.02} & \textbf{+2.96}{\scriptsize$\pm$0.06} & 33.66{\scriptsize$\pm$0.02} & 37.51{\scriptsize$\pm$0.11} & +11.46{\scriptsize$\pm$0.27} \\
+    FP-SOMA & 23.24{\scriptsize$\pm$0.01} & 23.94{\scriptsize$\pm$0.02} & +3.00{\scriptsize$\pm$0.05} & 33.64{\scriptsize$\pm$0.02} & \textbf{37.46}{\scriptsize$\pm$0.05} & +11.34{\scriptsize$\pm$0.12} \\
+    SOMA & 23.19{\scriptsize$\pm$0.01} & 23.99{\scriptsize$\pm$0.01} & +3.44{\scriptsize$\pm$0.02} & 33.68{\scriptsize$\pm$0.02} & 37.62{\scriptsize$\pm$0.11} & +11.70{\scriptsize$\pm$0.28} \\
+    RandSAM-Muon & 23.20{\scriptsize$\pm$0.02} & 24.02{\scriptsize$\pm$0.04} & +3.51{\scriptsize$\pm$0.12} & \textbf{33.59}{\scriptsize$\pm$0.01} & 37.67{\scriptsize$\pm$0.02} & +12.17{\scriptsize$\pm$0.08} \\
+    SOMA-PreNS5 & 23.20{\scriptsize$\pm$0.01} & 23.98{\scriptsize$\pm$0.02} & +3.38{\scriptsize$\pm$0.04} & 33.64{\scriptsize$\pm$0.01} & 37.56{\scriptsize$\pm$0.06} & +11.65{\scriptsize$\pm$0.20} \\
+    OP-SOMA-PostNS5 & 23.19{\scriptsize$\pm$0.01} & 23.98{\scriptsize$\pm$0.02} & +3.40{\scriptsize$\pm$0.08} & 33.61{\scriptsize$\pm$0.01} & 37.62{\scriptsize$\pm$0.01} & +11.92{\scriptsize$\pm$0.03} \\
+    \bottomrule
+  \end{tabular}}
+\end{table*}

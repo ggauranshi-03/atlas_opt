@@ -1,18 +1,28 @@
 % AUTO-GENERATED: grouped bars = forgetting per fine-tuning dataset, diamond = average over datasets; error bars = sd over 3 seeds
-% the table is loaded explicitly (comma separated) so that the optimizer names can be used as x tick labels
+% needs \usepackage{pgfplots,pgfplotstable}; the table is loaded here (comma separated) so that optimizer names can be used as x tick labels
+\definecolor{fg-codeparrot}{HTML}{0072B2}
+\definecolor{fg-stackmathqa}{HTML}{E69F00}
+\definecolor{fg-musicpile}{HTML}{009E73}
+\definecolor{fg-tulu3}{HTML}{CC79A7}
 \pgfplotstableread[col sep=comma]{\figroot/data/forgetting_nanogpt.csv}\forgetTabNanoGPT
 \begin{tikzpicture}
-\begin{axis}[dpt bars,
-  xticklabels from table={\forgetTabNanoGPT}{label}, title={nanoGPT (GPT-2 small)}]
-\addplot+[ybar, bar shift=-3.9pt, fill=c-codeparrot, draw=none, error bars/.cd, y dir=both, y explicit] table[col sep=comma, x=idx, y=codeparrot, y error=codeparrot_sd]{\figroot/data/forgetting_nanogpt.csv};
+\begin{axis}[
+  ybar, width=0.9\textwidth, height=0.30\textwidth, bar width=2.6pt, ymin=0, enlarge x limits=0.045,
+  ymajorgrids, grid style={gray!25}, xtick=data, xticklabels from table={\forgetTabNanoGPT}{label},
+  x tick label style={rotate=35, anchor=east, font=\scriptsize}, tick label style={font=\scriptsize}, label style={font=\footnotesize},
+  title={nanoGPT (GPT-2 small)}, title style={font=\footnotesize, yshift=0.55cm}, xlabel={Pretraining optimizer},
+  ylabel={Forgetting $\Delta$PT (FineWeb loss rise)}, scaled y ticks=false,
+  legend style={font=\scriptsize, at={(0.5,1.02)}, anchor=south, legend columns=5, draw=none},
+  error bars/y dir=both, error bars/y explicit, error bars/error bar style={line width=0.4pt}]
+\addplot[bar width=2.6pt, bar shift=-3.9pt, fill=fg-codeparrot, draw=none, mark=none] table[col sep=comma, x=idx, y=codeparrot, y error=codeparrot_sd]{\figroot/data/forgetting_nanogpt.csv};
 \addlegendentry{codeparrot}
-\addplot+[ybar, bar shift=-1.3pt, fill=c-stackmathqa, draw=none, error bars/.cd, y dir=both, y explicit] table[col sep=comma, x=idx, y=stackmathqa, y error=stackmathqa_sd]{\figroot/data/forgetting_nanogpt.csv};
+\addplot[bar width=2.6pt, bar shift=-1.3pt, fill=fg-stackmathqa, draw=none, mark=none] table[col sep=comma, x=idx, y=stackmathqa, y error=stackmathqa_sd]{\figroot/data/forgetting_nanogpt.csv};
 \addlegendentry{stackmathqa}
-\addplot+[ybar, bar shift=1.3pt, fill=c-musicpile, draw=none, error bars/.cd, y dir=both, y explicit] table[col sep=comma, x=idx, y=musicpile, y error=musicpile_sd]{\figroot/data/forgetting_nanogpt.csv};
+\addplot[bar width=2.6pt, bar shift=1.3pt, fill=fg-musicpile, draw=none, mark=none] table[col sep=comma, x=idx, y=musicpile, y error=musicpile_sd]{\figroot/data/forgetting_nanogpt.csv};
 \addlegendentry{musicpile}
-\addplot+[ybar, bar shift=3.9pt, fill=c-tulu3, draw=none, error bars/.cd, y dir=both, y explicit] table[col sep=comma, x=idx, y=tulu3, y error=tulu3_sd]{\figroot/data/forgetting_nanogpt.csv};
+\addplot[bar width=2.6pt, bar shift=3.9pt, fill=fg-tulu3, draw=none, mark=none] table[col sep=comma, x=idx, y=tulu3, y error=tulu3_sd]{\figroot/data/forgetting_nanogpt.csv};
 \addlegendentry{tulu3}
-\addplot+[only marks, bar shift=0pt, mark=diamond*, mark size=2.6pt, color=black, fill=black, error bars/.cd, y dir=both, y explicit] table[col sep=comma, x=idx, y=avg, y error=avg_sd]{\figroot/data/forgetting_nanogpt.csv};
+\addplot[only marks, bar shift=0pt, mark=diamond*, mark size=2.6pt, color=black, fill=black] table[col sep=comma, x=idx, y=avg, y error=avg_sd]{\figroot/data/forgetting_nanogpt.csv};
 \addlegendentry{average}
 \end{axis}
 \end{tikzpicture}

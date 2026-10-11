@@ -1,0 +1,4 @@
+logs/
+base_checkpoints/
+__pycache__/
+*.tmp
