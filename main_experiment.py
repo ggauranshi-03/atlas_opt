@@ -12,10 +12,9 @@ import matplotlib.pyplot as plt
 import wandb
 
 from utils.helpers import build_model, make_optimizer, train_epoch, evaluate_model, run_noise_analysis, device
-from utils.tuning import tune_atlas_hyperparameters
 from data.loaders import get_cpt_dataloaders, get_cifar10_dataloaders, infinite_batches
 
-def run_config_benchmark(config_path, optimizers=None, epochs_override=None, seed=42):
+def run_config_benchmark(config_path, optimizers=None, epochs_override=None, seed=42, outdir="logs"):
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
 
@@ -61,11 +60,6 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
             torch.cuda.manual_seed_all(seed)
 
         model, _, tokenizer = build_model(config, device)
-        def model_builder():
-            torch.manual_seed(seed)
-            if torch.cuda.is_available(): torch.cuda.manual_seed_all(seed)
-            m, _, _ = build_model(config, device)
-            return m
 
         if task_type == "image_classification":
             train_loader, val_loader = get_cifar10_dataloaders(batch_size=batch_size)
@@ -87,21 +81,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
                 raise RuntimeError(f"initial val perplexity {init_ppl:.1f}: the model did not start from the pretrained weights")
 
         opts_cfg = config.get("optimizers", {})
-        if opt_name in ["atlas", "atlas_raw", "atlas_random", "hybrid"]:
-            opt_dict = opts_cfg.get(opt_name, {})
-            base_params = {
-                "lr": opt_dict.get("lr", 0.035),
-                "rho": opt_dict.get("rho", 0.015),
-                "rho_vector": opt_dict.get("rho_vector", 0.015),
-                "weight_decay": opt_dict.get("weight_decay", 0.0001),
-                "momentum": opt_dict.get("momentum", 0.9665),
-                "nesterov": True,
-                "ns_steps": 5,
-                "adam_lr": 0.003 if task_type != "image_classification" else 0.001,
-            }
-            best_params = tune_atlas_hyperparameters(model_builder, train_loader, task_type, base_params)
-            # best_params = base_params
-        elif opt_name == "muon":
+        if opt_name == "muon":
             opt_dict = opts_cfg.get("muon", {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.035),
@@ -109,11 +89,18 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
                 "weight_decay": opt_dict.get("weight_decay", 0.0001),
                 "adam_lr": opt_dict.get("adam_lr", 0.003 if task_type != "image_classification" else 0.001),
             }
-        elif opt_name in ["muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon", "fsam_ortho_muon",
+        elif opt_name in ["atlas", "atlas_raw", "atlas_random", "hybrid",
+                          "muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon", "fsam_ortho_muon",
                           "fsam_ortho_muon_stale", "fsam_ortho_muon_stale_momentum",
                           "fsam_frob_muon_stale", "fsam_frob_muon_stale_momentum",
                           "muon_sam_gfrob", "fsam_gfrob_muon_stale", "fsam_gfrob_muon_stale_momentum", "randsam_muon",
                           "soma_prens5", "op_soma_postns5", "msoma"]:
+            # Atlas/atlas_raw/atlas_random used to get their hyperparameters from an inline
+            # tune_atlas_hyperparameters() auto-tuner here -- every other method in this elif (and
+            # muon itself) instead reads a fixed value chosen offline by tools/tune.py's lr-inherit +
+            # rho-sweep protocol (configs/tuned/*.yaml), so Atlas was not held to the same tuning
+            # budget/methodology as the rest of the comparison. It now reads from config exactly like
+            # its Muon-wrapping siblings; see tools/tune.py's INHERIT dict ("atlas" -> "muon").
             opt_dict = opts_cfg.get(opt_name, {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.035),
@@ -198,6 +185,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
             
             config_epoch_logs.append({
                 "epoch": epoch + 1,
+                "step": (epoch + 1) * steps_per_epoch,
                 "optimizer": opt_name,
                 "seed": seed,
                 "train_loss": tl,
@@ -229,9 +217,9 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
             "val_metrics": val_metrics,
         }
 
-    os.makedirs("logs", exist_ok=True)
-    single_csv = f"logs/{config_id}_logs.csv"
-    csv_header = ["epoch", "optimizer", "seed", "train_loss", "train_accuracy", "val_loss", "val_accuracy", "val_perplexity", "time_s"]
+    os.makedirs(outdir, exist_ok=True)
+    single_csv = f"{outdir}/{config_id}_logs.csv"
+    csv_header = ["epoch", "step", "optimizer", "seed", "train_loss", "train_accuracy", "val_loss", "val_accuracy", "val_perplexity", "time_s"]
     # Keep rows of other (optimizer, seed) runs, so runs can be trained in separate processes.
     kept_rows = []
     with open(single_csv + ".lock", "w") as lock:
@@ -248,7 +236,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
                 writer.writerow([r.get(k, "") for k in csv_header])
             for row in config_epoch_logs:
                 writer.writerow([
-                    row["epoch"], row["optimizer"], row["seed"],
+                    row["epoch"], row["step"], row["optimizer"], row["seed"],
                     f"{row['train_loss']:.4f}", f"{row['train_accuracy']:.2f}",
                     f"{row['val_loss']:.4f}", f"{row['val_accuracy']:.2f}", f"{row['val_perplexity']:.2f}",
                     f"{row['time_s']:.1f}"
@@ -295,7 +283,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
     ax[1].grid(True, linestyle="--", alpha=0.4)
     ax[1].legend(frameon=True, fontsize=10)
 
-    plot_file = f"logs/{config_id}_seed{seed}_plot.png"
+    plot_file = f"{outdir}/{config_id}_seed{seed}_plot.png"
     plt.tight_layout()
     plt.savefig(plot_file, dpi=150)
     plt.close()
@@ -309,6 +297,7 @@ def main():
     epochs_override = None
     opt_arg = "all"
     seed = 42
+    outdir = "logs"
 
     for idx, arg in enumerate(sys.argv):
         if arg in ("--config", "-c") and idx + 1 < len(sys.argv):
@@ -321,6 +310,8 @@ def main():
             epochs_override = int(sys.argv[idx + 1])
         elif arg in ("--seed", "-s") and idx + 1 < len(sys.argv):
             seed = int(sys.argv[idx + 1])
+        elif arg in ("--outdir", "-d") and idx + 1 < len(sys.argv):
+            outdir = sys.argv[idx + 1]
 
     if opt_arg in ["all", "all_optimizers", "comparison"]:
         opts_to_run = ["atlas", "atlas_raw", "atlas_random", "muon", "adam", "sgd"]
@@ -334,7 +325,7 @@ def main():
 
     for c_file in target_configs:
         try:
-            results = run_config_benchmark(c_file, optimizers=opts_to_run, epochs_override=epochs_override, seed=seed)
+            results = run_config_benchmark(c_file, optimizers=opts_to_run, epochs_override=epochs_override, seed=seed, outdir=outdir)
             all_benchmark_results.extend(results)
         except Exception as e:
             print(f"  [ERROR] Failed running benchmark for {c_file}: {e}")

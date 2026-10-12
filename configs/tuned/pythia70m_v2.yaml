@@ -120,6 +120,7 @@ optimizers:
     fsam_sigma: 1.0
     rho_vector: 0.0003
   msoma:
+    # placeholder rho pending the same rho sweep as atlas/msam below (not yet run for msoma either).
     optimizer: msoma
     lr: 0.0006
     momentum: 0.95
@@ -127,3 +128,27 @@ optimizers:
     adam_lr: 2.4e-05
     rho: 0.01
     rho_vector: 0.01
+  atlas:
+    # lr/momentum/weight_decay/adam_lr inherited from muon's tuned values (atlas wraps the Muon
+    # update rule, same as every other Muon-family SAM method here). rho/rho_vector below are a
+    # placeholder seeded from muon_sam's tuned rho -- run tools/tune.py's rho sweep (INHERIT now
+    # includes "atlas": "muon") before using this for a real comparison run.
+    optimizer: atlas
+    lr: 0.0006
+    momentum: 0.95
+    weight_decay: 0.0
+    adam_lr: 2.4e-05
+    rho: 0.0003
+    rho_vector: 0.0003
+    ns_steps: 5
+  msam:
+    # lr/momentum/weight_decay inherited from sgd's tuned values (MSAM wraps an SGD-with-momentum
+    # update rule, same inheritance logic as sam/fsam -> sgd). rho below is a placeholder -- run
+    # tools/tune.py's rho sweep (INHERIT now includes "msam": "sgd") before using this for a real
+    # comparison run.
+    optimizer: msam
+    lr: 0.003
+    momentum: 0.9
+    nesterov: true
+    weight_decay: 0.0
+    rho: 0.0003

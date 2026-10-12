@@ -123,3 +123,19 @@ optimizers:
     adam_lr: 0.0008
     rho: 0.01
     rho_vector: 0.01
+  atlas:
+    optimizer: atlas
+    lr: 0.02
+    momentum: 0.95
+    weight_decay: 0.0
+    adam_lr: 0.0008
+    rho: 0.01
+    rho_vector: 0.01
+    ns_steps: 5
+  msam:
+    optimizer: msam
+    lr: 0.03
+    momentum: 0.9
+    nesterov: true
+    weight_decay: 0.0
+    rho: 0.05

@@ -39,7 +39,12 @@ MODELS = {  # key -> (base config, proxy epochs for tuning, final epochs, is_lm)
 BASE_OPTS = ["adam", "sgd", "muon"]
 INHERIT = {"sam": "sgd", "fsam": "sgd", "muon_sam": "muon", "fsam_ortho_muon": "muon",
            "fsam_ortho_muon_stale_momentum": "muon", "randsam_muon": "muon",
-           "soma_prens5": "muon", "op_soma_postns5": "muon", "msoma": "muon"}
+           "soma_prens5": "muon", "op_soma_postns5": "muon", "msoma": "muon",
+           # Atlas wraps the Muon update rule (like the other muon_* entries above); MSAM wraps
+           # an SGD-with-momentum update rule (like sam/fsam -> sgd). Added so both get the same
+           # lr-inherit + rho-sweep protocol as every other method here, instead of main_experiment.py's
+           # old atlas-only inline auto-tuner (removed) or msam's un-tuned hardcoded defaults.
+           "atlas": "muon", "msam": "sgd"}
 INHERITED_KEYS = ["lr", "momentum", "weight_decay", "nesterov", "adam_lr"]
 LR_GRID = {
     True: {"adam": [2e-5, 6e-5, 2e-4, 6e-4, 2e-3], "sgd": [1e-3, 3e-3, 1e-2, 3e-2, 1e-1, 3e-1],
@@ -51,6 +56,7 @@ MAX_EXT = 2
 TUNE_SEED = 0
 FINAL_SEEDS = [42, 43, 44]
 ONLY = None   # optional optimizer subset (--optimizers); then queues and sweep tables get the suffix TAG
+ONLY_MODELS = None  # optional model subset (--models), e.g. {"pythia70m"} to sweep just one model
 TAG = ""
 STEP = math.sqrt(10)
 OUTDIR = "results/tuning"
@@ -95,12 +101,14 @@ def run_queue(queue, gpus):
 
 
 def sweep(stage, gpus):
-    """stage 'lr' or 'rho'. Runs the grid for all models, extends edges, writes the tuned configs."""
+    """stage 'lr' or 'rho'. Runs the grid for all models (or ONLY_MODELS, if set), extends edges,
+    writes the tuned configs."""
     os.makedirs(OUTDIR, exist_ok=True)
     os.makedirs("logs/queue", exist_ok=True)
     queue = f"queues/tune_{stage}{TAG}.json"
     plan = {}  # (model, opt) -> sorted list of values
-    for model, (cfg_path, epochs, _, lm) in MODELS.items():
+    models = {m: v for m, v in MODELS.items() if ONLY_MODELS is None or m in ONLY_MODELS}
+    for model, (cfg_path, epochs, _, lm) in models.items():
         cfg = E.load_cfg(cfg_path if stage == "lr" else tuned_path(model))
         opts = BASE_OPTS if stage == "lr" else list(INHERIT)
         opts = [o for o in opts if ONLY is None or o in ONLY]
@@ -157,7 +165,8 @@ def select(model, opt, stage, values, epochs, lm):
 
 def write_tuned(stage, plan):
     record = []
-    for model in MODELS:
+    models = {m: v for m, v in MODELS.items() if ONLY_MODELS is None or m in ONLY_MODELS}
+    for model in models:
         cfg_path, epochs, _, lm = MODELS[model]
         tuned = E.load_cfg(cfg_path if stage == "lr" else tuned_path(model))
         for (m, opt), values in plan.items():
@@ -197,7 +206,8 @@ def write_tuned(stage, plan):
 def final(gpus):
     cost = {"sam": 2, "fsam": 2, "muon_sam": 2, "fsam_ortho_muon": 2}
     jobs = []
-    for model, (_, _, epochs, _) in MODELS.items():
+    models = {m: v for m, v in MODELS.items() if ONLY_MODELS is None or m in ONLY_MODELS}
+    for model, (_, _, epochs, _) in models.items():
         cfg = E.load_cfg(tuned_path(model))
         for seed in FINAL_SEEDS:
             for opt in cfg["optimizers"]:
@@ -210,7 +220,7 @@ def final(gpus):
     E.add_jobs(f"queues/final{TAG}.json", jobs)
     run_queue(f"queues/final{TAG}.json", gpus)
     with open(os.path.join(OUTDIR, "selected_hyperparameters.json"), "w") as f:
-        json.dump({m: E.load_cfg(tuned_path(m))["optimizers"] for m in MODELS}, f, indent=1)
+        json.dump({m: E.load_cfg(tuned_path(m))["optimizers"] for m in models}, f, indent=1)
 
 
 if __name__ == "__main__":
@@ -218,9 +228,11 @@ if __name__ == "__main__":
     ap.add_argument("stage", choices=["lr", "rho", "final"])
     ap.add_argument("--gpus", required=True)
     ap.add_argument("--optimizers", default=None, help="comma list: only these optimizers")
+    ap.add_argument("--models", default=None, help=f"comma list: only these models ({', '.join(MODELS)})")
     ap.add_argument("--tag", default="", help="suffix for queue / sweep-table files when --optimizers is used")
     a = ap.parse_args()
     ONLY = set(a.optimizers.split(",")) if a.optimizers else None
+    ONLY_MODELS = set(a.models.split(",")) if a.models else None
     TAG = a.tag
     gpus = [int(g) for g in a.gpus.split(",")]
     final(gpus) if a.stage == "final" else sweep(a.stage, gpus)
