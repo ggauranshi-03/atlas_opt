@@ -23,7 +23,10 @@ class AtlasOptimizerRandom(torch.optim.Optimizer):
     for the perturbation direction, instead of Newton-Schulz orthogonalized gradients.
     Actual parameter updates still use Newton-Schulz orthogonalized gradients.
     """
-    def __init__(self, model_or_params, lr=0.02, weight_decay=0.01, rho=0.05, rho_vector=0.05, momentum=0.9665, nesterov=True, ns_steps=5, adam_lr=3e-4):
+    def __init__(self, model_or_params, lr=0.02, weight_decay=0.01, rho=0.05, rho_vector=0.05, momentum=0.9665, nesterov=True, ns_steps=5, adam_lr=3e-4, adam_weight_decay=None):
+        # See atlas_baseline.py's AtlasOptimizer for why this is separate from weight_decay.
+        if adam_weight_decay is None:
+            adam_weight_decay = weight_decay
         if isinstance(model_or_params, torch.nn.Module):
             muon_params = []
             adam_params = []
@@ -34,13 +37,13 @@ class AtlasOptimizerRandom(torch.optim.Optimizer):
                 else:
                     adam_params.append(p)
             params = [
-                dict(params=adam_params, lr=adam_lr, use_muon=False, rho_vector=rho_vector, weight_decay=weight_decay),
+                dict(params=adam_params, lr=adam_lr, use_muon=False, rho_vector=rho_vector, weight_decay=adam_weight_decay),
                 dict(params=muon_params, lr=lr, weight_decay=weight_decay, rho=rho, momentum=momentum, nesterov=nesterov, ns_steps=ns_steps, use_muon=True)
             ]
         else:
             params = model_or_params
 
-        defaults = dict(lr=lr, weight_decay=weight_decay, rho=rho, rho_vector=rho_vector, momentum=momentum, nesterov=nesterov, ns_steps=ns_steps, adam_lr=adam_lr)
+        defaults = dict(lr=lr, weight_decay=weight_decay, rho=rho, rho_vector=rho_vector, momentum=momentum, nesterov=nesterov, ns_steps=ns_steps, adam_lr=adam_lr, adam_weight_decay=adam_weight_decay)
         super().__init__(params, defaults)
         self._step = 0
 

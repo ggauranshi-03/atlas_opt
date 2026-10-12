@@ -14,6 +14,30 @@ import wandb
 from utils.helpers import build_model, make_optimizer, train_epoch, evaluate_model, run_noise_analysis, device
 from data.loaders import get_cpt_dataloaders, get_cifar10_dataloaders, infinite_batches
 
+# Display names for the curated 13-algorithm comparison set (wandb run names, console headers,
+# plot legends) -- distinct from the internal `--algorithms` dispatch keys used everywhere else
+# (helpers.py, configs/*.yaml, tools/tune.py), which are left unchanged. adam/sgd/muon are plain
+# baselines, not part of this curated set, and keep their own name as-is.
+DISPLAY_NAMES = {
+    "fsam_ortho_muon_stale_momentum": "SOMA",
+    "fsam_ortho_muon": "FP-SOMA",
+    "muon_sam": "SpecSAM-Muon",
+    "randsam_muon": "RandSAM-Muon",
+    "fsam": "FSAM",
+    "sam": "SAM",
+    "soma_prens5": "OP-SOMA-PreNS5",
+    "op_soma_postns5": "OP-SOMA-PostNS5",
+    "sam_adam": "SAM+AdamW",
+    "fsam_adam": "FSAM+AdamW",
+    "atlas": "Lazy-SOMA",
+    "msam": "MSAM",
+    "msoma": "MSOMA",
+}
+
+
+def display_name(opt_name):
+    return DISPLAY_NAMES.get(opt_name, opt_name)
+
 def run_config_benchmark(config_path, optimizers=None, epochs_override=None, seed=42, outdir="logs"):
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
@@ -45,12 +69,12 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
 
     for opt_name in optimizers:
         print("\n" + "#" * 70)
-        print(f"# Config: {config_id} | Optimizer: {opt_name.upper()} | Epochs: {epochs}")
+        print(f"# Config: {config_id} | Optimizer: {display_name(opt_name)} | Epochs: {epochs}")
         print("#" * 70)
 
         os.makedirs("checkpoints", exist_ok=True)
         wandb_proj = exp_info.get("wandb_project", "Atlas-Experiments")
-        run_name = f"{opt_name}_seed{seed}"
+        run_name = f"{display_name(opt_name)}_seed{seed}"
         run = wandb.init(project=wandb_proj, name=run_name, config={**config, "seed": seed}, reinit=True)
         wandb.define_metric("epoch")
         wandb.define_metric("*", step_metric="epoch")
@@ -88,6 +112,11 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
                 "momentum": opt_dict.get("momentum", 0.9665),
                 "weight_decay": opt_dict.get("weight_decay", 0.0001),
                 "adam_lr": opt_dict.get("adam_lr", 0.003 if task_type != "image_classification" else 0.001),
+                # Embeddings/head (routed to the auxiliary AdamW, not Muon) get their own weight
+                # decay -- defaults to the real "adam" baseline's tuned value, not Muon's own 0,
+                # so embeddings aren't under-regularized just because Muon is the hidden-matrix
+                # optimizer being compared. See utils.helpers._muon_with_aux_adam.
+                "adam_weight_decay": opt_dict.get("adam_weight_decay", opts_cfg.get("adam", {}).get("weight_decay", 0.1)),
             }
         elif opt_name in ["atlas", "atlas_raw", "atlas_random", "hybrid",
                           "muon_sam", "muon_sam_frob", "muon_sam_stale", "fsam_muon", "fsam_ortho_muon",
@@ -112,8 +141,10 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
                 "fsam_lambda": opt_dict.get("fsam_lambda", 0.9),
                 "fsam_sigma": opt_dict.get("fsam_sigma", 1.0),
                 "adam_lr": opt_dict.get("adam_lr", 0.003 if task_type != "image_classification" else 0.001),
+                # See the "muon" branch above for why this isn't just `weight_decay`.
+                "adam_weight_decay": opt_dict.get("adam_weight_decay", opts_cfg.get("adam", {}).get("weight_decay", 0.1)),
             }
-        elif opt_name in ["fsam_ortho", "fsam", "sam", "sam_ortho", "msam"]:
+        elif opt_name in ["fsam_ortho", "fsam", "sam", "sam_ortho", "msam", "sam_adam", "fsam_adam"]:
             opt_dict = opts_cfg.get(opt_name, {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.01),
@@ -163,7 +194,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
             val_accs.append(v_acc)
             val_ppls.append(v_ppl)
 
-            print(f"  [{opt_name.upper():<12}] Epoch {epoch+1:2d}/{epochs} | Train Loss: {tl:.4f} | Train Acc: {t_acc:.2f}% | Val Loss: {vl:.4f} | Val Acc: {v_acc:.2f}% | Time: {ep_time:.1f}s | LR: {scheduler.get_last_lr()[-1]:.3e}")
+            print(f"  [{display_name(opt_name):<14}] Epoch {epoch+1:2d}/{epochs} | Train Loss: {tl:.4f} | Train Acc: {t_acc:.2f}% | Val Loss: {vl:.4f} | Val Acc: {v_acc:.2f}% | Time: {ep_time:.1f}s | LR: {scheduler.get_last_lr()[-1]:.3e}")
             
             wandb.log({
                 "epoch": epoch + 1,

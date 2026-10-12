@@ -22,7 +22,13 @@ class AtlasOptimizer(torch.optim.Optimizer):
     Baseline Atlas Optimizer: Uses Newton-Schulz orthogonalization for perturbation 
     and update directions on 2D parameters. 1D parameters use AdamW.
     """
-    def __init__(self, model_or_params, lr=0.02, weight_decay=0.01, rho=0.015, rho_vector=0.015, momentum=0.9665, nesterov=True, ns_steps=5, adam_lr=3e-4):
+    def __init__(self, model_or_params, lr=0.02, weight_decay=0.01, rho=0.015, rho_vector=0.015, momentum=0.9665, nesterov=True, ns_steps=5, adam_lr=3e-4, adam_weight_decay=None):
+        # adam_weight_decay defaults to weight_decay (old behavior) when not given explicitly, but
+        # should normally be set separately: the embeddings/head group (use_muon=False) otherwise
+        # silently inherits Muon's weight_decay (conventionally 0 in this codebase's configs),
+        # under-regularizing embeddings relative to the plain "adam" baseline's own tuned value.
+        if adam_weight_decay is None:
+            adam_weight_decay = weight_decay
         if isinstance(model_or_params, torch.nn.Module):
             muon_params = []
             adam_params = []
@@ -33,13 +39,13 @@ class AtlasOptimizer(torch.optim.Optimizer):
                 else:
                     adam_params.append(p)
             params = [
-                dict(params=adam_params, lr=adam_lr, use_muon=False, rho_vector=rho_vector, weight_decay=weight_decay),
+                dict(params=adam_params, lr=adam_lr, use_muon=False, rho_vector=rho_vector, weight_decay=adam_weight_decay),
                 dict(params=muon_params, lr=lr, weight_decay=weight_decay, rho=rho, momentum=momentum, nesterov=nesterov, ns_steps=ns_steps, use_muon=True)
             ]
         else:
             params = model_or_params
 
-        defaults = dict(lr=lr, weight_decay=weight_decay, rho=rho, rho_vector=rho_vector, momentum=momentum, nesterov=nesterov, ns_steps=ns_steps, adam_lr=adam_lr)
+        defaults = dict(lr=lr, weight_decay=weight_decay, rho=rho, rho_vector=rho_vector, momentum=momentum, nesterov=nesterov, ns_steps=ns_steps, adam_lr=adam_lr, adam_weight_decay=adam_weight_decay)
         super().__init__(params, defaults)
         self._step = 0
 

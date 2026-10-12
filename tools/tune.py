@@ -44,8 +44,11 @@ INHERIT = {"sam": "sgd", "fsam": "sgd", "muon_sam": "muon", "fsam_ortho_muon": "
            # an SGD-with-momentum update rule (like sam/fsam -> sgd). Added so both get the same
            # lr-inherit + rho-sweep protocol as every other method here, instead of main_experiment.py's
            # old atlas-only inline auto-tuner (removed) or msam's un-tuned hardcoded defaults.
-           "atlas": "muon", "msam": "sgd"}
-INHERITED_KEYS = ["lr", "momentum", "weight_decay", "nesterov", "adam_lr"]
+           "atlas": "muon", "msam": "sgd",
+           # SAM+AdamW / FSAM+AdamW wrap a plain AdamW update rule (like the Muon-family methods
+           # wrap Muon), so they inherit AdamW's tuned lr/weight_decay instead of SGD's.
+           "sam_adam": "adam", "fsam_adam": "adam"}
+INHERITED_KEYS = ["lr", "momentum", "weight_decay", "nesterov", "adam_lr", "adam_weight_decay"]
 LR_GRID = {
     True: {"adam": [2e-5, 6e-5, 2e-4, 6e-4, 2e-3], "sgd": [1e-3, 3e-3, 1e-2, 3e-2, 1e-1, 3e-1],
            "muon": [6e-4, 2e-3, 6e-3, 2e-2, 6e-2]},

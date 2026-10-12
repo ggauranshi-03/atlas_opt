@@ -31,6 +31,8 @@ from optimizers.fsam import FSAM
 from optimizers.sam import SAM
 from optimizers.sam_ortho import SAMOrtho
 from optimizers.msam import MSAM
+from optimizers.sam_adam import SAMAdam
+from optimizers.fsam_adam import FSAMAdam
 from utils.models import AirbenchCNN
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -91,9 +93,17 @@ def split_muon_params(model):
 
 
 def _muon_with_aux_adam(model, lr, wd, params):
+    # The embeddings/head (routed to the auxiliary AdamW here, not Muon) get their own
+    # adam_weight_decay, not the Muon group's `wd`. Muon's own weight_decay is conventionally 0 in
+    # this codebase (configs/*.yaml), but reusing that 0 for the aux-Adam group too would silently
+    # under-regularize embeddings whenever a Muon-family optimizer is running, compared to the
+    # plain "adam" baseline's embeddings (which get the real, task-tuned AdamW weight decay, e.g.
+    # 0.1 for the LM configs / 0.0005 for CIFAR) -- a confound unrelated to the hidden-matrix
+    # optimizer actually being compared.
     from optimizers.muon import SingleDeviceMuonWithAuxAdam
     muon_params, adam_params = split_muon_params(model)
-    adam_groups = [dict(params=adam_params, lr=params.get("adam_lr", 0.002), betas=(0.9, 0.95), eps=1e-10, weight_decay=wd, use_muon=False)]
+    adam_wd = params.get("adam_weight_decay", wd)
+    adam_groups = [dict(params=adam_params, lr=params.get("adam_lr", 0.002), betas=(0.9, 0.95), eps=1e-10, weight_decay=adam_wd, use_muon=False)]
     muon_group = dict(params=muon_params, lr=lr, momentum=params.get("momentum", 0.95), weight_decay=wd, use_muon=True)
     return SingleDeviceMuonWithAuxAdam([*adam_groups, muon_group])
 
@@ -103,6 +113,11 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
     wd = params.get("weight_decay", 1e-4)
     trainable_params = [p for p in model.parameters() if p.requires_grad]
     
+    # WSD schedule shape (5% warmup, 20% cooldown, floor 0) is fixed here, not read from any
+    # config's `lr_schedule:` block -- it's the same for every optimizer and every model, so there
+    # is nothing to configure per-run. An `lr_schedule:` block used to sit in the Pythia-70M
+    # configs describing these exact numbers without actually driving them; removed as dead/
+    # misleading config rather than wired up, since nothing currently needs it to vary.
     total_steps = epochs * (steps_per_epoch or 100)
     warmup_steps = int(0.05 * total_steps)
     decay_steps = int(0.20 * total_steps)
@@ -117,25 +132,28 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
 
 
     if name == "atlas":
-        opt = AtlasOptimizer(model, lr=lr, weight_decay=wd, 
-                             rho=params.get("rho", 0.015), 
+        opt = AtlasOptimizer(model, lr=lr, weight_decay=wd,
+                             rho=params.get("rho", 0.015),
                              rho_vector=params.get("rho_vector", 0.015),
                              momentum=params.get("momentum", 0.9665),
-                             adam_lr=params.get("adam_lr", 0.002))
+                             adam_lr=params.get("adam_lr", 0.002),
+                             adam_weight_decay=params.get("adam_weight_decay", wd))
         return opt, get_wsd_schedule(opt)
     elif name == "atlas_raw":
-        opt = AtlasOptimizerRaw(model, lr=lr, weight_decay=wd, 
-                                rho=params.get("rho", 0.015), 
+        opt = AtlasOptimizerRaw(model, lr=lr, weight_decay=wd,
+                                rho=params.get("rho", 0.015),
                                 rho_vector=params.get("rho_vector", 0.015),
                                 momentum=params.get("momentum", 0.9665),
-                                adam_lr=params.get("adam_lr", 0.002))
+                                adam_lr=params.get("adam_lr", 0.002),
+                                adam_weight_decay=params.get("adam_weight_decay", wd))
         return opt, get_wsd_schedule(opt)
     elif name == "atlas_random":
-        opt = AtlasOptimizerRandom(model, lr=lr, weight_decay=wd, 
-                                   rho=params.get("rho", 0.015), 
+        opt = AtlasOptimizerRandom(model, lr=lr, weight_decay=wd,
+                                   rho=params.get("rho", 0.015),
                                    rho_vector=params.get("rho_vector", 0.015),
                                    momentum=params.get("momentum", 0.9665),
-                                   adam_lr=params.get("adam_lr", 0.002))
+                                   adam_lr=params.get("adam_lr", 0.002),
+                                   adam_weight_decay=params.get("adam_weight_decay", wd))
         return opt, get_wsd_schedule(opt)
     elif name in ["muon", "muon_nesterov", "muon_polyak"]:
         opt = _muon_with_aux_adam(model, lr, wd, params)
@@ -265,6 +283,18 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
             weight_decay=wd,
         )
         return opt, get_wsd_schedule(opt)
+    elif name in ["sam_adam", "fsam_adam"]:
+        # Same AdamW construction as the plain "adam" baseline below, so SAM+AdamW/FSAM+AdamW is a
+        # clean "swap the outer optimizer" ablation against the SGD-outer sam/fsam, not confounded
+        # by also using different AdamW hyperparameters.
+        base_opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd, betas=(0.9, 0.95), eps=1e-8)
+        if name == "sam_adam":
+            opt = SAMAdam(base_opt, rho=params.get("rho", 0.05))
+        else:
+            opt = FSAMAdam(base_opt, rho=params.get("rho", 0.05),
+                           fsam_lambda=params.get("fsam_lambda", 0.9),
+                           fsam_sigma=params.get("fsam_sigma", 1.0))
+        return opt, get_wsd_schedule(opt)
     elif name == "adam":
         opt = torch.optim.AdamW(trainable_params, lr=lr, weight_decay=wd, betas=(0.9, 0.95), eps=1e-8)
         return opt, get_wsd_schedule(opt)
@@ -286,7 +316,8 @@ def train_epoch(model, optimizer, criterion, batch_iter, task_type, grad_acc=1, 
                                             MuonSAMFrob, MuonSAMStale, FSAMMuon, FSAMOrthoMuon, FSAMOrthoMuonStale,
                                             FSAMOrthoMuonStaleMomentum, FSAMFrobMuonStale,
                                             FSAMFrobMuonStaleMomentum, MuonSAMGFrob, RandSAMMuon, MSOMA, SOMAPreNS5, OPSOMAPostNS5, FSAMGFrobMuonStale,
-                                            FSAMGFrobMuonStaleMomentum, FSAMOrtho, FSAM, SAM, SAMOrtho, MSAM))
+                                            FSAMGFrobMuonStaleMomentum, FSAMOrtho, FSAM, SAM, SAMOrtho, MSAM,
+                                            SAMAdam, FSAMAdam))
     steps = 0
     
     while steps < steps_per_epoch:

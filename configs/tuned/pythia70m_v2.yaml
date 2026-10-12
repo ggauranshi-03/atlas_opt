@@ -1,6 +1,6 @@
 experiment:
   experiment_id: pythia70m_v2
-  wandb_project: V2-PTQ-Pythia70M
+  wandb_project: CPT_Pythia
   task_type: causal_lm
   model_name: EleutherAI/pythia-70m
   dataset_name: HuggingFaceFW/fineweb-edu
@@ -10,11 +10,6 @@ experiment:
   train_epochs: 14
 batch_size: 16
 grad_acc: 32
-lr_schedule:
-  type: wsd
-  warmup_ratio: 0.05
-  cooldown_ratio: 0.2
-  min_lr_ratio: 0.0
 parameter_routing:
   hidden_matrices: muon
   embeddings_and_head: adamw
@@ -35,6 +30,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 2.4e-05
+    adam_weight_decay: 0.1
   sam:
     optimizer: sam
     lr: 0.003
@@ -61,6 +57,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 2.4e-05
+    adam_weight_decay: 0.1
     rho: 0.0003
     rho_vector: 0.0003
     ns_steps: 5
@@ -72,6 +69,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 2.4e-05
+    adam_weight_decay: 0.1
     rho: 0.0003
     rho_vector: 0.0003
     ns_steps: 5
@@ -83,6 +81,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 2.4e-05
+    adam_weight_decay: 0.1
     rho: 0.0003
     rho_vector: 0.0003
     ns_steps: 5
@@ -94,6 +93,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 2.4e-05
+    adam_weight_decay: 0.1
     rho: 0.000948683
     rho_vector: 0.000948683
     ns_steps: 5
@@ -105,6 +105,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 2.4e-05
+    adam_weight_decay: 0.1
     rho: 0.0003
     fsam_lambda: 0.9
     fsam_sigma: 1.0
@@ -115,6 +116,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 2.4e-05
+    adam_weight_decay: 0.1
     rho: 0.0003
     fsam_lambda: 0.9
     fsam_sigma: 1.0
@@ -126,6 +128,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 2.4e-05
+    adam_weight_decay: 0.1
     rho: 0.01
     rho_vector: 0.01
   atlas:
@@ -138,6 +141,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 2.4e-05
+    adam_weight_decay: 0.1
     rho: 0.0003
     rho_vector: 0.0003
     ns_steps: 5
@@ -152,3 +156,19 @@ optimizers:
     nesterov: true
     weight_decay: 0.0
     rho: 0.0003
+  sam_adam:
+    # lr/weight_decay inherited from adam's tuned values (SAM+AdamW wraps a plain AdamW update
+    # rule). rho below is a placeholder -- run tools/tune.py's rho sweep (INHERIT now includes
+    # "sam_adam": "adam") before using this for a real comparison run.
+    optimizer: sam_adam
+    lr: 6.0e-05
+    weight_decay: 0.1
+    rho: 0.0003
+  fsam_adam:
+    # Same inheritance as sam_adam above (FSAM+AdamW wraps the same plain AdamW update rule).
+    optimizer: fsam_adam
+    lr: 6.0e-05
+    weight_decay: 0.1
+    rho: 0.0003
+    fsam_lambda: 0.9
+    fsam_sigma: 1.0

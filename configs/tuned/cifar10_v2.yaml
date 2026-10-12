@@ -1,6 +1,6 @@
 experiment:
   experiment_id: cifar10_v2
-  wandb_project: V2-PTQ-CIFAR10
+  wandb_project: CPT_CNN
   task_type: image_classification
   dataset_name: cifar10
   model_name: airbench_cnn
@@ -30,6 +30,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 0.0012
+    adam_weight_decay: 0.0005
   sam:
     optimizer: sam
     lr: 0.3
@@ -56,6 +57,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 0.0012
+    adam_weight_decay: 0.0005
     rho: 0.01
     rho_vector: 0.01
     ns_steps: 5
@@ -67,6 +69,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 0.0012
+    adam_weight_decay: 0.0005
     rho: 0.01
     rho_vector: 0.01
     ns_steps: 5
@@ -78,6 +81,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 0.0012
+    adam_weight_decay: 0.0005
     rho: 0.003
     rho_vector: 0.003
     ns_steps: 5
@@ -89,6 +93,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 0.0012
+    adam_weight_decay: 0.0005
     rho: 0.1
     rho_vector: 0.1
     ns_steps: 5
@@ -100,6 +105,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 0.0012
+    adam_weight_decay: 0.0005
     rho: 0.003
     fsam_lambda: 0.9
     fsam_sigma: 1.0
@@ -110,6 +116,7 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 0.0012
+    adam_weight_decay: 0.0005
     rho: 0.003
     fsam_lambda: 0.9
     fsam_sigma: 1.0
@@ -120,5 +127,6 @@ optimizers:
     momentum: 0.95
     weight_decay: 0.0
     adam_lr: 0.0012
+    adam_weight_decay: 0.0005
     rho: 0.01
     rho_vector: 0.01
