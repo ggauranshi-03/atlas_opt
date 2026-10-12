@@ -75,7 +75,13 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
         os.makedirs("checkpoints", exist_ok=True)
         wandb_proj = exp_info.get("wandb_project", "Atlas-Experiments")
         run_name = f"{display_name(opt_name)}_seed{seed}"
-        run = wandb.init(project=wandb_proj, name=run_name, config={**config, "seed": seed}, reinit=True)
+        run = wandb.init(
+            project=wandb_proj,
+            name=run_name,
+            group=display_name(opt_name),
+            config={**config, "seed": seed, "optimizer_name": display_name(opt_name)},
+            reinit=True,
+        )
         wandb.define_metric("epoch")
         wandb.define_metric("*", step_metric="epoch")
 
