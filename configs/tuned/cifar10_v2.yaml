@@ -114,3 +114,11 @@ optimizers:
     fsam_lambda: 0.9
     fsam_sigma: 1.0
     rho_vector: 0.003
+  msoma:
+    optimizer: msoma
+    lr: 0.03
+    momentum: 0.95
+    weight_decay: 0.0
+    adam_lr: 0.0012
+    rho: 0.01
+    rho_vector: 0.01

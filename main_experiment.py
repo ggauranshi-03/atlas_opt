@@ -113,7 +113,7 @@ def run_config_benchmark(config_path, optimizers=None, epochs_override=None, see
                           "fsam_ortho_muon_stale", "fsam_ortho_muon_stale_momentum",
                           "fsam_frob_muon_stale", "fsam_frob_muon_stale_momentum",
                           "muon_sam_gfrob", "fsam_gfrob_muon_stale", "fsam_gfrob_muon_stale_momentum", "randsam_muon",
-                          "soma_prens5", "op_soma_postns5"]:
+                          "soma_prens5", "op_soma_postns5", "msoma"]:
             opt_dict = opts_cfg.get(opt_name, {})
             best_params = {
                 "lr": opt_dict.get("lr", 0.035),

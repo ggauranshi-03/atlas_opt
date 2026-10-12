@@ -39,7 +39,7 @@ MODELS = {  # key -> (base config, proxy epochs for tuning, final epochs, is_lm)
 BASE_OPTS = ["adam", "sgd", "muon"]
 INHERIT = {"sam": "sgd", "fsam": "sgd", "muon_sam": "muon", "fsam_ortho_muon": "muon",
            "fsam_ortho_muon_stale_momentum": "muon", "randsam_muon": "muon",
-           "soma_prens5": "muon", "op_soma_postns5": "muon"}
+           "soma_prens5": "muon", "op_soma_postns5": "muon", "msoma": "muon"}
 INHERITED_KEYS = ["lr", "momentum", "weight_decay", "nesterov", "adam_lr"]
 LR_GRID = {
     True: {"adam": [2e-5, 6e-5, 2e-4, 6e-4, 2e-3], "sgd": [1e-3, 3e-3, 1e-2, 3e-2, 1e-1, 3e-1],

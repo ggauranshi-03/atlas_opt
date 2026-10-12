@@ -14,11 +14,11 @@ OUT = "results"
 SEEDS = [42, 43, 44]
 NAMES = {"adam": "AdamW", "sgd": "SGD", "muon": "Muon", "sam": "SAM", "fsam": "FSAM", "muon_sam": "SpecSAM-Muon",
          "fsam_ortho_muon": "FP-SOMA", "fsam_ortho_muon_stale_momentum": "SOMA", "randsam_muon": "RandSAM-Muon",
-         "soma_prens5": "SOMA-PreNS5", "op_soma_postns5": "OP-SOMA-PostNS5"}
+         "soma_prens5": "SOMA-PreNS5", "op_soma_postns5": "OP-SOMA-PostNS5", "msoma": "MSOMA"}
 MODELS = {"nanogpt": ("nanogpt_v2", 15, True), "pythia70m": ("pythia70m_v2", 14, True), "cifar10": ("cifar10_v2", 7, False)}
 FAMILY_BASE = {"adam": "adam", "sgd": "sgd", "sam": "sgd", "fsam": "sgd", "muon": "muon", "muon_sam": "muon",
                "fsam_ortho_muon": "muon", "fsam_ortho_muon_stale_momentum": "muon", "randsam_muon": "muon",
-               "soma_prens5": "muon", "op_soma_postns5": "muon"}
+               "soma_prens5": "muon", "op_soma_postns5": "muon", "msoma": "muon"}
 DATASETS = ["codeparrot", "stackmathqa", "musicpile", "tulu3"]
 WEAK = 1.10  # base model counted as weaker than AdamW's if its FineWeb perplexity is >10% higher
 

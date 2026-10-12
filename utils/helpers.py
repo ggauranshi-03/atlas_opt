@@ -22,6 +22,7 @@ from optimizers.fsam_frob_muon_stale import FSAMFrobMuonStale
 from optimizers.fsam_frob_muon_stale_momentum import FSAMFrobMuonStaleMomentum
 from optimizers.muon_sam_gfrob import MuonSAMGFrob
 from optimizers.randsam_muon import RandSAMMuon
+from optimizers.msoma import MSOMA
 from optimizers.soma_projected import SOMAPreNS5, OPSOMAPostNS5
 from optimizers.fsam_gfrob_muon_stale import FSAMGFrobMuonStale
 from optimizers.fsam_gfrob_muon_stale_momentum import FSAMGFrobMuonStaleMomentum
@@ -143,7 +144,7 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
                   "fsam_ortho_muon_stale", "fsam_ortho_muon_stale_momentum",
                   "fsam_frob_muon_stale", "fsam_frob_muon_stale_momentum",
                   "muon_sam_gfrob", "fsam_gfrob_muon_stale", "fsam_gfrob_muon_stale_momentum", "randsam_muon",
-                  "soma_prens5", "op_soma_postns5"]:
+                  "soma_prens5", "op_soma_postns5", "msoma"]:
         base_opt = _muon_with_aux_adam(model, lr, wd, params)
         if name == "muon_sam":
             opt = MuonSAM(base_opt, rho=params.get("rho", 0.0015),
@@ -193,6 +194,8 @@ def make_optimizer(name, model, params, epochs=5, steps_per_epoch=100):
             opt = OPSOMAPostNS5(base_opt, rho=params["rho"], fsam_lambda=params["fsam_lambda"], fsam_sigma=params["fsam_sigma"])
         elif name == "randsam_muon":
             opt = RandSAMMuon(base_opt, rho=params.get("rho", 0.01))
+        elif name == "msoma":
+            opt = MSOMA(base_opt, rho=params.get("rho", 0.01))
         elif name == "muon_sam_gfrob":
             opt = MuonSAMGFrob(base_opt, rho=params.get("rho", 0.0015))
         elif name == "fsam_gfrob_muon_stale":
@@ -282,7 +285,7 @@ def train_epoch(model, optimizer, criterion, batch_iter, task_type, grad_acc=1, 
     is_closure_opt = isinstance(optimizer, (AtlasOptimizer, AtlasOptimizerRaw, AtlasOptimizerRandom, MuonSAM,
                                             MuonSAMFrob, MuonSAMStale, FSAMMuon, FSAMOrthoMuon, FSAMOrthoMuonStale,
                                             FSAMOrthoMuonStaleMomentum, FSAMFrobMuonStale,
-                                            FSAMFrobMuonStaleMomentum, MuonSAMGFrob, RandSAMMuon, SOMAPreNS5, OPSOMAPostNS5, FSAMGFrobMuonStale,
+                                            FSAMFrobMuonStaleMomentum, MuonSAMGFrob, RandSAMMuon, MSOMA, SOMAPreNS5, OPSOMAPostNS5, FSAMGFrobMuonStale,
                                             FSAMGFrobMuonStaleMomentum, FSAMOrtho, FSAM, SAM, SAMOrtho, MSAM))
     steps = 0
     
