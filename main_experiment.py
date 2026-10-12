@@ -370,7 +370,8 @@ def main():
     print("\n" + "=" * 80)
     print("                      ALL BENCHMARKS COMPLETED SUCCESSFULLY")
     print("=" * 80)
-    summary_file = "logs/all_experiments_summary.csv"
+    summary_file = f"{outdir}/all_experiments_summary.csv"
+    os.makedirs(outdir, exist_ok=True)
     file_exists = os.path.exists(summary_file) and os.path.getsize(summary_file) > 0
     with open(summary_file, mode="a", newline="") as f:
         writer = csv.writer(f)
