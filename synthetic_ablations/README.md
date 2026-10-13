@@ -180,7 +180,13 @@ orthogonalization, 5 steps) throughout.
 nonlinearity, teacher rank 8, `cond_x: 100`, `cond_teacher: 10`, realizable (`label_noise_std: 0`),
 swept over `α ∈ {1.1, 1.6, 2.0, 3.0}`. Configs: `configs/mse_anisotropic_curated13.yaml` /
 `mse_isotropic_curated13.yaml` (11 algorithms) plus their `_msam` companions (`MSAM`, `MSOMA`).
-**0% divergence in every one of the 4,480 (anisotropic) + 4,480 (isotropic) final rows.**
+**0% divergence in every one of the 4,480 (anisotropic) + 4,480 (isotropic) final rows.** The tables
+below also include the plain `Muon` and `AdamW` baselines (no perturbation, so no ρ to select — one
+number per α, from the matching `mse_{aniso,iso}tropic_frob_run`/`adam_mse_{aniso,iso}tropic` runs,
+confirmed to share the exact same problem/noise definition via `problem.json` before merging them
+in) as a reference point for every curated algorithm's own outer optimizer. **Bold = best in column**
+(the single lowest-gap algorithm at that α, across all 15 rows) — not each row's own best α, which
+is a different and easily-conflated question (see 8.2's note on this below).
 
 #### 8.1a Anisotropic Noise
 
@@ -188,32 +194,42 @@ Median final gap `F − F*` at best stable ρ (0% divergence everywhere; `F* ≈
 
 | Optimizer | `alpha=1.1` | `alpha=1.6` | `alpha=2` | `alpha=3` |
 |---|---|---|---|---|
-| SOMA | 0.263 | 0.055 | 0.0299 | 0.0163 |
-| FP-SOMA | **0.252** | **0.046** | **0.0247** | 0.0143 |
-| SpecSAM-Muon | 0.265 | 0.047 | 0.0253 | 0.0141 |
-| RandSAM-Muon | 0.408 | 0.061 | 0.0311 | 0.0162 |
-| FSAM | 3.482 | 0.113 | 0.0352 | **0.0134** |
-| SAM | 3.519 | 0.111 | 0.0353 | 0.0137 |
-| OP-SOMA-PreNS5 | 0.274 | 0.055 | 0.0296 | 0.0159 |
-| OP-SOMA-PostNS5 | 0.287 | 0.054 | 0.0284 | 0.0157 |
-| SAM+AdamW | 0.554 | 0.107 | 0.0582 | 0.0361 |
-| FSAM+AdamW | 0.556 | 0.108 | 0.0584 | 0.0361 |
-| Lazy-SOMA | 0.414 | 0.062 | 0.0318 | 0.0167 |
-| MSAM | 5.689 | 0.134 | 0.0352 | 0.0154 |
-| MSOMA | 0.389 | 0.058 | 0.0283 | 0.0147 |
+| SOMA | 0.2631 | 0.05512 | 0.02986 | 0.0163 |
+| FP-SOMA | **0.2522** | **0.04573** | **0.02474** | 0.01428 |
+| SpecSAM-Muon | 0.2648 | 0.04734 | 0.02532 | 0.01408 |
+| RandSAM-Muon | 0.4085 | 0.06089 | 0.03109 | 0.01623 |
+| FSAM | 3.482 | 0.1126 | 0.0352 | **0.01343** |
+| SAM | 3.519 | 0.1105 | 0.03527 | 0.01375 |
+| OP-SOMA-PreNS5 | 0.2742 | 0.05485 | 0.02958 | 0.01591 |
+| OP-SOMA-PostNS5 | 0.2874 | 0.05374 | 0.02845 | 0.01565 |
+| SAM+AdamW | 0.5542 | 0.1074 | 0.0582 | 0.03611 |
+| FSAM+AdamW | 0.556 | 0.1078 | 0.05836 | 0.03613 |
+| Lazy-SOMA | 0.4138 | 0.06235 | 0.03183 | 0.01669 |
+| MSAM | 5.689 | 0.1344 | 0.03517 | 0.0154 |
+| MSOMA | 0.3891 | 0.05763 | 0.02829 | 0.01465 |
+| Muon | 0.4127 | 0.06204 | 0.03161 | 0.01654 |
+| AdamW | 0.5593 | 0.109 | 0.05922 | 0.03642 |
 
 **Takeaways:**
 - **The SGD-outer family's heaviest-tail blow-up is not specific to classification.** `FSAM`/`SAM`/`MSAM`
-  post gaps of 3.48–5.69 at `α=1.1` — 15–20× every Muon-outer method's gap (0.25–0.41) — on a
-  realizable linear regression with no overfitting possible (`F*≈0`). This independently confirms
-  8.2's finding: it is the **outer optimizer**, not the perturbation source or the task, that drives
-  the heaviest-tail collapse.
+  post gaps of 3.48–5.69 at `α=1.1` — 13–20× every Muon-outer method's gap (0.25–0.41, plain `Muon`
+  itself included at 0.413) — on a realizable linear regression with no overfitting possible
+  (`F*≈0`). This independently confirms 8.2's finding: it is the **outer optimizer**, not the
+  perturbation source or the task, that drives the heaviest-tail collapse.
 - **AdamW-outer again lands strictly between the two extremes:** `SAM+AdamW`/`FSAM+AdamW` post
-  0.554–0.556 at `α=1.1` — far below the SGD-outer family's 3.5–5.7, but still 2× worse than the
-  Muon-outer cluster's 0.25–0.41.
+  0.554–0.556 at `α=1.1` — far below the SGD-outer family's 3.5–5.7, but still ~35% worse than the
+  Muon-outer cluster's 0.25–0.41, and plain `AdamW` itself (0.559) lands right alongside them, not
+  with the Muon-outer cluster — the AdamW-outer penalty is about the outer optimizer, independent of
+  which perturbation (if any) it's paired with.
 - **`FP-SOMA` wins 3 of 4 columns outright** (`α=1.1, 1.6, 2.0`), with `SOMA`/`SpecSAM-Muon` within a
   few percent of it at every `α` — the friendly/stale/spectral family is consistently competitive,
-  mirroring 8.2's nonlinear ranking.
+  mirroring 8.2's nonlinear ranking. **Exactly 7 of the 13 curated methods beat plain `Muon` itself
+  at every `α`: `SOMA`, `FP-SOMA`, `SpecSAM-Muon`, `RandSAM-Muon`, `OP-SOMA-PreNS5`,
+  `OP-SOMA-PostNS5`, `MSOMA` — precisely the Muon-outer family minus `Lazy-SOMA`.** `FSAM`/`SAM`/`MSAM`
+  (SGD-outer) only catch up to `Muon` at the lightest tail (`α=3.0`); `SAM+AdamW`/`FSAM+AdamW` and
+  `Lazy-SOMA` never beat it. So it's specifically pairing a real perturbation with the **Muon**
+  outer step that adds value here — the same perturbation under a different outer optimizer loses
+  that advantage, even though it's still "doing something."
 
 ![Optimality gap vs rho - Anisotropic](results/heavytailed_figures_preview/gap_vs_rho.png)
 
@@ -223,24 +239,27 @@ Median final gap `F − F*` at best stable ρ (0% divergence everywhere; `ridge:
 
 | Optimizer | `alpha=1.1` | `alpha=1.6` | `alpha=2` | `alpha=3` |
 |---|---|---|---|---|
-| SOMA | 0.630 | 0.176 | 0.0860 | 0.0486 |
-| FP-SOMA | 0.654 | 0.147 | 0.0823 | 0.0413 |
-| SpecSAM-Muon | 0.648 | **0.141** | **0.0733** | **0.0412** |
-| RandSAM-Muon | 1.005 | 0.224 | 0.1082 | 0.0527 |
-| FSAM | 6.582 | 0.753 | 0.2033 | 0.0517 |
-| SAM | 6.542 | 0.735 | 0.2044 | 0.0526 |
-| OP-SOMA-PreNS5 | 0.628 | 0.177 | 0.0855 | 0.0479 |
-| OP-SOMA-PostNS5 | 0.717 | 0.162 | 0.0896 | 0.0450 |
-| SAM+AdamW | **0.380** | 0.186 | 0.1354 | 0.0958 |
-| FSAM+AdamW | 0.380 | 0.187 | 0.1370 | 0.0973 |
-| Lazy-SOMA | 0.901 | 0.222 | 0.1110 | 0.0552 |
-| MSAM | 8.976 | 1.005 | 0.2215 | 0.0552 |
-| MSOMA | 0.991 | 0.227 | 0.1101 | 0.0526 |
+| SOMA | 0.6297 | 0.1758 | 0.08596 | 0.04865 |
+| FP-SOMA | 0.6536 | 0.1469 | 0.0823 | 0.04125 |
+| SpecSAM-Muon | 0.6477 | **0.1406** | **0.07328** | **0.0412** |
+| RandSAM-Muon | 1.005 | 0.224 | 0.1082 | 0.05274 |
+| FSAM | 6.582 | 0.7527 | 0.2033 | 0.05169 |
+| SAM | 6.542 | 0.7355 | 0.2044 | 0.0526 |
+| OP-SOMA-PreNS5 | 0.6284 | 0.1765 | 0.08546 | 0.04792 |
+| OP-SOMA-PostNS5 | 0.7166 | 0.1617 | 0.08965 | 0.045 |
+| SAM+AdamW | 0.3804 | 0.1858 | 0.1354 | 0.09581 |
+| FSAM+AdamW | **0.3803** | 0.187 | 0.137 | 0.0973 |
+| Lazy-SOMA | 0.9008 | 0.2221 | 0.111 | 0.05521 |
+| MSAM | 8.976 | 1.005 | 0.2215 | 0.05525 |
+| MSOMA | 0.9906 | 0.2268 | 0.1101 | 0.05257 |
+| Muon | 1.015 | 0.2314 | 0.1145 | 0.05516 |
+| AdamW | 0.3822 | 0.1904 | 0.1397 | 0.09864 |
 
 **Takeaways:**
 - **The heaviest-tail story is noise-structure-dependent, and this is the one place the two noise
   types genuinely disagree on a winner.** Under isotropic noise at `α=1.1`, `SAM+AdamW`/`FSAM+AdamW`
-  **win outright** (0.380, beating every Muon-outer method's 0.63–1.0), the opposite of 8.1a's
+  **win outright** (0.380, beating every Muon-outer method's 0.63–1.02, including plain `Muon`
+  itself at 1.015), the opposite of 8.1a's
   anisotropic result where the Muon-outer cluster wins and AdamW-outer sits in between. From `α=1.6`
   onward `SpecSAM-Muon` retakes the lead in both noise settings, so the AdamW-outer advantage is
   specific to the heaviest-tail, isotropic-noise corner of this grid — a genuine, data-grounded
@@ -268,55 +287,61 @@ Validation accuracy (%) at best stable ρ:
 
 | Optimizer | `alpha=1.1` | `alpha=1.6` | `alpha=2` | `alpha=3` |
 |---|---|---|---|---|
-| SOMA | 39.06 | 45.02 | **46.29** | 45.41 |
-| FP-SOMA | 39.84 | 44.24 | **46.88** | 46.68 |
-| SpecSAM-Muon | 37.40 | 43.65 | 46.29 | **46.97** |
-| RandSAM-Muon | 37.89 | 42.29 | 44.34 | **44.82** |
-| FSAM | 36.43 | 38.48 | 40.23 | **42.87** |
-| SAM | 36.33 | 37.99 | 40.04 | **41.80** |
-| OP-SOMA-PreNS5 | 38.77 | 45.31 | 46.09 | **46.39** |
-| OP-SOMA-PostNS5 | 38.28 | 45.21 | **47.95** | 47.36 |
-| SAM+AdamW | 28.91 | 41.60 | 44.14 | **46.00** |
-| FSAM+AdamW | 28.71 | 41.70 | 44.34 | **46.29** |
-| Lazy-SOMA | 37.89 | 41.31 | 41.41 | **41.80** |
-| MSAM | 36.23 | 38.48 | 39.55 | **41.89** |
-| MSOMA | 38.28 | 42.97 | **44.63** | 44.43 |
+| SOMA | 39.06 | 45.02 | 46.29 | 45.41 |
+| FP-SOMA | **39.84** | 44.24 | 46.88 | 46.68 |
+| SpecSAM-Muon | 37.40 | 43.65 | 46.29 | 46.97 |
+| RandSAM-Muon | 37.89 | 42.29 | 44.34 | 44.82 |
+| FSAM | 36.43 | 38.48 | 40.23 | 42.87 |
+| SAM | 36.33 | 37.99 | 40.04 | 41.80 |
+| OP-SOMA-PreNS5 | 38.77 | **45.31** | 46.09 | 46.39 |
+| OP-SOMA-PostNS5 | 38.28 | 45.21 | **47.95** | **47.36** |
+| SAM+AdamW | 28.91 | 41.60 | 44.14 | 46.00 |
+| FSAM+AdamW | 28.71 | 41.70 | 44.34 | 46.29 |
+| Lazy-SOMA | 37.89 | 41.31 | 41.41 | 41.80 |
+| MSAM | 36.23 | 38.48 | 39.55 | 41.89 |
+| MSOMA | 38.28 | 42.97 | 44.63 | 44.43 |
+| Muon | 38.09 | 42.87 | 44.04 | 44.34 |
+| AdamW | 28.61 | 41.50 | 44.24 | 45.41 |
 
 Training accuracy (%) at the same checkpoints:
 
 | Optimizer | `alpha=1.1` | `alpha=1.6` | `alpha=2` | `alpha=3` |
 |---|---|---|---|---|
-| SOMA | 56.84 | 74.32 | 78.12 | **80.66** |
-| FP-SOMA | 55.08 | 82.03 | 88.18 | **90.82** |
-| SpecSAM-Muon | 51.07 | 77.25 | 83.50 | **85.64** |
-| RandSAM-Muon | 57.71 | 92.29 | 98.34 | **99.80** |
-| FSAM | 92.48 | 99.41 | **100.00** | **100.00** |
-| SAM | 92.19 | 99.12 | **100.00** | **100.00** |
-| OP-SOMA-PreNS5 | 56.15 | 75.78 | 80.76 | **83.89** |
-| OP-SOMA-PostNS5 | 56.84 | 81.15 | 88.57 | **92.29** |
-| SAM+AdamW | 36.91 | 61.82 | 71.29 | **77.64** |
-| FSAM+AdamW | 36.91 | 62.01 | 71.88 | **75.68** |
-| Lazy-SOMA | 57.52 | 71.19 | 74.41 | **77.44** |
-| MSAM | 89.75 | 99.12 | 99.90 | **100.00** |
-| MSOMA | 58.69 | 92.58 | 98.63 | **100.00** |
+| SOMA | 56.84 | 74.32 | 78.12 | 80.66 |
+| FP-SOMA | 55.08 | 82.03 | 88.18 | 90.82 |
+| SpecSAM-Muon | 51.07 | 77.25 | 83.50 | 85.64 |
+| RandSAM-Muon | 57.71 | 92.29 | 98.34 | 99.80 |
+| FSAM | **92.48** | **99.41** | **100.00** | **100.00** |
+| SAM | 92.19 | 99.12 | 100.00 | 100.00 |
+| OP-SOMA-PreNS5 | 56.15 | 75.78 | 80.76 | 83.89 |
+| OP-SOMA-PostNS5 | 56.84 | 81.15 | 88.57 | 92.29 |
+| SAM+AdamW | 36.91 | 61.82 | 71.29 | 77.64 |
+| FSAM+AdamW | 36.91 | 62.01 | 71.88 | 75.68 |
+| Lazy-SOMA | 57.52 | 71.19 | 74.41 | 77.44 |
+| MSAM | 89.75 | 99.12 | 99.90 | 100.00 |
+| MSOMA | 58.69 | 92.58 | 98.63 | 100.00 |
+| Muon | 57.91 | 92.38 | 98.73 | 99.90 |
+| AdamW | 36.91 | 61.82 | 71.78 | 79.49 |
 
 Validation loss at the same checkpoints:
 
 | Optimizer | `alpha=1.1` | `alpha=1.6` | `alpha=2` | `alpha=3` |
 |---|---|---|---|---|
-| SOMA | 2.387 | 2.090 | **2.051** | 2.080 |
-| FP-SOMA | 2.339 | 2.007 | 2.002 | **1.961** |
-| SpecSAM-Muon | 2.381 | 2.008 | 1.977 | **1.930** |
-| RandSAM-Muon | 2.483 | **2.346** | 2.499 | 2.699 |
-| FSAM | 493.555 | 42.161 | 7.339 | **3.793** |
-| SAM | 486.518 | 42.460 | 7.499 | **3.827** |
-| OP-SOMA-PreNS5 | 2.395 | 2.112 | 2.058 | **2.050** |
-| OP-SOMA-PostNS5 | 2.412 | 2.087 | **2.067** | 2.105 |
-| SAM+AdamW | 2.924 | 2.075 | 1.983 | **1.933** |
+| SOMA | 2.387 | 2.090 | 2.051 | 2.080 |
+| FP-SOMA | **2.339** | **2.007** | 2.002 | 1.961 |
+| SpecSAM-Muon | 2.381 | 2.008 | **1.977** | 1.930 |
+| RandSAM-Muon | 2.483 | 2.346 | 2.499 | 2.699 |
+| FSAM | 493.555 | 42.161 | 7.339 | 3.793 |
+| SAM | 486.518 | 42.460 | 7.499 | 3.827 |
+| OP-SOMA-PreNS5 | 2.395 | 2.112 | 2.058 | 2.050 |
+| OP-SOMA-PostNS5 | 2.412 | 2.087 | 2.067 | 2.105 |
+| SAM+AdamW | 2.924 | 2.075 | 1.983 | 1.933 |
 | FSAM+AdamW | 2.927 | 2.075 | 1.980 | **1.924** |
-| Lazy-SOMA | 2.487 | 2.168 | **2.161** | 2.246 |
-| MSAM | 538.059 | 53.587 | 9.761 | **4.886** |
-| MSOMA | 2.474 | **2.359** | 2.521 | 2.741 |
+| Lazy-SOMA | 2.487 | 2.168 | 2.161 | 2.246 |
+| MSAM | 538.059 | 53.587 | 9.761 | 4.886 |
+| MSOMA | 2.474 | 2.359 | 2.521 | 2.741 |
+| Muon | 2.486 | 2.357 | 2.514 | 2.756 |
+| AdamW | 2.928 | 2.075 | 1.987 | 1.948 |
 
 ![Validation Accuracy vs rho - Anisotropic](results/heavytailed_figures_preview/val_acc_vs_rho.png)
 ![Training Loss vs rho - Anisotropic](results/heavytailed_figures_preview/train_loss_vs_rho.png)
@@ -327,55 +352,61 @@ Validation accuracy (%) at best stable ρ:
 
 | Optimizer | `alpha=1.1` | `alpha=1.6` | `alpha=2` | `alpha=3` |
 |---|---|---|---|---|
-| SOMA | 38.18 | 44.82 | **46.09** | 45.90 |
-| FP-SOMA | 37.79 | 44.24 | **46.58** | 46.09 |
-| SpecSAM-Muon | 36.43 | 44.24 | 45.21 | **46.19** |
-| RandSAM-Muon | 36.04 | 42.87 | **44.92** | 44.14 |
-| FSAM | 35.25 | 38.48 | 39.45 | **42.68** |
-| SAM | 35.64 | 38.48 | 39.16 | **41.50** |
-| OP-SOMA-PreNS5 | 38.57 | 44.24 | 45.70 | **46.48** |
-| OP-SOMA-PostNS5 | 37.89 | 45.21 | 46.78 | **48.34** |
-| SAM+AdamW | 40.82 | 43.16 | 44.34 | **45.31** |
-| FSAM+AdamW | 40.82 | 43.16 | 44.63 | **46.19** |
-| Lazy-SOMA | 36.23 | 41.70 | **41.99** | 39.84 |
-| MSAM | 35.35 | 38.18 | 38.67 | **41.41** |
-| MSOMA | 36.04 | 42.77 | **44.73** | 43.75 |
+| SOMA | 38.18 | 44.82 | 46.09 | 45.90 |
+| FP-SOMA | 37.79 | 44.24 | 46.58 | 46.09 |
+| SpecSAM-Muon | 36.43 | 44.24 | 45.21 | 46.19 |
+| RandSAM-Muon | 36.04 | 42.87 | 44.92 | 44.14 |
+| FSAM | 35.25 | 38.48 | 39.45 | 42.68 |
+| SAM | 35.64 | 38.48 | 39.16 | 41.50 |
+| OP-SOMA-PreNS5 | 38.57 | 44.24 | 45.70 | 46.48 |
+| OP-SOMA-PostNS5 | 37.89 | **45.21** | **46.78** | **48.34** |
+| SAM+AdamW | **40.82** | 43.16 | 44.34 | 45.31 |
+| FSAM+AdamW | 40.82 | 43.16 | 44.63 | 46.19 |
+| Lazy-SOMA | 36.23 | 41.70 | 41.99 | 39.84 |
+| MSAM | 35.35 | 38.18 | 38.67 | 41.41 |
+| MSOMA | 36.04 | 42.77 | 44.73 | 43.75 |
+| Muon | 36.13 | 43.26 | 45.21 | 43.75 |
+| AdamW | 40.62 | 42.97 | 44.14 | 45.80 |
 
 Training accuracy (%) at the same checkpoints:
 
 | Optimizer | `alpha=1.1` | `alpha=1.6` | `alpha=2` | `alpha=3` |
 |---|---|---|---|---|
-| SOMA | 54.10 | 73.34 | 77.83 | **79.49** |
-| FP-SOMA | 53.03 | 81.35 | 87.11 | **89.55** |
-| SpecSAM-Muon | 50.00 | 77.54 | 83.30 | **84.77** |
-| RandSAM-Muon | 53.81 | 89.16 | 97.66 | **99.61** |
-| FSAM | 91.60 | 99.41 | 99.80 | **100.00** |
-| SAM | 91.70 | 99.12 | 99.80 | **100.00** |
-| OP-SOMA-PreNS5 | 52.64 | 73.93 | 79.79 | **82.32** |
-| OP-SOMA-PostNS5 | 53.61 | 78.71 | 86.13 | **91.60** |
-| SAM+AdamW | 52.44 | 66.99 | 72.56 | **76.95** |
-| FSAM+AdamW | 52.44 | 66.60 | 71.88 | **75.29** |
-| Lazy-SOMA | 53.32 | 69.73 | 72.46 | **76.56** |
-| MSAM | 89.26 | 99.41 | **100.00** | **100.00** |
-| MSOMA | 54.59 | 88.96 | 97.66 | **99.71** |
+| SOMA | 54.10 | 73.34 | 77.83 | 79.49 |
+| FP-SOMA | 53.03 | 81.35 | 87.11 | 89.55 |
+| SpecSAM-Muon | 50.00 | 77.54 | 83.30 | 84.77 |
+| RandSAM-Muon | 53.81 | 89.16 | 97.66 | 99.61 |
+| FSAM | 91.60 | **99.41** | 99.80 | **100.00** |
+| SAM | **91.70** | 99.12 | 99.80 | 100.00 |
+| OP-SOMA-PreNS5 | 52.64 | 73.93 | 79.79 | 82.32 |
+| OP-SOMA-PostNS5 | 53.61 | 78.71 | 86.13 | 91.60 |
+| SAM+AdamW | 52.44 | 66.99 | 72.56 | 76.95 |
+| FSAM+AdamW | 52.44 | 66.60 | 71.88 | 75.29 |
+| Lazy-SOMA | 53.32 | 69.73 | 72.46 | 76.56 |
+| MSAM | 89.26 | 99.41 | **100.00** | 100.00 |
+| MSOMA | 54.59 | 88.96 | 97.66 | 99.71 |
+| Muon | 53.91 | 89.16 | 97.56 | 99.61 |
+| AdamW | 52.25 | 67.09 | 73.63 | 78.71 |
 
 Validation loss at the same checkpoints:
 
 | Optimizer | `alpha=1.1` | `alpha=1.6` | `alpha=2` | `alpha=3` |
 |---|---|---|---|---|
-| SOMA | 2.453 | 2.079 | **2.035** | 2.039 |
-| FP-SOMA | 2.396 | 2.019 | 1.968 | **1.952** |
-| SpecSAM-Muon | 2.427 | 2.008 | 1.969 | **1.946** |
-| RandSAM-Muon | 2.578 | **2.244** | 2.364 | 2.593 |
-| FSAM | 537.563 | 44.129 | 6.720 | **3.750** |
-| SAM | 535.216 | 44.803 | 6.848 | **3.760** |
-| OP-SOMA-PreNS5 | 2.485 | 2.086 | 2.062 | **2.036** |
-| OP-SOMA-PostNS5 | 2.494 | 2.075 | **2.071** | 2.109 |
-| SAM+AdamW | 2.275 | 2.029 | 1.963 | **1.937** |
-| FSAM+AdamW | 2.275 | 2.029 | 1.963 | **1.930** |
-| Lazy-SOMA | 2.586 | **2.144** | 2.156 | 2.249 |
-| MSAM | 574.351 | 46.042 | 9.197 | **4.836** |
-| MSOMA | 2.580 | **2.246** | 2.367 | 2.644 |
+| SOMA | 2.453 | 2.079 | 2.035 | 2.039 |
+| FP-SOMA | 2.396 | 2.019 | 1.968 | 1.952 |
+| SpecSAM-Muon | 2.427 | **2.008** | 1.969 | 1.946 |
+| RandSAM-Muon | 2.578 | 2.244 | 2.364 | 2.593 |
+| FSAM | 537.563 | 44.129 | 6.720 | 3.750 |
+| SAM | 535.216 | 44.803 | 6.848 | 3.760 |
+| OP-SOMA-PreNS5 | 2.485 | 2.086 | 2.062 | 2.036 |
+| OP-SOMA-PostNS5 | 2.494 | 2.075 | 2.071 | 2.109 |
+| SAM+AdamW | 2.275 | 2.029 | 1.963 | 1.937 |
+| FSAM+AdamW | **2.275** | 2.029 | **1.963** | **1.930** |
+| Lazy-SOMA | 2.586 | 2.144 | 2.156 | 2.249 |
+| MSAM | 574.351 | 46.042 | 9.197 | 4.836 |
+| MSOMA | 2.580 | 2.246 | 2.367 | 2.644 |
+| Muon | 2.586 | 2.250 | 2.369 | 2.642 |
+| AdamW | 2.276 | 2.029 | 1.967 | 1.944 |
 
 ![Validation Accuracy vs rho - Isotropic](results/heavytailed_figures_preview/val_acc_vs_rho_isotropic.png)
 ![Training Loss vs rho - Isotropic](results/heavytailed_figures_preview/train_loss_vs_rho_isotropic.png)
